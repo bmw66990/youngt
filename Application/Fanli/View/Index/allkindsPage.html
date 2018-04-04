@@ -1,0 +1,314 @@
+<include file="Common:header" />
+<style type="text/css">
+    .icon-meishi{
+      width:22px;
+      height:22px;
+    }
+</style>
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-5">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;">
+            </a>
+        </div>
+        <div class="am-u-sm-7 am-center">
+            <span class="am-text-lg am-margin-left-xxl">全部分类</span>
+        </div>
+    </div> 
+</header>
+<!--主体内容-->
+  <div class="am-container am-text-default am-padding-sm">
+  <!--美食-->
+    <div class="food">
+      <div class="am-container">
+        <img src="__IMAGE_PATH__/icon-meishi.png" class="icon-meishi"/>
+        <span class="am-margin-left-sm">美食</span>
+      </div>
+      <div class="am-container am-padding-sm am-radius">
+        <div class="am-g am-text-center">
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>全部</li>
+            <li>火锅</li>
+            <li>特色小吃</li>
+            <li>粤菜</li>
+          </ul> 
+          <div class="hide-food-info" style="display:none;">
+            <ul class="am-avg-sm-4 am-padding-sm">
+              <li>烧烤</li>
+              <li>火锅</li>
+              <li>佛跳墙</li>
+              <li>满汉全席</li>
+            </ul> 
+            <ul class="am-avg-sm-4 am-padding-sm" ">
+              <li>陕菜</li>
+              <li>火锅</li>
+              <li>小吃快猜</li>
+              <li>粤菜</li>
+            </ul> 
+          </div>
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>川菜</li>
+            <li>鲁菜</li>
+            <li>海鲜</li>
+            <li>
+              <i class="am-icon-angle-down am-text-lg am-text-danger" id="more-food-btn"></i>
+              <i class="am-icon-angle-up am-text-lg am-text-danger" id="more-food-btn-up" style="display:none;"></i>
+            </li>  
+          </ul> 
+        </div>
+      </div>
+    </div>
+  <!-- 娱乐 -->
+    <div class="fun">
+      <div class="am-container">
+        <img src="__IMAGE_PATH__/icon-fun.png" class="icon-meishi"/>
+        <span class="am-margin-left-sm">娱乐</span>
+      </div>
+      <div class="am-container am-padding-sm am-radius">
+        <div class="am-g am-text-center">
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>全部</li>
+            <li>棋牌</li>
+            <li>私人影院</li>
+            <li>电玩</li>
+          </ul> 
+          <div class="hide-fun-info" style="display:none;">
+            <ul class="am-avg-sm-4 am-padding-sm">
+              <li>游泳</li>
+              <li>棋牌</li>
+              <li>私人影院</li>
+              <li>电玩</li>
+            </ul> 
+          </div>
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>桌游</li>
+            <li>游泳</li>
+            <li>DIY手工</li>
+            <li>
+              <i class="am-icon-angle-down am-text-lg am-text-danger" id="more-fun-btn"></i>
+              <i class="am-icon-angle-up am-text-lg am-text-danger" id="more-fun-btn-up" style="display:none;"></i>
+            </li>
+          </ul>   
+        </div>
+      </div>
+    </div>
+  <!-- 酒店 -->
+    <div class="hotel">
+      <div class="am-container">
+        <img src="__IMAGE_PATH__/icon-hotel.png" class="icon-meishi"/>
+        <span class="am-margin-left-sm">酒店</span>
+      </div>
+      <div class="am-container am-padding-sm am-radius">
+        <div class="am-g am-text-center">
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>全部</li>
+            <li>钟点房</li>
+            <li>五星级</li>
+            <li>经济型</li>
+          </ul> 
+          <div class="hide-hotel-info" style="display:none;">
+            <ul class="am-avg-sm-4 am-padding-sm">
+              <li>全部</li>
+              <li>钟点房</li>
+              <li>五星级</li>
+              <li>经济型</li>
+            </ul> 
+          </div>
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li class="am-padding-left-sm">豪华型</li>
+            <li>民宿</li>
+            <li>三星级</li>
+            <li>
+              <i class="am-icon-angle-down am-text-lg am-text-danger" id="more-hotel-btn"></i>
+              <i class="am-icon-angle-up am-text-lg am-text-danger" id="more-hotel-btn-up" style="display:none;"></i>
+            </li>
+          </ul>   
+        </div>
+      </div>
+    </div>
+  <!--KTV -->
+    <div class="hotel">
+      <div class="am-container">
+        <img src="__IMAGE_PATH__/icon-ktv.png" class="icon-meishi"/>
+        <span class="am-margin-left-sm">KTV</span>
+      </div>
+      <div class="am-container am-padding-sm am-radius">
+        <div class="am-g am-text-center">
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>全部</li>
+            <li>钟点包</li>
+            <li>大包间</li>
+            <li>小包间</li>
+          </ul> 
+          <div class="hide-ktv-info" style="display:none;">
+            <ul class="am-avg-sm-4 am-padding-sm">
+              <li>全部</li>
+              <li>钟点包</li>
+              <li>大包间</li>
+              <li>小包间</li>
+            </ul> 
+          </div>
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li class="am-padding-left-sm">豪华包</li>
+            <li>会员优惠</li>
+            <li>欢乐包</li>
+            <li>
+              <i class="am-icon-angle-down am-text-lg am-text-danger" id="more-ktv-btn"></i>
+              <i class="am-icon-angle-up am-text-lg am-text-danger" id="more-ktv-btn-up" style="display:none;"></i>
+            </li>
+          </ul>   
+        </div>
+      </div>
+    </div>
+  <!-- 家装 -->
+    <div class="hotel">
+      <div class="am-container">
+        <img src="__IMAGE_PATH__/icon-jiazhuang.png" class="icon-meishi"/>
+        <span class="am-margin-left-sm">家装</span>
+      </div>
+      <div class="am-container am-padding-sm am-radius">
+        <div class="am-g am-text-center">
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>全部</li>
+            <li>地砖</li>
+            <li>卫浴</li>
+            <li>家具</li>
+          </ul> 
+          <div class="hide-jiazhuang-info" style="display:none;">
+            <ul class="am-avg-sm-4 am-padding-sm">
+              <li>全部</li>
+              <li>地砖</li>
+              <li>卫浴</li>
+              <li>家具</li>
+            </ul>
+          </div>
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>吊顶</li>
+            <li>灯饰</li>
+            <li>涂料</li>
+            <li>
+              <i class="am-icon-angle-down am-text-lg am-text-danger" id="more-jiazhuang-btn"></i>
+              <i class="am-icon-angle-up am-text-lg am-text-danger" id="more-jiazhuang-btn-up" style="display:none;"></i>
+            </li>
+          </ul>   
+        </div>
+      </div>
+    </div>
+  <!-- 电影 -->
+     <div class="hotel">
+      <div class="am-container">
+        <img src="__IMAGE_PATH__/icon-move.png" class="icon-meishi"/>
+        <span class="am-margin-left-sm">电影</span>
+      </div>
+      <div class="am-container am-padding-sm am-radius">
+        <div class="am-g am-text-center">
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>全部</li>
+            <li>票房榜</li>
+            <li>热播榜</li>
+            <li>好莱坞</li>
+          </ul> 
+          <div class="hide-move-info" style="display:none;">
+            <ul class="am-avg-sm-4 am-padding-sm">
+              <li>全部</li>
+              <li>票房榜</li>
+              <li>热播榜</li>
+              <li>好莱坞</li>
+            </ul> 
+          </div>
+          <ul class="am-avg-sm-4 am-padding-sm">
+            <li>内地</li>
+            <li>港台</li>
+            <li>纪录片</li>
+            <li>
+               <i class="am-icon-angle-down am-text-lg am-text-danger" id="more-move-btn"></i>
+              <i class="am-icon-angle-up am-text-lg am-text-danger" id="more-move-btn-up" style="display:none;"></i>
+            </li>
+          </ul>   
+        </div>
+      </div>
+    </div>
+
+  </div>
+    <script type="text/javascript" src="__JS_PATH__/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      //优化！！！！
+      $("#more-food-btn").click(function(){
+        $(".hide-food-info").slideToggle(300);
+        $(this).hide();
+        $("#more-food-btn-up").show();
+        
+      });
+      $("#more-food-btn-up").click(function(){
+          $("#more-food-btn-up").hide();
+          $(".hide-food-info").slideToggle(300);
+          $("#more-food-btn").show();
+        });
+
+
+      $("#more-fun-btn").click(function(){
+        $(".hide-fun-info").slideDown(300);
+        $(this).hide();
+        $("#more-fun-btn-up").show();
+        
+      });
+      $("#more-fun-btn-up").click(function(){
+          $("#more-fun-btn-up").hide();
+          $(".hide-fun-info").slideUp(300);
+          $("#more-fun-btn").show();
+        });
+
+      $("#more-hotel-btn").click(function(){
+        $(".hide-hotel-info").slideDown(300);
+        $(this).hide();
+        $("#more-hotel-btn-up").show();
+        
+      });
+      $("#more-hotel-btn-up").click(function(){
+          $("#more-hotel-btn-up").hide();
+          $(".hide-hotel-info").slideUp(300);
+          $("#more-hotel-btn").show();
+        });
+
+      $("#more-ktv-btn").click(function(){
+        $(".hide-ktv-info").slideDown(300);
+        $(this).hide();
+        $("#more-ktv-btn-up").show();
+        
+      });
+      $("#more-ktv-btn-up").click(function(){
+          $("#more-ktv-btn-up").hide();
+          $(".hide-ktv-info").slideUp(300);
+          $("#more-ktv-btn").show();
+        });
+
+      $("#more-jiazhuang-btn").click(function(){
+        $(".hide-jiazhuang-info").slideDown(300);
+        $(this).hide();
+        $("#more-jiazhuang-btn-up").show();
+        
+      });
+      $("#more-jiazhuang-btn-up").click(function(){
+          $("#more-jiazhuang-btn-up").hide();
+          $(".hide-jiazhuang-info").slideUp(300);
+          $("#more-jiazhuang-btn").show();
+        });
+
+      $("#more-move-btn").click(function(){
+        $(".hide-move-info").slideDown(300);
+        $(this).hide();
+        $("#more-move-btn-up").show();
+        
+      });
+      $("#more-move-btn-up").click(function(){
+          $("#more-move-btn-up").hide();
+          $(".hide-move-info").slideUp(300);
+          $("#more-move-btn").show();
+        });
+
+
+    });
+    </script>
+<include file="Common:footer" />

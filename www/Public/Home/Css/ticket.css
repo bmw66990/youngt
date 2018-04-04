@@ -1,0 +1,53 @@
+/*订票css*/
+i{font-style: normal;}
+.ticket-banner{position: relative;}
+.ticket-form{z-index: 333;position: absolute;top:20px;right:30px;overflow: hidden;background: rgba(255,255,255,0.6);border: 1px solid #009999;width: 440px;height: 170px;}
+.ticket-form li{float: left;margin-left: 10px;margin-top: 10px;line-height:1.5em;background: #fff;opacity: 1;border: 1px solid #ccc;}
+.ticket-form li:last-child{border: 0;}
+.ticket-form ul{display: block;overflow: hidden;padding: 8px;width: 100%;}
+.ticket-form input,.ticket-form select{background: #fff;padding: 5px;opacity: 1!important;box-sizing: border-box;height:40px;margin: 0;border: 0;}
+.ticket-form .btn-success{padding: 10px;border: 0;background: #009999;color:#fff;width: 120px;font-size: 1.2em;font-family: "microsoft yahei";line-height: 1.1em;}
+.ticket-form .filed-gr{display: block;border-top: 1px solid #009999;margin-top:10px;width: 410px;padding-left: 30px;line-height:35px;}
+.filed-gr a{display: block;border: 1px solid #3C3C3C;border-radius:3px ;width: 80px;display: inline-block;height: 25px;line-height: 25px;text-align: center;color: #3c3c3c;background: #fff;}
+.filed-gr a:hover{color: #009999;border: 1px solid #009999;}
+/*餐厅列表*/
+.hotel-list{width: 100%;padding-bottom: 20px;position:relative}
+.hotel-list ul{display: block;overflow: hidden;}
+.hotel-list li{height: 175px;float: left;display: block;position: relative;margin-top: 15px;width: 560px;overflow: hidden;margin-right: 15px;border: 1px solid #ccc;padding: 10px;overflow: hidden;}
+.hotel-list li:hover{border: 1px solid #009999;}
+.hotel-list li span{display: block;float: left;width: 260px;line-height: 2em;}
+.hotel-list li span:first-child img{width: 250px;height: 170px;}
+.hotel-list li span:first-child label{display: inline-block;position: absolute;left: 20px;line-height: 1.5em;padding: 5px;color:#fff}
+.hotel-list li span label{padding:3px 5px;margin-right: 10px;}
+.hotel-list .ticket-score{width:135px;height: 70px;display: block;padding: 0;overflow: hidden;}
+			.ticket-score label{max-width:104px;height:19px;display: inline-block;background: url(../img/sp-rate-blank-stars-20x20.png) 0 0px;margin: 0!important;padding: 0!important;float: left;}
+			.ticket-score i{margin-top: 12px;height:18px;display: inline-block;font-style: normal;color:#DD121C;float: right;line-height: 16px;}
+
+.eat-infor{width: 95%;padding: 2%;position: relative;}
+.eat-infor span{display: inline-block;margin-right: 10px;}
+.eat-infor .input-text{border: 1px solid #ccc;padding: 5px;line-height: 30px;height: 35px;}
+.input-text select,.input-text input{line-height: inherit;border: 0;padding: 5px;min-width: 70px;}
+
+.seat-infor{width: 95%;position: relative;padding: 2%;}
+.seat-infor span{display: block;line-height: 1.8em;margin-bottom: 15px;}
+.seat-infor span label{padding: 5px 10px;margin-right: 10px;min-width: 100px;text-align: center;cursor: pointer;}
+.seat-list{width: 100%;overflow: hidden;display: block;}
+ .seat-list li{float: left;margin-left: 12px;line-height: 1.5em;width: 260px;padding: 5px;margin-top:10px;border: 1px solid #ccc;}
+ .seat-list li.disabled{border: 1px dashed #ccc;}
+ .seat-list li img{width: 260px;height: 180px;}
+ .seat-list li span{display: inline-block;}
+ .seat-list li span:last-child{float: right;margin-right: 10px;}
+ .seat-list li span input{vertical-align: middle;}
+ .select-seat .select{/*border: 1px solid #c3c3c3;*/background: url(../Image/select_bc.png) right bottom no-repeat;}
+ .select-seat .unselect{cursor:not-allowed;}
+
+/*边框*/
+.bor-green{border: 1px solid #009999;color:#009999}
+.bor-orange{border: 1px solid #ff7f00;color:#ff7f00}
+.bor-red{border:1px solid #ff000c;color:#ff000c;}
+
+.common-rating--biz .rate-stars {display:i;background: url(../Image/shtar_point.png) repeat-x;}
+.common-rating {  margin: auto;margin-top: 6px;text-align: left;width: 103px}
+.rating-16x16 {  background: url(../Image/shtar_point.png) repeat-x 0 -24px;height: 20px;width: 100px;}
+.rating-16x16 .rate-stars {  background: url(../Image/shtar_point.png) repeat-x 0 0;  height: 24px; max-width: 100px; position: relative; top: -4px;}
+

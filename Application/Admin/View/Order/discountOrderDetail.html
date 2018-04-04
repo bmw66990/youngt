@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>订单详情</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <div class="box">
+            <form name="viewDetails">
+                <div class="details">
+                    <li><label>用户信息</label>{$data['user']['username']}<neq name="$data['user']['email']" value="">/{$data['user']['email']}</neq></li>
+                    <li><label>项目名称</label>{$data['product']}{$order['state'] == 'pay' ? '<label class="tx-green">已付款</label>' : '<label class="tx-red">未付款</label>'}</li>
+                    <li><label>交易单号</label>{$order.pay_id}</li>
+
+                    <if condition="$res = auth_check_access(array('Order/orderQuery'))">
+                        <if condition="$order['state'] neq 'unpay' and $order['service'] neq 'credit'">
+                            <li><label>查询</label><a href="{:U('Order/orderQuery', array('id' => $order['id'],'dis' => 1))}" target="_blank">支付情况查询{$order.id}</a>
+                            </li>
+                        </if>
+                    </if>
+
+                    <li><label>付款明细</label>余额支付<span class="red-color">{$order['credit']}</span>&nbsp;
+                        <gt name="order.money" value="0">
+                        {$order['service']|order_service=""}支付<span class="red-color">{$order['money']}</span>
+                        </gt>
+                    </li>
+
+                    <li><label>消费时间</label>{$order['create_time']|date="Y-m-d H:i:s",###}</li>
+                    <li><label>订单来源</label>{$data.source}</li>
+                    <li><label>联系手机</label>{$order.mobile}</li>
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                // 修改邮件信息
+                $('span#do-update-express-info').die().live('click', function() {
+                    var $this = $(this);
+                    var express_id = $('#express_id').val();
+                    var express_no = $('#express_no').val();
+                    var href = $this.attr('load_href');
+                    if ($this.hasClass('disabled')) {
+                        return false;
+                    }
+                    if (!$.trim(express_id)) {
+                        parent.window.alert('请选择快递类型！');
+                        return false;
+                    }
+                    if (!$.trim(express_no)) {
+                        parent.window.alert('请填写快递号！');
+                        return false;
+                    }
+                    $this.addClass('disabled');
+                    $this.html('正在处理...');
+                    $.post(href, {express_id: express_id, express_no: express_no}, function(res) {
+                        $this.removeClass('disabled');
+                        $this.html('修改');
+                        if (res.code && res.code != 0 && res.error) {
+                            parent.window.alert(res.error);
+                            return false;
+                        }
+                        parent.window.alert('修改快递信息成功！');
+                        parent.window.location.reload();
+                    }, 'json');
+                    return false;
+                });
+                // 备注提交
+                $('span#do-refund-adminremark').die().live('click', function() {
+                    var $this = $(this);
+                    var remark = $('#order_adminremark').val();
+                    var href = $this.attr('load_href');
+                    if ($this.hasClass('disabled')) {
+                        return false;
+                    }
+                    if (!$.trim(remark)) {
+                        parent.window.alert('备注不能为空！');
+                        return false;
+                    }
+                    $this.addClass('disabled');
+                    $this.html('正在处理...');
+                    $.post(href, {remark: remark}, function(res) {
+                        $this.removeClass('disabled');
+                        $this.html('确定');
+                        if (res.code && res.code != 0 && res.error) {
+                            parent.window.alert(res.error);
+                            return false;
+                        }
+                        parent.window.alert('修改备注信息成功！');
+                        parent.window.location.reload();
+                    }, 'json');
+                    return false;
+                });
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<include file="Common:header" />
+<link rel="stylesheet" href="__CSS_PATH__/withdrawal.css"/>
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-4">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;">
+            </a>
+        </div>
+        <div class="am-u-sm-8">
+            <span class="am-text-lg am-padding-horizontal-sm">支付详情</span>
+        </div>
+        <!-- <div class="am-u-sm-2 am-text-default am-text-xl">
+        <span class="am-icon-share-square-o am-fr" style="color:#ccc;"></span>
+        </div> -->
+    </div> 
+</header>
+
+<!--内容-->
+<div class="am-g am-padding-vertical-lg am-text-center">
+    <i class="am-text-xl am-icon-warning am-text-warning"></i>
+    <span class="am-text-lg am-padding-sm">支付失败！</span><br>
+</div>
+<div class="am-g am-margin-top-sm">
+    <div class="am-container am-padding-sm">
+        <span class="am-padding-sm">订单编号:</span><span class="">{$order_no}</span><br>
+        <span class="am-padding-sm">手机号码:</span><span class="">{$mobile}</span>
+    </div>
+</div>
+
+<!-- btn -->
+<div class="am-container am-margin-top-lg">
+    <button class="am-btn am-btn-block am-radius am-text-danger" style="background-color:#ffffff;border:1px solid #dd514c;outline:none;">重新支付</button>
+</div> 
+</body>
+</html>

@@ -1,0 +1,31 @@
+<div class="sect cf mt20">
+    <div class="mb15 f-fs2">
+        <div class="mt30">                  	
+            <table width="100%" class="m-table f-tac mt10">
+                <thead >
+                    <tr>                                         
+                        <th width="200">申请时间</th>
+                        <th width="100" >金额</th>
+                        <th width="200">结算时间</th>
+                    </tr>                                    
+                </thead>
+                <tbody>
+                <volist id="vo" name="list">
+                    <tr>
+                        <td><php>echo date('Y-m-d H:i:s',$vo['create_time'])</php></td>
+                    <td >{$vo['money']}</td>
+                    <td>
+                    <if condition="$vo['pay_time'] neq 0">
+                        <php>echo date('Y-m-d H:i:s',$vo['pay_time']);</php>
+                    </if>
+                    </td>                                 
+                    </tr> 
+                </volist>                   
+                </tbody>
+            </table>
+        </div>
+        <nav class="m-page">
+            <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+        </nav>
+    </div>
+</div>

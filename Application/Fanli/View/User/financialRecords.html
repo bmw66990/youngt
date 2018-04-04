@@ -1,0 +1,41 @@
+<include file="Common:header" />
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-4 am-margin-top-xs">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xxl am-fl" style="color:#333;">
+            </a>
+        </div>
+        <div class="am-u-sm-8 am-center am-margin-top-xs">
+            <span class="am-text-lg am-padding-left-sm">财务记录 </span>
+        </div>
+    </div> 
+</header>
+
+<!-- 表单 -->
+<div class="am-g pay-table">
+    <table class="am-table am-table-hover am-text-center am-text-sm">
+        <colgroup>
+            <col width="35%">
+            <col width="23%">
+            <col width="42%">
+        </colgroup>
+        <thead style="background-color:#f7f7f7;">
+            <tr>
+                <th class="am-text-center">时间</th>
+                <th class="am-text-center">金额</th>
+                <th class="am-text-center">类型</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist  name="record" id="vo">
+            <tr>
+                <td>{$vo['create_time']|date='Y-m-d h:i', ###}</td>
+                <td>￥{$vo['fan_money']}</td>
+                <td>用户购物返利</td>            
+            </tr>
+        </volist>       
+        </tbody>
+    </table>
+</div>
+<include file="Common:foot" />

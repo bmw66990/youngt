@@ -1,0 +1,89 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <div class="tab-menu">
+        <ul>
+            <li ><a href="index.html">圈子管理</a><label>&nbsp;</label></li>
+            <li class="current"><a href="adCircle.html">广告设置</a><label>&nbsp;</label></li>
+            <li ><a href="report.html">举报内容</a><label>&nbsp;</label></li>
+            <li ><a href="black_user.html">黑名单</a><label>&nbsp;</label></li>            
+        </ul>
+    </div>
+    <div class="nav-dis-menu">
+        <label>&nbsp;</label>           
+    </div>
+    <div class="content">
+        <div class="con-title">广告管理<span class="tx-green">+</span></div>
+
+        <div class="con-form">
+            <div class="con-s-title tx-teal">
+                <if condition="$res = auth_check_access(array('Circle/addAdCircle'))">
+                    <a href="{:U('Circle/addAdCircle')}">新建广告</a>
+                </if>
+
+            </div>
+            <form class="myform" action="{:U('Circle/adCircle')}" method="get">
+              
+                <li><label>广告关键字</label><input type="text" class="w80" name="title" value="{$displayWhere['title']}"/></li>
+                <li><label>展示小区</label>
+                    <select name="catid">
+                        <option value="0">所有小区</option>
+                        <volist name="all_city" id="vo">
+                            <option value="{$vo['catid']}" <if condition="$vo['catid'] eq $displayWhere['catid']">selected</if>>{$vo.catid}--{$vo.catname}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w60">ID</th>
+                        <th class="w100">广告标题</th>
+                        <th class="w400">图片/链接</th>                        
+                        <th class="w100">小区</th>                        
+                        <th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="data" id="row">
+                    <tr>
+                        <td class="w60"><label class="tx-teal">{$row['id']}</td>
+                        <td  class="w100"><label class="tx-orange">{$row['title']}</label></td>
+                        <td class="w400"><label><a href="{$row['link']}"></a><br/> <img src="{$row['picture']|getImagePath=''}" width="200"  height="120" /></label></td>
+                        
+                        <td class="w100">
+                        <label>{$all_city[$row['catid'] - 1]['catname']|default='全国'}</label>
+                        </td>
+                       
+                        <td class="w120 man">
+                            <label class="bc-teal">
+                                <if condition="$res = auth_check_access(array('Circle/editAdCircle'))">
+                                    <a href="{:U('Circle/editAdCircle',array('id'=>$row['id']))}">编辑</a>
+                                </if>
+                            </label>
+                            <label class="bc-teal">
+                                <if condition="$res = auth_check_access(array('Circle/delAdCircle'))">
+                                    <a href="javascript:delAdCircle({$row['id']});">删除</a>
+                                </if>
+                            </label>
+                        </td>
+                    </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                       {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" >
+function delAdCircle(id){
+    var state = confirm('你确定要删除编号为'+id+'的广告吗?');
+    if(state){
+        window.location.href = $base_url+"/Circle/delAdCircle/id/"+id;
+    }
+}
+</script>

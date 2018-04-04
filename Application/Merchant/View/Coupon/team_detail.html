@@ -1,0 +1,114 @@
+<include file="Common:header" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <include file="Common:message_tip" /> 
+                <style>
+                    div.mobile-rebind-dialog table td{
+                        height: 40px;
+                        vertical-align: middle;
+                    }
+                </style>
+                <div class="mobile-rebind-dialog">
+                    <table  width="100%" class="table table-striped table-bordered table-hover">                                
+                        <tbody>
+                            <tr>
+                                <td class="f-fwb" >
+                                    项目名称
+                                </td>
+                                <td class="f-tal">
+                                    {$team['title']}
+                                </td>                                       
+                            </tr> 
+                            <tr>
+                                <td class="f-fwb" >
+                                    项目时间
+                                </td>
+                                <td class="f-tal">
+                                    <div class="f-ib mr15">
+                                        开始：<span class="f-fwb">
+                                            <php>echo date('Y-m-d',$team['begin_time'])</php>
+                                        </span>
+                                    </div>
+                                    <div class="f-ib mr15">
+                                        截止：<span class="f-fwb">
+                                            <php>echo date('Y-m-d',$team['end_time'])</php>
+                                        </span>
+                                    </div>
+                                    <div class="f-ib">
+                                        有效期：<span class="f-fwb">
+                                            <php>echo date('Y-m-d',$team['expire_time'])</php>
+                                        </span>
+                                    </div>
+                                </td>                                       
+                            </tr>  
+                            <tr>
+                                <td class="f-fwb">当前状态</td>
+                                <td class="f-tal">
+                                    <span class="cl f-fwb"><php>echo state_explain($team)</php></span>
+                                </td>                                       
+                            </tr>
+                            <tr>
+                                <td class="f-fwb">限购数量</td>
+                                <td class="f-tal">
+                                    <span class="pr20">最低：{$team['min_number']}</span>
+                                    <span >最高：{$team['max_number']==0?'无上限':$team['max_number']}</span>
+                                </td>                                       
+                            </tr> 
+                            <tr>
+                                <td class="f-fwb">项目定价</td>
+                                <td class="f-tal">
+                                    <span class="pr20">市场价格：{$team['market_price']}元</span>
+                                    <span class="pr20">项目价格：{$team['team_price']}元 </span>
+                                    <span>供货价：{$team['ucaii_price']} 元</span>
+                                </td>                                       
+                            </tr>  
+                            <tr>                                                
+                                <td class="f-fwb">应结款项</td>
+                                <td class="f-fwb cl f-fs2" >
+                                    {$team['ucaii_price']}元  × {$consumed}份  = {$settled}元
+                                </td>                                             
+                            </tr> 
+                            <tr>                                                
+                                <td class="f-fwb">成交情况</td>
+                                <td class="f-tal">
+                                    <span class="f-fwb pr10">{$team['now_number']},</span>
+                                    <span class="pr10">实际共<b class="pr5 pl5">{$paycount}人</b>购买了共<b class="pl5">{$pays['buycount']}份,</b>共<b class="pl5 pr5">{$consumed}</b>已消费。</span>
+                                </td>                                                      
+                            </tr> 
+                            <tr>                                                
+                                <td class="f-fwb">支付统计</td>
+                                <td class="f-tal">
+                                    <span class="pr20">在线支付：<b>{$pays['onlinepay']}元</b></span>                                                    
+                                    <span>余额支付：<b>{$pays['creditpay']}元</b></span>
+                                </td>                                                  
+                            </tr>  
+                            <tr>                                                
+                                <td class="f-fwb">项目收支</td>
+                                <td class="f-tal">
+                                    <span class="pr20">支付总额：
+                                        <b>
+                                            {$pays['onlinepay']+$pays['creditpay']}元
+                                        </b>
+                                    </span>                                                    
+                                    <span class="pr20">代金券抵用：<b>{$pays['cardpay']}元</b></span>
+                                </td>                                             
+                            </tr>                                                    
+                        </tbody>
+                    </table>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Common:footer" />
+<script>
+    $(function() {
+        
+    });
+</script>

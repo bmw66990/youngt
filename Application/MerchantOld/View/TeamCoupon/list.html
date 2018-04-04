@@ -1,0 +1,48 @@
+<div class="mt30">                    	
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="240">项目编号/名称</th>
+                <th width="100">结束时间</th>
+                <th width="90" >青团券总数</th>
+                <th width="90" >已消费总数</th>
+                <th width="90">未消费总数</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="list">
+            <tr>
+                <td class="f-tal">
+                    <a class="fac"  tid="{$one['id']}" href="http://{$Think.server.http_host}/team-{$vo.id}.html" title="{$vo['title']}" target="_blank">{$vo.id}&nbsp;&nbsp;({$vo['product']})</a>
+                </td>
+                <td>{$vo.expire_time|date="Y-m-d",###}</td>
+
+                <td>
+            <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                <a class="fac" href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id))}" target="_black">{$vo.sumconpon}</a>
+            <else/>
+            {$vo.sumconpon}
+            </if>
+            </td>
+            <td>
+            <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                <a class="fac" href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id,'act'=>'Y'))}" target="_black">{$vo.sumconsume}</a>
+            <else/>
+            {$vo.sumconsume}
+            </if>
+            </td>
+            <td>
+            <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                <a class="fac" href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id,'act'=>'N'))}" target="_black">{$vo.sumrconsume}</a>
+            <else/>
+            {$vo.sumrconsume}
+            </if>
+            </td>
+            </tr> 
+        </volist>  
+        </tbody>
+    </table>
+</div>
+<div class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</div>

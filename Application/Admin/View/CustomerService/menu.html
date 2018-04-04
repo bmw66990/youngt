@@ -1,0 +1,19 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('CustomerService/refund'))">
+            <li><a href="{:U('CustomerService/refund')}">退款订单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Index/comment'))">
+            <li><a href="{:U('Index/comment',array('action'=>'CustomerService'))}">点评</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('CustomerService/withDown'))">
+            <li><a href="{:U('CustomerService/withDown')}">用户提现</a><label>&nbsp;</label></li>
+        </if>
+        <!--<li><a href="index.html">工单</a><label>&nbsp;</label></li>
+            <li ><a href="withdrawapply.html">提现申请</a><label>&nbsp;</label></li>
+            <li ><a href="add_workorder.html">新建工单</a><label>&nbsp;</label></li>-->
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

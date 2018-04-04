@@ -1,0 +1,121 @@
+<include file="Common:header" />
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- 头部开始 -->
+        <div class="col-xs-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="f-tac">
+                    <a class="navbar-brand" href="{:U('Public/city')}">{$cityInfo.name}<span class="caret"></span></a>
+
+                    <div class="f-ib">
+                        <h4 class="f-ib f-ff1">青团网</h4>
+                    </div>
+                    <if condition="empty($_COOKIE[C('SAVE_USER_KEY')])">
+                        <a class="navbar-brand pull-right" href="{:U('User/index')}"> <span class="glyphicon glyphicon-user"></span>我的</a>
+                        <else />
+                        <a class="navbar-brand pull-right" href="{:U('Public/login')}"> <span class="glyphicon glyphicon-user"></span>登录</a>
+                    </if>
+                </div>
+            </nav>
+        </div>
+        <!-- 头部结束 -->
+
+        <!-- 搜索开始 -->
+        <div class="col-xs-12">
+            <div class="navbar-default pt10 y-search-bd">
+                <div class="container-fluid">
+                    <form  role="form" action="__APP__/Index/search">
+                        <div class="form-group f-pr y-icon mb10">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <input type="product" class="form-control" placeholder="搜索"  load_href="{:U('Index/search')}"   id="search" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- 搜索结束 -->
+
+        <!-- 广告开始-->
+        <div class="col-xs-12 mt">
+            <!-- <a href="{:U('Public/client_download')}"> <img src="__IMAGE_PATH__/apps.png" alt="客户端下载"> </a> -->
+            <!--a href="http://m.youngt.com/Activities/index/activities_id/1257.html" target="_blank"><img src="__IMAGE_PATH__/active/nvshenji.jpg"/></a-->
+        </div>
+        <!-- 广告结束-->
+
+        <!-- 分类导航开始 -->
+        <div class="container hot">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <volist name="category" id="cg" key="k">
+                        <if condition="$k%8 == 1">
+                            <div class="swiper-slide">
+                        </if>
+                        <div class="col-xs-3">
+                            <a href="{:U('Index/teamSearchList',array('type'=>$cg['type'],'cate'=>$cg['cate'],'order'=>$cg['order']))}">
+                                <if condition="$cg.icon neq ''">
+                                    <i class="f-db  {$cg.icon}"></i>
+                                    <else/>
+                                    <img src="{$cg.image_path}" style="width:45px;"/>
+                                </if>
+                                <p class="mt5">
+                                    {$cg.name}
+                                </p> </a>
+                        </div>
+                        <if condition="$k%8 == 0">
+                            </div>
+                        </if>
+                    </volist>
+                </div>
+            </div>
+<!--            <div class="tabs">
+                <a href="#" hidefocus="true" class="active"><i>&nbsp;</i></a>
+                <a href="#" hidefocus="true"><i>&nbsp;</i></a>
+            </div> -->
+        </div>
+        <!-- 分类导航结束 -->
+
+        <!-- 今日推荐开始 -->
+        <div class="container-fluid info">
+            <h4 class="pl10">热门推荐</h4>
+            <!--产品列表开始-->
+            <volist name="team" id="vo">
+                <div class="col-xs-12">
+                    <a href="{:U('Team/detail',array('id'=>$vo['id']))}" title="{$vo['title']}" class="f-tdn">
+                        <div class="item f-pr">
+                            <div class="itemimg">
+                                <img src="{$vo['image']|getImagePath}" alt="图片载入中...">
+                            </div>
+
+                            <div class="iteminfo">
+                                <div class="info-title f-toe dhide">
+                                    {$vo['product']}
+                                </div>
+
+                                <div class="title dhide">
+                                    {$vo['title']}
+                                </div>
+                                <div class="f-cb f-pr">
+                                    <span class="f-ib"> <span class="price"><span class="f-fa">{$vo['team_price']}元</span></span> <del><span class="f-fa">{$vo['market_price']}元</span></del> </span>
+
+                                    <span class="f-ib line-right">已售<span class="f-fa">{$vo['now_number']}</span></span>
+                                </div>
+                            </div>
+                        </div> </a>
+                </div>
+            </volist>
+            <!--产品列表结束-->
+            <!--更多商品开始-->
+            <section class="f-tac mb15">
+
+                <a class="btn btn-default" href="{:U('Index/teamSearchList')}" role="button">
+
+                    查看更多<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+
+                </a>
+            </section>
+
+            <!--更多商品结束-->
+        </div>
+        <script type="text/javascript" src="__JS_PATH__/index.js?v={:C('JS_VER')}"></script>
+        <include file="Common:footer" />

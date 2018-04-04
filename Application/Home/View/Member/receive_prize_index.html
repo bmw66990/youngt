@@ -1,0 +1,141 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link rel="stylesheet" href="__CSS_PATH__/member.css?v={:C('CSS_VER')}" type="text/css" />
+<section>
+        <!--右侧内容开始-->
+        <div id="section">
+             <include file="Common:error" />
+            <form id='form-receive-prize-index' action="{:U('Member/receive_prize_index')}" method="post">
+                <div class="clound-add delivery">
+                    <span class="tit">选择奖品收货地址</span>
+                    <div id="address-list-content">
+                        <ul class="address-list" <if condition="empty($address_list)"> style="display:none" </if>>
+                            <if condition="!empty($address_list)">
+                                <volist name="address_list" id="address">
+                                    <li class="selected">
+                                    <input id="address_{$address.id}"  type="radio"  <if condition="$address.default eq 'Y'"> checked="checked" </if> value='{$address.id}' name="address_id">
+                                    <label class="detail" for="address_{$address.id}" >{$address.name} {$address.province} {$address.area} {$address.city} {$address.street} {$address.mobile} 
+                                        <if condition="$address.default eq 'Y'">
+                                            <label class="t_lgrey">[默认地址]</label>
+                                        </if>
+                                    </label>
+                                    </li>
+                                </volist>
+                            </if>
+                            <li class="selected">
+                                <input  type="radio" id="address_newaddress" name="address_id" value="newaddress">
+                                <label class="detail" for="address_newaddress">使用新地址</label>
+                            </li>
+                        </ul>
+                        <div class="address-field-list" id="pro_city"   <if condition="!empty($address_list)"> style="display:none" </if>>
+                            <div id="city_2" class="field-group field-group--small">
+                                <label>
+                                    <span class="required">*</span>
+                                    省市区：
+                                </label>
+                                <span>
+                                    <select id="address-prov" class="prov address-province" autocomplete="off" name="address[province]"></select>
+                                    <select id="address-city" class="city address-city" autocomplete="off" name="address[area]"></select>
+                                    <select id="address-dist" class="dist address-district" autocomplete="off" name="address[city]"></select>
+                                </span>
+                                <div class="dist-select error_color"></div>
+                            </div>
+                            <div class="field-group field-group--small">
+                                <label><span class="required">*</span>街道地址：</label>
+                                <input id="address-street" class="f-text address-detail" type="text" value="" name="address[street]" size="60" maxlength="60">
+                                <div class="street-input error_color"></div>
+                            </div>
+                            <div class="field-group field-group--small">
+                                <label><span class="required">*</span>邮政编码：</label>
+                                <input id="address-zipcode" class="f-text address-zipcode" type="text" value="" name="address[zipcode]" size="10" maxlength="20">
+                                <div class="zipcode-input error_color "></div>
+                            </div>
+                            <div class="field-group field-group--small">
+                                <label><span class="required">*</span>收货人姓名：</label>
+                                <input id="address-name" class="f-text address-name" type="text" value="" name="address[name]" size="15" maxlength="15">
+                                <div class="name-input error_color"></div>
+                            </div>
+                            <div class="field-group field-group--small">
+                                <label><span class="required">*</span>电话号码：</label>
+                                <input id="address-mobile" class="f-text address-mobile" type="text" value="" name="address[mobile]" size="15" maxlength="15">
+                                <div class="mobile-input error_color"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="small-tit">希望送货的时间</span>
+                    <ul class="delivery-type">
+                        <if condition="!empty($delivery_time)">
+                            <volist name="delivery_time" id="dt">
+                                <li>
+                                <input type="radio" id="delivery_time_{$dt.id}" <if condition="$key eq 0"> checked="checked"</if>  name="d_time" value="{$dt.id}">
+                                <label for="delivery_time_{$dt.id}">{$dt.name}</label>
+                                </li>
+                            </volist>
+                        </if>
+                    </ul>
+                </div>
+                <div class="clound-add-btn">
+                    <input type='hidden' id="order_id" name='order_id' value='{$order_id}'/>
+                    <label><input id='btn-receive-prize-index' class="" type="button" value="确认将奖品配送到该地址"/></label>
+                </div>
+            </form>
+        </div>
+</section>
+<script>
+    $(function() {
+
+        var _init = function() {
+            var prov = "{$city['czone']}";
+            var city = "{$city['name']}";
+            $('#city_2').citySelect({prov: prov, city: city, required: false, url: "__PLUGINS_PATH__/selectCity/city.min.js"});
+            // 如果没有选择地址  则默认选第一个
+            if (!$("#address-list-content input[name='address_id']:checked").val()) {
+                $("#address-list-content input:radio[name='address_id']:first").click();
+            }
+        }();
+
+        $("#address-list-content input:radio[name='address_id']").die().live('change', function() {
+            var $selectValue = $("input[name='address_id']:checked").val();
+            if ($selectValue == "newaddress") {
+                $('#pro_city').show();
+            }
+            else {
+                $('#pro_city').hide();
+            }
+        });
+        
+         // 提交领奖
+        $('#btn-receive-prize-index').die().live('click',function(){
+             var $this = $(this);
+             var $from = $this.parents('form#form-receive-prize-index');
+             var href = $from.attr('action');
+             var data = $from.serialize();
+
+             if($this.hasClass('disabled')){
+                return false;
+             }
+
+             var btn_html = $this.val();
+             $this.addClass('disabled')
+             $this.val('正在提交......');
+             $.post(href,data,function(res){
+                 $this.removeClass('disabled');
+                 $this.val(btn_html);
+                if(res.error && res.code !=0){
+                    $this.removeClass('disabled');
+                    $this.val(btn_html);
+                    window.alert(res.error);
+                    return false;
+                }
+                window.alert('领奖成功，工作人员会根据你提供的地址给你发送奖品，请注意查收！');
+                window.location.href=res.data.load_href;
+                return false;
+
+            },'json');
+            return false;
+        });
+    });
+
+</script>
+<script type="text/javascript" src="__JS_PATH__/member.js"></script>
+<include file="Common:footer" />

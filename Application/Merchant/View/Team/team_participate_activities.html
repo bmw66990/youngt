@@ -1,0 +1,162 @@
+<include file="Common:header" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <include file="Common:message_tip" /> 
+                <style>
+                    #team-manage-form table tr td{
+                        height:50px;
+                        vertical-align: middle;
+                    }
+                    </style>
+                <div class="mobile-rebind-dialog">
+                    <form id="team-manage-form">
+                        <div style="text-align: center;color: red;">该商品参加活动后系统会自动生成一个活动团单，可在活动项目中查看</div>
+                        <table width="100%" class="table">                                
+                            <tbody>
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        参与活动
+                                    </td>
+                                    <td class="f-tal">
+                                        <select name='activities_id' id='activities_id'>
+                                            <option value="">请选择参加的活动</option>
+                                            <volist name="activities_res" id="ar">
+                                                <option value="{$ar.id}" begin_time='{$ar["begin_time"]|date="Y-m-d H:i:s",###}' end_time='{$ar["end_time"]|date="Y-m-d H:i:s",###}'>{$ar.title}</option>
+                                            </volist>
+                                        </select>
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        活动时间
+                                    </td>
+                                    <td class="f-tal" id='begin_end_time'>
+
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        优惠金额
+                                    </td>
+                                    <td class="f-tal">
+                                        <input type="text" id='discount_price' team_price='{$team_info.team_price}'  ucaii_price='{$team_info.ucaii_price}'  name="discount_price" value="">
+                                        (活动团单的供货价和团购价为原金额减去该金额)
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        参与数量
+                                    </td>
+                                    <td class="f-tal">
+                                        <input type="text" id='max_number' name="max_number" value="">
+                                        (不填写 或 填写 0 按照不限量处理)
+                                    </td>                                 
+                                </tr> 
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="hidden" name="team_id" id='team_id' value="{$team_info.id}">
+                                        <a class="btn btn-success" id='participate-activities-submit' href="{:U('TeamManage/participate_activities')}">确认</a>
+                                    </td>                                                                
+                                </tr>                                                                                  
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Common:footer" />
+<script>
+    
+     /**
+     *  根据所选的活动  获取活动时间
+     * @returns {undefined}
+     */
+    function getActivitiesTimeBySelect() {
+        var $select = $('#activities_id');
+        var activities_id = $select.val();
+        if (!activities_id) {
+            return false;
+        }
+
+        var $select_option = $select.find("option[value='" + activities_id + "']");
+        var begin_time = $select_option.attr('begin_time');
+        var end_time = $select_option.attr('end_time');
+        if (!begin_time || !end_time) {
+            return false;
+        }
+
+        var begin_end_time_html = begin_time + " 至 " + end_time;
+        $('#begin_end_time').html(begin_end_time_html);
+        return false;
+    }
+    
+    $(function() {
+        // 初始化
+        var _init = function() {
+            getActivitiesTimeBySelect();
+        }();
+        $(".main-content").on('change', '#activities_id', function() {
+            getActivitiesTimeBySelect();
+            return false;
+        });
+        $(".main-content").on('click', '#participate-activities-submit', function() {
+            var $this = $(this);
+            var activities_id = $('#activities_id').val();
+            var discount_price = Number($('#discount_price').val());
+            var max_number = Number($('#max_number').val());
+            var team_price = Number($('#discount_price').attr('team_price'));
+            var ucaii_price = Number($('#discount_price').attr('ucaii_price'));
+            var team_id = $('#team_id').val();
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            if (!activities_id) {
+                show_message_tip({error:'请选择参加的活动'});
+                return false;
+            }
+            if (!discount_price) {
+                show_message_tip({error:'请输入优惠价'});
+                return false;
+            }
+            if (ucaii_price && discount_price >= ucaii_price) {
+                var error_info = "优惠价必须小于" + ucaii_price;
+                show_message_tip({error:error_info});
+                return false;
+            }
+            var href = $(this).attr('href');
+            var data = {
+                tid: team_id,
+                activities_id: activities_id,
+                discount_price: discount_price,
+                max_number: max_number
+            };
+            $this.addClass('disabled');
+            show_message_tip({success:'正在处理，请稍后...'});
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    show_message_tip(res);
+                    return false;
+                }
+                show_message_tip(res);
+                parent.window.setTimeout(function() {
+                    layer.closeAll();
+                    parent.window.location.reload();
+                }, 500);
+                return false;
+            }, 'json');
+
+            return false;
+        });
+    });
+</script>

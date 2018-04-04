@@ -1,0 +1,159 @@
+<include file="Common:header"/>
+    <!-- mrris -->
+    <link href="__PLUGINS_PATH__/morris/morris-0.4.3.min.css" rel="stylesheet">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>本周交易额</h5>
+                    </div>
+                    <div class="ibox-content" style="position: relative">
+                        <div id="morris-area-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            	<div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>退款申请</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="morris-one-line-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>品类占比</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="morris-donut-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            	<div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>手续费</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="morris-bar-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/morris/raphael-2.1.0.min.js"></script>
+    <script src="__PLUGINS_PATH__/morris/morris.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			//本周交易额
+			var oc="{:auth_check_access(array('Finance/getOrderAmount'))}";
+			  if(oc){
+			    $.ajax({
+			      url:'{:U("Finance/getOrderAmount")}',
+			      type:'GET',
+			      dataType:'json',
+			      beforeSend:function(){
+			        $("#morris-area-chart").append('<i class="fa fa-spinner fa-spin"></i>');
+			      },
+			      success:function(res){
+			        if(res.data=='')return false;
+			        $("#morris-area-chart i").remove();
+			        Morris.Area({
+			          element: 'morris-area-chart',
+			          data: res.data,
+			          xkey: 'dt',
+			          ykeys: ['money'],
+			          labels: ['金额'],
+			          smooth: false
+			        });
+			      }
+			    });
+			  }
+
+			//退款申请
+			  var or="{:auth_check_access(array('Finance/getOrderRefund'))}";
+				  if(or){
+				    $.ajax({
+				      url:'{:U("Finance/getOrderRefund")}',
+				      type:'GET',
+				      dataType:'json',
+				      beforeSend:function(){
+				        $("#morris-one-line-chart").append('<i class="fa fa-spinner fa-spin"></i>');
+				      },
+				      success:function(res){
+				        $("#morris-one-line-chart i").remove();
+				        if(res.data=='')return false;  
+				        Morris.Line({
+				          element: 'morris-one-line-chart',
+				          data: res.data,
+				          xkey: 'dt',
+				          ykeys: ['num'],
+				          labels: ['订单量'],
+				          smooth: false
+				        });
+				      }
+				    });
+				  }
+			//品类占比
+			 var oct="{:auth_check_access(array('Finance/getOrderCategory'))}";
+				  if(oct){
+				    $.ajax({
+				      url:"{:U('Finance/getOrderCategory')}",
+				      type:'GET',
+				      dataType:'json',
+				      beforeSend:function(){
+				        $("#morris-donut-chart").append('<i class="fa fa-spinner fa-spin"></i>');
+				      },
+				      success:function(res){
+				        $("#morris-donut-chart i").remove();
+				        if(res.data=='')return false;
+				        Morris.Donut({
+				          element: 'morris-donut-chart',
+				          data:res.data,
+//				          resize: true,
+//		        		  colors: ['#87d6c6', '#54cdb4','#1ab394'],
+				          formatter: function (y) { return y + "%" ;}
+				        });
+				      }
+				    });
+				  }
+			//手续费
+			var of="{:auth_check_access(array('Finance/getOrderFee'))}";
+			  if(of){
+			    $.ajax({
+			      url:'{:U("Finance/getOrderFee")}',
+			      type:'GET',
+			      dataType:'json',
+			      beforeSend:function(){
+			        $("#morris-bar-chart").append('<i class="fa fa-spinner fa-spin"></i>');
+			      },
+			      success:function(res){
+			        $("#morris-bar-chart i").remove();
+			        if(res.data=='')return false;  
+			        Morris.Bar ({
+			          element: 'morris-bar-chart',
+			          data: res.data,
+			          xkey: 'device',
+			          ykeys: ['money'],
+			          labels: ['手续费'],
+			          barRatio: 0.4,
+			          xLabelAngle: 35,
+			          hideHover: 'auto',
+			          barColors: ['#1ab394', '#cacaca'],
+			        });
+			      }
+			    });
+			  }
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="__CSS_PATH__/bootstrap.css">  
+  <link rel="stylesheet" href="__CSS_PATH__/withdrawalhis.css"/>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+</head>
+<body>
+<div class="header container">
+    <p class="text-center  h3">          
+        <a href="index.html" class="withdrawal-code-lt">
+          <img src="__IMAGE_PATH__/callback.png" width="18px">
+        </a>
+        <span class="withdrawal-code-title">提现记录</span>
+    </p>
+</div>
+
+<!--提现记录 -->
+
+<div class="withdrawal-his">
+    <div class="withdrawal-his-panel">
+        <table class="table table-striped withdrawal-his-table">
+            <colgroup>
+              <col style="width: 30%"/>
+              <col style="width: "/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>金额<i></i></th>
+                    <th>提现时间</th>       
+                </tr>
+            </thead>
+            <tbody>              
+            <volist  name="data" id="vo">
+                <tr>
+                 <td>￥<span>{$vo['total_cash']}</span></td>
+                  <td><span>{$vo['cash_time']|date='Y-m-d h:m', ###}</td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

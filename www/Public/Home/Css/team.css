@@ -1,0 +1,225 @@
+/*
+    支付样式
+    check.html alipaycode.html result.html buy_one.html
+*/
+span{display:inline-block;}
+#ytcontent h2{ border: 0 none;color: #666666;font-size: 14px; margin: 0 0 10px;padding: 0;}
+#ytcontent .mainbox h2 {border-bottom: 1px solid #DCDCDC;font-size: 28px;margin: 10px 0;padding-bottom: 10px;color:#009689;}
+.steps-bar { background:#EEEEEE;border-radius: 3px;font-size: 0;line-height: 0; margin-bottom: 30px;verflow: hidden; white-space: nowrap;}
+.buy-process-bar li { width: 226px;}
+.steps-bar .step {color: #666666;display: inline-block;font-size: 14px;line-height: 30px;position: relative;text-align: center;width: 245px;}
+.steps-bar .step--current {background:#068e8e;color: #FFFFFF;}
+.steps-bar .step__num {font-family: Arial;font-size: 18px;font-weight: bold;}
+.steps-bar .arrow__foreground, .steps-bar .arrow__background {border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #EEEEEE;border-style: dashed dashed dashed solid;border-width: 15px 0 15px 15px;font-size: 0;height: 0;line-height: 0;position: absolute;right: -15px;top: 0;width: 0;z-index: 1;}
+.steps-bar .arrow__background { border-left-color: #FFFFFF; border-width: 17px 0 17px 17px;right: -17px; top: -2px;}
+.steps-bar .step--current .arrow__foreground {border-left-color: #068e8e;}
+.table-section { background:#FFFFFF;margin: 10px 0 20px;overflow: hidden;width: 1180px;}
+.table-section h3 {color: #333333;font-size: 14px;padding: 5px 8px;}
+.table-section table {border: 1px solid #E5E5E5;text-align: center;width: 100%; }
+.table-section table th, .table-section table td {border-bottom: 1px dotted #E5E5E5; padding: 12px;}
+.table-section table th {background: none repeat scroll 0 0 #F7F7F7;border-bottom-style: solid;font-size: 14px;font-weight: bold;padding: 6px 12px;text-align: center;}
+.table-section table td {background:#FFFFFF;}
+.summary-table .desc {padding-left: 16px;text-align: left;}
+.summary-table .total {text-align: right;padding-right: 16px;}
+.summary-table .desc a {font-size: 14px;}
+.summary-table .desc a :hover{color: #000000;text-decoration:underline;}
+.summary-table .quantity {padding-bottom: 10px;padding-top: 10px;}
+.summary-table .quantity .minus, .summary-table .quantity .plus {background:url(../Image/sp-deal.v0935a050.png) no-repeat -13px 0;display: inline-block;font-size: 0;height: 13px;line-height: 13px;outline: 0 none;vertical-align: middle; width: 13px;}
+.summary-table .quantity .minus-disabled, .summary-table .quantity .minus-disabled:hover {background-position: 0 0;}
+.summary-table .quantity .yt-text {border: 1px solid #FB9D65;font-size: 20px;height: 20px;line-height: 20px; margin: 0 5px;padding: 5px; text-align: center;vertical-align: middle;width: 50px;}
+.summary-table .quantity .yt-text:focus {box-shadow: 0 1px 2px #DBDBDB inset;}
+.summary-table .quantity .yt-text:hover { border-color: #B9B9B9;}
+.summary-table .quantity .plus {background-position: -52px 0;}
+.summary-table .money, .discount .money {font-family: arial;font-size: 14px;letter-spacing: 1px;}
+.summary-table .money, .discount .money {font-family: arial;letter-spacing: 1px;}
+.cardcode-type{text-align:right;}
+.summary-table .extra-fee .money {min-width: 60px;color: #F76120;}
+.summary-table .total-fee {text-align: right;}
+.summary-table .total-fee .money {color: #EA4F01;font-size: 18px;}
+.form-submit {overflow: hidden; text-align: right;}
+.blk-item {border: 1px solid #E5E5E5;margin: 0 0 15px; padding: 0 16px 10px;}
+.blk-item h3 {background:F7F7F7;border-bottom: 1px solid #E5E5E5;color: #333333;font-size: 14px;line-height: 22px; margin: 0 -16px 10px;padding: 5px 16px;}
+.blk-item .text {margin: 0 0 6px;}
+.common-bind-mobile .first-desc {color: #999999;}
+.common-bind-mobile .field-group {padding-left: 50px;margin-bottom:0;}
+.common-bind-mobile .field-group label {width: 50px; line-height: 32px;}
+.common-form .field-group label {padding-top: 9px;}
+.common-bind-mobile .field-group .mobile {width: 150px;}
+.common-bind-mobile .field-group .error {color: #CC3333;}
+.common-bind-mobile .field-group .tip {display: inline;line-height: 28px;margin-left: 10px;vertical-align: top;}
+.common-form input.f-text:focus, .field-group input.f-text:focus, .field-group textarea:focus {border-color: #63C5C8;box-shadow: 0 1px 2px #CDCDCD inset;outline: 0 none;}
+#pt{padding-top:0;}
+#mb{margin-bottom:0;}
+.common-bind-mobile .field-group .verifycode {width: 50px;}
+.btn-1 {background-color: #068e8e;background-image: -moz-linear-gradient(center top , #2EC3B4, #068e8e);border-color: #0D7B71;color: #FFFFFF;-moz-user-select: none;
+background-repeat: repeat-x;border-radius: 2px;border-style: solid;border-width: 0 0 1px;cursor: pointer;display: inline-block;font-family: 'SimSun',Arial;font-size: 14px;font-weight: bold;letter-spacing: 0.1em;line-height: 1.5;padding: 7px 20px 6px;text-align: center;text-decoration: none;vertical-align: middle;}
+.btnnor{ padding: 7px 20px 9px;line-height: 1.5;font-weight: bold;letter-spacing: 0.1em;}
+.btn-large {font-size: 20px; font-weight: normal;padding: 5px 20px 4px;}
+.btn-1:hover, .btn-1.hover, .btn-1:focus { background-color: #2EB7AA;background-image: -moz-linear-gradient(center top , #38D0C3, #2EB7AA); border-color: #0E8177;
+color: #FFFFFF;}
+.btn-1:active, .btn-1.active {background-color: #32C2B5;background-image: -moz-linear-gradient(center top , #2EB6A9, #32C2B5);border-color: #109085;color: #FFFFFF;}
+.blk-mobile h3 {font-size: 14px;}
+.blk-mobile h3 .mobile {color: #EA4F01;font-family: arial;font-size: 16px;}
+.blk-mobile a {color: #068e8e;   }
+.order-list { margin-bottom: 15px;}
+.order-list .item-name {width: 5em;}
+.order-list td {padding: 3px 0; word-break: break-all;}
+.pay-choice-tip {font-size: 14px;line-height: 2em;}
+.pay-choice-tip {font-weight: bold; margin: 15px 0;}
+.common-form .money {color: #EA4F01;margin: 0 3px;}
+.paytype {background:#F7F7F7;border: 0 none;padding: 10px 20px 15px 0;}
+.paytype-list .bank-list--xpay .radio {margin-top: 15px;}
+.paytype-list .bank-list .radio { margin-left: 1px;width: 13px;}
+.paytype-list .item {margin-bottom: 0;padding: 10px 0 0;clear: both;margin: 5px 0 0px;overflow: hidden;position: relative;}
+.paytype-list .item-pay{position:relative;top:-10px;}
+.paytype-list .bank--alipay {background-position: 0 -1023px;}
+/*.paytype-list .bank {background-image: url("../Img/sp-banklist.vf9516058.png"); background-repeat: no-repeat;border: 1px solid #DDDDDD;cursor: pointer;float:left;height: 40px;margin-left: 5px;text-indent: -9999px;width: 145px;}*/
+.long-logo ul li input {margin-right: 5px;}
+.paytype-list .bank--tenpay {background-position: 0 -1062px;}
+.bank--yeebao{ background:url(../Img/yeepay.gif) no-repeat;border: 1px solid #DDDDDD; cursor: pointer; float:left;height: 40px; margin-left: 5px;text-indent: -9999px;
+width: 145px;}
+.bank--yee{background:url(../Img/epay.gif) no-repeat;border: 1px solid #DDDDDD; cursor: pointer;float:left;height: 45px;margin-left: 5px;text-indent: -9999px;width: 145px;}
+.paytype-list .bank-list {clear: both; display: block;margin-left: 0;margin-top: 10px;overflow: hidden;}
+.paytype-list .bank--icbc {background-position: 0 -379px;}
+.paytype-list .bank--cmb {background-position: 0 -418px;}
+.paytype-list .bank-list .item {float: left;font-size: 14px;margin: 0 30px 10px 0;}
+.paytype-list .bank-list .radio {float: left; margin-left: 1px; margin-top: 10px;width: 13px;}
+.paytype-list .bank {background-image: url("../Img/sp-banklist.vf9516058.png"); background-repeat: no-repeat;border: 1px solid #DDDDDD;cursor: pointer;float: left;height: 32px; margin-left: 0;text-indent: -9999px;width: 135px;}
+.paytype-list .bank-alipayCode {background-image: url("../Img/alipaycode.gif"); background-repeat: no-repeat;border: 1px solid #DDDDDD;cursor: pointer;float: left;height: 32px; margin-left: 0;text-indent: -9999px;width: 112px;}
+.paytype-list .bank--ccb {background-position: 0 -58px;}
+.paytype-list .bank--abc {background-position: 0 -20px;}
+.paytype-list .bank--spdb {background-position: 0 -338px;}
+.paytype-list .bank--sdb {background-position: 0 -298px;}
+.paytype-list .bank--cib {background-position: 0 -458px;}
+.paytype-list .bank--cebb { background-position: 0 -98px;}
+.paytype-list .bank--boc {background-position: 0 -178px;}
+.paytype-list .bank--cmbc {background-position: 0 -139px;}
+.paytype-list .bank--bofc {background-position: 0 -911px;}
+.paytype-list .bank--postupay {background-position: 0 -500px;}
+.paytype-list .bank--gdb {background-position: 0 -220px;}
+.paytype-list .bank--pingan {background-position: 0 -874px;}
+.paytype-list .bank--bofc {background-position: 0 -911px;}
+.paytype-list .bank--zxyh {background-position: 0 -259px;}
+.paytype-list .bank--gfyh {background-position: 0 -220px;}
+.paytype-list .bank--zxyh {background-position: 0 -259px;}
+.paytype-list .bank--bob {background-position: 0 -588px;}
+.paytype-list .bank--udpay {background-position: 0 -723px;}
+.paytype-list .bank--bjrcb {background-position: 0 -1220px;}
+.paytype-list .bank--pspc {background-position: 0 -500px;}
+.paytype-list .bank--shrcb {background-position: 0 -1299px;}
+.paytype-list .bank--hzcb {background-position: 0 -1259px;}
+.bank-area--open .w200{width:200px;}
+.pay-total {font-size: 14px;font-weight: bold;margin-bottom: 15px;text-align: right;}
+.pay-total .money {color: #EA4F01; margin: 0 3px;font-family: arial;}
+.form-submit .btn-pay {margin-bottom: 5px;}
+.form-submit .xgdd{line-height: 32px;margin: 0 0 0 4px; vertical-align: top; color: #068e8e;}
+#sidebar{width:240px;}
+#sidebar .side-single {background: #FFFFFF;border: 1px solid #D4D4D4;margin-bottom: 10px;padding: 0 15px;}
+#sidebar .side-single .inner-blk {border-bottom: 1px solid #F0F0F0;padding: 20px 0;line-height: 21px;}
+#sidebar .side-single h3 {margin-bottom: 12px;}
+#sidebar .pay-consolation p { background:url(../Img/side-pay-consolation.vbd4509d3.png)no-repeat;margin: 10px 0;padding-left: 45px;}
+#sidebar .pay-consolation .fan-ie { background-position: 0 -57px;}
+#sidebar .side-single .inner-blk { padding: 20px 0;}
+#sidebar .side-single h3 {margin-bottom: 12px;}
+.result-box-wrapper {margin: 30px auto;text-align: center;}
+.result-box-wrapper .result-box {display: inline-block; position: relative;text-align: left;}
+.result-box-wrapper .result-box h3 {background: url("../Img/sp-sys-icon.v29a4a9a5.png") no-repeat;font-size: 24px;line-height: 34px; margin-bottom: 8px;padding-left: 40px;}
+.result-box .lower {margin-top: 40px;}
+.result-box h3 {color: #333333;margin-left: 3px;}
+.result-box .shoot-tip {color: #F76120;font-size: 16px;margin-bottom: 25px;padding-left: 22px;}
+.goto-orders {color: #666;padding-left: 40px;padding-top: 5px;font-size: 14px;margin-top: 10px;}
+.result-box .bg-coupons-header {background:url(../Img/bg-coupons.vc2e28ff4.png) no-repeat;height: 20px;width: 610px;}
+.coupons {background: url(../Img/bg-coupons-body.vcd4c8df7.png) repeat-y;padding: 5px 20px;width: 570px;}
+.coupons th {background-color: #FFE4D3; color: #666666; height: 24px;line-height: 24px;padding: 5px 0 5px 15px;}
+.coupons td { background-color: #F9F9F9;border-bottom: 1px dotted #DBDBDB;color: #333333;line-height: 33px;padding: 5px 0px 5px 15px;width:180px;}
+.coupons__codes div {color: #F76120;font-size: 16px;font-weight: bold;line-height: 24px;}
+.result-box .bg-coupons-footer {background:url(../Img/bg-coupons.vc2e28ff4.png) no-repeat 0 -20px;height: 20px;width: 610px;}
+.c1_l{width:1000px;height:305px;margin:0 auto 20px auto;}
+.c1_slide{width:985px;height:400px;position:relative;overflow:hidden;}
+.c1_slide ul{width:3500px;height:400px;position:absolute;top:0;left:0;}
+.c1_slide li{float:left;width:985px;height:400px;position:relative;}
+.c1_paging{width:100%;height:91px;background:url(../Img/r.png) repeat-x 0 0;}
+.c1_paging li{float:left; width:136px; height:91px; margin:1px; position:relative;}
+.c1_paging li.active i{display:block;position:absolute;top:-10px;left:0;height:101px;width:136px;background:url(../Img/i_i.png) no-repeat 0 0;}
+.c1_paging li:hover b,.c1_paging li.active b{display:none;}
+.c1_paging li img,.c1_paging li b{position:absolute;top:13px;left:13px;}
+.c1_paging li b{background:url(../Img/opacity.png) no-repeat 0 0;width:110px;height:65px;}
+.ppgs{margin:15px auto 0;height:210px;background:#ffffff; width: 985px;}
+.ppgs .brandad img {height: 210px;margin-right: 10px;width: 640px;}
+.ppgs .yh {float: right;height: 205px;margin: 10px;width: 300px;padding:0 5px;}
+.yh h2{color: #333333;font: bold 18px "宋体";margin:13px 0 15px 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width:280px;text-align:center;}
+.yh p{font-size:14px;line-height:23px;text-indent:2em;}
+/*购物车*/
+.chartnone{width:600px;margin: 0 auto;}
+.chartnone img{float:left;margin-right: 10px;}
+.chartnone span{display: block;float: left;width: 300px;line-height: 40px;}
+.chartnone span>h4{font-size: 22px;color:#009999;}
+.chartnone span.re{text-align: right;font-size: 12px;color:#888;margin-top: 20px;}
+.chartnone span.re a{color:#00bcd4;}
+/*支付宝扫码  2014-8-30 作者：oldfu*/
+.pay{font-size:25px;}
+.y-pay{width:528px;margin:0 auto 40px; margin-bottom: 20px}
+.y-list1{padding-right:36px;border-right:1px solid #e0e0e0;}
+.y-list2{padding:90px 0 0 36px;vertical-align:top;}
+.y-list2b{border-right:1px solid}
+.y-list2 a{color:#1f5d86;}
+.y-list2 a:hover{text-decoration:underline;}
+.y-item1{background:#fff9eb;width:774px;margin:0 auto; margin-bottom: 20px;border:1px solid #d7d4b5;height:50px;line-height:50px;padding:0 20px;}
+.y-item1 li{display:inline-block;}
+.y-item1 li.first{margin-right:124px;}
+.y-item1 li.last{background:url("../Image/alipaycode.gif") no-repeat 68px 9px;width:181px;float:right;margin-right:0;}
+
+/*支付银行列表*/
+.ui-list-icons li{float:left;width:166px;margin-bottom:8px;margin-right:10px; list-style-type:none}
+.long-logo {width:580px; }
+
+.long-logo .icon-box,.long-logo .icon-box-commend,.long-logo .icon-box-kj{width:130px;background-color:#fff!important;line-height:30px}
+.long-logo .bank-num{float:right;padding-top:8px}
+
+.long-logo .icon-box .icon,.long-logo .icon-box-commend .icon,.long-logo .icon-box-kj .icon{float:left;width:116px;padding:0}
+
+
+.long-logo .xbox .ui-list-icons{_margin-left:-10px; *margin-left:-10px;*margin-top:5px;}
+.icon-box{ width:126px;border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color:#eee}  
+
+.icon-box1{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -324px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box2{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -370px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box3{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -278px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box4{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -235px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF}  
+
+.icon-box5{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -463px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF}  
+
+.icon-box6{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -685px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF}  
+
+.icon-box7{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -186px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF}  
+
+.icon-box8{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -9px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box9{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -509px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box10{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -136px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box11{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -592px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box12{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -52px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box13{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -721px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box14{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -93px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box15{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -548px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box16{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -418px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box17{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -752px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box18{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -785px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box19{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -818px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box20{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -847px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 
+
+.icon-box21{ BACKGROUND: url(../Image/bank_list.gif) no-repeat 6px -884px; width:135px;  HEIGHT: 32px; border:1px solid #ddd;vertical-align:middle;position:relative;display:inline-block;background-color: #FFF} 

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>申请退款</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <div class="box">
+            <form name="viewDetails">
+                <div style="padding:20px;">
+                	<label>退款方式：
+						<select name="type">
+							<option value="2">原路退回</option>
+							<option value="1">退至青团账户</option>
+						</select>
+                	</label>
+                </div> 	
+                <span style='padding: 10px;margin-left:140px;' id="do-refund" class="class-btn">申请退款</span>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                // 备注提交
+                $('#do-refund').die().live('click', function() {
+                	var $this=$(this);
+                    var id={$id};
+                    var type=$("select[name=type]").val();
+                    $this.addClass('disabled');
+                    $.post("{:U('Order/applyRefund')}", {id:id,type:type}, function(res) {
+                        $this.removeClass('disabled');
+                        parent.window.alert(res.info);
+                        if (res.status==1) {
+                        	parent.window.location.reload();
+                        }else{
+                            return false;
+                        }
+                        
+                    }, 'json');
+                    return false;
+                });
+            })
+        </script>
+    </body>
+</html>

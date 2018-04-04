@@ -1,0 +1,209 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<link rel="stylesheet" href="__CSS_PATH__/datepicker.css" />
+<link rel="stylesheet" href="__CSS_PATH__/bootstrap-timepicker.css" />
+<style>
+    input[type=checkbox].ace.ace-switch.ace-switch-7+.lbl::before {
+        content: "满\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0有座";
+    }
+</style>
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">客户预订</a>
+            </li>
+            <li class="active">预订列表</li>
+        </ul>
+        <!-- .breadcrumb -->
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                预订列表	
+            </h1>
+        </div>
+        <!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <include file="Common:message_tip" />
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="col-xs-12">
+                    <form action="{:U('DingZuo/update_info')}" method="post" id="form-update-info">
+                    <div class="col-xs-3">
+                        <div class="col-xs-2">
+                            大厅:
+                        </div>
+                        <div class="col-xs-4">
+                            <label>
+                                <input name="is_hall_status" class="ace ace-switch ace-switch-7" type="checkbox" <if condition="$partner_dingzuo_info.is_hall_status eq 1"> checked="checked" </if>  value='1'/>
+                                <span class="lbl"></span>
+                            </label>
+                        </div>
+                        <div class="col-xs-2">
+                            包厢:
+                        </div>
+                        <div class="col-xs-4">
+                            <label>
+                                <input name="is_box_status" class="ace ace-switch ace-switch-7" type="checkbox" <if condition="$partner_dingzuo_info.is_box_status eq 1"> checked="checked" </if>   value='1'/>
+                                <span class="lbl"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-9">
+                        <div class="col-xs-1">
+                            预约时间:
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="col-xs-6 col-sm-6">
+                                <div class="input-group bootstrap-timepicker">
+                                    <input id="timepicker1" name='begin_time' type="text" value="{$partner_dingzuo_info.begin_time}" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <i class="fa icon-time bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6">
+                                <div class="input-group bootstrap-timepicker">
+                                    <input id="timepicker2"  name='end_time' type="text"  value="{$partner_dingzuo_info.end_time}"  class="form-control" />
+                                    <span class="input-group-addon">
+                                        <i class="fa icon-time bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <input name='dingzuo_id' type='hidden' value="{$partner_dingzuo_info.id}"/>
+                             <if condition="$res = auth_check_access(array('DingZuo/update_info'))">
+                                    <button type="button" id='btn-update-info' class="btn btn-sm btn-info">保存</button>
+                             </if>
+                        </div>
+                    </div>
+                        </form>
+                </div>
+                <!--<a class="btn btn-success"href="customer_add.html">添加预约</a>-->
+                <div id="shopList" class="grid-view">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>客户</th>
+                                <th>手机</th>
+                                <th>预定人数</th>
+                                <th>预定时间</th>
+                                <th>他人还是自己</th>
+                                <th>是否到店</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="list" id="vo">
+                            <tr class="even">
+                                <td>{$vo.id}</td>
+                                <td>{$vo.username}</td>
+                                <td>{$vo.mobile}</td>
+                                <td>{$vo.num}</td>
+                                <td>{$vo.create_time}</td>
+                                <td><if condition="$vo.state eq 'Y'">自己<else />他人</if></td>
+                            <td><if condition="$vo.user_state eq 'N'">否<else />是</if></td>
+                            <td>
+                            <if condition="$vo.status eq 'Y'">
+                                已处理
+                                <else />
+                                <if condition="$res = auth_check_access(array('DingZuo/dealDZOrder'))">
+                                    <a href="{:U('DingZuo/dealDZOrder',array('id'=>$vo['id']))}" onclick="return ajax_operation(this);" confirm_tip='您确定用户到店需要处理吗?' >处理</a>
+                                </if>
+                            </if>
+                            </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_info" id="sample-table-2_info"> 全部{$count}条</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="dataTables_paginate paging_bootstrap">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script src="__JS_PATH__/date-time/bootstrap-datepicker.min.js"></script>
+<script src="__JS_PATH__/date-time/bootstrap-timepicker.min.js"></script>
+<script src="__JS_PATH__/date-time/moment.min.js"></script>
+<script src="__JS_PATH__/date-time/daterangepicker.min.js"></script>
+
+<script>
+
+    $(function() {
+        $('#timepicker1').timepicker({
+            minuteStep: 1,
+            showSeconds: true,
+            showMeridian: false
+        }).next().on(ace.click_event, function() {
+            $(this).prev().focus();
+        });
+        ;
+        $('#timepicker2').timepicker({
+            minuteStep: 1,
+            showSeconds: true,
+            showMeridian: false
+        }).next().on(ace.click_event, function() {
+            $(this).prev().focus();
+        });
+        
+        // 提交延期
+        $(".main-content").on('click', '#btn-update-info', function() {
+            var $this = $(this);
+            var $from = $(this).parents('form#form-update-info');
+            var $data = $from.serialize();
+            var $href = $from.attr('action');
+            
+            if($this.hasClass('disabled')){
+                return false;
+            }
+            $this.addClass('disabled');
+            show_message_tip({success:'正在操作，请稍后...'});
+            $.post($href, $data, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    show_message_tip(res);
+                    return false;
+                } 
+                show_message_tip(res);
+                window.setTimeout(function() {
+                    window.location.reload();
+                }, 500);
+                return false;
+            }, 'json');
+            return false;
+        });
+        
+    });
+</script>

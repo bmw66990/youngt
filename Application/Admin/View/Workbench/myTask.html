@@ -1,0 +1,61 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">我的任务<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-s-title">
+                <label <if condition="$status eq 1">class="currt" </if>><a href="{:U('Workbench/myTask',array('status'=>1))}">待完成</a></label>
+                <label <if condition="$status eq 2">class="currt" </if>><a href="{:U('Workbench/myTask',array('status'=>2))}">已完成</a></label>
+                <label <if condition="$status eq 3">class="currt" </if>><a href="{:U('Workbench/myTask',array('status'=>3))}">已归档</a></label>
+            </div>
+            <div class="form-list">
+                <div class="task">
+                    <ul>
+                        <volist name="data" id="row">
+                        <li>{$key}[<label class="tx-red f-12">{$row|count}</label>]</li>
+                            <volist name="row" id="vo">
+                            <li>
+                                <span><label>
+                                    <if condition="$vo['status'] eq 1">
+                                        <input type="checkbox" onclick="ajaxTaskRecycle('{$vo['id']}',2);">
+                                    </if>
+                                    <a onclick="popup('{:U('Workbench/taskDetail',array('id'=>$vo['id']))}',500,600)">{$vo['title']}</a></label><label class="tx-grey f-12">{$vo['group_name']}</label></span>
+                                <span><label>
+                                    <volist name="vo.user" id="voImg">
+                                        <img src="__IMAGE_PATH__/nophoto.jpg" alt="{$voImg['name']}" title="{$voImg['name']}" />
+                                     </volist>
+                                </label></span>
+                            </li>
+                            </volist>
+                        </volist>
+                    </ul>
+                </div>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                       {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/workbench.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript">
+    /**
+     * 任务状态处理
+     * @param id
+     */
+    function ajaxTaskRecycle(id,status){
+        var url="{:U('Workbench/ajaxTaskRecycle')}";
+        $.post(url,{id:id,status:status},function(data){
+            if(data.status == -1){
+                alert(data.error);
+            }else{
+                location.reload;
+            }
+        });
+    }
+</script>
+<include file="Common:footer" />

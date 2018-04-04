@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{$description}" />						
+		<meta name="keywords" content="{$keywords}" />
+	    <link rel="stylesheet" href="__CSS_PATH__/base.css?v={:C('CSS_VER')}">
+		<link rel="icon" href="__IMAGE_PATH__/favicon.ico" size="16x16"/>		
+		<script type="text/javascript" src="__JS_PATH__/jquery-1.7.2.js"></script>
+        <!--[if IE]> 
+        <script> 
+             (function(){if(!/*@cc_on!@*/0)return;var e =                "header,footer,nav,article,section".split(','),i=e.length;while(i--){document.createElement(e[i])}})() 
+        </script> 
+        <![endif]--> 
+	</head>
+	<style>
+#ytcontent{padding: 0;width: 740px;}
+#ytcontent .mainbox {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #D4D4D4;clear: both;height: auto !important;min-height: 400px; padding: 20px;padding-bottom:40px;border-radius:0;}
+#ytcontent h3{border-bottom: 1px solid #DCDCDC;font-size: 28px;margin-bottom: 10px;padding-bottom: 10px;}	
+#ytcontent .mainbox h3 span.op-area {font-weight: normal;position: absolute;right: 20px;top: 40px;}	
+.fac{color: #2BB8AA;}
+a.fac:hover {text-decoration: underline;}
+.info-section {background: none repeat scroll 0 0 #FFFBF2;border: 1px solid #F6E0AF;font-size: 12px;margin: 0 0 10px;overflow: hidden;padding: 8px 16px;}
+.info-section dt {font-weight: bold;margin-bottom: 2px;margin-left:30px;display: inline-block;}
+.info-section em {color: #DD0000;font-style: normal;}
+.bunch-section {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #D3E9FD;margin: 0 0 10px;overflow: hidden;}
+.bunch-section__label {background: none repeat scroll 0 0 #D3E9FD;color: #333333;padding: 5px 8px;}
+.bunch-section__content {padding: 5px 8px 10px;}
+.bunch-section__content .coupon-field {background-color: #F8F8F8;border: 1px solid #F4F4F4;min-height: 20px;padding: 5px 0 1px 10px;}
+.bunch-section__content .coupon-field__tip {color: #999999;padding-bottom: 5px;}
+.bunch-section__content .coupon-field li {margin-bottom: 5px;}
+.coupon-field li span {color: #999999;}
+.bunch-section__content .flow-list {line-height: 1.8;}
+.bunch-section__content .flow-list li {display: inline-block;margin-right: 10px;width: 220px;}
+.bunch-section__content .info-table {width: 100%;}
+.info-table .left {text-align: left;}
+.info-table th {font-weight: bold;}
+.info-table th, .info-table td {padding:5px;text-align:center;}
+.info-table span.money {font-family: arial;}
+.info-table .total {color:#CC3333;}
+.logistics-section{width: 650px;margin:0 auto;font-size:14px;color:#808080;}
+.logistics-section dd{display: block;line-height: 26px;background: url(../img/wuliu.png) no-repeat;}
+.logistics-section dd:last-child{background: url(../img/wuliu1.png) no-repeat;}
+.logistics-section dd>label:first-child{width: 130px;display: inline-block;margin-right: 30px;text-align: right;color:#000;padding-left: 30px;}
+	</style>
+	<body>
+       <!--查看订单详情-->
+        <div id="bdw">
+        	<div id="bd">
+        		<div id="ytcontent">
+                	<div  class="mainbox f-pr">
+                	<h3 class="ft">
+                		物流详情
+                	</h3>
+                	<dl id="primary-info" class="info-section">
+                		<dt>
+                			物流状态：
+                			<em>
+                			{$data.info}			
+                			</em>
+                		</dt>
+                        <dt>
+                            物流编号：
+                            <em>
+                            {$data.express_no}         
+                            </em>
+                        </dt>
+                        <dt>
+                            信息来源：
+                            <em>
+                            <a href="#">{$data.express_name}</a>       
+                            </em>
+                        </dt>
+                	</dl>
+                	<dl class="logistics-section">
+
+                        <volist name="data.list" id="row">
+                            <dd><label style="width:150px;display:inline">{$row.time}</label><label>{$row.context}</label></dd>
+                        </volist>
+
+               <!--  		<dd><label>2015-8-30 15:30:20</label><label>卖家已发货</label></dd>
+                        <dd><label> 15:30:20</label><label>到达中转站</label></dd>
+                        <dd><label> 15:30:20</label><label>卖家已发货</label></dd>
+                        <dd><label> 15:30:20</label><label>卖家已发货</label></dd>
+                        <dd><label>2015-8-30 15:30:20</label><label>卖家已发货</label></dd>
+                        <dd><label>2015-8-30 15:30:20</label><label>卖家已发货</label></dd>
+                        <dd><label>2015-8-30 15:30:20</label><label>快递分点收件</label></dd>
+                        <dd><label>2015-8-30 15:30:20</label><label>快递分点派件</label></dd>
+                        <dd><label>2015-8-30 15:30:20</label><label>已签收</label></dd> -->
+                	</dl>
+                   </div>
+                </div>
+        	</div>
+        </div>	
+	</body>
+</html>

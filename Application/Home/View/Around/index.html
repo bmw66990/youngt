@@ -1,0 +1,230 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link href="__CSS_PATH__/around.css" type="text/css" rel="stylesheet" />
+<!--首页内容开始-->
+<section class="clearfix"><div id='section'>
+    <!--内容开始-->
+    <div id="bdw">
+        <div id="bd" class="mb20">
+            <div class="pg-around-position">
+                <div class="bd">
+                    <p class="location-label f-fs2">我的位置：</p>
+                    <p class="mobile-link pl10">
+                        <span class="mobile-icon"></span>
+                        下载
+                        <a href="{:U('Public/client')}" class="fac">青团手机版</a>
+                        随时随地查看附近团购
+                    </p>
+                    <p class="locate-map">您可以点击地图直接锁定</p>
+                    <div class="left-box fl">
+                        	<span style="width:500px;height:35px; line-height:35px; display:block; float:left;text-align:left;">
+		                        <div class="seach cf f-pr">
+                                    <input id="mapkeyword" class="s-text" size="60" type="text" autocomplete="off"  placeholder="请输入完整地址/公交站/地铁站名" name="q" onfocus="if(this.value=='请输入完整地址/公交站/地铁站名'){this.value='';this.style.color='#000';}"  onblur="if(this.value==''){this.value='请输入完整地址/公交站/地铁站名';this.style.color='#ccc'}">
+                                    <input type="submit" class="s-submit" id="search_button" hidefocus="true" value="定位" >
+                                </div>
+	   						</span>
+                        <div id="result-panel">
+                            <div id="r-result" style="display:none;">
+                                <div style="background:#E3FFFF;width:100%;height:100%;">
+                                </div>
+                            </div>
+                            <br/>
+                            <div id="allmap" style="overflow:hidden;zoom:1;position:relative;">
+                            </div>
+                            <if condition = "$user['id']!=''">
+                                <a href="{:U('Around/position')}"  style="width:235px; height:35px; display:block; float:left;text-align:left;">
+                                    查看已保存的地址
+                                </a>
+                            </if>
+                        </div>
+                    </div>
+                    <!--百度地图开始-->
+                    <div id="around-map">
+                        <div id="map" style="height:498px; width:998px;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--结束-->
+</div></section>
+<!--首页内容结束-->
+<include file="Common:footer" />
+<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=40f79d0367df92e1e76d1d45d0258591"></script>
+<!--加载鼠标绘制工具-->
+<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+<!--加载检索信息窗口-->
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+<script type="application/javascript">
+    $(function(){
+        // 百度地图API功能
+        var map = new BMap.Map("map");               // 创建Map实例
+        map.centerAndZoom("{$cityInfo['name']}", 13);       // 初始化地图,设置中心点坐标和地图级别
+        map.addControl(new BMap.NavigationControl());   // 添加平移缩放控件
+        map.addControl(new BMap.ScaleControl());        // 添加比例尺控件
+        map.addControl(new BMap.OverviewMapControl());  //添加缩略地图控件
+        map.enableScrollWheelZoom();
+        var myGeo = new BMap.Geocoder();
+        var overlays = [];
+        //清除所有覆盖物
+        function clearAll() {
+            for(var i = 0; i < overlays.length; i++){
+                map.removeOverlay(overlays[i]);
+            }
+            overlays.length = 0;
+        }
+        var closeWin = function(e){
+            clearAll();
+        }
+        //回调获得覆盖物信息
+        var overlaycomplete = function(e){
+            clearAll();
+            overlays.push(e.overlay);
+            var latlng = '';
+            var lat=e.overlay.getPosition().lat;
+            var lng=e.overlay.getPosition().lng;
+            latlng += e.overlay.getPosition().lat + ',' + e.overlay.getPosition().lng;
+            var point = new BMap.Point(e.overlay.getPosition().lng, e.overlay.getPosition().lat);
+            var myGeo = new BMap.Geocoder();
+            myGeo.getLocation(point, function (rs) {
+                var addComp = rs.addressComponents;
+                //信息窗口的内容定义
+                //位置
+                var address =addComp.district+addComp.street;
+                var content = '<div id="panel" style="text-align:center;font-size:14px;font-weight:bold;height:30px;padding:10px;">'+address+'</div><div style="text-align:center;"><form action="{:U(\'Around/position\')}" method="post"><input type="hidden" name="user_id" value="{$user['id']}" /><input type="hidden" name="size" value="0" /><input type="hidden" id="address" name="address" value='+address+'><input type="hidden" id="lng" name="lng" value='+lng+'><input type="hidden" id="lat" name="lat" value='+lat+'><input type="submit" value="附近团购" id="wbut" name="position" onclick="return gotoAround()" /></form></div>';
+                //样式3
+                var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+                    title  : "您选择的地址",      //标题
+                    width  : 290,             //宽度
+                    height : 105,              //高度
+                    panel  : "panel",         //检索结果面板
+                    enableAutoPan : true,     //自动平移
+                    searchTypes   :[]
+                });
+                searchInfoWindow.open(e.overlay);
+            });
+        };
+
+        //实例化鼠标绘制工具
+        var drawingManager = new BMapLib.DrawingManager(map, {
+                    isOpen: true,
+                    drawingType: BMAP_DRAWING_MARKER,
+                    enableDrawingTool: false,
+                    enableCalculate: false
+                }
+        );
+        //添加鼠标绘制工具监听事件，用于获取绘制结果
+        drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+        var options = {
+            onSearchComplete: function(results){
+                // 判断状态是否正确
+                if (local.getStatus() == BMAP_STATUS_SUCCESS){
+                    document.getElementById('r-result').style.display='block';
+                    document.getElementById('allmap').style.width='698px';
+                    document.getElementById('map').style.width='698px';
+                    //searchInfoWindow.close();
+                    var s = [];
+                    s.push('<div style="font-family: arial,sans-serif;  font-size: 12px;">');
+                    s.push('<div>');
+                    s.push('<ol style="list-style: none; padding: 0pt; margin: 0pt;">');
+                    openInfoWinFuns = [];
+                    for (var i = 0; i < results.getCurrentNumPois(); i ++){
+                        var mark = null;
+                        if(results.getPoi(i).type == BMAP_POI_TYPE_NORMAL){
+                            mark = ""
+                        }else if(results.getPoi(i).type == BMAP_POI_TYPE_BUSSTOP){
+                            mark = "公交站"
+                        }else if(results.getPoi(i).type == BMAP_POI_TYPE_SUBSTOP){
+                            mark = "地铁站"
+                        }
+                        var marker = addMarker(results.getPoi(i).point,i);
+                        var openInfoWinFun = addInfoWindow(marker,results.getPoi(i),i);
+                        openInfoWinFuns.push(openInfoWinFun);
+                        // 默认打开第一标注的信息窗口
+                        var selected = "";
+                        if(i == 0){
+                            selected = "background-color:#eaf8fe;";
+                            openInfoWinFun();
+                        }
+                        s.push("<li id=list'"+i+"'><h2 class='neart' style=''>"+results.getPoi(i).title+mark+"</h2><div style='cursor:pointer;"+selected+"' class='ladd' id='add"+i+"' onclick='openInfoWinFuns["+i+"]()'><div style='padding:5px; line-height:20px;'>"+ results.getPoi(i).address +"</div><div style='text-align:right;'><form action='{:U(\'Around/position\')}' method='post'><input type='hidden' name='size' value='0' /><input type='hidden' name='user_id' value='{$user["id"]}' /><input type='hidden' name='address' value='"+results.getPoi(i).title+mark+ "' /><input type='hidden' name='lng' value='"+results.getPoi(i).point.lng+"' /><input type='hidden' name='lat' value='"+results.getPoi(i).point.lat+"' /><input type='submit' name='position' id='tbut' value='附近团购' style='' /></form></div></div></li>");
+                    }
+                    s.push('</ol></div></div>');
+                    document.getElementById("r-result").innerHTML = s.join("");
+                }
+            }
+        };
+        //添加标注
+        function addMarker(point, index){
+            var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+                offset: new BMap.Size(10, 25),
+                imageOffset: new BMap.Size(0, 0 - index * 25)
+            });
+            var marker = new BMap.Marker(point, {icon: myIcon});
+            map.addOverlay(marker);
+            return marker;
+        }
+        //添加信息窗口
+        function addInfoWindow(marker,poi,index){
+            var maxLen = 10;
+            var name = null;
+            var mark=null;
+            if(poi.type == BMAP_POI_TYPE_NORMAL){
+                name = "地址：  ";
+                mark="";
+            }else if(poi.type == BMAP_POI_TYPE_BUSSTOP){
+                name = "公交：  ";
+                mark="公交站";
+            }else if(poi.type == BMAP_POI_TYPE_SUBSTOP){
+                name = "地铁：  ";
+                mark="地铁站";
+            }
+            // infowindow的标题
+            var infoWindowTitle = '<div style="font-weight:bold;color:#CE5521;font-size:14px;width:100%;">'+poi.title+mark+'</div>';
+            // infowindow的显示信息
+            var infoWindowHtml = [];
+            infoWindowHtml.push('<table cellspacing="0" style="table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif"><tbody>');
+            infoWindowHtml.push('<tr>');
+            infoWindowHtml.push('<td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">' + name + '</td>');
+            infoWindowHtml.push('<td style="vertical-align:top;line-height:16px">' + poi.address + ' </td>');
+            infoWindowHtml.push('</tr>');
+            infoWindowHtml.push('</tbody></table>');
+            var infoWindow = new BMap.InfoWindow(infoWindowHtml.join(""),{title:infoWindowTitle,width:300});
+            var openInfoWinFun = '';
+            openInfoWinFun = function(){
+                window.setTimeout(function(){
+                    map.panTo(new BMap.Point(poi.point.lng,poi.point.lat));
+                }, 500);
+                marker.openInfoWindow(infoWindow);
+                for(var cnt = 0; cnt < maxLen; cnt++){
+                    if(!document.getElementById("add" + cnt)){continue;}
+                    if(cnt == index){
+                        document.getElementById("add" + cnt).style.backgroundColor = "#E3FFFF";
+                    }else{
+                        document.getElementById("add" + cnt).style.backgroundColor = "#FFF";
+                    }
+                }
+            }
+            marker.addEventListener("click",openInfoWinFun);
+            return openInfoWinFun;
+        }
+        var local = new BMap.LocalSearch(map, options);
+        document.getElementById("search_button").onclick = function(){
+            map.clearOverlays();    //清除地图上所有覆盖物
+            //实例化鼠标绘制工具
+            var drawingManager = new BMapLib.DrawingManager(map, {
+                        isOpen: true,
+                        drawingType: BMAP_DRAWING_MARKER,
+                        enableDrawingTool: false,
+                        enableCalculate: false
+                    }
+            );
+            //添加鼠标绘制工具监听事件，用于获取绘制结果
+            drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+            local.search(document.getElementById("mapkeyword").value);
+        };
+        // 初始化地图，设置中心点坐标和地图级别
+    });
+</script>

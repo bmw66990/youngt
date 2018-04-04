@@ -1,0 +1,48 @@
+<include file="Common:header" />
+		<div class="container-fluid">
+			<div class="row">
+
+				<!-- 头部开始 -->
+				<div class="col-xs-12">
+					<nav class="navbar navbar-default" role="navigation">
+						<div class="f-tac">
+							<a class="navbar-brand" href="javascript:history.go(-1);"><span class="glyphicon glyphicon-chevron-left"></span>返回</a>
+
+							<div class="f-ib f-title">
+								<h4 class="f-ib f-ff1">收货地址</h4>
+							</div>
+
+							<a class="navbar-brand pull-right" href="{:U('User/addAddress')}"> 添加新地址 </a>
+						</div>
+					</nav>
+				</div>
+				<!-- 头部结束 -->
+
+				<!--签到开始 -->
+				<div class="container-fluid" id="content">
+					<div class="col-xs-12">
+					<div class="goodsAdd">
+						<ul>
+                                                                                                <if condition="!empty($address_list)">
+                                                                                                    <volist name="address_list" id="al">
+                                                                                                        <li><a href="{:U('User/editAddress',array('address_id'=>$al['id']))}">
+                                                                                                                <label>{$al.name}</label><label>{$al.mobile_hide}</label>
+                                                                                                                <if condition="$al.default eq 'Y'">
+                                                                                                                <label class="f-c9 f-fs1">默认地址</label>
+                                                                                                                </if>
+                                                                                                                <span>{$al.province}{$al.area}{$al.city}{$al.street}</span>
+                                                                                                                </a>
+                                                                                                        </li>
+                                                                                                    </volist>
+                                                                                                </if>
+						</ul>
+					</div>
+				</div>
+				</div>
+				<!--签到结束-->
+
+				<include file="Common:footer" />
+				<script type="text/javascript">
+				
+				</script>
+

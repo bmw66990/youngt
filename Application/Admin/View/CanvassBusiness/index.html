@@ -1,0 +1,28 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">总览<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w200">姓名</th>
+                        <th class="w300">今日意向客户/今日访问数</th>
+                        <th class="w300">意向客户/总访问数</th>
+                    </tr>
+                    <volist name="total" id="row">
+                    <tr>
+                        <td class="w200">{$bdList[$row['visit_db_id']]}</td>
+                        <td class="w300">{$today[$row['visit_db_id']]['intention_num']|default=0} / {$today[$row['visit_db_id']]['visit_num']|default=0}</td>
+                        <td class="w300">{$row.intention_num} / {$row.visit_num}</td>
+                    </tr>
+                    </volist>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/busniess_user.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

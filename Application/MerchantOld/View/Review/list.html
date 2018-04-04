@@ -1,0 +1,52 @@
+<div class="mt30">
+    <p>
+        共组织<b> {$team_num} </b>次团购, 购买<b>
+            <if condition = "$buy_count eq ''">
+                0
+                <else />
+                {$buy_count}
+            </if> </b> 人. <b>
+            <if condition = "$count eq ''">
+                0
+                <else />
+                {$count}
+            </if> </b> 人点评,满意度 <b>
+            {$grade_comment|substr=0,4}%
+            </if> </b>
+    </p>
+    <table class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="70">用户</th>
+                <th width="134">项目编号/名称</th>
+                <th width="45" >满意度</th>
+                <th width="200">评价</th>
+                <th width="50" >操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist  name="list" id="vo">
+            <tr>
+                <td> {$vo['username']|substr=0,1}*** </td>
+                <td class="f-tal"><a class="fac" href="http://{$Think.server.http_host}/team-{$vo.team_id}.html">{$vo.team_id}&nbsp;&nbsp;({$vo['product']})</a></td>
+                <td>
+                    {$vo['comment_num']}
+                </td>
+                <td class="f-tal">{$vo['content']}</td>
+            <if condition="$vo['partner_content'] eq ''">
+                <td class="f-tac">
+                <if condition="$res = auth_check_access(array('Review/review'))">
+                    <a  href="{:U('Review/review',array('id'=>$vo['order_id']))}" mask="true" class='fac reply'> 回复 </a>
+                </if>
+                </td>
+                <elseif condition="!empty($vo['partner_content'])" />
+                <td class="f-tal">已回复</td>
+            </if>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<nav class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</nav>

@@ -1,0 +1,21 @@
+[ 2018-03-25T16:55:30+08:00 ] 127.0.0.1 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000645s ]
+SQL: SHOW COLUMNS FROM `system` [ RunTime:0.0657s ]
+SQL: SELECT * FROM `system`  [ RunTime:0.0542s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001240s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001321s ]
+SQL: SHOW COLUMNS FROM `category` [ RunTime:0.0726s ]
+SQL: SELECT `id`,`zone`,`czone`,`name`,`ename`,`letter`,`sort_order`,`display`,`relate_data`,`fid` FROM `category` WHERE `ename` = '' AND `zone` = 'city' LIMIT 1   [ RunTime:0.0732s ]
+SQL: SELECT `id`,`zone`,`czone`,`name`,`ename`,`letter`,`sort_order`,`display`,`relate_data`,`fid` FROM `category` WHERE `ename` = 'yangling' AND `zone` = 'city' LIMIT 1   [ RunTime:0.0673s ]
+NOTIC: [2] fopen(D:\demo\php\thinkphp\youngt\Application\Common\Org/QQWry.dat): failed to open stream: No such file or directory D:\demo\php\thinkphp\youngt\Application\Common\Org\IpLocation.class.php 第 52 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\demo\php\thinkphp\youngt\Application\Home\Model\CityModel.class.php 第 83 行.
+NOTIC: [8] Undefined index: HTTP_REFERER D:\demo\php\thinkphp\youngt\Application\Home\Controller\CommonController.class.php 第 77 行.
+SQL: SHOW COLUMNS FROM `category` [ RunTime:0.0712s ]
+NOTIC: [8] Undefined index: zid D:\demo\php\thinkphp\youngt\Application\Home\Controller\CommonController.class.php 第 183 行.
+NOTIC: [8] Undefined index: sid D:\demo\php\thinkphp\youngt\Application\Home\Controller\CommonController.class.php 第 184 行.
+NOTIC: [8] Undefined index: gid D:\demo\php\thinkphp\youngt\Application\Home\Controller\CommonController.class.php 第 185 行.
+ERR: 系统不支持:redis
+

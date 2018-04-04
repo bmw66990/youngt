@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>支付返现</title>
+    <link rel="stylesheet" type="text/css" href="__LIBS_PATH__/jQueryMoblie/jquery.mobile.custom.structure.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__LIBS_PATH__/jQueryMoblie/jquery.mobile.custom.theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS_PATH__/reset-jqmobile.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS_PATH__/fastshop.css"/>
+    <link rel="stylesheet" href="__CSS_PATH__/bootstrap.css" >    
+</head>
+<body style="background:none;">
+<script src="__JS_PATH__/jweixin.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+  wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: "{$data['js_pay_config']['appId']}", // 必填，公众号的唯一标识
+        timestamp: "{$data['js_pay_config']['timestamp']}", // 必填，生成签名的时间戳
+        nonceStr: "{$data['js_pay_config']['noncestr']}", // 必填，生成签名的随机串
+        signature: "{$data['js_pay_config']['signature']}",// 必填，签名，见附录1
+        jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+   wx.ready(function(){ 
+    wx.chooseWXPay({
+        timestamp: "{$data['pay_data']['timeStamp']}", // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+        nonceStr: "{$data['pay_data']['nonceStr']}", // 支付签名随机串，不长于 32 位
+        package: "{$data['pay_data']['package']}", // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+        signType: "{$data['pay_data']['signType']}", // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+        paySign: "{$data['pay_data']['paySign']}", // 支付签名
+        success: function (res) {
+            // 支付成功后的回调函数            
+            location.href="{:U('Wechat/success',array('order_id'=>$order_id))}";
+        },
+        error:function(res){
+            
+            location.href="{:U('Wechat/fail')}";
+            
+        }
+    });
+});
+    /*
+    //调用微信JS api 支付
+    function jsApiCall()
+    {
+        WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                {$data},
+                function(res){
+                    alert(res.err_msg);
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                        location.href="{:U('User/order')}";
+                    }else{
+                        location.href="{:U('Index/index')}";
+                    }
+                }
+        );
+    }
+
+    function callpay()
+    {
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }else{
+            jsApiCall();
+        }
+    }
+    callpay();
+*/
+</script>
+    <script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/bootstrap.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+</body>
+</html>

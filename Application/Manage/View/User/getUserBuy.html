@@ -1,0 +1,111 @@
+<include file="Common:header"/>
+    <link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="__PLUGINS_PATH__/datapicker/datepicker3.css" rel="stylesheet" />
+    <!--用户消费列表-->
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+             	<div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline" action="__ACTION__" method="get">
+                            <div class="form-group">
+                                <label for="startdate" class="sr-only">消费开始时间</label>
+                                <input type="text" id="startdate" name="start_paytime" value="{$start_paytime}" class="form-control" placeholder="消费开始日期">
+                            </div>
+                            <div class="form-group">
+                                <label for="enddate" class="sr-only">消费结束时间</label>
+                                <input type="text" name="end_paytime" value="{$end_paytime}" id="enddate" class="form-control" placeholder="消费结束日期" >
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputAmount" class="sr-only">消费金额大于</label>
+                                <div class="input-group"><span class="input-group-addon">¥</span>
+                                	<input type="text" class="form-control" id="exampleInputAmount" name='buy_money' value="{$buy_money}" placeholder="消费金额大于">
+                                </div>
+                            </div>
+                        	<input class="btn btn-primary" type="submit" value="筛选" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+                                <tr>
+                                    <th>用户编号</th>
+                                    <th>用户名/Email</th>
+                                    <th>城市</th>
+                                    <th>余额</th>
+                                    <th>注册时间</th>
+                                    <th>手机号码</th>
+                                	<th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="data" id="user">
+			                        <tr>
+			                            <td><i class="text-info">{$user['id']}</i></td>
+			                            <td>{$user['username']}/{$user['email']}</td>
+			                            <td>{$user['name']}</td>
+			                            <td>{$user['money']}</td>
+			                            <td>{$user['create_time']|date="Y-m-d",###}</td>
+			                            <td>{$user['mobile']}</td>
+			                            <td>
+			                                <if condition="$res = auth_check_access(array('User/getUserInfo'))">
+			                                    <button class="btn btn-info btn-sm J_menuItem layer-iframe" data-href="__URL__/getUserInfo/user_id/{$user[\'id\']}" data-title="用户详情"><i class="fa fa-binoculars"></i> 详情</button>
+			                                </if>
+			                                <if condition="$res = auth_check_access(array('User/getUserFlow'))">
+			                                    <button class="btn btn-info btn-sm J_menuItem layer-iframe"data-href="__URL__/getUserFlow/user_id/{$user[\'id\']}" data-title="用户详情"><i class="fa fa-list-alt"></i> 流水</button>
+			                                </if>
+			                            </td>
+			                        </tr>
+			                    </volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$pages}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.config.js"></script>
+    <script src="__PLUGINS_PATH__/datapicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		var $endtime;
+    		$("#startdate").datepicker({
+    			format: "yyyy-mm-dd",
+				endDate:new Date()
+    		}).on("changeDate",function(){
+    			$endtime = $(this).val();
+				$("#enddate").datepicker({
+					 	startDate:new Date($endtime),
+					 	endDate:new Date()
+						 });
+    		})
+    	})
+    </script>
+</body>
+
+
+</html>

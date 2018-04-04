@@ -1,0 +1,21 @@
+<!--左侧导航-->
+<div class="tab-menu">
+	<ul>
+		<if condition="$res = auth_check_access(array('PointsTeam/index'))">
+			<li><a href="{:U('PointsTeam/index')}">积分商城</a><label>&nbsp;</label></li>
+		</if>
+		<if condition="$res = auth_check_access(array('PointsTeam/convertRecord'))">
+			<li><a href="{:U('PointsTeam/convertRecord')}">兑换记录</a><label>&nbsp;</label></li>
+		</if>
+		<if condition="$res = auth_check_access(array('PointsTeam/rule'))">
+			<li><a href="{:U('PointsTeam/rule')}">积分规则</a><label>&nbsp;</label></li>
+		</if>
+		<if condition="$res = auth_check_access(array('PointsTeam/scoreList'))">	
+			<li><a href="{:U('PointsTeam/scoreList')}">积分记录</a><label>&nbsp;</label></li>
+		</if>
+	</ul>
+</div>
+<div class="nav-dis-menu">
+		<label>&nbsp;</label>
+		
+</div>

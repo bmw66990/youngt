@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title>{$title|default='圣诞元旦主会场'}</title>
+        <!--    <script src="js/jquery-1.11.3.min.js"></script>-->
+        <script type="text/javascript" src="__JS_PATH__/jquery-1.7.2.js"></script>
+        <link href="__CSS_PATH__/active_common.css?v={:C('CSS_VER')}" rel="stylesheet"/>
+        <script src="__JS_PATH__/active.js?v={:C('JS_VER')}"></script>
+        <link href="__PLUGINS_PATH__/countdown/load.css?v={:C('CSS_VER')}" rel="stylesheet"/>
+        <script src="__PLUGINS_PATH__/countdown/jquery.countdown.js?v={:C('JS_VER')}"></script>
+    </head>
+    <body>
+        <header>
+            <div class="top">
+                <div class="logo"><a href="{:U('/')}" title="返回青团首页"><img src="__IMAGE_PATH__/active/logo.jpg" ></a></div>
+                <div class="nav">
+                    <li><a href="{:U('/')}">首页</a></li>
+                    <li><a href="{:U('Category/today')}">今日新单</a></li>
+                    <li><a href="{:U('Category/index',array('gid'=>255))}">美食</a></li>
+                    <li><a href="{:U('Category/index',array('gid'=>12,'sid'=>420))}">电影</a></li>
+                    <li><a href="{:U('Category/index',array('gid'=>404,'sid'=>13))}">酒店</a></li>
+                    <li><a href="{:U('Around/index')}">附近团购</a></li>
+                </div>
+                <div class="login">
+                    <!--<span>欢迎您，请 <a class="default" href="">登录</a></span>//未登录状态-->
+                    <span id="youngt-login"></span> | <span id="youngt-register"></span>
+                </div>
+            </div>
+        </header>
+        <script type="text/javascript">
+                    var $base_url = '__APP__';
+            window.$base_url = '__APP__';
+
+            $(function() {
+                // 判断是否登录
+                $.get("{:U('Public/isLogin')}", function(data) {
+                    if (data.status == 1) {
+                        ISLOGIN = 1;
+                        $('span#youngt-login').html("<a href='" + $base_url + "/Member/index'>Hi:" + data.username + "</a>").css('padding', '0 5px');
+                        $('span#youngt-register').html("<a href='" + $base_url + "/Public/logout'>退出</a>");
+                    } else {
+                        ISLOGIN = 0;
+                        $('span#youngt-login').html("<a href='" + $base_url + "/Public/login'>登录</a>");
+                        $('span#youngt-register').html("<a href='" + $base_url + "/Public/register'>注册</a>");
+                    }
+                })
+            });
+            /**
+             *     倒计时插件
+             */
+            function active_time_Countdown($nowTime, $labeTime, _cb) {
+
+                if (!$nowTime || !$labeTime || !_cb) {
+                    return false;
+                }
+
+                //计算剩余时间
+                $nowTime = parseInt($nowTime);
+                $labeTime = parseInt($labeTime);
+
+                //秒
+                var $numTime = parseInt($labeTime - $nowTime);
+                if ($numTime < 0) {
+                    return false;
+                }
+
+                var TyTime = function(timestr) {
+                    if (String(timestr).length < 2) {
+                        timestr = "0" + timestr;
+                    } else {
+                        timestr = timestr;
+                    }
+                    return timestr;
+                }
+
+                var $day = TyTime(Math.floor($numTime / (24 * 3600)));
+                var $hour = TyTime(Math.floor(($numTime % (24 * 3600)) / 3600));
+                var $min = TyTime(Math.floor((($numTime % (24 * 3600)) % 3600) / 60));
+                var $sec = TyTime(Math.floor((($numTime % (24 * 3600)) % 3600) % 60));
+                $('#counter').countdown({
+                    image: '__PLUGINS_PATH__/countdown/digits.png',
+                    timerEnd: _cb,
+                    startTime: $day + ":" + $hour + ":" + $min + ":" + $sec
+
+                });
+
+            }
+
+        </script>

@@ -1,0 +1,48 @@
+/* 弹出登录窗 */
+.fast{width: 360px; z-index: 102;position:absolute;}
+.mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+.mt-dialog a{color:#2BB8AA}
+.mt-dialog a:hover{text-decoration:underline;}
+.mt-dialog .head {background: none repeat scroll 0 0 #F7F7F7;color: #333333;height: 40px;line-height: 40px;padding: 0 15px;position: relative;}
+.mt-dialog .head .close {background:url(../Image/dialog.vf4578d5e.png) no-repeat 0 -318px;cursor: pointer;font-weight: normal;height: 13px;line-height: 13px;position: absolute;right: 14px;text-indent: -9999px;top: 14px;width: 13px;}
+.mt-dialog .body {overflow: hidden;padding: 30px;}
+.component-login-section--dialog {margin: 0 20px;}
+.component-login-section {width: 260px;}
+.component-login-section h2 a {color: #666666;float: right;font-size: 12px; padding-right: 16px;position: relative;}
+.component-login-section h2 .login-type i { background: url(../Image/sp-login.vdea40f40.png) no-repeat scroll -72px 1px rgba(0, 0, 0, 0);height: 14px;margin-top: -7px; position: absolute;right: 0;top: 50%;width: 14px;}
+.component-login-section h2 .login-type--normal i {background-position: -57px 1px;}
+.component-login-section .form--stack .form-field {padding: 7px 0;}
+.component-login-section .form-field--icon {position: relative;}
+.component-login-section .icon-user {background-position: 0 0;}
+.component-login-section .icon-password {background-position: 0 -20px;}
+.component-login-section .icon-phone {background-position: 0 -40px;}
+.oauth .oauth__link--qq i {background-position: 0 -240px;}
+.component-login-section .icon {display: inline-block;height: 18px;left: 9px;line-height: 18px;position: absolute;top: 14px;vertical-align: text-top;width: 18px;}
+.icon-login-sprite, .component-login-section .icon-user, .component-login-section .icon-password, .component-login-section .icon-phone {background: url(../Image/icon-login.vf884142e.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);}
+.component-login-section .form-field--icon .f-text {padding-left: 33px;width: 220px;}
+.w260{width:260px;}
+.component-login-section .icon-phone {background-position: 0 -40px;}
+.component-login-section .verify-mobile {margin-top: 8px;}
+.f-text{height:20px;line-height:20px;padding:5px;vertical-align:top;border:1px solid #89B4D6;font-size:14px;width:320px;}
+.btn-1 {background-color: #2DB3A6;background-image: -moz-linear-gradient(center top , #2EC3B4, #2DB3A6);border-color: #0D7B71;color: #FFFFFF;-moz-user-select: none;
+background-repeat: repeat-x;border-radius: 2px;border-style: solid;border-width: 0 0 1px;cursor: pointer;display: inline-block;font-family: 'SimSun',Arial;font-size: 14px;font-weight: bold;letter-spacing: 0.1em;line-height: 1.5;padding: 7px 20px 6px; text-align: center;text-decoration: none;vertical-align: middle;}
+.btn-1:hover, .btn-1.hover, .btn-1:focus {background-color: #2EB7AA;background-image: -moz-linear-gradient(center top , #38D0C3, #2EB7AA);border-color: #0E8177;color: #FFFFFF;}
+.btn-normal {-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #DEDEDE;background-image: -moz-linear-gradient(center top , #F7F7F7, #DEDEDE);border-color: #E3E3E3 #E3E3E3 #AAAAAA;border-image: none;
+border-style: solid;border-width: 1px;color: #333333;cursor: pointer;}
+.btn-normal:hover, .btn-normal.hover, .btn-normal:focus {-moz-border-bottom-colors: none; -moz-border-left-colors: none;
+-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #E9E9E9;background-image: -moz-linear-gradient(center top , #FFFFFF, #E9E9E9);border-color: #E5E5E5 #E5E5E5 #B3B3B3;border-image: none;border-style: solid;border-width: 1px;color: #333333;}
+.btn-normal:active, .btn-normal.active {-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #EFEFFE;background-image: -moz-linear-gradient(center top , #E0E0E0, #EFEFEF);border-color: #D7D7D7 #D7D7D7 #ABAAAA;border-image: none;border-style: solid;border-width: 1px;color: #333333;}
+.component-login-section .icon-password {background-position: 0 -20px;}
+.component-login-section .form-field--auto-login .forget-password {float: right; color: #2BB8AA;}
+.component-login-section .oauth-wrapper h3 {color: #999999; font-size: 12px;font-weight: normal;margin-bottom: 5px;}
+.oauth li { float: left;margin: 0 8px 5px 0;min-width: 3.2em;position: relative;}
+.oauth .oauth__link {color: #999999;font-size: 12px;}
+.oauth .oauth__link i {display: inline-block; height: 17px; margin-right: 5px;vertical-align: -3px;width: 17px;}
+.oauth .oauth__link:hover {color: #2BB8AA;}
+.icon-oauth-sprite, .oauth .oauth__link--qq i, .oauth .oauth__link--qq:hover i, .oauth .oauth__link--baidu i, .oauth .oauth__link--baidu:hover i, .oauth .oauth__link--qihu360 i, .oauth .oauth__link--qihu360:hover i, .oauth .oauth__link--alipay i, .oauth .oauth__link--alipay:hover i, .oauth .oauth__link--weibo i, .oauth .oauth__link--weibo:hover i, .oauth .oauth__link--kaixin i, .oauth .oauth__link--kaixin:hover i, .oauth .oauth__link--cmpay i, .oauth .oauth__link--cmpay:hover i, .oauth .oauth__link--tuan800 i, .oauth .oauth__link--tuan800:hover i {background: url(../Image/icon-oauth.vef2f7236.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);}
+.oauth .oauth__link--qq i { background-position: 0 -240px;}
+.oauth .oauth__link--qq:hover i {background-position: 0 -20px;}
+.oauth .oauth__link--weibo i { background-position: 0 -160px;}
+.oauth .oauth__link--weibo:hover i {background-position: 0 -120px;}
+.oauth .oauth__link--qihu360 i {background-position: 0 -200px;}
+.oauth .oauth__link--qihu360:hover i {background-position: 0 0;}

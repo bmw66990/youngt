@@ -1,0 +1,67 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+		<div class="con-title">{$groupInfo.username}<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<div class="myform">
+				<li><select name="uid" gid="{$gid}" id="group-select-uid">
+					<option value="">--成员--</option>
+					<volist name="userList" id="user">
+						<option value="{$user.id}" <eq name="searchValue.uid" value="$user.id">selected</eq>>{$user.realname}</option>
+					</volist>
+						<option value="adduser">+添加成员</option>
+					</select>
+				</li>
+				<li><select gid="{$gid}" id="group-select-item">
+					<option value="">--项目选项--</option>
+					<option value="">小组设置</option>
+					<option value="">任务回收站</option>
+					<option value="exitgroup">—退出小组</option>
+					<option value="">-小组归档</option>
+					</select>
+				</li>
+				<li><select name="type" gid="{$gid}" id="group-select-type">
+						<option value="0">--筛选--</option>
+						<option value="1" <eq name="searchValue.type" value="1">selected</eq>>分配给我的任务</option>
+						<option value="2" <eq name="searchValue.type" value="2">selected</eq>>我创建的任务</option>
+					</select>
+				</li>
+				<li class="w120 tx-teal"><a href="javascript:;" onclick="popup('{:U('Workbench/addTask', array('gid' => $gid))}',650,550)">新建任务</a></li>
+			</div>
+			<div class="con-s-title">
+				<label <eq name="searchValue.state" value="done"> class="currt"</eq>><a href="{:U('Workbench/groupTask', array('gid'=>$gid,'state' => 'done'))}">待完成</a></label>
+				<label <eq name="searchValue.state" value="expire"> class="currt"</eq>><a href="{:U('Workbench/groupTask', array('gid'=>$gid,'state' => 'expire'))}">已过期</a></label>
+				<label <eq name="searchValue.state" value="complete"> class="currt"</eq>><a href="{:U('Workbench/groupTask', array('gid'=>$gid,'state' => 'complete'))}">已完成</a></label></div>
+			<div class="form-list">
+				<div class="task">
+					<ul>
+						<volist name="data" id="row">
+						<li>
+							<span><label><!-- <input type="checkbox" > --><a href="#">{$row.title}</a></label><label class="tx-grey f-12">{$row.desc}</label></span>
+							<span class="overshow" style="display:none;"><lable class="btn-teal"><a href="#">激活</a></lable></span>
+							<span>
+								<label>
+									<volist name="row.user" id="li">
+										<if condition="$userList[$li]['avatar'] neq ''">
+											<img src="{$userList[$li]['avatar']|getImagePath}" title="{$userList[$li]['realname']}">
+										<else />
+											<img src="__IMAGE_PATH__/nophoto.jpg" title="{$userList[$li]['realname']}">
+										</if>
+									</volist>
+								</label>
+							</span>
+						</li>
+						</volist>
+					</ul>
+				</div>
+				<div class="selectpage">
+					<div class="pagenumber">{$pages}</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/workbench.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

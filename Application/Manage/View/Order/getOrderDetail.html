@@ -1,0 +1,100 @@
+<include file="Common:header"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                    	<if condition="$error neq ''">
+				        <p class="text-danger text-center">{$error}</p>
+				        <else />
+                        <form method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户信息</label>
+                                <div class="col-sm-6">
+                        			<p class="form-control-static">{$data['username']}/{$data['email']}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">项目名称</label>
+                                <div class="col-sm-6">
+                                	<p class="form-control-static"><i class="text-danger">{$data['team_id']}</i>（{$data['product']}）× {$data['quantity']}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">付款明细</label>
+                                <div class="col-sm-6">
+                                	<p class="form-control-static">余额支付<i class="text-danger">{$data['credit']}</i>   {$data['service']|order_service=""}支付<i class="text-danger">{$data['money']}</i></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">下单时间</label>
+                                <div class="col-sm-6">
+                                	<p class="form-control-static">	{$data['create_time']|date="Y-m-d H:i:s",###}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">付款时间</label>
+                                <div class="col-sm-6">
+                                	<p class="form-control-static">
+                                		<if condition="$data['state'] eq 'pay'">{$data['pay_time']|date="Y-m-d H:i:s",###}</if>&nbsp;
+                                		<i class="text-danger">{$data['state']|order_state=""}</i>
+                                	</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">订单来源</label>
+                                <div class="col-sm-6">
+                                			<p class="form-control-static">	{$data['source']}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">退款原因</label>
+                                <div class="col-sm-6">
+                                    <p class="form-control-static">	{$data['rereason']}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">联系手机</label>
+                                <div class="col-sm-6">
+                                	<p class="form-control-static">{$data['mobile']}</p>
+                                </div>
+                            </div>
+                            <notempty name="data.coupon">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">青团券</label>
+                                <div class="col-sm-8">
+                                	<volist name="data['coupon']" id="coupon">
+				                        <p class="form-control-static">
+                                        {$coupon['id']} {$coupon['consume']|coupon_state=""}
+                                        <if condition="$coupon['consume_time'] neq 0">，消费时间：{$coupon['consume_time']|date="Y-m-d H:i:s",###}</if>
+                                        </p>
+				                    </volist>
+                                </div>
+                            </div>
+                            </notempty>
+                            <notempty name="data.ota">
+                            <div class="form-group">
+                                <!-- <h4>OTA信息</h4> -->
+                                <label class="col-sm-3 control-label">OTA信息</label>
+                                <ul class="unstyled col-sm-6">
+                                    <li class="form-control-static"><label style="width:60px;">姓名</label>: {$data.ota.link_name}</li>
+                                    <li class="form-control-static"><label style="width:60px;">手机</label>: {$data.ota.link_phone}</li>
+                                    <li class="form-control-static"><label style="width:60px;">证件号</label>: {$data.ota.link_cno}</li>
+                                    <li class="form-control-static"><label style="width:60px;">游玩日期</label>: {$data.ota.pro_sdate}</li>
+                                    <li class="form-control-static"><label style="width:60px;">入园凭证</label>: {$data.ota.ecode|default = '暂无'}</li>
+                                    <li class="form-control-static"><label style="width:60px;">状态</label>: {$data.ota.status|default = '暂无'}</li>
+                                </ul>
+                            </div>
+                            </notempty>
+                        </form>
+                    	</if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<include file="Common:header" />
+<style type="text/css">
+   body{background-color:#f7f7f7;}
+  </style>
+
+<!-- 顶部 -->
+<div class="am-g am-padding-sm" style="background-color:#f7f7f7;">
+    <div class="am-u-sm-12">
+        <div class="am-u-sm-5 am-fl">
+            <img src="__IMAGE_PATH__/logo.png" class="am-img-responsive am-fl" style="width:80%;">
+        </div>
+        <div class="am-u-sm-7">
+            <span class="am-text-danger am-text-lg am-text-middle am-fr">&nbsp;4000-998-433</span>
+            <img src="__IMAGE_PATH__/icon-tel.png" class="am-img-responsive am-fr" style="width:15%;">
+        </div>
+    </div>
+</div>
+
+
+<!-- 主体内容 -->
+<div class="am-g am-padding-lg">
+    <!--步骤-->
+    <div class="am-container am-center" style="height:50px;">
+        <ul class="am-avg-sm-3" style="position:relative;">
+            <li>
+              <div class="am-container am-round" style="width:50px;height:50px;background-color:#ddd;position:relative;z-index:2;">
+                <div class="am-text-center am-text-lg am-round"  style="width:30px;height:30px;top:10px;left:10px;background-color:#5eb95e;position:absolute;color:#fff;">1</div>
+              </div>
+            </li>
+            <li>
+              <div class="am-container am-round" style="width:50px;height:50px;background-color:#ddd;position:relative;z-index:2;">
+                <div class="step2 am-round am-text-center am-text-lg" style="width:30px;height:30px;top:10px;left:10px;background-color:#5eb95e;position:absolute;color:#fff;display:block;">2</div>
+              </div>
+            </li>
+            <li>
+              <div class="am-container am-round" style="width:50px;height:50px;background-color:#ddd;position:relative;z-index:2;">
+                <div class="step3 am-text-lg am-text-center am-round" style="width:30px;height:30px;top:10px;left:10px;background-color:#5eb95e;position:absolute;color:#fff;display:block;"><i class="am-icon-check"></i></div>
+              </div>
+            </li>
+            <div class="am-vertical-align-middle" style="width:70%;height:16px;background-color:#ddd;z-index:1;position:absolute;left:50%;top:35%;transform:translate(-50%);overflow:hidden;">
+              <ul class="am-avg-sm-2" style="">
+                <li>
+                  <div class="am-progress am-progress-striped">
+                    <div class="progress1 am-progress-bar am-progress-bar-success" style="width:100%;height:8px;margin-top:4px;display:block;"></div>
+                  </div>
+                </li>
+                <li>
+                  <div class="am-progress am-progress-striped">
+                    <div class="progress2 am-progress-bar am-progress-bar-success" style="width:100%;height:8px;margin-top:4px;display:block;"></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+        </ul>
+    </div>
+</div>
+
+
+<!--恭喜赚钱-->
+<div class="makeMonery am-container" style="display:block;">
+    <div class="am-g am-text-center am-padding-lg">
+        <span class="am-text-lg">恭喜您！可以开始赚钱了</span>
+    </div>
+</div>
+
+<!--底部 -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-no-layout" >
+    <ul class="am-navbar-nav am-cf am-avg-sm-4">
+        <li>
+            <a href="{:U('Index/index')}" >
+            <span class="am-icon-home"></span>
+            <span class="am-navbar-label">首页</span>
+            </a>
+        </li>
+     
+        <li>
+            <a href="###">
+                <span class="am-icon-compass"></span>
+                <span class="am-navbar-label">附近</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/index')}">
+                <span class="am-icon-user"></span>
+                <span class="am-navbar-label">个人中心</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/bus_recommend')}" style="color:#e60827">
+                <span class="am-icon-bookmark"></span>
+                <span class="am-navbar-label">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script src="__JS_PATH__/amazeui.min.js"></script>
+</body>
+</html>

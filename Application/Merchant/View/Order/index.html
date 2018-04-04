@@ -1,0 +1,155 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">订单管理</a>
+            </li>
+            <li class="active">邮购订单管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                邮购订单管理
+            </h1>
+        </div>
+        <!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <include file="Common:message_tip" /> 
+                <style>
+                    table#order-manage-list td{
+                            vertical-align: middle;
+                    }
+       </style>
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="tab-content">
+                    <div id="basicinfo" class="tab-pane active">
+                        <table id="order-manage-list" class="table table-bordered table-striped">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>
+                                        <i class="icon-tag blue"></i> 商品名称
+                                    </th>
+                                   
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 型号
+                                    </th>
+                                  
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 用户
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 收货时间
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 支付金额
+                                    </th>
+                                    
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 结算金额
+                                    </th>
+                                    
+                                     <th>
+                                        <i class="icon-caret-right blue"></i> 购买时间
+                                    </th>
+                                    
+                                     <th>
+                                        <i class="icon-caret-right blue"></i> 操作
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="list" id="vo">
+                                <tr>
+                                    <td>
+                                       {$vo['team_product']}
+                                    </td>
+                                    
+                                    <td>{$vo.pay_detail}</td>
+                                    <td>{$vo.user_username}</td>
+                                    <td>{$vo.order_delivery_time}</td>
+                                    <td>{$vo.order_origin|default='0.00'}</td>
+                                    <td>{$vo.order_all_ucaii_money|default='0.00'}</td>
+                                    <td>{$vo.order_pay_time}</td>
+                                     
+                                    <td>
+                                        <if condition="$res = auth_check_access(array('Order/orderDeliverGoodsView'))">
+                                            <p>
+                                            <a href='javascript:void(0);' data-url="{:U('Order/orderDeliverGoodsView',array('order_id'=>$vo['order_id'],'action'=>'viewgoods'))}" class="order-deliver-goods-view openifram" data-w='450'>详情</a><br/>
+                                            </p>
+                                        </if>
+                                        <if condition="$vo.order_rstate eq 'normal'">
+                                        <p>
+                                            <if condition="$vo.order_mail_order_pay_state eq 1">
+                                                已发货
+                                                <elseif condition="$vo.order_mail_order_pay_state eq 2"/>
+                                                已收货
+                                                <else/>
+                                                <if condition="$res = auth_check_access(array('Order/orderDeliverGoodsView'))">
+                                                    <a href='javascript:void(0);' data-url="{:U('Order/orderDeliverGoodsView',array('order_id'=>$vo['order_id']))}" class="order-deliver-goods-view openifram" data-w='450' data-h='450'>发货</a>
+                                                </if>
+                                            </if>
+                                        </p>
+                                            <if condition="$res = auth_check_access(array('Order/orderLogisticsView'))">
+                                                <if condition="$vo.order_mail_order_pay_state egt '1'">
+                                                    <p><a href='javascript:void(0);' data-url="{:U('Order/orderLogisticsView',array('order_id'=>$vo['order_id']))}" class="order-logistics-view openifram" data-w='800' data-h='450'>查看物流</a></p>
+                                                </if>
+                                            </if>
+                                            <elseif condition="$vo.order_rstate eq 'askrefund'"/>
+                                            <p>申请退款中</p>
+                                            <elseif condition="$vo.order_rstate eq 'berefund'"/>
+                                            <p>已申请退款</p>
+                                        </if>
+                                   </td>
+                                </tr>
+                        </volist>
+                            </tbody>
+
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="sample-table-2_info"> 全部{$count}条</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_bootstrap">
+                                    {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+         // 申请上线提示
+     
+    });
+</script>

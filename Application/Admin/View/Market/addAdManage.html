@@ -1,0 +1,43 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">新建广告<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('Market/doAddAdManage')}" method="post">
+                <ul class="li-onlyline">
+                    <li><label>显示城市</label>
+                        <select name="cityid">
+                            <option value="0">所有城市</option>
+                            <volist name="all_city" id="vo">
+                                <option value="{$vo['id']}">{$vo.letter}{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>广告类型</label>
+                        <select name="type">
+                            <option value="">所有类型</option>
+                            <volist name="adManageType" id="vo">
+                                <option value="{$vo['val']}">{$vo['name']}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>广告标题</label><input class="w300" type="text" name="textarr"></li>
+                    <li><label>广告链接</label><input class="w300" type="text" name="linkarr"></li>
+                    <li><label>上传图片</label><span style="width:700px;display:inline-block;">
+						<include file="upload" />
+						<input type="hidden" name="picarr" id="uploadimage" value="">
+					</span></li>
+                    <li><label>结束时间</label><input class="w100" type="text" name="end_time"></li>
+                    <li><label>排序</label><input class="w70" type="text" name="sort_order"></li>
+                    <li><input class="small-btn btn-teal w100 h40" type="submit" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Partner/uploadImg',array('type'=>'Admanage'))}";
+</script>

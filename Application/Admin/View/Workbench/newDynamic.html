@@ -1,0 +1,30 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">最新动态<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="form-list">
+                <div class="dongtai">
+                    <ul>
+                        <volist name="data" id="row">
+                        <li>
+                            <span><img src="__IMAGE_PATH__/nophoto.jpg" /> {$row['admin_name']}</span>
+                            <span><label class="f-16">{$row['remark_content']}</label><label class="f-12 tx-grey">{$row['task_title']}</label></span>
+                            <span class="tx-grey f-12"><label>{$row['create_time']|date="Y-m-d H:i",###}</label><label>{$row['group_name']}</label></span>
+                        </li>
+                        </volist>
+                    </ul>
+                </div>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                       {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/workbench.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

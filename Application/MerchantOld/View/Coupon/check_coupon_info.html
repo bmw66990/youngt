@@ -1,0 +1,101 @@
+
+<div class="panel panel-warning mt10">
+    <div class="panel-heading text-center f-fs2">
+        <b>{$team['product']}</b>
+    </div>
+
+    <div class="panel-body f-fs2 shyz">
+
+        <ul class="list-group">
+            <li class="list-group-item f-toe">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">详情:</label>
+                    <div class="col-sm-10 f-toe">
+                        {$team['title']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">商户名称:</label>
+                    <div class="col-sm-10">
+                        {$partner['username']}
+                    </div>
+                </div>
+            </li>
+            <if condition="$coupon['consume'] eq Y">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">验证时间:</label>
+                        <div class="col-sm-10">
+                            {$coupon['consume_time']|date="Y-m-d H:i:s",###}
+                        </div>
+                    </div>
+                </li>
+                <else />	
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">过期时间:</label>
+                        <div class="col-sm-10">
+                            {$coupon['expire_time']|date="Y-m-d",###}
+                        </div>
+                    </div>
+                </li>
+            </if>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">消费金额:</label>
+                    <div class="col-sm-10">
+                        {$team['team_price']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">券号:</label>
+                    <div class="col-sm-10">
+                        {$coupon['id']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">状态:</label>
+                    <div class="col-sm-10 fac">
+
+                        <if condition="$coupon['consume'] eq 'Y'">
+                            已消费
+                            <elseif condition="$coupon['consume'] eq 'N'" />
+                            <if condition="$coupon['expire_time'] lt $time">
+                                已过期
+                                <else />
+                                未消费
+                            </if>
+                        </if>		
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+<if condition="$coupon['consume'] eq 'Y'">
+    <div class="f-ti qtqyzxf">已消费</div>
+    <elseif condition="$coupon['consume'] eq 'N'" />
+    <if condition="$coupon['expire_time'] lt $time">
+        <div class="f-ti qtqyzgq">已过期</div>
+        <else />
+        <div class="f-ti qtqyzwxf">未消费</div>
+    </if>
+</if>
+<div class="checkbox text-center">
+     <button style="padding:8px 90px;background-color:#2fb7ab" class="btn btn-warning"  type="button" onclick="javascript:history.back(-1);">
+                返回
+     </button>
+</div>			

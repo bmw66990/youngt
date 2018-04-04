@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>添加成员</title>
+    <link rel="stylesheet" href="__CSS_PATH__/widget.css" />
+    <link rel="stylesheet" href="__CSS_PATH__/pop.css" />
+    <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+    <style>
+        .selected{border: 1px solid red;}
+    </style>
+</head>
+<body>
+<div class="fancycreate" style="width: 90%">
+    <if condition="$error neq ''">
+        <p class="error">{$error}</p>
+    <else />
+    <form name="myform">
+        <li>
+            <label>邀请成员</label>
+            <volist name="data" id="row">
+                <label class="add-person">
+                    <span>
+                       <notempty name="row.avatar">
+                           <img src="{$row.avatar|getImagePath}" id="user{$row.id}" uid="{$row.id}" title="{$row.name}">
+                           <else />
+                           <img src="__IMAGE_PATH__/nophoto.jpg" id="user{$row.id}" uid="{$row.id}" title="{$row.name}">
+                       </notempty>
+                    </span>
+                </label>
+            </volist>
+        </li>
+        <li><input type="submit" value="确定" class="btn-teal"></li>
+    </form>
+    </if>
+</div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        var userList = [];
+        $(".add-person img").click(function(){
+            var uid=$(this).attr('uid');
+            if($(this).hasClass('selected')) {
+                for(i=0;i<userList.length;i++){
+                    if(userList[i] == uid){
+                        userList.splice(i,1);
+                        break;
+                    }
+                }
+                $(this).removeClass('selected');
+            }else{
+                $(this).addClass('selected');
+                userList.push(uid);
+            }
+        });
+
+        $(":submit").click(function() {
+            if(userList.length==0){
+                alert('请选择用户');
+                return false;
+            }
+            var id = "{$id}";
+            var url = "{:U('Workbench/ajaxAddTaskPerse')}";
+            $.post(url,{id:id,user_ids:userList.join('-')},function(data){
+                if(data.status == -1){
+                    alert(error);
+                }else{
+                    window.parent.jQuery.fancybox.close();
+                    window.parent.location.reload();
+                }
+            });
+            return false;
+        });
+    })
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!--<script src="__PLUGINS_PATH__/morris/raphael-2.1.0.min.js"></script>
+<script src="__PLUGINS_PATH__/morris/morris.js"></script>-->
+<!--[if lte IE 8]><script src="__JS_PATH__/excanvas.min.js"></script><![endif]-->
+<script src="__PLUGINS_PATH__/flot/jquery.flot.js"></script>
+<script src="__PLUGINS_PATH__/flot/jquery.flot.tooltip.min.js"></script>
+<script src="__PLUGINS_PATH__/flot/jquery.flot.resize.js"></script>
+<script src="__PLUGINS_PATH__/flot/jquery.flot.pie.js"></script>
+<script type="text/javascript">
+$(function(){
+  $.get("{:U('Chart/async', array('page' => $curPage))}",function(data){
+    $("#count-table tr:last").after(data.html);
+    var bathroomData = data.chart;
+    if(bathroomData==''){
+      return false;
+    }
+    $("#morris-chart-line i").remove();
+    var bathroomIDs = [ "r0", "r1", "r2", "r3", "r4", "r5", "r6"];
+    var bathroomNames = [ "实际销售", "付款销售", "余额销售", "PC销售", "WAP销售", "Android销售", "IOS销售" ];
+    Morris.Line({
+       element: "morris-chart-line",
+       data: bathroomData,
+       xkey: "day",
+       xLabels: "day",
+       ykeys: bathroomIDs,
+       labels: bathroomNames,
+       lineColors: ['#54cdb4','#1ab394'],
+    });
+  });
+  
+})
+</script>

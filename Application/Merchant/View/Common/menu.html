@@ -1,0 +1,370 @@
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+
+        <div class="sidebar" id="sidebar">
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('sidebar', 'fixed')
+                } catch (e) {
+                }
+            </script>
+
+            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                    <button class="btn btn-success" onClick="window.open('http://{$Think.server.http_host}/Partner/index/partner_id/{$partners_info.id}.html')" title="店铺首页">
+                        <i class="icon-home"></i>
+                    </button>
+                      <if condition="$res = auth_check_access(array('Coupon/index'))">
+                        <button class="btn btn-info" onClick="location.href ='{:U('Coupon/index')}'" title="消费验证">
+                            <i class="icon-tag"></i>
+                        </button>
+                      </if>
+                     <if condition="$res = auth_check_access(array('Order/index'))">
+                        <button class="btn btn-warning" onClick="location.href = '{:U('Order/index')}'" title="邮购订单">
+                            <i class="icon-briefcase"></i>
+                        </button>
+                     </if>
+                    <if condition="$res = auth_check_access(array('Review/index'))">
+                        <button class="btn btn-q" onClick="location.href = '{:U('Review/index')}'" title="用户评分">
+                            <i class="icon-comments-alt"></i>
+                        </button>
+                    </if>
+                </div>
+
+                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                    <span class="btn btn-success"></span>
+
+                    <span class="btn btn-info"></span>
+
+                    <span class="btn btn-warning"></span>
+
+                    <span class="btn btn-danger"></span>
+                </div>
+            </div><!-- #sidebar-shortcuts -->
+
+            <ul class="nav nav-list">
+                <if condition="$res = auth_check_access(array('Coupon/index'))">
+                <li>
+                    <a href="{:U('Coupon/index')}">
+                        <i class="icon-dashboard"></i>
+                        <span class="menu-text"> 首页 </span>
+                    </a>
+                </li>
+                </if>
+                <if condition="$res = auth_check_access(array('Partner/index','Branch/index','User/accessManager','DB/index'))">
+                <li>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-gear"></i>
+                        <span class="menu-text"> 基本设置 </span>
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+          
+                    <ul class="submenu">
+                        <if condition="$res = auth_check_access(array('Partner/index'))">
+                        <li>
+                            <a href="{:U('Partner/index')}">
+                                <i class="icon-double-angle-right"></i>
+                                商家设置
+                            </a>
+                        </li>
+                        </if>
+                        <if condition="$res = auth_check_access(array('Branch/index'))">
+                        <li>
+                            <a href="{:U('Branch/index')}">
+                                <i class="icon-double-angle-right"></i>
+                                分店管理
+                            </a>
+                        </li>
+                        </if>
+                       <if condition="$res = auth_check_access(array('User/accessManager'))">
+                        <li>
+                            <a href="{:U('User/accessManager')}">
+                                <i class="icon-double-angle-right"></i>
+                                店员管理
+                            </a>
+                        </li>
+                       </if>
+                       <if condition="$res = auth_check_access(array('DB/index'))">
+                        <li>
+                            <a href="{:U('DB/index')}">
+                                <i class="icon-double-angle-right"></i>
+                                联系业务员
+                            </a>
+                        </li>
+                       </if>
+                    </ul>
+                </li>
+                </if>
+                <if condition="$res = auth_check_access(array('Coupon/couponDetail','Final/index','Final/mailGoodsIndex'))">
+                <li>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-bar-chart"></i>
+                        <span class="menu-text"> 财务账单 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu">
+                        <li>
+                            <a href="{:U('Coupay/index')}">
+                                <i class="icon-double-angle-right"></i>
+                                 消费明细
+                            </a>
+                        </li>
+                         <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                        <li>
+                            <a href="{:U('Coupon/couponDetail')}">
+                                <i class="icon-double-angle-right"></i>
+                                青团券明细
+                            </a>
+                        </li>
+                         </if>
+                          <if condition="$res = auth_check_access(array('Final/index'))">
+                            <li>
+                                <a href="{:U('Final/index')}">
+                                    <i class="icon-double-angle-right"></i>
+                                    申请结算
+                                </a>
+                            </li>	
+                          </if>
+                          <if condition="$res = auth_check_access(array('Final/mailGoodsIndex'))">
+                            <li>
+                                <a href="{:U('Final/mailGoodsIndex')}">
+                                    <i class="icon-double-angle-right"></i>
+                                    邮购申请结算
+                                </a>
+                            </li>	
+                          </if>
+                          <if condition="$res = auth_check_access(array('Final/discountIndex'))">
+                            <li>
+                                <a href="{:U('Final/discountIndex')}">
+                                    <i class="icon-double-angle-right"></i>
+                                    优惠买单申请结算
+                                </a>
+                            </li>
+                          </if>
+                    </ul>
+                </li>
+                </if>
+
+                <!--                <li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-bookmark"></i>
+                                        <span class="menu-text"> 快店管理 </span>
+                
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="foodtakeout_info.html">
+                                                <i class="icon-double-angle-right"></i> 快店信息
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="foodtakeout_order.html">
+                                                <i class="icon-double-angle-right"></i> 外送订单
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="product_list.html">
+                                                <i class="icon-double-angle-right"></i> 商品管理
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>-->
+                 <if condition="$res = auth_check_access(array('TeamManage/index','TeamCoupon/index','TeamManage/sore_goods_list'))">
+                <li>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-tags"></i>
+                        <span class="menu-text"> 团购管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu">
+                        <if condition="$res = auth_check_access(array('TeamManage/index'))">
+                        <li>
+                            <a href="{:U('TeamManage/index')}">
+                                <i class="icon-double-angle-right"></i>
+                                团单列表
+                            </a>
+                        </li>
+                        </if>
+                         <if condition="$res = auth_check_access(array('TeamCoupon/index'))">
+                        <li>
+                            <a href="{:U('TeamCoupon/index')}">
+                                <i class="icon-double-angle-right"></i>
+                                团单青团券列表
+                            </a>
+                        </li>
+                         </if>
+                         <if condition="$res = auth_check_access(array('TeamManage/sore_goods_list'))">
+                        <li>
+                            <a href="{:U('TeamManage/sore_goods_list')}">
+                                <i class="icon-double-angle-right"></i>
+                                积分商品
+                            </a>
+                        </li>
+                         </if>
+                    </ul>
+                </li>
+                 </if>
+                <if condition="$res = auth_check_access(array('Order/index'))">
+                <li>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-briefcase"></i>
+                        <span class="menu-text"> 订单管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu">
+                        <if condition="$res = auth_check_access(array('Order/index'))">
+                        <li>
+                            <a href="{:U('Order/index')}">
+                                <i class="icon-double-angle-right"></i>
+                                邮购订单管理
+                            </a>
+                        </li>
+                        </if>
+                    </ul>
+                </li>
+                </if>
+
+                <!--                <li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-list-alt"></i>
+                                        <span class="menu-text"> 店铺管理 </span>
+                
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>							
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="shops_describe.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                店铺描述
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="shops_news.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                店铺动态
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="shops_class.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                店铺分类
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="shops_nav.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                店铺导航
+                                            </a>
+                                        </li>
+                
+                                    </ul>
+                                </li>-->
+
+                <!--                <li>
+                                    <a href="customer_book.html">
+                                        <i class="icon-calendar"></i>
+                
+                                        <span class="menu-text">
+                                            客户预订
+                                            <span class="badge badge-important">3</span>
+                                        </span>								
+                                    </a>
+                                </li>-->
+                 <if condition="$res = auth_check_access(array('Review/index'))">
+                    <li>
+                        <a href="{:U('Review/index')}">
+                            <i class="icon-comments-alt"></i>
+                            <span class="menu-text"> 用户评分 </span>
+                        </a>
+                    </li>
+                 </if>
+                <if condition="$res = auth_check_access(array('Review/index'))">
+                     <if condition="$partners_info['is_dingzuo'] eq 1">
+                        <li>
+                            <a href="{:U('DingZuo/index')}">
+                                <i class="icon-calendar"></i>
+                                <span class="menu-text"> 客户预订 </span>
+                            </a>
+                        </li>
+                     </if>
+                 </if>
+
+                <!--                <li>
+                                    <a href="shops_photos.html">
+                                        <i class="icon-picture"></i>
+                                        <span class="menu-text"> 店铺相册 </span>
+                                    </a>
+                                </li>-->
+
+                <!--                <li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-qrcode"></i>
+                                        <span class="menu-text"> 营销推广 </span>
+                
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="qrcode.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                推广二维码
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="promtion_record.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                推广记录
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="platform_active.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                平台活动
+                                            </a>
+                                        </li>
+                
+                                        <li>
+                                            <a href="cloud_pay.html">
+                                                <i class="icon-double-angle-right"></i>
+                                                一元众筹
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>						-->
+            </ul><!-- /.nav-list -->
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+            </div>
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('sidebar', 'collapsed')
+                } catch (e) {
+                }
+            </script>
+        </div>

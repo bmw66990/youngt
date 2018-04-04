@@ -1,0 +1,23 @@
+<div class="mb15 f-fs2">
+    <span>当前可提款金额合计：</span>
+    <span class="refund f-fwb mr30">{$money}</span>
+    <notempty name="is_pay">
+        <a class="u-btn btn-disabled">正在处理中......</a>
+    <else />
+        <if condition = "$money elt 10">
+            <a class="u-btn btn-disabled">申请提款(提款金额需大于10元)</a>
+            <else />
+            <if condition="$res = auth_check_access(array('Final/paymentApply'))">
+                <a class="u-btn u-btn-c2" href="{:U('Final/paymentApply')}"  id='confirm' lang='{$money}'>申请提款</a>&nbsp;&nbsp;&nbsp;
+            </if>
+        </if>
+    </notempty>
+    <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+        <a class="fac" href="{:U('Coupon/couponDetail',array('pay_id'=>0))}"  >查看明细</a>
+    </if>
+    <div class="mt10">
+        <span class="pr10"><b>开户行:</b>{$partners['bank_name']}</span>
+        <span class="pr10"><b>账户名:</b>{$partners['bank_user']}</span>
+        <span><b>银行账户:</b> {$partners['bank_no']}</span>
+    </div>
+</div>

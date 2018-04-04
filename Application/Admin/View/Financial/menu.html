@@ -1,0 +1,32 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Encyclopedias/youngtEncyclopedias'))">
+            <li><a href="{:U('Financial/localConsumptionSet')}">消费结算</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Financial/auditConsumptionSet'))">
+            <li><a href="{:U('Financial/auditConsumptionSet')}">已审核消费结算</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Financial/settlementInfoDown'))">
+            <li ><a href="{:U('Financial/settlementInfoDown')}">商家结算打款下载</a><label>&nbsp;</label></li>
+        </if>
+         <if condition="$res = auth_check_access(array('Financial/teamInfoDown'))">
+            <li ><a href="{:U('Financial/teamInfoDown')}">团单信息下载</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Financial/cashPayment'))">
+            <li><a href="{:U('Financial/cashPayment')}">现金支付</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Financial/withdrawRecord'))">
+            <li><a href="{:U('Financial/withdrawRecord')}">提现记录</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Financial/refundRecord'))">
+            <li><a href="{:U('Financial/refundRecord')}">退款记录</a><label>&nbsp;</label></li>
+        </if>
+         <if condition="$res = auth_check_access(array('Financial/agentSettlement'))">
+            <li><a href="{:U('Financial/agentSettlement')}">代理结算</a><label>&nbsp;</label></li>
+        </if>
+            <li><a href="{:U('Financial/agentSettlementdown')}">代理结算下载</a><label>&nbsp;</label></li>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

@@ -1,0 +1,136 @@
+@charset "utf-8";
+/* CSS Document */
+
+#hdw{background:#23BEB1;border-bottom:3px solid #1DB2A6;height:67px;}
+#hd{margin:0 auto;z-index:2;padding-top:18px;}
+#hd .logo{background:url(../../Image/slogo.png) -15px 0;width:215px;height:37px;position:relative;left:-3px;}
+#bdw{background:#fff;min-height: 400px;padding:20px 0 45px;}
+#bd{margin:0 auto;z-index: 1;}
+#bdlogin{margin:0 auto;z-index: 1;border:1px solid #d4d4d4;}
+#hd .navs {bottom: 10px;position: absolute;right:0;bottom:3px;}
+#hd .option {padding: 0 5px 0 0;vertical-align: middle;}
+#hd .option:after {background: none repeat scroll 0 0 #1BADA1;content: "";display: inline-block;height:10px;margin-left:5px;width:1px;}
+#hd .option a {border: 1px solid rgba(0, 0, 0, 0);border-radius: 3px;color: #FFFFFF;padding: 5px 10px;text-shadow: 1px 1px #1C9A90;transition: all 200ms linear 0s;}
+#hd .option a:hover {background: none repeat scroll 0 0 #17A99D;border: 1px solid #15A599;text-decoration: none;}
+#hd .option--username:after {content: none;}
+.pg-account{float: left; border-right:1px solid #d4d4d4;}
+
+/* daipingshan 新增商家二维码  */
+.xin-erweima{margin: 0 auto; float: right;}
+
+/*********/
+.pg-account .head{border-bottom:1px solid #d4d4d4;margin:15px 60px 0;}
+.pg-account .head h2{padding-left:12px;font-size:24px;margin-top:0;color:#333;}
+.pg-account .sect{padding: 0 20px;}
+.pg-account .sect .login-content{margin:25px 0;padding:0 0 30px 44px;width:475px;}
+.m-form .formitm-2{padding-left:150px;}
+.m-form .u-ipt:focus {border-color: #2BB8AA;box-shadow: 0 0 3px #2BB8AA;}
+#ft {border-top: 2px solid #23BEB1;color: #666666;padding: 35px 0 50px;}
+#ft .contract-info__icon {background: url(../../Image/sp-ft.v142696d9.png) repeat 0 0;height: 60px;width: 60px;}
+#ft .contract-info__item {border-left: 1px dotted #CCCCCC;color: #666666;height: 70px;padding: 0 30px 0 20px;vertical-align: top;}
+#ft .contract-info__item h3 {color: #000000;font-size: 16px;}
+#ft .contract-info__item a{color: #000000;font-size: 16px;}
+#ft a:hover{text-decoration: underline;color: #2BB8AA;}
+#ft .contract-info__icon--email {background-position: 0 -61px;}
+#sidebar {border-radius: 2px 0 0 2px;width: 180px;}
+#sidebar .side-nav {moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background:#FAF9F9;border-color: #E7E7E7;border-image: none;border-style:solid;border-width:1px;}
+#sidebar .side-nav:after {background:#F5F4F4;content: "";height: 100%;position: absolute;right: 0;top: 0;width: 4px;}
+#sidebar .side-nav dl {z-index: 2;}
+#sidebar .side-nav dt:before {background:#FFFFFF;content: "";height: 1px;left: 0;position: absolute;top: 0;width: 180px;}
+#sidebar .side-nav dt {border-top: 1px solid #E7E7E7;color: #666666;font-weight: bold;padding: 17px 0 7px 40px;position: relative;font-size:14px;}
+#sidebar .current .nav-link, #sidebar .current .nav-link:hover {background:#23BEB1;color: #FFFFFF;}
+#sidebar .nav-link {color: #666666;display: block;line-height: 37px;padding-left: 40px;transition: all 100ms linear 0s;}
+#sidebar .nav-link:hover {color: #00BBBB;text-decoration: none;}
+#account .e-content--hastab {width: 780px;}
+.e-content--hastab {padding: 0 20px 50px;}
+.e-content {background:#FFFFFF;border: 1px solid #E7E7E7;border-radius: 0 2px 2px 0;float: left; margin-left: -1px;min-height: 620px;}
+.coupon-verify-content .title-label{font-size:16px;}
+.pg-coupon-content .u-ipt{border-width: 1px;font-size: 20px;font-weight: bold;height: 26px;margin-right: 10px;padding: 4px 10px;width: 260px;}
+.pg-coupon-content .u-btn{margin-right: 15px;text-align: center;vertical-align: top;font-size: 14px;font-weight: bold;letter-spacing: 0.1em;padding: 3px 20px 3px;}
+.pg-coupon-verify .latest-content {border-top: 1px dashed #E2E2E2;}
+.pg-coupon-verify .latest {padding: 5px 20px;}
+.pg-coupon-verify .latest span {bottom: 3px;font-size: 16px;left: 0;position: absolute;}
+.head {border-bottom: 1px dotted #E2E2E2;margin:0 20px;z-index: 1;}
+.head h2 {font-size: 24px;}
+.pg-coupon-verify .u-ipt{width:300px;}
+.pg-coupon-verify .u-ipt-1{width:150px;height:12px;}
+.bjts{width:980px;height:35px;margin:0 auto;line-height:35px;}
+.bjts .a{background: url(../Image/dialog.vf4578d5e.png) no-repeat 0 -256px;height: 20px;width: 20px;position: absolute;top: 7px;left: 0px;}
+.bjts .cancel{top: 2px;left: 940px;cursor:pointer;background-position:0 -315px;height:18px;}
+.bjts .sb{background-position:0 -276px;}
+.pg-coupon-verify .zhyu{position:absolute;right:0;top:5px;}
+.pg-coupon-verify .sect .refund {color: #F76120;}
+.pg-coupon-verify .u-btn{font-size:14px;}
+/*商家中心*/
+#container {width: 980px; margin:10px auto;}
+#container {width:985px;margin:10px auto;}
+#container h1,
+#container h2,
+#container h3 {color:#2FB7AB;}
+#container h1{
+	padding:20px 0;
+	font-size:24px;
+}
+#container h2 {
+	font-size:16px;
+	padding-bottom: 10px;
+}
+#container h3 {
+	font-size:14px;
+}
+#container p {
+	line-height:1.8;
+	margin:20px 0;
+}
+#tabs {
+	min-height: 800px;
+}
+#tabs li a {
+	font-size:12px;
+}
+#tabs {min-height: 890px; }
+#container .accordion p {margin: 0;}
+.reception dl {float:left; width: 300px; margin-left:140px;}
+.reception dl dt{ background: url(../../Image/bg-help-list.v7aa896de.jpg) no-repeat; width:300px; height:46px; line-height: 46px; font-size: 18px; color: #fff; }
+.reception dl dt span {float: left; width: 46px; text-align: center;}
+#container .reception dl dt p {float:left; margin: 0; line-height: 46px; width: 254px; color: #fff;} 
+.reception dl dd {height: 38px;	background:url(../../Image/bg-help-list-arrow.ve6175763.jpg) 163px center no-repeat;}
+.reception ul {float: left; height: 82px; padding: 2px 0 0 15px;}
+.reception ul li { width: 300px; list-style: disc; color:#03402b; padding-bottom: 10px;}
+.w745 {width: 745px;}
+.cooperation dl {margin:0 14px 15px 0;}
+.cooperation dl dd {background: none; height: 180px; padding:10px; background-color: #37BFB3; border-radius: 5px;}
+#container .cooperation dl dd p {margin: 0; text-indent: 2em; color: #ffffff; font-size: 14px;}
+#container .ui-tabs .ui-tabs-nav {margin:10px; padding : 0;}
+#container .ui-tabs .ui-tabs-nav li {border-radius: 0;}
+#container .ui-widget-header { background:none; border-width: 0 0 1px 0; border-radius: 0;}
+.leftMenu ul.menuUl {float: left; width: 120px;}
+.leftMenu ul.menuUl li {
+    width: 110px;
+    margin-bottom: 10px;
+}
+.leftMenu .ui-tabs-nav li {border:none;}
+.leftMenu .ui-tabs-nav li.ui-tabs-active {margin-bottom:10px; padding:0;}
+.leftMenu .ui-tabs-panel {float: left; width: 800px; padding:10px 0 0 0;}
+.leftMenu .ui-widget-header {border:none;}
+table.center tr th {text-align: center; font-weight: normal; font-size: 12px;}
+.footerLink {text-align: center;}
+.footerLink a {padding:0 10px;}
+.formitm-2 input {padding:0px 20px;}
+.tipContent {display:none; position:absolute; width:200px; border:1px solid red; border-radius: 5px; margin:10px auto; text-align: center; line-height: 24px; color: red; font-weight:bolder;}
+.m-page .current{cursor:default;color:#999;background:#f5f5f5;display:inline-block;vertical-align:top;margin-left:-1px;border:1px solid #ddd;font-size:12px;letter-spacing:normal;text-shadow:0 1px #fff;background:#f5f5f5;}
+.form-control:focus {border-color: #2BB8AA;box-shadow: 0 0 3px #2BB8AA;}
+a,a:hover {color: #2bb8aa;text-decoration: none;}
+
+/*新增商户验证样式 2014-11-16 作者：oldfu */
+.shyz ul{margin-bottom:0;}
+.shyz .list-group-item{border:none;font-family:"宋体";}
+.shyz .checkbox1{width:300px;margin:0 auto;}
+.qtqyzok{background:url('../../Image/yzok.png'); width:180px;height:180px;position: absolute;top:80px;right:30px}
+.qtqyzerr{background:url('../../Image/yzerr.png'); width:180px;height:180px;position: absolute;top:80px;right:30px}
+.qtqyzgq{background:url('../../Image/yzgq.png'); width:180px;height:180px;position: absolute;top:80px;right:30px}
+.qtqyzxf{background:url('../../Image/yzxf.png'); width:180px;height:180px;position: absolute;top:80px;right:30px}
+.qtqyzwxf{background:url('../../Image/yzwxf.png'); width:180px;height:180px;position: absolute;top:80px;right:30px}
+.yzsb{color:red;}
+
+.e-content .form-inline .radio, .form-inline .checkbox {display: inline-block;margin:10px 33px 5px 0;vertical-align: middle;font-size: 14px;}

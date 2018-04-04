@@ -1,0 +1,71 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content">
+        <div class="con-title">代理结算<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Financial/agentSettlementdown')}" method="get">
+
+                <li><label>申请日期</label><input class="laydate-icon w70" name="apply_date" value="{$apply_date|default=''}" format="YYYY-MM-DD"  id="start" type="text" ><label>,</label></li>
+                <li><label>结算日期</label><input class="laydate-icon w70" id="end" name="pay_date" value="{$pay_date|default=''}" format="YYYY-MM-DD"  type="text"><label>,</label></li>
+                <li>
+                    <input type="submit" class="btn-teal small-btn" value="筛选" />
+                    <input type="submit" name="down_type" class="btn-teal small-btn" value="下载" />
+                </li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w80">代理</th>
+                        <th class="w80">操作人</th>
+                        <th class="w120">提现内容</th>
+                        <th class="w150">金额(单位：元)</th>
+                        <th class="w80">明细</th>
+                        <th class="w100">申请时间</th>
+                        <th class="w100">账户</th>
+                        <th class="w100"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr class='list'>
+                            <td class="w80"><label class="bx-teal">{$vo.city_name}</label></td>
+                            <td  class="w80"><label class="td-title">{$vo.agent_user_name}</label></td>
+                            <td class="w150"><label>{$vo.apply_time|date='y年m月份提现',###}</label></td>
+                            <td class="w150"><label>{$vo.money}</td>
+                            <td class="w80">
+                        <if condition="$res = auth_check_access(array('Financial/agentSettlementView'))">
+                            <label>
+                                <a style='color: #626061;'  href="javascript:popup('{:U('Financial/agentSettlementView',array('agent_pay_id'=>$vo['id']))}',700,500);">查看明细</a>
+                            </label>
+                        </if>
+                        </td>
+                        <td class="w100">
+                            <label>
+                                {$vo.create_time|date='Y-m-d',###}
+                            </label>
+                        </td>
+                        <td class="w200">
+                            <label class="tx-teal">{$vo.agent_bank_no}</label><br/>
+                            <label>{$vo.agent_bank_user}</label><br/>
+                            <label>{$vo.agent_bank_name}</label><br/>
+                            <label>{$vo.agent_user_mobile}</label>
+                        </td>
+
+                        <td class="w120 f-12 man">
+                             <label  class="bc-teal">
+                                <a class='agent_settlement' confirm_tip='确定取消审核？' href="{:U('Financial/agentquxiao',array('id'=>$vo['agent_pay_id']))}" > 取消审核 </a>
+                            </label>
+                        </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <include file="Financial:page" />
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/financial.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

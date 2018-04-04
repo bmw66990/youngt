@@ -1,0 +1,153 @@
+<include file="Common:header" />
+ <style type="text/css">
+   body{background-color:#f7f7f7;}
+  </style>
+<!-- 顶部 -->
+<div class="am-g am-padding-sm" style="background-color:#f7f7f7;">    
+    <div class="am-u-sm-12" style="padding-right:0;">
+        <div class="am-u-sm-5 am-fl">
+            <img src="__IMAGE_PATH__/logo.png" class="am-img-responsive am-fl" style="width:80%;">
+        </div>        
+        <div class="am-u-sm-7" style="padding-right:0;">
+            <span class="am-text-danger am-text-lg am-text-middle am-fr" style="color:#333;">&nbsp;4000-998-433</span>
+            <img src="__IMAGE_PATH__/icon-tel.png" class="am-img-responsive am-fr" style="width:15%;">
+        </div>
+    </div>
+</div>
+
+
+<!-- 主体内容 -->
+<div class="am-g am-padding-lg">
+    <!--步骤-->
+    <div class="am-container am-center" style="height:50px;">
+      <ul class="am-avg-sm-3" style="position:relative;">
+        <li>
+          <div class="am-container am-round" style="width:50px;height:50px;background-color:#ddd;position:relative;z-index:2;">
+            <div class="am-text-center am-text-lg am-round"  style="width:30px;height:30px;top:10px;left:10px;background-color:#5eb95e;position:absolute;color:#fff;">1</div>
+          </div>
+        </li>
+        <li>
+          <div class="am-container am-round" style="width:50px;height:50px;background-color:#ddd;position:relative;z-index:2;">
+            <div class="step2 am-round am-text-center am-text-lg" style="width:30px;height:30px;top:10px;left:10px;background-color:#5eb95e;position:absolute;color:#fff;display:none;">2</div>
+          </div>
+        </li>
+        <li>
+          <div class="am-container am-round" style="width:50px;height:50px;background-color:#ddd;position:relative;z-index:2;">
+            <div class="step3 am-text-lg am-text-center am-round" style="width:30px;height:30px;top:10px;left:10px;background-color:#5eb95e;position:absolute;color:#fff;display:none;"><i class="am-icon-check"></i></div>
+          </div>
+        </li>
+        <div class="am-vertical-align-middle" style="width:70%;height:16px;background-color:#ddd;z-index:1;position:absolute;left:50%;top:35%;transform:translate(-50%);overflow:hidden;">
+          <ul class="am-avg-sm-2" style="">
+            <li>
+              <div class="am-progress am-progress-striped">
+                <div class="progress1 am-progress-bar am-progress-bar-success" style="width:100%;height:8px;margin-top:4px;display:none;"></div>
+              </div>
+            </li>
+            <li>
+              <div class="am-progress am-progress-striped">
+                <div class="progress2 am-progress-bar am-progress-bar-success" style="width:100%;height:8px;margin-top:4px;display:none;"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+  <!--这是扫码内容-->
+    <div class="scanCode">
+      <div class="am-container am-text-center am-padding-sm">
+        <div class="am-text-lg am-margin-vertical-sm">商家扫描二维码</div>
+        <img src="http://qr.topscan.com/api.php?text=http://fanli.ree9.com/user/shareQrcode?uid=<?php echo $_COOKIE['uid']?>" style="width:143px;height:136px">
+      </div>
+      <div class="am-container">
+        <span class="am-text-sm am-text-center">
+          确认让商家扫描你的二维码，成为你的粉丝后,该商家通过平台的营业额，你将能得到返利
+        </span>
+      </div>
+      <div class="am-container am-text-center am-margin-vertical-lg">
+        <button class="nextStep am-btn am-btn-block am-padding-vertical-sm am-radius am-btn-danger">下一步</button>
+      </div>
+    </div>
+  </div>
+
+
+<!--商家资料填写内容-->
+<div class="businessInformation" style="display:none;">
+    <div class="am-g am-padding-lg am-text-center">
+        <span class="am-text-lg">商家填写资料</span>
+    </div>
+    <form class="am-form" method='post' action="__URL__/do_recommend" >
+    <div class="am-g">
+        <div class="am-container">                    
+            <div class="form-group am-text-sm" style="position:relative;">
+                <label class="am-padding-xs" for="" style="position:absolute;">商家店名</label>                
+                <input class="am-text-left am-text-xs" type="text" name="partner[title]" placeholder="请输入商家店名" value="" style="padding-left:30%;"/>
+            </div>
+            <div class="form-group am-text-sm am-margin-top-sm" style="position:relative;">
+                <label class="am-padding-xs" for="" style="position:absolute;">商家地址</label>                
+                <input class="am-text-left am-text-xs" type="text" name="partner[address]" placeholder="请输入商家住址" value="" style="padding-left:30%;"/>
+            </div>
+            <div class="form-group am-text-sm am-margin-top-sm" style="position:relative;">
+                <label class="am-padding-xs" for="" style="position:absolute;">商家姓名</label>                
+                <input class="am-text-left am-text-xs" type="text" name="partner[username]" placeholder="请输入商家姓名" value="" style="padding-left:30%;"/>
+                <div class="form-group am-text-sm am-margin-top-sm" style="position:relative;">
+                    <label class="am-padding-xs" for="" style="position:absolute;">商家电话</label>                    
+                    <input class="am-text-left am-text-xs" type="text" name="partner[mobile]" placeholder="请输入商家电话" value="" style="padding-left:30%;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-container am-text-center am-margin-vertical-lg am-padding-vertical-xl">
+        <button class="finished-btn am-btn am-btn-block am-btn-danger">完成</button>
+    </div>
+    </form>
+</div>
+
+<!--底部 -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-no-layout" >
+    <ul class="am-navbar-nav am-cf am-avg-sm-4">
+        <li>
+            <a href="{:U('Index/index')}">
+                <span class="am-icon-home"></span><span class="am-navbar-label">首页</span>
+            </a>
+        </li>     
+        <li>
+            <a href="###">
+                <span class="am-icon-compass"></span><span class="am-navbar-label">附近</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/index')}" >
+                <span class="am-icon-user"></span><span class="am-navbar-label">个人中心</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/bus_recommend')}" style="color:#e60827">
+                <span class="am-icon-bookmark"></span><span class="am-navbar-label">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<!--<![endif]-->
+<script>
+    $(document).ready(function(){
+        $(".nextStep").click(function(){
+            $(".scanCode").hide();
+            $(".step2").show();
+            $(".progress1").show();
+            $(".businessInformation").show();
+        });
+
+        $(".finished-btn").click(function(){
+            $(".businessInformation").hide();
+            $(".step3").show();
+            $(".progress2").show();
+            $(".makeMonery").show();
+        });
+    });
+</script>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script src="__JS_PATH__/amazeui.min.js"></script>
+</body>
+</html>

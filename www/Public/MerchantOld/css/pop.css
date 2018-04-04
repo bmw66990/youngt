@@ -1,0 +1,29 @@
+/*
+                youngt.com Manage Css widget.css
+                        by 2015-6
+                ***********弹出窗口样式表
+*/
+
+body,.box{overflow: auto;margin: 0 auto;}
+h2{margin:20px 40px;}
+.error{font-size: 20px;text-align: center;}
+li{list-style: none;}
+.tx-grey{color:#727272;}
+.box li{width: 100%;float: left;font-size: 14px;margin-top: 10px;}
+.box span[class='label']{display: block;line-height: 20px;padding: 0 10px;text-align: right;}
+.box .label{float:left;line-height: 20px;float: left;width: 100px!important;}
+.details{width:100%;line-height: 30px;font-size: 13px;}
+.details li{float:left;width: 100%;}
+.details li label{margin-right: 20px;text-align: right;width: 60px;display: inline-block;}
+.details h5{color:#727272;}
+.details span[class='class-btn']{padding:10px;}
+/*提交按钮*/
+.class-btn{border: 0;background: #009999;color:#fff;width: 100px;height: 40px;line-height: 40px;margin-left: 30px;}
+.class-btn:hover{background: #009966;cursor: pointer;}
+.disabled{
+    filter:alpha(opacity=60);  
+    -moz-opacity:0.6;  
+    -khtml-opacity: 0.6;  
+    opacity: 0.6;  
+}
+

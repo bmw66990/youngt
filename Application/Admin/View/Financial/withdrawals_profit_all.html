@@ -1,0 +1,37 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content">
+        <div class="con-title">本月交易利润<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                     <tr class="list-title">
+                            <th class="w150">商家</th>
+                            <th class="w200">订单数（已减去退款）</th>
+                            <th class="w200">交易金额（已减去退款）</th>
+                            <th class="w100">退款</th>
+                            <th class="w100">接待量</th>
+                            <th class="w100">利润</th>
+                    </tr>
+                    <volist name="list" id="vo">
+                        <tr class='list'>
+                            <td class="w150">{$vo.partner_username}</td>
+                            <td class="w200">{$vo.partner_order_count}</td>
+                            <td class="w200">{$vo.partner_order_sum_money}元</td>
+                            <td class="w100">{$vo.partner_order_refund_sum_money}元（{$vo.partner_order_refund_count}）</td>
+                            <td class="w100">{$vo.partner_reception_count}</td>
+                            <td class="w100">{$vo.partner_profit_money}元</td>
+                        </tr>
+                     </volist>
+                </table>
+                <div class="selectpage">
+                    <include file="Financial:page" />
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<include file="Common:footer" />

@@ -1,0 +1,102 @@
+<include file="Common:header" />
+
+<?php if($res == 0){ ?>
+<script>
+    alert('绑定手机号失败！');
+    window.location.href="index.html";
+</script>
+<?php }elseif($res == 1){ ?>
+<script>
+    alert('绑定手机号成功！');
+    window.location.href="index.html";    
+</script>
+<?php }elseif($res == 2){?>
+
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-4">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;">
+            </a>
+        </div>
+        <div class="am-u-sm-8 am-center">
+            <span class="am-text-lg am-text-left">绑定手机号</span>
+        </div>
+    </div> 
+</header>
+
+<div class="am-container am-text-center am-padding-vertical-lg">
+    <span class="am-text-default">绑定手机号，快速提现！</span>
+</div>
+
+<form id="bindPhone-form" method="post" action="__URL__/bindPhone">
+<!-- 信息 --> 
+<div class="am-g am-padding-xs" style="width:90%;">
+    <div class="am-container">        
+        <input type="number" placeholder="请输入11位手机号" class="am-u-sm-12" id="user-phoneNum" name="mobile" value="" required pattern="[0-9]{11}" style="height:40px;border:none;outline:none;">
+    </div>
+</div>
+
+<div class="am-g am-padding-xs am-margin-top-sm" style="width:90%;">
+    <div class="am-u-sm-8">
+        <input type="number" placeholder="请输入验证码" class="am-form-filed am-padding-left-sm" id="user-yzCode" name="code" style="height:40px;border:none;outline:none;">            
+    </div>
+    <div class="am-u-sm-4">
+      <button class="am-btn am-radius am-text-xs am-padding-horizontal-xs" id="btnSendCode" style="height:40px;width:100%;border:1px solid #E60827;background-color:#ffffff;color:#E60827;">获取验证码</button>      
+    </div>
+</div>   
+
+<div class="am-container am-margin-top-lg">
+    <button class="am-btn am-btn-danger am-btn-block am-radius">完成</button>
+</div> 
+
+</form>
+
+
+
+
+<script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+
+<!-- 发送验证码 -->
+<script type="text/javascript">
+    $(function() {
+        $("#btnSendCode").click(function() {
+            //timer处理函数
+            var obj = $(this);
+            var InterValObj;    //timer变量，控制时间
+            var curCount = 120; //当前剩余秒数
+            var mobile = $("#user-phoneNum").val();//用户uid
+            if (mobile == '') {
+                alert('请输入手机号码！');
+                return false;
+            }
+            var SetRemainTime = function() {
+                if (curCount == 0) {
+                    window.clearInterval(InterValObj);//停止计时器
+                    obj.text("重新发送验证码");
+                    obj.removeAttr('disabled', false);
+
+                } else {
+                    curCount--;
+                    obj.text(curCount + "秒后重新获取");
+                    obj.attr('disabled', true);
+                }
+            }
+            //向后台发送处理数据
+            $.post("{:U('User/smsCode')}", {mobile: mobile}, function(sms) {
+                if (sms.status == 1) {
+                    alert(sms.success);
+                    //设置button效果，开始计时
+                    InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                } else {
+                    alert(sms.error);
+                }
+                return false;
+            });
+
+            return false;
+        });
+    });
+</script>
+<?php }?>
+
+<include file="Common:foot" />

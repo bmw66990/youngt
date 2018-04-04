@@ -1,0 +1,137 @@
+<include file="Common:header" />
+<section>
+	<!--左侧导航-->
+	<div class="tab-menu">
+		<ul>
+			<li><a href="/Admin/Circle/index.html">圈子管理</a><label>&nbsp;</label></li>
+			<li ><a href="adCircle.html">广告设置</a><label>&nbsp;</label></li>
+			<li class="current"><a href="/Admin/Circle/report.html">举报内容</a><label>&nbsp;</label></li>
+			<li><a href="/Admin/Circle/black_user.html">黑名单</a><label>&nbsp;</label></li>
+		</ul>
+	</div>
+	<div class="nav-dis-menu">
+			<label>&nbsp;</label>
+	</div>
+	<div class="content">
+		<div class="con-title">举报内容<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<form class="myform" method="get" action="{:U('Circle/report')}">
+				<li>
+					<label>城市</label>
+					<select name="city_id">
+						<option value="">--请选择地区--</option>
+						<volist name="city" id="row">
+							<option value="{$row.id}" <eq name="row.id" value="$searchValue.city_id">selected</eq>>{$row.letter}-{$row.name}</option>
+						</volist>
+					</select>
+				</li>
+				<li>
+					<label>用户名</label>
+					<input type="text" class="w100" name="username" value="{$searchValue['username']}"/>
+				</li>
+				<li>
+					<label>发布时间</label>
+					<input name="spay_time" value="{$searchValue['spay_time']}" class="laydate-icon w100" id="start" type="text" >-
+					<input name="epay_time" value="{$searchValue['epay_time']}" class="laydate-icon w100" id="end" type="text">
+				</li>
+				<li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+			</form>
+			<div class="form-list">
+				<div class="circle-user-conlist">
+					<ul>
+					<volist name="report_my" id="rm">
+						<li>
+							<span>
+								<if condition="(empty($rm['avatar']))">
+									<img src="/Public/Admin/images/nophoto.jpg" />
+								<else />
+									<img src="{$rm['avatar']}" style="width:60px;height:60px;">
+								</if>
+							</span>
+							<span class="circle-con">
+								<span class="circle-con-top">
+									<span class="fl"><label class="tx-teal">{$rm['username']}</label>
+									</span>
+								</span>
+								<label class="circle-con-text">{$rm['art_title']}</label>
+							</span>
+							<span class="circle-tags">
+								<label class="tx-grey time">{$rm['createtime']|date='Y-m-d',###}</label>
+								<label>{$rm['catname']}<br>
+								<if condition="(empty($rm['city']))">								
+									<label class="td-teal">该城市未开通</lable>
+								<else />
+									<label class="td-teal">{$rm[city]}</label>
+								</if>
+								</label>
+							</span>
+							<span>
+								<label  class="bc-teal">
+								<a href="javascript:toAjax('{:U('Circle/reportdelall', array('id' => $rm['id']))}','确定删除该举报？')">删除</a>
+								</label>
+								<label  class="bc-teal"><a href="javascript:toAjax('{:U('Circle/black', array('id' => $rm['id']))}','确定拉黑该举报？')">拉入黑名单</a></label>
+							</span>
+						</li>
+						</volist>
+					</ul>
+				</div>
+				<div class="selectpage">
+					<div class="pagenumber">
+						<div class="pagenumber">{$pages}</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+<include file="Common:footer" />
+<!--挂件部分-->
+<div class="scrollTop"><img src="/Public/Admin/images/scrolltop.png" /></div>
+<!--js list-->
+<!--jQuery-->
+<script type="text/javascript" src="../libs/jquery/jquery-1.11.3.min.js"></script>
+<!--jqfancyBox-->
+<script type="text/javascript" src="../libs/fancybox/js/jquery.fancybox.js"></script>
+
+<script type="text/javascript" src="../js/common.js"></script>
+<script>
+function DataLength(fData)
+{
+    var intLength=0
+    for (var i=0;i<fData.length;i++)
+    {
+        if ((fData.charCodeAt(i) < 0) || (fData.charCodeAt(i) > 255))
+            intLength=intLength+2
+        else
+            intLength=intLength+1    
+    }
+    return intLength
+}
+				laydate.skin('molv');
+				var start = {
+				    elem: '#start',
+				    format: 'YYYY/MM/DD ',
+				    //min: laydate.now(), //设定最小日期为当前日期
+				    max: '2099-06-16 23:59:59', //最大日期
+				    //istime: true,
+				    istoday: false,
+				    choose: function(datas){
+				         end.min = datas; //开始日选好后，重置结束日的最小日期
+				         end.start = datas //将结束日的初始值设定为开始日
+				    }
+				};
+				var end = {
+				    elem: '#end',
+				    format: 'YYYY/MM/DD ',
+				    //min: laydate.now(),
+				    max: '2099-06-16 23:59:59',
+				    istoday: false,
+				    choose: function(datas){
+				        start.max = datas; //结束日选好后，重置开始日的最大日期
+				    }
+				};
+				laydate(start);
+				laydate(end);
+			</script>
+</body>
+</html>

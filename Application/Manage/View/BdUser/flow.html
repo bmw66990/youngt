@@ -1,0 +1,35 @@
+<include file="Common:header" />
+	<link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover" id="editable">
+                    <thead>
+                        <tr>
+                            <th>团单</th>
+                            <th>&yen; 网站价 / &yen; 供货价</th>
+                            <th>数量</th>
+                            <th>利润＝(网站价－供货价) × 数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="list" id="row">
+	                        <tr>
+	                            <td>{$row.product}</td>
+	                            <td>{$row.team_price} / {$row.ucaii_price}</td>
+                                <td>{$row.num}</td>
+	                            <td>{$row.profit}＝({$row.team_price}－{$row.ucaii_price}) × {$row.num}</td>
+	                        </tr>
+	                    </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+</body>
+</html>

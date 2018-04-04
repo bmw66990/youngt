@@ -1,0 +1,239 @@
+<include file="Common:header"/>
+<!--本页面样式-->
+	<link href="__PLUGINS_PATH__/iCheck/custom.css" rel="stylesheet">
+	<link href="__PLUGINS_PATH__/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+	<link href="__PLUGINS_PATH__/datapicker/datepicker3.css" rel="stylesheet">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+    		<div class="col-sm-12">
+    			 <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+    					<h3><a href="{:U('Partner/index')}" class="J_menuItem">商家</a> / <small><a href="#">订座设置</a></small></h3>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal" id="dingzuo-form" action="{:U('Partner/doDingzuo')}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">分类  / 状态</label>
+                                <div class="col-sm-6">
+                                	<div class="row">
+                                		<div class="col-sm-4">
+                                		<select name="class_id" class="form-control" required>
+				                          <volist name="class" id="cate">
+				                            <option value="{$cate.id}" <eq name="cate.id" value="$vo.class_id">selected</eq>>{$cate.name}</option>
+				                          </volist>
+				                        </select>
+	                                	</div>
+	                                	<div class="col-sm-4">
+	                                		<select name="status" class="form-control" id="station">
+					                          <option value="Y" <eq name="vo.status" value="Y">selected</eq>>开启</option>
+					                          <option value="N" <eq name="vo.status" value="N">selected</eq>>关闭</option>
+					                        </select>
+	                                	</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商家图片</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="" class="form-control" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">地图坐标</label>
+                                <div class="col-sm-4">
+                                	<div class="input-group">
+                                        <input type="text" name="longlat" id="mappoint" value="{$vo.longlat}" required class="form-control" placeholder="地图坐标" readonly="">
+                                        <span class="input-group-btn"> 
+                                   			<button type="button" class="btn btn-primary layer-iframe" data-href="#mapcontent" data-title="获取坐标" ><i class="fa fa-map-marker"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商户名称</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="title" value="{$vo.title}" required class="form-control" placeholder="商户登录后台系统的账户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">电话号码</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="mobile" value="{$vo.mobile}" required class="form-control" placeholder="电话号码">
+                                	<p class="help-block">可以是固话用户直接拨打电话咨询格式为：02988862199</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手机号码</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="telphone" value="{$vo.telphone}" required class="form-control" placeholder="手机号码">
+                    <p class="help-block">一定要为手机号码，作为接受客户订座信息短信通知号码</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">人数</label>
+                                <div class="col-sm-2">
+                                	<input type="text" name="min_num" value="{$vo.min_num}" required class="form-control" placeholder="最少人数">
+                                </div>
+                                <div class="col-sm-2">
+                                	<input type="text" name="max_num" value="{$vo.max_num}" required class="form-control" placeholder="最多人数">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">时间</label>
+                                <div class="col-sm-3">
+                                	<div class="input-daterange input-group" id="datepicker">
+                                		<div class="input-group date">
+		                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                               		<input type="text" class="form-control" name="start" value="2014-11-11" />
+                                		</div>
+		                                <span class="input-group-addon">到</span>
+		                                <div class="input-group date">
+			                                <input type="text" class="form-control" name="end" value="2014-11-17" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                </div>
+		                            </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">订座日</label>
+                                <div class="col-sm-10">
+                                	<empty name="vo.week">
+                                	<div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="checkbox1" type="checkbox" name="week[]" value="1" checked="checked">
+                                        <label for="checkbox1">
+                                                                                                                                                星期一
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="checkbox2" type="checkbox" name="week[]" value="2" checked="checked">
+                                        <label for="checkbox2">
+                                            	星期二
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="checkbox3" type="checkbox" name="week[]" value="3" checked="checked">
+                                        <label for="checkbox3">
+                                            	星期三
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="checkbox4" type="checkbox" name="week[]" value="4" checked="checked">
+                                        <label for="checkbox4">
+                                            	星期四
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="checkbox5" type="checkbox" name="week[]" value="5" checked="checked">
+                                        <label for="checkbox5">
+                                            	星期五
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="checkbox6" type="checkbox" name="week[]" value="6" checked="checked">
+                                        <label for="checkbox6">
+                                            	星期六
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="checkbox7" type="checkbox" name="week[]" value="7" checked="checked">
+                                        <label for="checkbox7">
+                                            	星期日
+                                        </label>
+                                    </div>
+                                    <else />
+                                    	<div class="checkbox checkbox-success checkbox-inline">
+	                                        <input id="checkbox1" type="checkbox" name="week[]" value="1" <if condition="in_array(1, $vo['week'])">checked="checked"</if> >
+	                                        <label for="checkbox1">
+	                                                                                                                                                星期一
+	                                        </label>
+	                                    </div>
+	                                    <div class="checkbox checkbox-success checkbox-inline">
+	                                        <input id="checkbox2" type="checkbox" name="week[]" value="2" <if condition="in_array(2, $vo['week'])">checked="checked"</if> >
+	                                        <label for="checkbox2">
+	                                            	星期二
+	                                        </label>
+	                                    </div>
+	                                    <div class="checkbox checkbox-success checkbox-inline">
+	                                        <input id="checkbox3" type="checkbox" name="week[]" value="3" <if condition="in_array(3, $vo['week'])">checked="checked"</if> >
+	                                        <label for="checkbox3">
+	                                            	星期三
+	                                        </label>
+	                                    </div>
+	                                    <div class="checkbox checkbox-success checkbox-inline">
+	                                        <input id="checkbox4" type="checkbox" name="week[]" value="4" <if condition="in_array(4, $vo['week'])">checked="checked"</if> >
+	                                        <label for="checkbox4">
+	                                            	星期四
+	                                        </label>
+	                                    </div>
+	                                    <div class="checkbox checkbox-success checkbox-inline">
+	                                        <input id="checkbox5" type="checkbox" name="week[]" value="5" <if condition="in_array(5, $vo['week'])">checked="checked"</if> >
+	                                        <label for="checkbox5">
+	                                            	星期五
+	                                        </label>
+	                                    </div>
+	                                    <div class="checkbox checkbox-success checkbox-inline">
+	                                        <input id="checkbox6" type="checkbox" name="week[]" value="6" <if condition="in_array(6, $vo['week'])">checked="checked"</if> >
+	                                        <label for="checkbox6">
+	                                            	星期六
+	                                        </label>
+	                                    </div>
+	                                    <div class="checkbox checkbox-success checkbox-inline">
+	                                        <input id="checkbox7" type="checkbox" name="week[]" value="7" <if condition="in_array(7, $vo['week'])">checked="checked"</if> >
+	                                        <label for="checkbox7">
+	                                            	星期日
+	                                        </label>
+	                                    </div>
+                                    </empty>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input class="btn btn-primary" type="submit" value="提交">
+                                    <input class="btn btn-white" type="reset" value="取消">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight" id="mapcontent" style="display: none;">
+    	<div class="row">
+            <div class="col-sm-12">
+             	<div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline">
+                            <div class="form-group">
+                                <label for="starttime" class="sr-only">坐标</label>
+                                <input type="text" placeholder="坐标" id="starttime" class="form-control">
+                            </div>
+                        	<input class="btn btn-primary" type="submit" value="筛选" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        	
+        </div>
+    </div>
+    <include file="Common:footer"/>
+     <script src="__PLUGINS_PATH__/iCheck/icheck.min.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.config.js"></script>
+    <script src="__PLUGINS_PATH__/datapicker/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function(){
+        	$("#datepicker").datepicker();
+        	});
+    </script>
+</body>
+
+</html>

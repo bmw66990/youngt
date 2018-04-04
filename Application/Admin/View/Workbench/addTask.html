@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新建任务</title>
+<link rel="stylesheet" href="__CSS_PATH__/widget.css" />
+<link rel="stylesheet" href="__CSS_PATH__/pop.css" />
+<link href="__PLUGINS_PATH__/fancybox/Css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+<script type="text/javascript" src="__JS_PATH__/common.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+</head>
+<body>
+	<div class="fancycreate">
+			<div class="taskview-title">
+				<span class="grounp-name">新建任务</span>
+			</div>
+			<form name="myform">
+			<li>
+				<label>任务名称</label>
+				<label><input type="text" name="title" ></label>
+			</li>
+			<li>
+				<label>邀请成员</label>
+				<label class="add-person">
+					<span id="user-id"></span>
+					<img src="__IMAGE_PATH__/ico/add.png" onclick="popup('{:U('Workbench/selectUser',array('gid'=>$gid))}',500,450)">
+				</label>
+			</li>
+			<input type="hidden" name="gid" value="{$gid}">
+			<li><input type="button" id="add-task" value="确定" class="btn-teal"></li>
+		</form>
+	
+		
+	</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	$("#add-task").click(function(){
+		var title=$("input[name=title]").val();
+		if(!title){
+			alert('请填写任务名称');
+			return false;
+		}
+		if($("#user-id img").length==0){
+			alert('请邀请成员');
+			return false;
+		}
+		$(this).attr('disabled',true);
+		var _this=$(this);
+		$.post("{:U('Workbench/addTask')}",$("form").serialize(),function(data){
+			alert(data.info);
+			if(data.status==1){
+				window.parent.location.reload();
+			}
+			_this.attr('disabled', false);
+		})
+	});
+})
+</script>
+</html>

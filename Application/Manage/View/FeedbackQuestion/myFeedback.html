@@ -1,0 +1,60 @@
+<include file="Common:header"/>
+<!--本页面样式-->
+<link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline" method="get" action="{:U('FeedbackQuestion/index')}">
+                            <div class="form-group">
+                                <label for="keywords" class="sr-only">关键词</label>
+                                <input type="text" class="form-control" name="keyword" value="{$searchValue.keyword}" placeholder="关键字">
+                            </div>
+                            <button class="btn btn-primary" type="submit" >搜索</button>
+                            <a href="{:U('FeedbackQuestion/add')}" class="btn btn-primary">提交反馈</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <volist name="list" id="row">
+                    <div class="social-feed-box">
+                        <div class="social-avatar">
+                            <div class="media-body">
+                                {$userList[$row['user_id']]} - <i class="text-success">{$cityList[$row['city_id']]['name']}</i> <small class="text-muted">[{$row.add_time|date='Y-m-d',###}]</small>
+                            </div>
+                        </div>
+                        <div class="social-body">
+                            <p>{$row.content}</p>
+                        </div>
+                        <div class="social-footer">
+                            <div class="social-comment">
+                                <div class="media-body">
+                                    回复: {$row.answer}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                    共 {$count} 项
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                    {$pages}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<include file="Common:footer"/>
+</html>

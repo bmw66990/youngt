@@ -1,0 +1,86 @@
+<include file="Common:header"/>
+<!--订座预约列表-->
+<link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+             	<div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline" action="{:U('Partner/dzOrder')}" method="get">
+                            <div class="form-group">
+                                <label for="title" class="sr-only">商家名称</label>
+                                <input type="text" name="title" id="title" value="{$searchValue.title}" class="form-control" placeholder="商家名称">
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="sr-only">订座姓名</label>
+                                <input type="text" name="username" id="username" value="{$searchValue.username}" class="form-control" placeholder="订座姓名">
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile" class="sr-only">订座手机</label>
+                                <input type="text" name="mobile" id="mobile" value="{$searchValue.mobile}" maxlength="11" class="form-control" placeholder="订座手机">
+                            </div>
+                        	<input class="btn btn-primary" type="submit" value="筛选" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+                                <tr>
+                                    <th>商家名称</th>
+                                    <th>订座姓名</th>
+                                    <th>订座手机</th>
+                                    <th>订座人数</th>
+                                    <th>订座时间</th>
+                                    <th>他人/自己</th>
+                                    <th>备注信息</th>
+                                	<th>是否到店</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="list" id="row">
+		        					<tr>
+		        						<td>{$row.title}</td>
+		        						<td>{$row.username}</td>
+		        						<td>{$row.mobile}</td>
+		        						<td>{$row.num}</td>
+		        						<td>{$row.create_time}</td>
+		        						<td>{$row.state|getDingzuoType}</td>
+		        						<td>{$row.remarks}</td>
+		        						<td>{$stateInfo[$row['user_state']]}</td>
+		        					</tr>
+		        				</volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$pages}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    
+</body>
+
+
+</html>

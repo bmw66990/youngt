@@ -1,0 +1,84 @@
+<div class="panel panel-info mt10">
+
+    <div class="panel-heading">
+        <b>{$team['product']}</b>
+    </div>
+
+    <div class="panel-body f-fs2 shyz">
+
+        <ul class="list-group">
+
+            <li class="list-group-item f-toe">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">详情:</label>
+                    <div class="col-sm-10 f-toe">
+                        {$team['title']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item fac">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">价格:</label>
+                    <div class="col-sm-10 f-fwb">
+                        {$team['team_price']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">有效时间:</label>
+                    <div class="col-sm-10">
+                        {$team['expire_time']|date="Y-m-d H:i:s",###}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">商户电话:</label>
+                    <div class="col-sm-10">
+                        {$partner['mobile']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">商户名称:</label>
+                    <div class="col-sm-10">
+                        {$partner['username']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">券号:</label>
+                    <div class="col-sm-10">
+                        {$coupon['id']}
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+    <form action="{:U('Coupon/indexExecuteCheckCoupon')}"  method="post">
+        <div class="checkbox text-center">
+            <input id="coupon_id" type="hidden" name="coupon_id" value="{$coupon['id']}">
+            <input id="action" type="hidden" name="action" value="checked">
+            <div class="ipt">
+                <div class="tipContent"></div>
+            </div>
+            <button id="btn-check-coupon" style="padding:8px 90px" class="btn btn-success btn-lg" lang="one" type="button">
+                验 证
+            </button>
+            <button class="btn btn-warning btn-lg" style="padding:8px 90px" type="button" onclick="javascript:history.back(-1);">
+                返回
+            </button>
+        </div>
+    </form>
+
+</div>

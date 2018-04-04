@@ -1,0 +1,146 @@
+/*
+		youngt.com Manage Css widget.css
+			by 2015-5
+		***********控件样式表
+*/
+/**input**/
+	input{height: 24px;border: 0!important;line-height: 30px;font-size: 13px;padding-left: 10px;padding-right: 10px;border-bottom: 1px solid #ccc!important;}
+	input:focus{outline: 0;border-bottom: 1px solid #009999!important;}
+	textarea{width:600px;height: 280px;font-size: 12px;}
+	textarea:focus{border:1px solid #009999;outline: 0;}
+		/*有颜色背景用*/
+	form dd>input[type='text']{height: 30px;}
+	/*按钮*/
+	input[type='submit'],#login-form-btn{border: 0!important;width: 100%;height: 35px;line-height: 30px;font-size: 18px;font-family:'Microsoft Yahei';
+		}
+/**button**/
+	.btn-blue{background: #0033FF;color:#fff;}
+	.btn-blue a{color:#fff;}
+	.btn-teal{background: #009988;color:#fff;}
+	.btn-teal a{color:#fff;}
+	.btn-teal:hover{background: #00cc99;cursor: pointer;color:#fff;}
+	.btn-green{background: #4CAF50;color:#fff;}
+	.btn-green a{color:#fff;}
+	.btn-green:hover{background:#00cc99;cursor: pointer;}
+  .btn-link{width: 500px;text-align: center;}
+  .btn-link label{display: inline-block;margin-left: 10px;}
+  .btn-link label a{display: block;width: 100%;height: 100%;line-height: 40px;}
+	/*button size*/
+	.small-btn,input.small-btn{width:40px;height:25px;font-size: 12px;text-align: center;line-height: 20px;margin-left: 20px;cursor: pointer;color: #fff;}
+  .small-btn:hover{background: #00cc99;}
+/**select**/
+	select{height:26px;border:0;line-height: 30px;font-size: 12px;padding-left: 10px;border-bottom: 1px solid #ccc;}
+	select:focus{outline: 0;border-bottom: 1px solid #009999}
+/*alert*/
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  margin-left: 50px;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+button.close {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+/*2015-8-14 ico part*/
+.ico-more{background:url(../images/ico/more.png) no-repeat;}
+.grounp-name{padding-left: 20px;background: url(../images/ico/grounp.png) no-repeat;line-height: 18px;}
+.ico-eidit{background: url(../images/ico/eidit.png) no-repeat;}
+.ico-del{background:url(../images/ico/del.png) no-repeat;}
+.ico-save{background:url(../images/ico/save.png) no-repeat;}
+.ico-time{background:url(../images/ico/time.png) no-repeat;}
+.ico-move{background:url(../images/ico/move.png) no-repeat;}
+.ico-more,.ico-eidit,.ico-del,.ico-save,.ico-time,.ico-move{line-height: 18px;padding-left: 20px;}

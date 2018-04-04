@@ -1,0 +1,59 @@
+<include file="Common:header" />
+<!--用户权限设置-->
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                    	<form method="get" class="form-horizontal" id="user-do-auth-form" action="{:U('User/'.$operation_type)}" method="post">
+                    	<volist  name="auth_group_list" id="agl">
+			                <div class="form-group">
+	                            <label class="col-sm-3 control-label">{$agl.title}</label>
+	                            <div class="col-sm-6">
+	                    			<input class='checked-auth-group-one' type="checkbox" name='user[group_id][]' value='{$agl.id}' <if condition="$agl.checked eq '1'"> checked='checked'</if> />
+	                            </div>
+	                        </div>
+	                        <div class="hr-line-dashed"></div>
+			            </volist>
+			            <div class="form-group">
+			            	<input  type="hidden" name='operation_type' value="{$operation_type}">
+				            <input  type="hidden" name='user[id]' value="{$id}">
+				            <input  type="hidden" name='user[module_name]' value="{$module_name}">
+				            <button id="user-do-auth-btn" class="btn btn-info" type="button" >确定</button>
+			            </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+<include file="Common:footer" />
+<script type="text/javascript">
+    $(function() {
+        // 设置管理员权限
+        $('#user-do-auth-btn').on('click', function() {
+            var $this = $(this);
+            var $from = $this.parents('form#user-do-auth-form');
+            var href = $from.attr('action');
+            if ($this.hasClass('disabled')) {
+                parent.window.alert('正在处理，请稍等！');
+                return false;
+            }
+            var data = $from.serialize();
+            $this.addClass('disabled');
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    parent.window.alert(res.error);
+                    return false;
+                }
+                parent.window.alert('设置成功！');
+                parent.window.location.reload();
+            }, 'json');
+            return false;
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<include file="Common:header" />
+<div id="bdw" class="bdw">
+    <div id="bdlogin" class="w980 clearfix f-pr" >
+        <div id="content" class="pg-account w700">
+            <div class="head pt10 f-pr pb10">
+                <h2>商户登录</h2>
+            </div>
+            <div class="tipContent" style="margin-left:158px;"></div>		
+            <div class="sect clearfix">
+                <div class="login-content m-form"> 
+                    <form method="post" action="{:U('Public/checkLogin')}" id="login">
+                        <fieldset>					            					           
+                            <div class="formitm f-fs2">
+                                <label class="lab">帐户：</label>
+                                <div class="ipt">
+                                    <input type="text" id="username" name="username" size="20" class="u-ipt" title="请输入您的账户名称" />
+                                </div>
+                            </div>
+                            <div class="formitm f-fs2">
+                                <label class="lab">密码：</label>
+                                <div class="ipt">
+                                    <input type="password" id="password" name="password" size="20" class="u-ipt" title="请输入您的账户密码" />
+                                    <!-- <a href="#" class="f-ib fac">忘记密码?</a> -->
+                                    <p class="tip">
+                                        <input type="checkbox" id="agree" name='agree' value="1"/>
+                                        <label for="agree">下次自动登录</label>
+                                    </p>
+                                </div>
+                            </div>					            
+                            <div class="formitm formitm-2">
+                                <input class="u-btn u-btn-c2" type="submit" id="submit" value="登     陆" />
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="xin-erweima">
+            <div style="margin: 17px;">
+                <p style="color:#1db2a6; font-size:27px;">随时随地验证青团券</p>
+            </div>
+            <div style="margin:36px 30px 30px 30px;">
+                <img src="__ASSET_PATH__/Image/bossqrcode.png" width="200" />
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__JS_PATH__/Public.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var cookit_key = "{:C('COOKIE_PREFIX')}{:C('USER_AUTH_KEY')}_cookie";
+        var cookit_val = $.cookie(cookit_key);
+        if(cookit_val){
+            var username = cookit_val.split('##',1).pop();
+            $('#username').val(username);
+            $('#password').val('auth_login_not_password');
+            $('#agree').attr('checked',true);
+            $('#submit').click();
+        }
+    });
+</script>
+<include file="Common:footer" />

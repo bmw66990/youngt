@@ -1,0 +1,155 @@
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/normalize.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/style.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/review.css"/>
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/jquery.fancybox-1.3.4.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/bootstrap.min.css"/>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/bootstrap.min.js"></script>
+<style>
+    .blind {position: absolute;width: 630px; z-index: 102;}
+    .mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+    .mt-dialog .body {overflow: hidden;padding: 30px;}
+    .cl{color:#F00;}
+    .btn {background-color: #2DB3A6;background-image: -moz-linear-gradient(center top , #2EC3B4, #2DB3A6);border-color: #0D7B71;color: #FFFFFF;-moz-user-select: none;background-repeat: repeat-x;border-radius: 2px;border-style: solid;border-width: 0 0 1px;cursor: pointer;display: inline-block;font-family: 'SimSun',Arial;font-size: 14px;font-weight: bold;letter-spacing: 0.1em;line-height: 1.5;padding: 7px 20px 6px;text-align: center;text-decoration: none;vertical-align: middle; margin-right:15px;}
+    .btn:hover, .btn.hover, .btn:focus {background-color: #2EB7AA;background-image: -moz-linear-gradient(center top , #38D0C3, #2EB7AA);border-color: #0E8177;color: #FFFFFF;}
+    .btn:active, .btn.active {background-color: #32C2B5;background-image: -moz-linear-gradient(center top , #2EB6A9, #32C2B5);border-color: #109085;color: #FFFFFF;}
+</style>
+
+<div class="mt-overlay-container">
+    <div class="blind">     			        				
+        <div class="mt-dialog">
+            <div class="body">
+                <div class="mobile-rebind-dialog">
+                    <form id="team-manage-form">
+                        <table width="100%" class="m-table f-tac mt10">                                
+                            <tbody>
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        参与活动
+                                    </td>
+                                    <td class="f-tal">
+                                        {$team_info.activities_name|default=''}
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        团单售卖时间
+                                    </td>
+                                    <td class="f-tal" id='begin_end_time'>
+                                        <input type="text" id="begin_time" name="begin_time" value="{$team_info.begin_time|date='Y-m-d H:i:s',###}"  size="15" style="padding:4px;" />至
+                                        <input type="text" id="end_time" name="end_time" value="{$team_info.end_time|date='Y-m-d H:i:s',###}"  size="15" style="padding:4px;" />
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        优惠金额
+                                    </td>
+                                    <td class="f-tal">
+                                        <input type="text" id='discount_price' team_price='{$team_info.old_team_price}'  ucaii_price='{$team_info.old_ucaii_price}'  name="discount_price" value="{$team_info.discount_price|default='0'}">
+                                        (活动团单的供货价和团购价为原金额减去该金额)
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        参与数量
+                                    </td>
+                                    <td class="f-tal">
+                                        <input type="text" id='max_number' name="max_number" value="{$team_info.max_number|default='0'}">
+                                        (不填写 或 填写 0 按照不限量处理)
+                                    </td>                                 
+                                </tr> 
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="hidden" name="team_id" id='team_id' value="{$team_info.id}">
+                                        <a class="btn" id='participate-activities-submit' href="{:U('TeamManage/edit_activities_team')}">确认</a>
+                                    </td>                                                                
+                                </tr>                                                                                  
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>       	
+<script type="text/javascript">
+
+    if ($("#end_time").datepicker) {
+        $("#end_time").datepicker({
+            altField: "#end_time",
+            altFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true,
+            monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"]
+        });
+        $("#begin_time").datepicker({
+            altField: "#begin_time",
+            altFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true,
+            monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"]
+        });
+    }
+
+
+
+
+    $(function() {
+
+
+        $('#participate-activities-submit').die().live('click', function() {
+            var $this = $(this);
+            var discount_price = Number($('#discount_price').val());
+            var begin_time = $('#begin_time').val();
+            var end_time = $('#end_time').val();
+            var max_number = Number($('#max_number').val());
+            var ucaii_price = Number($('#discount_price').attr('ucaii_price'));
+            var team_id = $('#team_id').val();
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            if (!discount_price) {
+                parent.window.alert('请输入优惠价');
+                return false;
+            }
+            if (ucaii_price && discount_price >= ucaii_price) {
+                var error_info = "优惠价必须小于" + ucaii_price;
+                parent.window.alert(error_info);
+                return false;
+            }
+            var href = $(this).attr('href');
+            var data = {
+                tid: team_id,
+                discount_price: discount_price,
+                max_number: max_number,
+                begin_time: begin_time,
+                end_time: end_time
+            };
+            var btn_html = $this.html();
+            $this.addClass('disabled');
+            $this.html('正在处理...');
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                $this.html(btn_html);
+                if (res.code && res.code != 0 && res.error) {
+                    parent.window.alert(res.error);
+                    return false;
+                }
+                parent.window.alert('操作成功！');
+                parent.window.$.fancybox.close();
+                parent.window.location.reload();
+                return false;
+            }, 'json');
+
+            return false;
+        });
+
+    })
+</script>

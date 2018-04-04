@@ -1,0 +1,52 @@
+body{
+	background-color: #f7f7f7;
+}
+
+ul,li{
+	list-style: none;
+}
+
+a{color: #e6e6e6;}
+a:link,a:visited{
+	text-decoration: none;
+	color:#fff;
+}
+
+.income-code-lt{
+	float: left;
+}
+
+.income-code-title{
+	font-size: 0.8em;
+}
+
+.income-his{
+	overflow: hidden;
+}
+
+.income-his-panel{
+    width: 100%;
+    padding:10px;
+    margin:20px 0;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.income-his-table {
+    background-color: #fff;
+    table-layout: fixed;
+    overflow-y: scroll;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.income-his-table th,
+.income-his-table td{
+	text-align: center;
+	word-break: break-all;
+}
+
+.income-his-table th{
+	padding:10px 0;
+}

@@ -1,0 +1,49 @@
+<div class="alert alert-warning mt10" role="alert">
+    <p>超级验证可通过一张未消费的青团券，一次验证同一订单内的，任意数量未消费的青团券，大幅提升验证效率</p>
+    <p>在使用超级验证前请询问消费者：</p>
+    <ul>
+        <li>1. 本次消费的青团券是不是同一次购买（同一个订单），只有同一订单内的青团券才能使用超级验证</li>
+    </ul>
+</div>
+<div class="container">
+    <div  class="row">
+
+        <div class="col-md-7">
+
+            <form  class="form-horizontal" role="form">
+
+                <div class="form-group has-success has-feedback">
+                    <div class="col-xs-12">
+
+                        <label for="exampleInputEmail1">请消费者提供任意一张未消费的青团券：
+
+                        </label>
+                    </div>
+
+                    <div class="col-sm-5">
+
+                        <input type="text" class="form-control ui-cardnum-show" id="exampleInputEmail1" maxlength="14" onkeyup="this.value = this.value.replace(/\D/g, '')" onafterpaste="this.value=this.value.replace(/\D/g,'')" name="coupon_id" value="">
+
+                    </div>
+                    <div class="col-xs-12">
+
+                        <label for="exampleInputEmail1">请输入您要验证的青团券数量(<span style="color:red">必须小于该订单下可验证的总数量</span>)：
+
+                        </label>
+                    </div>
+
+                    <div class="col-sm-5">
+
+                        <input type="text" class="form-control ui-cardnum-show" id="num"  onkeyup="this.value = this.value.replace(/\D/g, '')" onafterpaste="this.value=this.value.replace(/\D/g,'')" name="num" value="">
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <button type="button" id="many" class="btn btn-warning" style="padding:8px 90px" name="many">验 证</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

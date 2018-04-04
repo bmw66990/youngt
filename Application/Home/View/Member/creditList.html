@@ -1,0 +1,229 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+  <include file="left" />
+  <div id="pcontent" class="coupons-box fl">
+
+          <div class="pmainbox mine">
+
+            <div class="tab">
+              <div class="tab_menu">
+                <ul >
+                    <li>
+                        <a href="{:U('Member/growthList')}">我的成长值</a>
+                    </li>
+                    <li class="selected">
+                        <a href="{:U('Member/creditList')}">我的积分</a>
+                    </li>
+                    <li >
+                        <a href="{:U('Member/scoreGoods')}">积分商城</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Member/scoreList')}">积分兑换记录</a>
+                    </li>
+                </ul>
+              </div>
+
+              <div class="tab_box">
+                <!-- 我的积分开始 -->
+                <div id="credit">
+                  <p class="db myjf f-fs3">
+                    <b>我当前的积分是</b>
+                    <span class="f-fwb cl-f7 score">{$member.score}</span>
+                    <b>分</b>
+                  </p>
+
+                  <!-- 抽奖开始 -->
+                  <div id="point-lottery">
+                    <div class="maincontent f-pr">
+                      <ul class="turnplate f-pr" id="lottery">
+
+                        <li class="grid">
+                          <span class="point">49</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+
+                        <li class="grid">
+                          <span class="point">9999</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+
+                        <li class="grid">
+                          <span class="point">99</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+
+                        <li class="grid">
+                          <span class="point">199</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+
+                        <li class="grid J-grid5 choosed" style="position: absolute; top:90px;right:2px;">
+                          <span class="noreward f-ib mt5">加油</span>
+                        </li>
+                        
+                        <li class="grid" style="position: absolute; top:180px;right:2px;">
+                          <span class="point">5</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+                        
+                        <li class="grid" style="position: absolute; top:180px;right:111px;">
+                          <span class="point">499</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+                        
+                        <li class="grid" style="position: absolute; top:180px;right:222px;">
+                          <span class="point">10</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+
+                        <li class="grid" style="position: absolute; top:180px;left:2px;">
+                          <span class="point">4999</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+
+                        <li class="grid" style="position: absolute; top:90px;left:2px;">
+                          <span class="point">19</span>
+                          <span class="f-fs2">积分</span>
+                        </li>
+                      </ul>
+
+                      <a href="javascript:void(0);" id="begin" class="J-play-grid play-grid"></a>
+                      <div class="award">
+                        <h3>中奖名单</h3>
+
+                        <div class="award__title">
+                          <span class="username">用户名</span>
+                          <span style="margin-left:20px;">奖品</span>
+                        </div>
+                        <div id="marquee" style="width:200px;height:160px;overflow:hidden;margin-top:8px">
+                       <!--  <marquee id="affiche" align="left" behavior="scroll" direction="up" height="150" width="180" hspace="50" vspace="20" loop="-1" scrollamount="3" scrolldelay="200" onMouseOut="this.start()" onMouseOver="this.stop()"> -->
+                          <ul class="award__list">
+                            <volist name="list" id="vo">
+                            <li class="mb10">
+                              <span class="username">{$vo.rname}</span>
+                              <span style="display:block;float:right; margin-right:25px">{$vo.score}积分</span>
+                            </li>
+                            </volist>
+                          </ul>
+                       <!--  </marquee> -->
+                       </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 抽奖结束 -->
+                  <div class="clear"></div>
+                  <div class="mb40 mt20">
+                    <h3 class="f-fs3 mb15">抽奖规则：</h3>
+
+                    <ul  class="rule__detail cl-66 f-fs2">
+                      <li>
+                        1.每次抽奖使用10积分，抽奖次数不限；
+                      </li>
+                      <li>
+                        2.抽中的积分将于10分钟内充入您的青团积分中；
+                      </li>
+                      <li>
+                        3.若未中奖，消耗的积分不予返还；
+                      </li>
+                      <li>
+                        4.青团网在法律范围内保留本次活动的最终解释权。
+                      </li>
+                    </ul>
+                  </div>
+                  <h2 style="color:red; margin:-10px 0 20px 0; font-size:20px">由于积分系统升级！积分明细从2014年8月20号开始记录</h2>
+                  <!-- 积分明细 -->
+                  <h3 class="f-fs3 mb15">积分明细：</h3>
+                  <div id="creditList"></div>
+                  <!-- 积分明细结束 -->
+                </div>
+
+              </div>
+            </div>
+            <script src="__JS_PATH__/jquery.marquee.js"></script>
+            <script type="text/javascript" > 
+            var state=true;
+            var index = 4;
+            var sum = 0;       
+            $(function() {
+              $.get($base_url+"/Member/creditList",function(data){
+                $("#creditList").html(data.html);
+              })
+              $("#marquee").kxbdMarquee({direction:"up",isEqual:false,scrollDelay:50});
+                var act="{$act}";
+
+                if(act==1){
+                  $('#credit').addClass('hide');
+                  $('#card').removeClass('hide');
+                  $('.credit').addClass('selected');
+                  $('.card').removeClass('selected');
+                }else{
+                  $('#credit').removeClass('hide');
+                  $('#card').addClass('hide');
+                  $('.credit').removeClass('selected');
+                  $('.card').addClass('selected');
+                }
+                  $('#begin').click(function(){
+                    if(state){
+                        state=false;
+                        var scores=parseInt($('#credit .score').text());
+                        if(scores<10){
+                          alert('积分不足');
+                        }else{
+                          $.post("{:U('Member/lottery')}",function(data){
+                              if(data.status==0){
+                                alert(data.info);
+                                return false;
+                              }
+                              lottery(data);
+                          })
+                        }
+                     } 
+                  });
+                
+            })
+function lottery(data){
+  var list = $('#lottery li');    
+  var len = list.length; 
+  var interval = null;
+  var msg='';
+  interval = setInterval(function(){ 
+      if( sum == data.msg ){
+          if(data.msg==30){
+            msg="很遗憾,您没能中奖!";
+          }else{
+            msg="恭喜您抽中"+data['prize']+"积分";
+          }
+          clearInterval(interval);
+          $(".score").text(data.score);
+          msgbox(msg,data.msg);
+      }else{
+          list[index].className = "grid";
+          list[(index+1) % len].className = "grid choosed";
+          index = ++index % len;
+          sum+=1;
+      }
+  },100);
+}
+function msgbox(data,num){
+  state=true;
+  if(num!=0){
+    index = num-26;
+    if(index>9){
+      index=index-10;
+    }
+    sum = num-30;
+    alert(data); 
+  }else{
+    alert(data);
+  }
+  
+}
+</script>
+      </div>
+    </div>
+    <div class="clear"></div>
+</div>
+</div></section>
+<include file="Common:footer" />

@@ -1,0 +1,119 @@
+<include file="Common:header" />
+<section>
+	
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">积分商城<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<div class="con-s-title">
+			<if condition="$res = auth_check_access(array('PointsTeam/add'))">
+				<label class="tx-teal"><a href="{:U('PointsTeam/add')}">新建商品</a></label>
+			</if>
+			</div>
+			<form class="myform">
+				<li><label>商品名称</label><input type="text" name="name" value="{$searchValue.name}" class="w100" /><label>,</label></li>
+				<li><label>地区</label>
+					<select name="city_id">
+	                    <option value="0">所有城市</option>
+	                    <volist name="cityList" id="vo">
+	                        <option value="{$vo['id']}" <if condition="$vo['id'] eq $searchValue['city_id']">selected</if>>{$vo.letter}{$vo.name}</option>
+	                    </volist>
+	                </select>
+                </li>
+				<li><label>开始日期</label><input class="laydate-icon w100" id="start" name="begin_time" value="{$searchValue.begin_time}" type="text" ></li>
+				<li><label>结束日期</label><input class="laydate-icon w100" id="end" name="end_time" value="{$searchValue.end_time}" type="text"></li>
+				<li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+			</form>
+			<script>
+				laydate.skin('molv');
+				var start = {
+				    elem: '#start',
+				    format: 'YYYY-MM-DD',
+				    min: laydate.now(), //设定最小日期为当前日期
+				    max: '2099-06-16 23:59:59', //最大日期
+				    //istime: true,
+				    istoday: false,
+				    choose: function(datas){
+				         end.min = datas; //开始日选好后，重置结束日的最小日期
+				         end.start = datas //将结束日的初始值设定为开始日
+				    }
+				};
+				var end = {
+				    elem: '#end',
+				    format: 'YYYY-MM-DD',
+				    min: laydate.now(),
+				    max: '2099-06-16 23:59:59',
+				    istoday: false,
+				    choose: function(datas){
+				        start.max = datas; //结束日选好后，重置开始日的最大日期
+				    }
+				};
+				laydate(start);
+				laydate(end);
+			</script>
+			<div class="form-list">
+				<table cellpadding="0" cellspacing="0">
+					<tr class="list-title">
+						<th class="w70">ID</th>
+						<th class="w200">名称</th>
+						<th class="w120">兑换积分</th>
+						<th class="w150">显示时间</th>
+						<th class="w100">数量</th>
+						<th class="w70">城市</th>
+						<th class="w70">排序</th>
+						<th class="w70">状态</th>
+						<th class="w100"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+					</tr>
+					<volist name="list" id="row">
+					<tr>
+						<td class="w70"><label>{$row.id}</label></td>
+						<td class="w200"><label class="tx-teal">{$row.name}</label></td>
+						<td class="w120"><label>{$row.score}</td>
+						<td class="w150">{$row.begin_time|date='Y.m.d',###}-{$row.end_time|date='Y.m.d',###}</td>
+						<td class="w100"><label>{$row.consume_num}/{$row.limit_num}</label></td>
+						<td class="w70"><label>{$cityList[$row['city_id']]['name']}</label></td>
+						<td class="w70"><label>{$row.sorts}</label></td>
+						<td class="w70">
+							<if condition="$row.is_display eq display">
+								<label class="tx-teal">显示</label>
+							<elseif condition="$row.is_display eq audit" />
+								<label class="tx-red">审核中</label>
+							<elseif condition="$row.is_display eq blank" />
+								<label class="tx-red">不显示</label>
+							<else />
+								<label class="tx-red">未通过</label>	
+							</if>	
+						</td>
+						<td class="w100">
+							<if condition="$res = auth_check_access(array('PointsTeam/check'))">
+								<eq name="row.is_display" value="audit">
+									<label class="bc-teal"><a href="{:U('PointsTeam/check', array('id' => $row['id']))}">审核</a></label>
+								</eq>
+							</if>
+							<if condition="$res = auth_check_access(array('PointsTeam/toCheck'))">
+								<eq name="row.is_display" value="display">
+									<label class="bc-teal"><a href="{:U('PointsTeam/toCheck', array('id' => $row['id'], 'state' => 'blank'))}">禁用</a></label>
+								<else />
+									<label class="bc-teal tx-yellow"><a href="{:U('PointsTeam/toCheck', array('id' => $row['id'], 'state' => 'display'))}">启用</a></label>
+								</eq>
+							</if>
+							<if condition="$res = auth_check_access(array('PointsTeam/edit'))">
+								<label class="bc-teal"><a href="{:U('PointsTeam/edit', array('id' => $row['id']))}">编辑</a></label>
+							</if>
+							<if condition="$res = auth_check_access(array('PointsTeam/destroy'))">
+								<label class="bc-teal"><a href="{:U('PointsTeam/destroy', array('id' => $row['id']))}">删除</a></label>
+							</if>
+						</td>
+					</tr>
+					</volist>
+				</table>
+				<div class="selectpage">
+					<div class="pagenumber">
+						{$pages}
+					</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+<include file="Common:footer" />

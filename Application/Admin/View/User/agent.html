@@ -1,0 +1,71 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">代理列表<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('User/agent')}" method="get">
+                <li><label>用户编号</label><input type="text" name="id" value="{$displayWhere['id']}"/><label>,</label></li>
+                <li><label>用户名</label><input type="text" name="username" value="{$displayWhere['username']}"/><label>,</label></li>
+                <li><label>手机号</label><input type="text" name="mobile" value="{$displayWhere['mobile']}"/><label>,</label></li>
+                <li><label>邮件</label><input type="text" name="email" value="{$displayWhere['email']}"/><label>,</label></li>
+                <li>
+                    <select name="city_id">
+                        <option value="0">所有城市</option>
+                        <volist name="allCity" id="vo">
+                            <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['city_id']">selected</if>>{$vo.letter}{$vo.name}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w60">ID</th>
+                        <th class="w70">代理</th>
+                        <th class="w120">用户名</th>
+                        <th class="w100">姓名</th>
+                        <th class="w150">注册时间</th>
+                        <th class="w120">联系电话</th>
+                        <th class="w100">快捷编单</th>
+                        <th class="w120">开通时间</th>
+                        <th class="w120">总代理</th>
+                        <th class="w80"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="data" id="row">
+                        <tr>
+                            <td class="w60"><label class="tx-teal">{$row['id']}</label></td>
+                            <td class="w70"><label>{$row['city_name']}</label></td>
+                            <td class="w120"><label>{$row['username']}</label></td>
+                            <td class="w100"><label>{$row['realname']}</label></td>
+                            <td class="w150"><label>{$row['create_time']|date="Y-m-d H:i:s",###}</label></td>
+                            <td class="w120"><label>{$row['mobile']}</label></td>
+                            <td class="w100"><label class="bc-teal"><if condition="$row['newbie'] eq 'N'"><a href="javascript:openTeam({$row['id']})">开通</a><else />已开通</if></label></td>
+                            <td class="w120"><label><if condition="$row['newbie'] eq 'N'">未开通<else />{$row['daily_time']|date="Y-m-d",###}</if></label></td>
+                            <td class="w120"><label><if condition="$row['fagent_id'] eq 0">是<else />否</if></label></td>
+                            <td class="w80 man">
+                                    <if condition="$res = auth_check_access(array('User/editUser'))">
+                                        <label  class="bc-teal">
+                                            <a href="{:U('User/editUser',array('id'=>$row['id'],'url_param'=>'agent'))}">编辑</a>
+                                        </label>
+                                    </if>
+<!--                                <label class="bc-teal">
+                                    <a href="#">授权</a>
+                                </label>-->
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/user.js"></script>

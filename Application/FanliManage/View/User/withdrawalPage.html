@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="__CSS_PATH__/bootstrap.css">
+  <link rel="stylesheet" href="__CSS_PATH__/withdrawal.css"/>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+</head>
+<body>
+  <!-- 头部 -->
+
+
+<div class="header container">
+    <p class="text-center  h3">                  
+        <a href="javascript:" onclick="history.back(-1);" class="withdrawal-code-lt">
+            <img src="__IMAGE_PATH__/callback.png" width="18px">
+        </a>
+        <span class="withdrawal-code-title">提现详情</span>
+    </p>
+</div>
+
+<!-- 这是提现详情页 1 -->
+<div class="container withdrawal-content">
+    <form id="business-information-form" method='get' action="__URL__/wancheng" >
+    <div class="panel withdrawal-panel">
+        <div class="panel-heading">
+            <div class="panel-title text-left">输入提现金额</div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <span class="withdrawal-symbol h3">￥</span>
+                <input class="form-control" type="text" name="jine" id="withdrawal-count" placeholder="输入提现金额" value=""/>
+            </div>
+        </div>
+        <input  type="hidden" name="pay" value="<?php echo $_GET['pay']?>"/>
+        <input  type="hidden" name="uid" value="53800"/>
+        <div class="withdrawal-panel-footer">
+            <p class="withdrawal-prompt">
+                <span class="prompt-txt h4">可提现金额<span class="prompt-count"><?php echo $_GET['pay']?></span>元</span>
+                <span class="withdrawal-all">全部提现</span>
+            </p>
+        </div>
+    </div>
+    <div class="promptFriend">温馨提示：提现24小时内到账</div>
+    <div class="withdrawal-btn container">
+        
+        <button class="btn btn-block withdrawal-makeSure">提 现</button>
+    </div> 
+    </form>
+</div> 
+
+
+<script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="__JS_PATH__/bootstrap.js"></script>
+<script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+</body>
+</html>

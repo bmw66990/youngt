@@ -1,0 +1,524 @@
+<include file="Common:header"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <!--提现说明-->
+        <div class="col-sm-12" id="colog">
+        	
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content p-md">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h1><span class="text-navy">
+                                        {$month|date="Y年m月份",###}
+                                    </span>
+                                    结算金额提现</h1>
+                            </div>
+                            <div class="col-lg-3 text-right">
+                                <if condition="$is_withdrawals_time eq 'Y'">
+                                    <a disabled="" type="button" class="btn btn-w-m btn-info btn-money"   >提现</a>
+                                    <else/>
+                                            <i class="text-danger">提现日为次月15日以后</i>
+                                            <button type="button" class="btn btn-w-m btn-default" disabled="">提现</button>
+                                </if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content p-md">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h1><span class="text-navy">2016年3月份</span>
+                                                结算金额提现</h1>
+                                        </div>
+                                        <div class="col-lg-3 text-right">
+                                            <i class="text-danger">提现日为次月15日</i>
+                                            <button type="button" class="btn btn-w-m btn-default" disabled="">提现</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+        </div>
+        <!--计算公式-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content p-md text-center">
+                        <!--省外：平台使用费设为10%的-->
+
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <p><h3>结算金额</h3></p>
+                                <h3 class="text-danger" id="allMoney"><i class="fa fa-spinner fa-spin"></i>元</h3>
+                            </div>
+                            <div class="col-tags col-lg-1">
+                                =
+                            </div>
+                            <div class="col-lg-10">
+                            	<div class="row">
+                            		<div clas="col-sm-12">
+		                                <div class="col-sm-2">
+		                                    <p><h3>本月利润</h3></p>
+		                                    <p class="text-danger" id="allProfit"><i class="fa fa-spinner fa-spin"></i>元</p>
+		                                </div>
+		                                <div class="col-tags col-sm-1">
+		                                    <p>*</p>
+		                                </div>
+		                                <div class="col-tags col-sm-1">
+		                                    <p>(</p>
+		                                </div>
+		                                <div class="col-sm-2">
+		                                    <h2 class="only-one">1</h2>
+		                                </div>
+		                                <div class="col-tags col-sm-1">
+		                                    -
+		                                </div>
+		                                <div class="col-sm-2">
+		                                    <p><h3>平台使用费</h3></p>
+		                                    <p class="text-danger">{$plat_rate*100}%</p>
+		                                </div>
+		                                <div class="col-tags col-sm-1">
+		                                    )
+		                                </div>
+	                                </div>
+                            	</div>
+                            	<div class="row">
+                                <div clas="col-sm-12">
+	                                <div class="col-tags col-sm-1">
+	                                    <p>-</p>
+	                                </div>
+	                                <if condition="$plat_rate lt 0.3 || $plat_rate eq 1.0">
+	                                    <div class="col-tags col-sm-1">
+	                                        <p>(</p>
+	                                    </div>
+	                                </if>
+	                                <if condition="$plat_rate lt 0.3 || $plat_rate eq 1.0">
+	                                    <div class="col-sm-2">
+	                                        <p><h3>支付费用</h3></p>
+	                                        <p class="text-danger">{$payment_fees['all_rate_money']}元</p>
+	                                    </div>
+	                                    <div class="col-tags col-sm-1">
+	                                        <p>-</p>
+	                                    </div>
+	                                    <div class="col-sm-2">
+	                                        <p><h3>短信费用</h3></p>
+	                                        <p class="text-danger">{$sms_charges['sms_money']}元</p>
+	                                    </div>
+	                                    <div class="col-tags col-sm-1">
+	                                        <p>)</p>
+	                                    </div>
+	                                </if>
+	                                <if condition="$plat_rate eq 0.0">
+	                                	<div class="col-tags col-sm-1">
+	                                        <p>*</p>
+	                                    </div>
+	                                    <div class="col-sm-2">
+	                                        <p class="text-danger">{$plat_rate}</p>
+	                                    </div>
+	                                </if>
+                                </div>
+                               </div>
+                               <div class="row">
+                                <div clas="col-sm-12">
+	                                <div class="col-tags col-sm-1">
+	                                    +
+	                                </div>
+	                                <div class="col-sm-2">
+	                                    <p><h3>优惠买单利润</h3></p>
+	                                    <p class="text-danger">{$month_profit['discount_money']['profit_money']}</p>
+	                                </div>
+	                            </div>
+	                            </div>
+                            </div>
+                        </div>
+                        <!--省外：平台使用费设为10%的-->
+                        <!--                        <div class="row">
+                                                    <div class="col-lg-1">
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <p><h3>结算金额</h3></p>
+                                                        <h3 class="text-danger">252221元</h3>
+                                                    </div>
+                                                    <div class="col-tags">
+                                                        =
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <div class="col-sm-2">
+                                                            <p><h3>本月利润</h3></p>
+                                                            <p class="text-danger">252221.00元</p>
+                                                        </div>
+                                                        <div class="col-tags">
+                                                            <p>-</p>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <p><h3>支付费用</h3></p>
+                                                            <p class="text-danger">252221.00元</p>
+                                                        </div>
+                                                        <div class="col-tags">
+                                                            <p>-</p>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <p><h3>短信费用</h3></p>
+                                                            <p class="text-danger">252221.00元</p>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                        <!--省内：平台使用费设为 30%-->
+                        <!--                        <div class="row">
+                                                    <div class="col-lg-1">
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <p><h3>结算金额</h3></p>
+                                                        <h3 class="text-danger">252221元</h3>
+                                                    </div>
+                                                    <div class="col-tags">
+                                                        =
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <div class="col-sm-2">
+                                                            <p><h3>本月利润</h3></p>
+                                                            <p class="text-danger">252221.00元</p>
+                                                        </div>
+                                                        <div class="col-tags">
+                                                            <p>*</p>
+                                                        </div>
+                                                        <div class="col-tags">
+                                                            <p>(</p>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <h2 class="only-one">1</h2>
+                                                        </div>
+                                                        <div class="col-tags">
+                                                            -
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <p><h3>平台使用费</h3></p>
+                                                            <p class="text-danger">30%</p>
+                                                        </div>
+                                                        <div class="col-tags">
+                                                            )
+                                                        </div>
+                                                    </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--本月优惠买单利润-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>本月优惠买单利润</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover text-center" id="editable">
+                        <thead>
+                        <th>商家</th>
+                        <th class="text-center">订单数</th>
+                        <th class="text-center">交易金额</th>
+                        <th class="text-center">利润</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>合计</th>
+                                <td>{$month_profit['discount_money']['order_count']}</td>
+                                <td>{$month_profit['discount_money']['order_sum_money']}元</td>
+                                <td>{$month_profit['discount_money']['profit_money']}元</td>
+                            </tr>
+                        <volist id='mpl' name="month_profit['list']">
+                            <tr>
+                                <th>{$mpl['partner_username']}</th>
+                                <td>{$mpl['partner_order_count']}</td>
+                                <td>{$mpl['partner_order_sum_money']}元</td>
+                                <td>{$mpl['partner_profit_money']}元</td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-lg-5">
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="{:U('Finance/withdrawals_discount_profit_all',array('month'=>$month))}" class="btn btn-outline btn-success">查看详情</a>
+                        </div>
+                        <div class="col-lg-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--..//本月优惠买单利润-->
+
+
+    <!--本月交易利润-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>本月交易利润</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover text-center" id="editable">
+                        <thead>
+                        <th>商家</th>
+                        <th class="text-center">订单数（已减去退款）</th>
+                        <th class="text-center">交易金额（已减去退款）</th>
+                        <th class="text-center">退款</th>
+                        <th class="text-center">接待量</th>
+                        <th class="text-center">利润</th>
+                        </thead>
+                        <tbody id="ProfitView">
+                            <tr>
+                            	<th>合计</th>
+                            	<td class="order-count"><i class="fa fa-spinner fa-spin"></i></td>
+                            	<td class="order-sum-money"><i class="fa fa-spinner fa-spin"></i></td>
+                            	<td class="refund-money-count"><i class="fa fa-spinner fa-spin"></i></td>
+                            	<td class="repos-count"><i class="fa fa-spinner fa-spin"></i></td>
+                            	<td class="order-profit"><i class="fa fa-spinner fa-spin"></i></td>
+                            </tr>
+                        <volist id='mpl' name="month_profit['list']">
+                            <tr>
+                                <th>{$mpl['partner_username']}</th>
+                                <td>{$mpl['partner_order_count']}</td>
+                                <td>{$mpl['partner_order_sum_money']}元</td>
+                                <td>{$mpl['partner_order_refund_sum_money']}元（{$mpl['partner_order_refund_count']}）</td>
+                                <td>{$mpl['partner_reception_count']}</td>
+                                <td>{$mpl['partner_profit_money']}元</td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-lg-5">
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="{:U('Finance/withdrawals_profit_all',array('month'=>$month))}" class="btn btn-outline btn-success">查看详情</a>
+                        </div>
+                        <div class="col-lg-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--..//本月交易利润结束-->
+    <!--支付费用统计-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>支付费用统计</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover text-center" id="editable">
+                        <thead>
+                        <th>费用类型</th>
+                        <th class="text-center">金额</th>
+                        <th class="text-center">费率</th>
+                        <th class="text-center">手续费</th>
+                        </thead>
+                        <tbody>
+                        <volist name="payment_fees['list']" id="pfl">
+                            <tr>
+                                <th>{$pfl['name']}</th>
+                                <td>{$pfl['money']}</td>
+                                <td>{$pfl['rate']}</td>
+                                <td>{$pfl['rate_money']}</td>
+                            </tr>
+                        </volist>
+                        <tr>
+                            <th>合计</th>
+                            <td>~</td>
+                            <td>~</td>
+                            <td>{$payment_fees['all_rate_money']}元</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--..//支付费用统计结束-->
+    <!--短信费用-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>短信费用</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover text-center" id="editable">
+                        <thead>
+                        <th>条数</th>
+                        <th class="text-center">费率</th>
+                        <th class="text-center">费用</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{$sms_charges['sms_count']}</td>
+                                <td>{$sms_charges['rate']}</td>
+                                <td>{$sms_charges['sms_money']}元</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--..//短信费用结束-->
+</div>
+
+<!--提现输入快递框-->
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-1">
+                    </div>
+                    <div class="col-sm-9">
+                        <p>请核对你的提现金额</p>
+                        <form id="form-do-withdrawals" role="form" class="form-horizontal" action="{:U('Finance/doWithdrawalsNews')}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">提现金额：</label>
+                                <div class="col-sm-9">
+                                    <span id="net_profit_money1"></span>
+                                    <input  name="express_no" type="hidden" placeholder="请输入快递单号" value="1252525" class="form-control">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">总金额：</label>
+                                <div class="col-sm-9">
+                                    <span id="all_profit_money1"></span>
+                                </div>
+                                <div class="col-sm-9" style="display: none;">
+                                    <select name="express_id" class="form-control">
+                                        <volist name="express_res" id="er">
+                                            <option value="{$er.id}">{$er.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="net_profit_money" id="net_profit_money" value="" />
+                            <input type="hidden" name="all_profit_money" id="all_profit_money" value="" />
+                            <input type="hidden" name="all_rate_money"  value="{$payment_fees['all_rate_money']}" />
+                            <input type="hidden" name="sms_money"  value="{$sms_charges['sms_money']}" />
+                            <div class="form-group">
+                                <div class="col-sm-5 text-right">
+                                    <button class="btn btn-sm btn-default" id='close_model' type="button" data-dismiss="modal"><strong>现在去寄</strong>
+                                    </button>
+                                </div>
+                                <div class="col-sm-5">
+                                    <button class="btn btn-sm btn-primary" id="btn-do-withdrawals" type="button"><strong>确定提现</strong>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--..//提现输入快递框-->
+<include file="Common:footer"/>
+<script src="__JS_PATH__/content.min.js?v=1.0.0"></script>
+<script>
+    $(function() {
+    	//s.计算公式
+    	$.post("{:U('Finance/withdrawalsprofit')}",{payment_fees:"{$payment_fees['all_rate_money']}",sms_charges:"{$sms_charges['sms_money']}"},function(data){
+    		if(data.code != 0 && data.error){
+    			alert(data.error);
+    			return false;
+    		}
+    		$("#allMoney").html(data.net_profit_money);
+    		$("#all_profit_money").val(data.all_profit_money);
+            $("#all_profit_money1").text(data.all_profit_money);
+    		$("#allProfit").html(data.all_profit_money);
+    		$("#net_profit_money").val(data.net_profit_money);
+            $("#net_profit_money1").text(data.net_profit_money);
+    		$_arr = data.month_profit.all_money;
+//  		//接待量
+	 		$(".repos-count").html($_arr["reception_count"]);
+//  		//利润
+ 			$(".order-profit").html($_arr["profit_money"]);
+    		$(".btn-money").removeAttr("disabled").attr("data-toggle","modal").attr("href","withdrawals.html#modal-form");
+    		refunedRes();
+    	});
+    	//e.计算公式
+    	//s.退款
+    	function refunedRes(){
+    		$.post("{:U('Finance/refund_all_partner_res')}",function(rep){
+	    		var $_html = "";
+	    		if(rep.code!=0 && rep.error){
+	    			$_html="获取失败";
+	    			console.log(rep.error);
+	    		}
+	    		$_html =rep.order_refund_sum_money+"("+rep.order_refund_count+")";
+	    		$(".refund-money-count").html($_html);
+	    		CountOrder();
+	    	});
+    	}
+	    //.e 退款
+    	//s.订单数,交易金额
+    	function CountOrder(){
+    		$.post("{:U('Finance/all_partner_res')}",function(orderCunt){
+		    		var $_html = "";
+		    		if(orderCunt.code!=0 && orderCunt.error){
+		    			$_html="获取失败";
+		    			console.log(orderCunt.error);
+		    			$(".order-count").html($_html);
+		    		$(".order-sum-money").html($_html);
+		    		}
+		    		$(".order-count").html(orderCunt.order_count);
+		    		$(".order-sum-money").html(orderCunt.order_sum_money);
+		    	});
+    	}
+    	
+    	//.e 订单数, 交易金额
+    	
+        $('button#btn-do-withdrawals').on('click', function() {
+            // 点击提现
+            var $this = $(this);
+            var $form = $this.parents('form#form-do-withdrawals');
+            var $close_model = $form.find('#close_model');
+            var $href = $form.attr('action');
+            var $data = $form.serialize();
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+
+            var btn_html = $this.html();
+            $this.addClass('disabled');
+            $this.html('<strong>正在操作...</strong>');
+            $.post($href, $data, function(res) {
+                $this.removeClass('disabled');
+                $this.html(btn_html);
+                if (res.code != 0 && res.error) {
+                    window.alert(res.error);
+                    return false;
+                }
+                window.alert('申请提现成功！可从提现记录中查看！');
+                $close_model.click();
+                window.location.reload();
+                return false;
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

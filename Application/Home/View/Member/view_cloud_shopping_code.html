@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>云购码查看</title>	
+        <meta name="description" content="青团网西安站 - 中国第一大学生校园团购网！为您汇集最全面最优惠的大学城美食娱乐团购打折促销信息！青团网为您精选西安城内的自助餐、电影票、KTV、美发、足浴特色商家，享尽无敌折扣！" />							
+        <meta name="keywords" content="青团网 西安,青团网西安站,西安团购,打折,西安打折,优惠券,西安优惠券,西安校园团购" />
+        <link rel="icon" href="__PUBLIC__/Images/favicon.ico" size="16x16"/>	
+          <link rel="stylesheet" href="__CSS_PATH__/common.css">
+        <style>
+      /*弹出框*/
+.bombox{width: 520px!important;height:350px!important;padding:20px auto;top: 0;bottom: 0;left: 0; right: 0;background: #fff;margin: auto;z-index: 9999;}
+.bombox span{display: block;width: 90%;text-align: left;line-height: 2em;font-size: 1.2em;border-bottom: 1px solid #ccc;font-weight: bold;margin:20px auto;}
+.bombox span.times{display: block;width: 90%;height:20px;text-align:left;line-height: 1.8em;font-size: 1.2em;border: 0;overflow: hidden;padding-left: 3%;}
+.bombox .close{position: absolute;left: 460px;display: block;width: 15px;height: 15px;border: 1px solid #424242;border-radius: 15px;line-height: 15px;top: 3px;}
+.txt-nomber label{float: left;display: block;line-height: 1.5em;padding: 5px;}
+.bombox .txt-nomber{width: 440px;border-bottom:1px dashed #ccc ;overflow: hidden;display: block;float: left;position: relative;margin-left: 30px;padding-bottom: 10px;height: auto;}  
+    </style>
+    </head>
+    <body>
+        <div class="bombox">
+            <span>本期总共参与<i class="t_red">{$cloud_shoping_code_count}</i>人次</span>
+            <volist name="cloud_shoping_code_data" id="cscd">
+                 <span class="times">{$key}</span>
+                <div class="txt-nomber">
+                    <volist name="cscd" id="r_cscd">
+                        <label <eq name="r_cscd.is_winning" value="1" > class="t_red" </eq> >{$r_cscd.cloud_code}</label>
+                    </volist>
+                   </div>
+            </volist>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,77 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content">
+        <div class="con-title">财务明细<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Financial/couponDetail')}" method="post">
+                <li><label>项目(id/标题)</label><input type="text" name="team_id" value="{$team_id|default=''}" class="w120" /></li>
+                <li><label>券编号</label><input type="text" name='coupon_id' value="{$coupon_id|default=''}" class="w120" /></li>
+                <li>
+                    <input type='hidden' name='pay_id' value="{$pay_id|default=''}"/>
+                    <input type="submit" class="btn-teal small-btn" value="筛选" />
+                </li>
+            </form>
+            <div class="cons" style='font-weight: bold; '>
+                <volist  name="team_info" id="team">
+                    <li>
+                        <label>项目编号</label><label class="tx-teal">{$team.partner_income_team_id}</label>;
+                        <label>总数量</label><label >{$team.partner_team_count|default='0'}</label>;
+                        <label>总金额</label><label class="tx-red">{$team.all_team_team_price|default='0.00'}</label>
+                    </li>
+                </volist>
+                <li>
+                    <label class="tx-red">合计总金额：</label><label class="tx-red">{$team_info_all_price|default='0.00'}</label>;
+                </li>
+            </div>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w150">订单编号</th>
+                        <th class="w200">项目名称</th>
+                        <th class="w120">网购价</th>
+                        <th class="w120">供货价</th>
+                        <th class="w150">购买者</th>
+                        <th class="w150">数量</th>
+                        <th class="w150">邮费</th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr>
+                            <td class="w150">
+                                <label class="tx-teal">{$vo.partner_income_coupon_id}</label>
+                            </td>
+                            <td  class="w200">
+                                <label class="tx-teal">{$vo.team_id}</label>
+                                <label class="td-title"><a target="_blank" href="{:C('YOUNGT_URL')}/team-{$vo.team_id}.html" >{$vo.team_product}</a></label>
+                            </td>
+                            <td class="w120">
+                                <label>&#165;{$vo.order_team_price}</label>
+                            </td>
+                            <td class="w120">
+                                <label>&#165;{$vo.order_ucaii_price}</label>
+                            </td>
+                            <td class="w150">
+                                <label class="tx-teal">{$vo.user_username}</label>
+                            </td>
+                            <td class="w150">
+                                <label class="tx-teal">{$vo.order_quantity}</label>
+                            </td>
+                            <td class="w150">
+                                <label class="tx-teal">{$vo.order_fare|default='0.00'}</label>
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        <div class="cuurt">共{$count|default='0'}条</div>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/financial.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

@@ -1,0 +1,93 @@
+<include file="Common:header" />
+<style type="text/css">
+    .sta-table li{
+        width: 30%!important;
+    }
+</style>
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">分销统计<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Market/shareCount')}" method="get">
+                <li><label>用户名称</label><input type="text" name="username" value="{$display_where['username']}" class="w120"/><label>,</label></li>
+                <li><label>团单标题</label><input type="text" name="product" value="{$display_where['product']}" class="w120"/><label>,</label></li>
+                <li><label>时间</label><input class="laydate-icon w100" id="start" type="text" name="start_time" value="{$display_where['start_time']}" >-<input class="laydate-icon w80" id="end" type="text" name="end_time" value="{$display_where['end_time']}"></li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="sta-table">
+                <li>
+                    <img src="__IMAGE_PATH__/ico/rece.png" >
+                    <label class="label-text">{$count['nums']|default=0}</label>
+                    <label class="label-remark">分销成功人数</label>
+                </li>
+                <li>
+                    <img src="__IMAGE_PATH__/ico/order_add.png" >
+                    <label class="label-text">{$count['teams']|default=0}</label>
+                    <label class="label-remark">分销团单数</label>
+                </li>
+                <li>
+                    <img src="__IMAGE_PATH__/ico/backmoney.png" >
+                    <label class="label-text"><a href="#">{$count['money']|default=0}</a></label>
+                    <label class="label-remark"><a href="#">分销总金额</a></label>
+                </li>
+            </div>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w150">用户</th>
+                        <th class="w200">订单</th>
+                        <th class="w200">团单</th>
+                        <th class="w200">获得时间</th>
+                        <th class="w200">购买用户</th>
+                        <th class="w150">金额</th>
+                    </tr>
+                    <volist name="data" id="row">
+                    <tr>
+                        <td class="w150"><label class="tx-teal">{$row.user_id}</label></td>
+                        <th class="w200">{$row.order_id}</th>
+                        <td class="w200">{$row.team_id}-{$row.product}</td>
+                        <td class="w200"><label>{$row.add_time|date="Y-m-d H:i:s",###}</label></td>
+                        <td class="w200">{$row.username}</td>
+                        <td class="w150">{$row.packet_money}</td>
+                    </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    laydate.skin('molv');
+    var start = {
+        elem: '#start',
+        format: 'YYYY/MM/DD ',
+        //min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        //istime: true,
+        istoday: false,
+        choose: function(datas){
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end',
+        format: 'YYYY/MM/DD ',
+        //min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+</script>
+<include file="Common:footer" />

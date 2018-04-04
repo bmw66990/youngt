@@ -1,0 +1,147 @@
+<include file="Common:header"/>
+<!-- orris -->
+    <link href="__PLUGINS_PATH__/morris/morris-0.4.3.min.css" rel="stylesheet">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+        	<div class="col-sm-12">
+	        	<div class="ibox float-e-margins">
+	                <div class="ibox-title">
+	                    <h5>周数据走势图</h5>
+	                </div>
+	                <div class="ibox-content">
+	                	<div id="morris-chart-line"><i class="fa fa-spinner fa-spin"></i></div>
+	                   
+	                </div>
+	            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content" >
+                    	<div class="row">
+                        	<div class="col-sm-12">
+	                        	<div class="dataTables_paginate paging_simple_numbers">
+	                        		<ul class="pagination">
+	                        			<li class="paginate_button previous "><a href="{:U('Chart/index', array('page' => ($curPage + 1)))}">上一周</a></li>
+	                        			<li class="paginate_button next disabled"><eq name="curPage" value="0">
+                    <a href="#">下一周</a>
+                  <else />
+                    <a href="{:U('Chart/index', array('page' => $curPage - 1))}">下一周</a>
+                  </eq></li>
+	                        		</ul>
+	                        	</div>
+                       		</div>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover text-center editable " id="count-table">
+                            <thead>
+                                <tr>
+                                    <th>统计类型</th>
+                                    <?php 
+					                    while($searchTime['st'] < $searchTime['et']) {
+					                  ?>
+                                    <th>{$weekList[date('w',$searchTime['st'])]} / {$searchTime['st']|date='Y-m-d',###}</th>
+                                    <?php
+					                    $searchTime['st'] = strtotime('+1 day', $searchTime['st']);
+					                  }
+					                  ?>
+					                  <th>合计</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+				                  <th>在线项目</th>
+				                  <volist name="onlineTeam" id="row">
+				                  <td>{$row}</td>
+				                  </volist>
+				                  <td></td>
+				                </tr>           
+				                <tr>
+				                  <th>新上项目</th>
+				                  <volist name="newTeam.newteam" id="row">
+				                  <td>{$row}</td>
+				                  </volist>
+				                  <td>{$newTeam.newteam|array_sum}</td>
+				                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                        	<div class="col-sm-12">
+	                        	<div class="dataTables_paginate paging_simple_numbers">
+	                        		<ul class="pagination">
+	                        			<li class="paginate_button previous "><a href="{:U('Chart/index', array('page' => ($curPage + 1)))}">上一周</a></li>
+	                        			<li class="paginate_button next disabled"><eq name="curPage" value="0">
+                   <a href="#">下一周</a>
+                  <else />
+                    <a href="{:U('Chart/index', array('page' => $curPage - 1))}">下一周</a>
+                  </eq></li>
+	                        		</ul>
+	                        	</div>
+                       		</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                	<div class="ibox-title">
+                        <h5>数据总计</h5>
+                    </div>
+                    <div class="ibox-content">
+                    	<div class="row">
+                    		<div class="col-sm-2"></div>
+	                    	<div class="col-sm-8">
+	                    		<table class="table table-striped table-bordered table-hover text-center" id="editable">
+		                            <tbody>
+		                                <tr>
+		                                	<th>团购项目数</th>
+		                                		<td class="load-ajax-url" data-url="{:U('Chart/getTotalTeam')}"><i class="fa fa-spinner fa-spin"></i></td>
+		                                	<th>用户注册数</th>
+		                                		<td class="load-ajax-url" data-url="{:U('Chart/getTotalUser')}"><i class="fa fa-spinner fa-spin"></i></td>
+		                                	<th>团购订单数</th>
+		                                		<td class="load-ajax-url" data-url="{:U('Chart/getTotalOrder')}"><i class="fa fa-spinner fa-spin"></i></td>
+		                                </tr>
+		                            </tbody>
+		                        </table>
+	                    	</div>
+	                        <div class="col-sm-2"></div>
+                    	</div>
+                    	
+                    </div>
+                </div>
+            </div>
+		</div>
+    </div>
+   <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/morris/raphael-2.1.0.min.js"></script>
+    <script src="__PLUGINS_PATH__/morris/morris.js"></script>
+    <include file="chart" />
+    <script type="text/javascript">
+    	$(function(){
+    		$(".load-ajax-url").each(function(){
+			    var $this=$(this);
+			    var url=$(this).attr('data-url');
+			    $.get(url,function(data){
+			      $this.html(data.html);
+			    });
+			  });
+			$.get("{:U('Chart/getRegUser', array('page' => $curPage))}",function(data){
+		    	$("#count-table tr:first").after(data.html);
+			  })
+		    $.get("{:U('Chart/getRecharge', array('page' => $curPage))}",function(data){
+		   		 $("#count-table tr:last").before(data.html);
+		    })
+		    $.get("{:U('Chart/getPayType', array('page' => $curPage))}",function(data){
+		    	$("#count-table tr:last").before(data.html);
+		    })
+		    $.get("{:U('Chart/getOrderNum', array('page' => $curPage))}",function(data){
+		    	$("#count-table tr:last").before(data.html);
+		    })
+    	});
+    </script>
+</body>
+
+</html>

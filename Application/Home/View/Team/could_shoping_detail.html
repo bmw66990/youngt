@@ -1,0 +1,285 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/detail.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__JS_PATH__/detail.js?v={:C('JS_VER')}"></script>
+<include file="Common:nav" />
+<!--头部公共部分结束-->
+<!--详情页内容-->
+<style>
+    .xz,.cz{display: none;}
+    .cz:first-child{display: block;}
+    #pro-pic-carous {
+        width: 480px;
+        height: 300px;
+        border: 0px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+    #pro-pic-carous .pic_box img {
+        float: left;
+        width: 480px;
+        height: 300px;
+    }
+</style>
+<section class="clearfix">
+    <div id="section">
+        <!--内容部分-->
+        <div class="cloud-top fl clearfix">
+            <div class="cloud-top-left">
+                <h1>{$team.title} 
+                    <label style="color:#9b9b9b;font-size: .7em;">
+                         <if condition="$team.status eq 0"> 
+                        （第{$team.now_periods_number}期）
+                        <else/>
+                        （第{$team.periods_number}期）
+                         </if>
+                    </label></h1>
+                <!--产品图片轮播-->
+                <div class="pro-content"> 
+                    <div id="pro-pic-carous" class="fl">
+                        <div class="pic_box"> 
+                            <li><img style="width:480px;hight:300px;" src="{$team.image}" alt="" /> </li>
+                        </div>
+                    </div>
+                    <!--产品图片轮播结束-->
+                    <!--产品信息-->
+                    <div class="pro-con-infor fl" style="min-width:400px;">
+
+                        <if condition="$team.status eq 0">                           
+                            <div class="clound">
+                                <div class="pay-online">
+                                    <h2><label class="t_grey">总需：</label><i id="allper">{$team.max_number}</i>人次</h2>
+                                    <span class="progress"><label></label></span>
+                                    <span class="two"><label class="fl f-red f-blod" id="partic">{$team.now_number}</label><label class="fr f-blue f-blod">{$team['max_number']-$team['now_number']}</label></span>
+                                    <span class="two t_grey"><label  class="fl">已参加人次</label><label class="fr">剩余人次</label></span>
+                                </div>
+                            </div>
+                             <form action="{:U('Team/buy')}" method='get'>
+                            <div class="pro-number fl"><span>次数：</span>
+                                <span>
+                                    <input type="text" name='num' value='1' class="spinnerExample"/>
+                                    <script type="text/javascript">
+                                                $('.spinnerExample').spinner({value: 1});</script>
+                                </span>
+                                <label class="t_lgrey">多参加一次，中奖几率翻倍</label>
+                            </div>
+                            <div class="pro-submit fl border-bottom-one">
+                                <input name='id' type='hidden' value='{$team.id}'/>
+                                 <button type='submit ' style='border:0px;width: 206px;height: 38px;' ><img src="__IMAGE_PATH__/cloud_shoping/lijiduobao2.png" /></button>
+                            </div> 
+                            <div class="infor-ico t_grey">
+                                <label class="fair">公平公正</label>
+                                <label class="quality">品质保证</label>
+                            </div>
+                             </form>
+                            <else/>
+                            <div class="pay-end">
+                                <span>
+                                    <label class="ml20">揭晓结果：</label>
+                                    <label class="t-ff">{$team.winning_cloud_code}</label>
+                                    <label class="fr mt5"><img src="__IMAGE_PATH__/cloud_shoping/xingyunhaoma.png"/></label>
+                                </span>
+                            </div>
+                            <div class="pay-result">
+                                <span><label>获奖者</label></span>
+                                <ul>
+                                    <li>获奖者：<label class="t_blue">{$team.username_hide}</label>
+                                    <if condition="$team.user_city_name neq ''">
+                                                  （{$team.user_city_name}）
+                                   </if>
+                                    </li>
+                                    <li>用户ID：{$team.winning_user_id}</li>
+                                    <li>期号：第{$team.periods_number}期</li>
+                                    <li>揭晓时间：{$team['begin_time']|date="Y-m-d H:i:s",###}</li>
+                                    <li>本次参与：{$team.pay_count}人次</li>
+                                    <li class="result-no-list"><label class="fl">Ta的号码：</label>
+
+                                        <div>
+                                            <volist name="team.cloud_shoping_code_8" id="tcsc8">
+                                                <if condition="$team.pay_count && $team.pay_count gt 8 && $key eq 7">
+                                                    <label>......</label>
+                                                    <else/>
+                                                    <label <if condition="$tcsc8.is_winning eq 1">class="t_red"</if> >{$tcsc8.cloud_code}</label>
+                                                </if>
+                                            </volist>
+                                        </div>
+                                    <if condition="$team.pay_count && $team.pay_count gt 8">
+                                        <div><a href="javascript:;" id="search-all">查看Ta的所有号码</a></div>
+                                        <!--弹出框-->
+                                        <div id="bombox">
+                                            <span>获得者本期总共参与<i class="t_red">{$team.pay_count}</i>人次</span>
+                                            <span class="close">x</span>
+                                            <volist name="team.cloud_shoping_code_data" id="tcscd">
+                                                <span class="times">{$key}</span>
+                                                <div class="txt-nomber">
+                                                    <volist name="tcscd" id="t">
+                                                        <label <if condition="$t.is_winning eq 1">class="t_red"</if> >{$t.cloud_code}</label>
+                                                    </volist>
+                                                </div>
+                                            </volist>                                          
+                                        </div>
+                                    </if>    
+                                    <!---->
+                                    </li>
+                                </ul>
+                            </div>
+                        </if>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-top-right">
+                <if condition="$team.status gt 0 && $team.now_number neq $team.periods_number">
+                    <div class="tit">新的一期</div>
+                    <div class="txt-list">
+                        <span class="img-pay">
+                            <a href="{:U('Team/could_shoping_detail',array('tid'=>$team['id'],'pn'=>$team['now_periods_number']))}">
+                            <img src="{$team.image}"/>潜水艇发动机
+                            </a>
+                        </span>
+                        <div class="pay-online-small">
+                            <h4><label class="t_grey">总需：</label><i id="allper">{$team.max_number}</i>人次</h4>
+                            <span class="progress"><label></label></span>
+                            <span class="two"><label class="fl f-red f-blod" id="partic">{$team.now_number}</label><label class="fr f-blue f-blod">{$team['max_number']-$team['now_number']}</label></span>
+                            <span class="two t_grey"><label  class="fl">已参加人次</label><label class="fr">剩余人次</label></span>
+                        </div>
+                        <form action="{:U('Team/buy')}" method='get'>
+                        <div class="pro-number fl"><span>参与人次：</span>
+                            <span>
+                                <input type="text" name='num' value='1' class="spinnerExample"/>
+                                <script type="text/javascript">
+                    $('.spinnerExample').spinner({value: 1});
+              </script>
+                            </span>
+                        </div>
+                        <div class="">
+                             <input name='id' type='hidden' value='{$team.id}'/>
+                            <button type='submit ' style='border:0px;width: 206px;height: 38px;' ><img src="__IMAGE_PATH__/cloud_shoping/lijiduobao2.png" /></button>
+                        </div>
+                        </form>
+                    </div>
+                    <else/>
+                    <div class="tit">开奖信息</div>
+                    <div id='wqkjxx_con' class="txt-list" load_default_href="__APP__/team-109290.html" load_image_url="__IMAGE_PATH__/cloud_shoping/defaullt_cloud_res.jpg">
+           
+                        <div class="wang-btn">
+                            <span><img src="__IMAGE_PATH__/cloud_shoping/Rectangle81.png" class="pre"/></span>
+                            <span><input type="text" value="开奖期数" class="pernumber" id='wqkjxx_pernumber' load_href="{:U('Team/getCloudShopingWinResult')}"/></span>
+                            <span><img src="__IMAGE_PATH__/cloud_shoping/Rectangle86.png" class="next"/></span>
+                        </div>
+                        <div id='kjxx_cont' class="cont">
+		    		 	
+	       </div>
+                       </div>
+                </if>
+            </div>
+        </div>
+        <!--内容部分-->
+        <div class="cont-center fl clearfix">
+            <div class="cont-center-left fl mb10">
+                <!--详情-->
+                <div class="product-content fl">
+                    <div class="con-nav">
+                        <dl class="c"><h3><a href="javascript:;">商品简介</a></h3></dl>
+                        <dl><h3><a href="javascript:;">购买记录</a></h3></dl>
+                        <dl><h3><a href="javascript:;">晒单</a></h3></dl>
+                        <dl><h3><a href="javascript:;">中奖规则</a></h3></dl>
+                    </div>
+                    <div class="product-con">
+                        <div class="cz">
+                            <div class="text">
+                                {$team.detail}	
+                            </div>
+                        </div>
+                        <!--购买记录-->
+                        <div class="cz">
+                            <div class="record">
+                                <if condition="$team.order_record && !empty($team['order_record'])">
+                                    <span><img src="__IMAGE_PATH__/cloud_shoping/Oval 1.png"/></span>
+                                    <ul>
+                                        <volist name='team.order_record' id='tor'>
+                                            <li><label class="timer">{$key}</label></li>
+                                            <volist name='tor' id='tr'>
+                                                <li>
+                                                    <label class="timer">{$tr.time}</label>
+                                                    <label><img src="__IMAGE_PATH__/bottomstor.png" />
+                                                        <i class="t_blue">{$tr.user_username_hide}</i>
+                                                        <if condition="$tr.user_buy_ip neq ''">
+                                                        （{$tr.user_buy_city_name} IP：{$tr.user_buy_ip}）
+                                                        </if>
+                                                        参与<i class="t_red">{$tr.quantity}人次</i></label></li>
+                                            </volist>
+                                        </volist>
+                                    </ul>
+                                </if>
+
+                            </div>
+                        </div>
+                        <!--晒单-->
+                        <div class="cz" id="sd_comment" team_id="{$team.id}" pn="{$team.pn}" load_href="{:U('Team/getComments')}">
+     
+                        </div>
+                        <!--中奖规则-->
+                        <div class="xz" >
+                           <img src="__IMAGE_PATH__/cloud_shoping/rule.png" width="870px" height="450px">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--详情结束-->
+            </div>
+
+        </div>
+        <!--内容部分结束--> 
+    </div>
+</section>
+<script id="team-wqkjxx-tmpl" type="text/x-jquery-tmpl">  
+<ul>
+<li>
+<label>获奖者：</label>
+<label class='t_blue'>${winning_user_username_hide}</label>
+</li>
+<li>
+<label>用户ID：</label>
+<label>
+${winning_user_id}
+</label>
+</li>
+<li>
+<label>幸运号码：</label>
+<label class='t_red'>
+${winning_cloud_code}
+</label>
+</li>
+<li>
+<label>本期参与：</label>
+<label>
+<i class='t_red'>${max_number}</i>人次
+</label>
+</li>
+<li><label>揭晓时间：</label><label>${time}</label>
+</li>
+<li><label><a href='${view_href}'><img src='__IMAGE_PATH__/cloud_shoping/chakanxiangqing.png' /></a></label>
+</li>
+</ul>
+</script>
+
+<!--百分点详情页部分-->
+<script type="text/javascript">
+            $(function(){
+            var oimg = $("#tgxq img");
+                    var oSrc = "__IMAGE_PATH__/load_index.gif"; //默认图片地址
+                    for (i = 0; i < oimg.length; i++){
+            var src = oimg[i].getAttribute("src");
+                    oimg[i].setAttribute("data-layzr", src);
+                    oimg[i].setAttribute("src", oSrc);
+            }
+            var layzr = new Layzr({
+            attr: 'data-layzr',
+                    threshold: 0,
+                    callback: null
+            });
+            });</script>
+<script type="text/javascript" src="__JS_PATH__/cloudTeamDetail.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

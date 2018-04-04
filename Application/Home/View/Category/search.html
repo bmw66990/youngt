@@ -1,0 +1,160 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/search.css" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+<!--内容开始-->
+<section>
+    <div id='section'>
+        <!--结果统计-->
+        <div class="stati fl">找到<label class="t_orange">"{$searchParams['key']}"</label>相关团购{$count}个</div>
+        <!--筛选条件-->
+        <div class="term fl">
+            <div class="term-hot fl">
+                <dl>
+                    <dt>热门团购</dt>
+                    <dd><a href="{:U('Category/search/gid/255/sid/418')}">火锅</a></dd>
+                    <dd><a class="hot" href="{:U('Category/search/gid/255/sid/587')}">自助餐</a></dd>
+                    <dd><a href="{:U('Category/search/gid/255/sid/417')}">西餐</a></dd>
+                    <dd><a href="{:U('Category/search/gid/12/sid/599')}">酒吧</a></dd>
+                    <dd><a class="hot"href="{:U('Category/search/gid/404/sid/407')}">旅游</a></dd>
+                    <dd><a href="{:U('Category/index/gid/14/sid/422')}">美发</a></dd>
+                    <dd><a href="{:U('Category/index/gid/14/sid/424')}">美容</a></dd>
+                    <dd><a class="hot"href="{:U('Category/search/gid/404/sid/13')}">酒店</a></dd>
+                    <dd><a href="{:U('Category/search/gid/418/sid/608')}">鲜花婚庆</a></dd>
+                </dl>
+            </div>
+            <div class="term-class fl">
+                <dl>
+                    <dt>分类</dt>
+                    <dd <if condition="$searchParams['gid'] eq ''">class="noselected" </if>><a href="__APP__/Category/search/{$searchParams|param='gid,sid'}" >不限</a></dd>
+                    <volist name="groups" id="vo">
+                        <dd  <if condition="$vo.id eq $searchParams['gid']">class="noselected" </if>><a href="__APP__/Category/search/{$searchParams|param='gid,sid'}gid/{$vo.id}">{$vo.name}</a></dd>
+                    </volist>
+                </dl>
+            </div>
+            <notempty name="subs">
+                <div class="term-class fl">
+                    <dl>
+                        <dt>子类</dt>
+                        <dd <if condition="$searchParams['sid'] eq ''">class="noselected" </if>><a href="__APP__/Category/search/{$searchParams|param='gid'}" >不限</a></dd>
+                        <volist name="subs" id="vo">
+                            <dd <if condition="$vo.id eq $searchParams['sid']">class="noselected"</if>><a href="__APP__/Category/search/{$searchParams|param='sid'}sid/{$vo.id}">{$vo.name}</a></dd>
+                        </volist>
+                    </dl>
+                </div>
+            </notempty>
+            <div class="term-add fl">
+                <dl>
+                    <dt>位置</dt>
+                    <dd <if condition="$searchParams['zid'] eq ''">class="noselected"</if>><a href="__APP__/Category/search/{$searchParams|param='zid'}">不限</a></dd>
+                    <volist name="areas" id="vo">
+                        <dd <if condition="$vo.id eq $searchParams['zid']">class="noselected"</if>><a href="__APP__/Category/search/{$searchParams|param='zid'}zid/{$vo.id}">{$vo.name}</a></dd>
+                    </volist>
+                </dl>
+            </div>
+            <notempty name="station">
+                <div class="term-add fl">
+                    <dl>
+                        <dt>街区</dt>
+                        <dd <if condition="$searchParams['station_id'] eq ''">class="noselected"</if>><a href="__APP__/Category/search/{$searchParams|param='station_id'}">不限</a></dd>
+                        <volist name="station" id="vo">
+                            <dd <if condition="$vo.id eq $searchParams['station_id']">class="noselected"</if>><a href="__APP__/Category/search/{$searchParams|param='station_id'}station_id/{$vo.id}">{$vo.name}</a></dd>
+                        </volist>
+                    </dl>
+                </div>
+            </notempty>
+            <div class="term-price fl">
+                <dl>
+                    <dt>价格</dt>
+                    <dd  <if condition="$searchParams['lp'] eq '' AND $searchParams['rp'] eq ''">class="selected"</if> ><a href="__APP__/Category/search/{$searchParams|param='lp,rp'}" >不限</a></dd>
+                    <volist name="prices" id="vo">
+                        <dd <if condition="($vo.min_price eq $searchParams['lp']) AND ($vo.max_price eq $searchParams['rp'])">class="selected"</if>><a href="__APP__/Category/search/{$searchParams|param='lp,rp'}lp/{$vo.min_price}/rp/{$vo.max_price}">{$vo.title}</a></dd>
+                    </volist>
+                </dl>
+            </div>
+        </div>
+        <!--筛选条件结束-->
+        <!--搜索结果-->
+        <div class="search_result fl">
+            <div class="orderby b_litblue clearfix fl">
+                <ul>
+                    <li <if condition="$searchParams['odr'] eq ''">class="selected"</if>><a href="__APP__/Category/search/{$searchParams|param='odr'}">默认</a></li>
+                    <li class="orderby_price <if condition="$searchParams['odr'] eq 'num'">selected <if condition="$sort['num'] eq 'desc'">orderby_price_desc<elseif condition="$sort['num'] eq 'asc'" />orderby_price_asc</if></if>"><a href="__APP__/Category/search/{$searchParams|param='odr,srt'}odr/num/srt/{$sort['num']}">销量</a></li>
+                    <li class="orderby_price <if condition="$searchParams['odr'] eq 'price'">selected <if condition="$sort['price'] eq 'desc'">orderby_price_desc<elseif condition="$sort['price'] eq 'asc'" />orderby_price_asc</if></if>"><a href="__APP__/Category/search/{$searchParams|param='odr,srt'}odr/price/srt/{$sort['price']}">价格</a></li>
+                    <li class="orderby_price <if condition="$searchParams['odr'] eq 'vcnt'">selected <if condition="$sort['vcnt'] eq 'desc'">orderby_price_desc<elseif condition="$sort['vcnt'] eq 'asc'" />orderby_price_asc</if></if>"><a href="__APP__/Category/search/{$searchParams|param='odr,srt'}odr/vcnt/srt/{$sort['vcnt']}">今日人气</a></li>
+                    <li class="orderby_price <if condition="$searchParams['odr'] eq 'tvcnt'">selected <if condition="$sort['tvcnt'] eq 'desc'">orderby_price_desc<elseif condition="$sort['tvcnt'] eq 'asc'" />orderby_price_asc</if></if>"><a href="__APP__/Category/search/{$searchParams|param='odr,srt'}odr/tvcnt/srt/{$sort['tvcnt']}">总人气</a></li>
+                    <li class="orderby_price <if condition="$searchParams['odr'] eq 'time'">selected <if condition="$sort['time'] eq 'desc'">orderby_price_desc<elseif condition="$sort['time'] eq 'asc'" />orderby_price_asc</if></if>"><a href="__APP__/Category/search/{$searchParams|param='odr,srt'}odr/time/srt/{$sort['time']}">开始时间</a></li>
+                </ul>
+                <!-- <label><input type="checkbox" />代金券</label>
+                 <label><input type="checkbox" />立减</label>-->
+            </div>
+            <div class="result fl pro-show-pic">
+                <div class="index-pro-4">
+                    <notempty name="list">
+                        <ul>
+                            <volist name="list" id="team">
+                                <a href="__APP__/team-{$team.id}.html" title="{$team.title}">
+                                    <li>
+                                        <img src="{$team.image}" alt="{$team.title}"/><br/>
+                                        <span class="pro-title">{$team.product}</span>
+                                        <span class="pro-remarks">{$team.title}</span>
+                                        <span class="pro-price"><label class="now-price t_orange">&#165;{$team.team_price}</label><label class="last-price">&#165;{$team.market_price}</label><label class="pro-sold">已售{$team.now_number}</label></span>
+                                        <span class="pro-is-mapp">
+                                            <if condition="$team['not_time'] eq 1">
+                                                <label class="notime">免预约</label>
+                                            </if>
+                                            <if condition="$team['today'] eq 1">
+                                                <label class="payfor">今日新单</label>
+                                            </if>
+                                            <if condition="$team['all_type'] eq 1">
+                                                <label class="orders">多套餐</label>
+                                            </if>
+                                        </span>
+                                    </li>
+                                </a>
+                            </volist>
+                        </ul>
+                    </notempty>
+                    <empty name="list">
+                        <!-- 未找到相关团购开始 -->
+                        <div class="no-result f-fwb f-tac" style="font-size:18px ">
+                            未找到与“
+                            <strong style="color:#ff7f00">{$searchParams['key']}</strong>
+                            ”相关的团购
+                        </div>
+                    </empty>
+                </div>
+            </div>
+        </div>
+        <div class="selectpage fl">
+            <div class="pagination mt10">
+                {$page}
+            </div>
+        </div>
+        <!--搜索结果结束-->
+    </div>
+</section>
+<script type="text/javascript">
+    window["_BFD"] = window["_BFD"] || {};
+    var search_result='0';
+    var search_count = {$count} || 0;
+    if(search_count>0){
+        search_result='1';
+    }
+    
+    _BFD.BFD_INFO = {
+        "search_word": "{$searchParams['key']}", //搜索词
+
+        "search_result": search_result, //搜索有无结果，1表示有结果，0表示无结果
+
+        "search_id": ["{$list[0]['id']}", "{$list[1]['id']}", "{$list[2]['id']}"], //搜索的前3个结果的商品id
+
+        "user_id": "{$member.id}", //网站当前用户id，如果未登录就为0或空字符串
+
+        "page_type": "search" //当前页面全称，请勿修改
+    };
+    if (dfb_common) {
+        dfb_common();
+    }
+</script>
+<!--内容结束-->
+<include file="Common:footer" />

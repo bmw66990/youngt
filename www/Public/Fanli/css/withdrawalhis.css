@@ -1,0 +1,68 @@
+body{
+	background-color: #f7f7f7;
+}
+
+ul,li{
+	list-style: none;
+}
+
+a{color: #e6e6e6;}
+a:link,a:visited{
+	text-decoration: none;
+	color:#fff;
+}
+
+.header{
+	background-color:#E60827;
+	width:100%;
+	color: #fff;
+	position: fixed;
+	z-index: 1;
+}
+
+.withdrawal-code-lt{
+	float: left;
+}
+
+.withdrawal-code-title{
+	font-size: 0.8em;
+}
+
+.withdrawal-his{
+	overflow: hidden;
+    padding-top: 56px;
+    position: absolute;
+}
+
+.withdrawal-his-panel{
+    width: 90%;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.withdrawal-his-table {
+    background-color: #fff;
+    table-layout: fixed;
+    overflow-y: scroll;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.withdrawal-his-table th,
+.withdrawal-his-table td{
+	text-align: center;
+	word-break: break-all;
+}
+
+.withdrawal-his-table th{
+	padding:10px 0;
+}
+
+.table-striped> thead i {
+    float: right;
+    line-height: 20px;
+    padding: 10px 0;
+    border-right: 1px solid #EBEBEB;
+}

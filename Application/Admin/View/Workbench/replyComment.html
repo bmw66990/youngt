@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>回复评论</title>
+    <link rel="stylesheet" href="__CSS_PATH__/widget.css" />
+    <link rel="stylesheet" href="__CSS_PATH__/pop.css" />
+    <link rel="stylesheet" href="__CSS_PATH__/common.css" />
+    <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+    <style type="text/css">
+        textarea{
+            width: 200px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="fancycreate" style="width: 90%">
+    <if condition="$error neq ''">
+        <p class="error">{$error}</p>
+        <else />
+        <form name="myform">
+            <li class="taskfocus">
+                <span class="add-person" style="width: 20%">
+                    <notempty name="log_data.avatar">
+                        <img src="{$log_data.avatar|getImagePath}" title="{$log_data['realname']}">
+                        <else />
+                        <img src="__IMAGE_PATH__/nophoto.jpg" title="{$log_data['realname']}">
+                    </notempty>
+                </span>
+                <span style="width: 80%">
+                    <label>{$log_data['realname']}</label>
+                    <label class="tx-grey">{$log_data['remark_content']}</label>
+                </span>
+            </li>
+            <li>
+             <span class="add-person">
+                 <notempty name="user_info.avatar">
+                     <img src="{$user_info.avatar|getImagePath}" title="{$user_info['realname']}">
+                     <else />
+                     <img src="__IMAGE_PATH__/nophoto.jpg" title="{$user_info['realname']}">
+                 </notempty>
+             </span>
+             <span id="comment">
+                <textarea name="remark_content"></textarea>
+                <input type="submit" class="btn-teal" style="float: right;margin-top: 10px;" onclick="ajaxReplyComment('{$log_data['id']}');return false;" value="回复评论">
+             </span>
+            </li>
+        </form>
+    </if>
+</div>
+</body>
+<script type="text/javascript">
+    function ajaxReplyComment(id){
+        var url = "{:U('Workbench/ajaxReplyComment')}";
+        var content = $('textarea').val();
+        if(content == ''){
+            $('textarea').css("border-color",'red');
+        }else{
+            $.post(url,{id:id,remark_content:content},function(data){
+                if(data.error == -1){
+                    alert(data.error);
+                }else{
+                    window.parent.jQuery.fancybox.close();
+                    window.parent.location.reload();
+                }
+            });
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,82 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/city.css" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+<!--城市选择开始-->
+<section class="clearfix"><div id='section'>
+<div id="bdw">
+    <div id="bd">
+        <div class="choosecity">
+            <div class="choosedcity cf" style="position:relative;">
+                <form  method="get" action="{:U('Public/city')}" class="fl"  id="select-city">
+                    <span class="label">按省份选择：</span>
+					<span class="province-city-select">
+						<select name="czone" id="czone" class="f-fs2" onchange="getCities($(this));">
+                            <option value="0">加载中</option>
+                        </select>
+						<select name="ename" id="ename" class="f-fs2">
+                            <volist name="son_city" id="vo">
+                                <option value="{$vo.ename}" <if condition="$vo['ename'] eq $city['ename']">selected="selected"</if>>{$vo.name}</option>
+                            </volist>
+                        </select>
+					</span>
+                </form>
+                <form  class="fl"  id="search-city">
+                    <span class="label" style="margin-left:50px;">直接搜索:</span>
+					<span class="ml10">
+						<input class="sousuo" type="text" name="city-key" id="city-key" style="width:120px" placeholder="请输入城市中文或拼音" title="请输入城市中文或拼音" />
+					</span>
+                    <input class="btn btn-mini f-ib" id="zjss" type="button" onclick="getSearchCity('#city-key')" value="确定" />
+                </form>
+                <div class="joinlinkbtn" style="position:absolute;top:10px;right:20px;">
+                    <a href="{:U('Public/merchants')}" target="_blank"></a>
+                </div>
+            </div>
+            <!--热门城市开始-->
+            <div class="city-list">
+                <h3 style="width:100px;" >推荐城市</h3>
+                <p>
+                    <volist name="hot_city" id="hot">
+                        <a  style="width:70px;" href="http://{$hot.ename}.{$domain}">{$hot.name}</a>
+                    </volist>
+                </p>
+            </div>
+            <!--按拼音字母选择-->
+            <div class="citylist">
+                <h2>
+                    按拼音首字母选择
+                    <span class="arrow">»</span>
+                </h2>
+                <ol>
+                    <volist name="all_city" key="letter" id="vo">
+                        <li id="city-A">
+                            <p class="cf">
+                			<span class="label">
+                				<strong>{$key}</strong>
+                			</span>
+                			<span>
+                			<volist name="vo" key="ename" id="city">
+                                <a class="f-fwb" href="http://{$city['ename']}.{$domain}" gaevent="changecity/build">{$city['name']}</a>
+                            </volist>
+                            </span>
+                            </p>
+                        </li>
+                    </volist>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+</div></section>
+<!--底部开始-->
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/city.js"></script>
+<script id="czone-tmpl" type="text/x-jquery-tmpl">
+    {{each(i,val) data}}
+         <option value="${i}">${val}</option>
+    {{/each}}
+</script>
+<script id="ename-tmpl" type="text/x-jquery-tmpl">
+    {{each(i,val) data}}
+    <option value="${val.ename}">${val.name}</option>
+    {{/each}}
+</script>

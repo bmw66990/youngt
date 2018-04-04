@@ -1,0 +1,74 @@
+<form action="__APP__/__APP_NAME__/Partner/update" method="post">
+    <fieldset>
+        <legend class="pl30 pb10">1.登录信息</legend>                              
+        <div class="formitm">
+            <label class="lab">用户名：</label>
+            <div class="ipt">
+                <input type="text" class="u-ipt" value="{$partner['username']}" readonly="readonly"/>      
+            </div>
+        </div>
+        <div class="formitm">
+            <label class="lab">原密码：</label>                                   
+            <div class="ipt">
+                <input type="password" name="oldpassword" class="u-ipt"/>
+                <p>如果不想修改密码，请保持空白</p>
+            </div>
+        </div>
+        <div class="formitm">
+            <label class="lab">新密码：</label>                                   
+            <div class="ipt">
+                <input type="password"  name="newpassword" class="u-ipt"/>
+                <p>如果不想修改密码，请保持空白</p>
+            </div>
+        </div>
+        <div class="formitm">
+            <label class="lab">确认新密码：</label>
+            <div class="ipt">
+                <input type="password"  name="cnewpassword" class="u-ipt"/>
+                <p>如果不想修改密码，请保持空白</p>                                       
+            </div>
+        </div>
+        <legend class="pl30 f-db pt20 pb10">2.商户信息</legend> 
+        <div class="formitm">
+            <label class="lab">商户名称：</label>
+            <div class="ipt">
+                <input type="text" class="u-ipt" name="title" value="{$partner['title']}" readonly="readonly"/>   
+            </div>
+        </div>
+        <div class="formitm">
+            <label class="lab">联系人：</label>
+            <div class="ipt">
+                <input type="text" class="u-ipt" name="contact" value="{$partner['contact']}"/>                                       
+            </div>
+        </div>
+        <div class="formitm">
+            <label class="lab">商家地址：</label>
+            <div class="ipt">
+                <input type="text" class="u-ipt" name="address" value="{$partner['address']}" readonly="readonly"/>                                       
+            </div>
+        </div>
+        <div class="formitm">
+            <label class="lab">联系电话：</label>
+            <div class="ipt">
+                <input type="text" class="u-ipt" name="phone" value="{$partner['phone']}" readonly="readonly"/>                                       
+            </div>
+        </div>
+        <!-- 文本框获取焦点弹出层 2015-1-26  作者：oldfu -->
+        <div class="formitm f-pr" id="mobile_verify">
+
+            <label class="lab">手机号码：</label>
+
+            <div class="ipt">
+
+                <input type="text" class="u-ipt" name="mobile" value="{$partner['mobile']}" data-toggle="modal" data-target="#myModal" data-backdrop="static"/>
+
+            </div>
+
+        </div>
+        <div class="formitm formitm-2">
+            <div class="tipContent" style="margin-left: 80px;margin-top:3px"></div>
+            <button class="u-btn u-btn-c2" id='partner-form-submit' type="button">编辑</button>
+            
+        </div>
+    </fieldset>
+</form>

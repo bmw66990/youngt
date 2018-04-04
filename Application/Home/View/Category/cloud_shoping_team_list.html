@@ -1,0 +1,64 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/detail.css" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+<!--详情页内容-->
+<section class="clearfix">
+    <div id="section">
+        <!--内容部分-->
+        <div class="cloud-pay">
+            <script>
+
+            </script>
+            <div class="cloud-pay-nav">
+                <a href="{:U('Category/cloud_shoping_team_list',array('type'=>'hot'))}"><span <if condition="!$type || $type neq 'cloud_result'"> class="curre" </if> >热门</span></a>
+                <a href="{:U('Category/cloud_shoping_team_list',array('type'=>'cloud_result'))}"><span <if condition="$type && $type eq 'cloud_result'"> class="curre" </if> >最新揭晓</span></a>
+            </div>
+            <div class="cloud-pay-list">
+                <ul>
+                    <if condition="$type && $type eq 'cloud_result'">
+                        <volist name="list" id="vo">
+                            <li>
+                                <a href="{:U('Team/could_shoping_detail',array('tid'=>$vo['id'],'pn'=>$vo['csr_periods_number']))}">
+                                    <img src="{$vo.image}" />
+                                    <h3>{$vo.title}</h3>
+                                    <span>(第{$vo.csr_periods_number}期)</span>
+                                    <span>总需：{$vo.csr_max_number}</span>
+                                    <div class="winner-info">
+                                        <dd>恭喜 <label class="t_blue">{$vo.csr_winning_user_username_hide}&nbsp; </label><label class="t_green"></label>获得该奖品</dd>
+                                        <dd>幸运号码：<label class="t_red">{$vo.csr_winning_cloud_code}</label></dd>
+                                        <dd>本期参与：<label class="t_red">{$vo.pay_count}</label>人次</dd>
+                                        <dd>揭晓时间：{$vo['csr_begin_time']|date="Y-m-d H:i:s",###}</dd>
+                                    </div>
+                                </a>
+                            </li>
+                        </volist>
+                        <else/>
+                        <volist name="list" id="vo">
+                            <li><a href="{:U('Team/could_shoping_detail',array('tid'=>$vo['id'],'pn'=>$vo['now_periods_number']))}">
+                                    <img src="{$vo.image}" />
+                                    <span class="h3" title="{$vo.title}">{$vo.title|msubstr=0,15}</span>
+<!--                                    <span>(第{$vo.now_periods_number}期)</span>-->
+                                    <span class="f-blod t_grey">总需：<i>{$vo.max_number}</i></span>
+                                    <div class="pay-online-small">
+                                        <span class="progress">
+                                            <label style="width:{$vo.progress}%"></label>
+                                        </span>
+                                        <span class="two"><label class="fl f-red f-blod" data-mis="partic">{$vo.now_number}</label><label class="fr f-blue f-blod" data-mis="surplus">{$vo['max_number']-$vo['now_number']}</label></span>
+                                        <span class="two t_grey"><label  class="fl">已参加人次</label><label class="fr">剩余人次</label></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </volist>
+                    </if>
+                </ul>
+            </div>
+        </div>
+        <div class="selectpage fl">
+            <div class="pagination mt10">
+                {$page}
+            </div>
+        </div>
+    </div>
+</section>
+<!--内容结束-->
+<include file="Common:footer" />

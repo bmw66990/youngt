@@ -1,0 +1,109 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="{:U('Coupon/index')}">首页</a>
+            </li>
+            <li class="active">验证详情</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <include file="Common:message_tip" />
+        <if condition="$action eq 'consume'">
+            <if condition="$count && $count gt 1">
+                <include file="Coupon:check_multi_coupons_info" />
+                <else/>
+                <include file="Coupon:check_one_coupon_info" />
+            </if>
+            <else/>
+            <include file="Coupon:check_coupon_info" />
+        </if>
+        <a href="{:U('Coupon/index')}" class="btn btn-success">返回</a>
+    </div><!-- /.page-content -->
+
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+<script>
+    $(function(){
+         // 点击校验
+    $(".main-container-inner").on('click', 'button#btn-check-coupon', function(e) {
+    // $('button#btn-check-coupon').die().live('click', function() {
+        var $this = $(this);
+        var $form = $this.parents('form');
+        var $action = $this.attr('lang');
+        if($this.hasClass('disabled')){
+            return false;
+        }
+        switch ($.trim($action)) {
+            case 'one':
+                var couponId = $form.find('#coupon_id').val();
+                if (!$.trim(couponId)) {
+                    show_message_tip({error: '团卷id不能为空！'});
+                    return false;
+                }
+                break;
+            case 'multi':
+                var num = $form.find('[type=checkbox]:checked').length;
+                if (num <= 0) {
+                    show_message_tip({error: '请选择您要验证的券号！'});
+                    return false;
+                }
+                break;
+            default:
+                show_message_tip({error: '非法操作！'});
+                return false;
+                break;
+        }
+
+        // 提交表单
+        var checkedSubmit = function(cb) {
+            var href = $form.attr('action');
+            var data = $form.serialize();
+            $this.addClass('disabled')
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled')
+                if (res.code != 0 && res.error) {
+                    show_message_tip(res);
+                    return false;
+                }
+                cb();
+            }, 'json');
+        };
+
+        // 校验完成后获取打印信息
+        checkedSubmit(function() {
+            $form.find('#action').removeAttr('name').attr('disabled', false);
+            $form.submit();
+            return false;
+        });
+        return false;
+
+    });
+    
+        $(".main-container-inner").on('click', '#checkall', function() {
+        //$("#checkall").click(function() {
+            $(':checkbox').attr('checked', true);
+        });
+        $(".main-container-inner").on('click', '#checkno', function() {
+        //$("#checkno").click(function() {
+            $(':checkbox').attr('checked', false);
+        });
+    });
+</script>

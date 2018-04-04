@@ -1,0 +1,50 @@
+<include file="Common:header"/>
+<!--本页面样式-->
+   <link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover " id="editable">
+                <thead>
+                    <tr>
+                    <th class="header">利润 <i class="fa fa-sort"></i></th>
+                      <th class="header">购买价 <i class="fa fa-sort"></i></th>
+                    <th class="header">团单 <i class="fa fa-sort"></i></th>
+                      <th class="header">验证数量 <i class="fa fa-sort"></i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <volist name="list" id="row">
+                        <tr>
+                            <td>{$row.profit}</td>
+                            <td>{$row.team_price}</td>
+                            <td width="40%" style="height:50px;overflow:hidden">{$row.title}</td>
+                            <td>{$row.num}</td>
+                        </tr>
+                    </volist>
+                  </tbody>
+                </table>
+                <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                        共 {$count} 项
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                        {$pages}
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+</body>
+
+
+</html>

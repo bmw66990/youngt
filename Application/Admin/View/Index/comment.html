@@ -1,0 +1,72 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">用户点评<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform">
+                <li><label>商户编号</label><input type="text" name="partner_id" value="{$displayWhere['partner_id']}"/><label>,</label></li>
+                <li><label>项目编号</label><input type="text" name="team_id" value="{$displayWhere['team_id']}"/><label>,</label></li>
+                <li><label>用户名/邮箱</label><input type="text" name="account" value="{$displayWhere['account']}"/><label>,</label></li>
+                <li><label>内容</label><input class="w300" type="text" name="content" value="{$displayWhere['content']}"/><label>,</label></li>
+                <li><label>等级</label>
+                    <select name="comment_num">
+                        <option value="0">选择等级</option>
+                        <volist name="grade" id="vo">
+                            <option value="{$key}" <if condition="$key eq $displayWhere['comment_num']">selected</if>>{$vo}</option>>
+                        </volist>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+                </form>
+                <div class="form-list">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr class="list-title">
+                            <th class="w300">项目名称</th>
+                            <th class="w150">用户名</th>
+                            <th class="w200">内容</th>
+                            <th class="w100">状态</th>
+                            <th class="w100">日期</th>
+                            <th class="w70"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                        </tr>
+                        <volist name="data" id="row">
+                        <tr>
+                            <td  class="w300"><label class="td-title"><a href="{:C('YOUNGT_URL')}/team-{$row['team_id']}.html" title="{$row['product']}" target="_blank">{$row['product']}</a></label><br/><img src="__IMAGE_PATH__/ico/td_add.png"/> {$row['city_name']}
+                            </td>
+                            <td class="w150 lh-26"><br/><label class="lh-26">{$row['username']}</label><br/><label class="tx-teal">[<a class="fancybox fancybox.iframe" href="#">短信</a>]</label></td>
+                            <td class="w200 f-12"><label>{$row['content']}</label></td>
+                            <td class="w100 f-12"><label class="tx-teal">{$grade[$row['comment_num']]}</label></td>
+                            <td class="w100"><label class="f-12">{$row['create_time']|date="Y-m-d",###}</label></td>
+                            <td class="w70 f-12 man">
+                                <if condition="$res = auth_check_access(array('User/getUserInfo'))">
+                                    <label class="bc-teal">
+                                        <a  href="javascript:popup('{:U('User/getUserInfo',array('id'=>$row['user_id']))}',450,650);">详情</a>
+                                    </label>
+                                </if>
+                                <if condition="$res = auth_check_access(array('Index/delComment'))">
+                                    <label  class="bc-teal">
+                                        <a href="javascript:delComment({$row['id']})">删除</a>
+                                    </label>
+                                </if>
+                                <if condition="$res = auth_check_access(array('Index/commentDisplay'))">
+                                    <label  class="bc-teal">
+                                        <if condition="$row['comment_display'] eq 'Y'"><a href="javascript:commentDisplay({$row['id']})">在显示</a><else />已屏蔽</if>
+                                    </label>
+                                </if>
+                            </td>
+                        </tr>
+                        </volist>
+                    </table>
+                    <div class="selectpage">
+                        <div class="pagenumber">
+                            {$pages}
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/index.js"></script>

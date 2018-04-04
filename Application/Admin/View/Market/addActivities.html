@@ -1,0 +1,90 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">新建活动<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('Market/doAddActivities')}" method="post">
+                <ul class="li-onlyline">
+                    <li><label>显示城市</label>
+                        <select name="cityid">
+                            <volist name="all_city" id="vo">
+                                <option value="{$vo['id']}">{$vo.letter}{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>是否自愿报名</label>
+                        <select name="is_voluntary_in">          
+                                <option value="N">否</option>
+                                <option value="Y">是</option>
+                        </select>
+                    </li>
+                    <li><label>活动标题</label><input class="w300" type="text" name="textarr"></li>
+                    <li><label>活动链接</label><input class="w300" type="text" name="linkarr"></li>
+                    <li><label>入口类型</label>
+                        <select name="show_type" id="typePic" class="w150">
+                             <volist name="activities_show_type" id="vo">
+                                <option value="{$vo['val']}">{$vo['name']}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/css/style.css">
+<script type="text/javascript" src="__PUBLIC__/plugins/webuploader/webuploader.js"></script>
+                    <li><label>上传图片</label><span style="width:700px;display:inline-block;">
+                            <include file="upload" />
+                            <input type="hidden" name="picarr" id="uploadimage" value="">
+                        </span></li>
+                    <li  id="picup"><label>上传图片</label><span style="width:700px;display:inline-block;">
+                        <include file="upload2" />
+                        <input type="hidden" name="pic" id="uploadimage2" value="">
+                    </span></li>
+                    <li><label>开始时间</label><input class="w100" type="text" id='begin_time' name="begin_time"><label>至</label><input class="w100" type="text" id='end_time' name="end_time"></li>
+                    <li><label>置顶</label>
+                    	<label><input  type="radio" name="sort_order" checked=""> 是</label>
+                    	<label><input  type="radio" name="sort_order"> 否</label>
+                    </li>
+                    <li><input class="small-btn btn-teal w100 h40" type="submit" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Partner/uploadImg',array('type'=>'activities'))}";
+    
+    var begin_time = {
+        elem: '#begin_time',
+        format: $('#begin_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+            end_time.min = datas; //开始日选好后，重置结束日的最小日期
+        }
+    };
+    var end_time = {
+        elem: '#end_time',
+        format: $('#end_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+        }
+    };
+    laydate(begin_time);
+    laydate(end_time);
+    $(function(){
+    	$("#picup").hide();
+    	$("#typePic").on("change",function(){
+    		var $_val = $(this).val();
+    		if($_val =="square"){
+    			$("#picup").show();
+    		}else{
+    			$("#picup").hide();	
+    		}
+    	})
+    })
+</script>

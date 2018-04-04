@@ -1,0 +1,352 @@
+<include file="Common:header"/>
+	<!-- orris -->
+    <link href="__PLUGINS_PATH__/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="__PLUGINS_PATH__/datapicker/datepicker3.css" rel="stylesheet">
+    <style>
+    	.fld{position:absolute;top: -20px;left: 300px;}
+    	.label-legend{width: 45px;height: 1px;border-width:1px;border-style: solid;margin-left: 5px;}
+    	.label-legend.red{border-color:#FF3332;}
+    	.label-legend.blue{border-color:#669EB5;}
+    	.label-legend.orange{border-color:#FF9932;}
+    	.label-legend.green{border-color:#0ACC66;}
+    </style>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+        	<div class="col-sm-12">
+        		<div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="<if condition="$curtab eq 'day'">active</if>"><a data-toggle="tab" href="#tab-day" aria-expanded="true">日趋势</a></li>
+                        <li class="<if condition="$curtab eq 'month'">active</if>"><a data-toggle="tab" href="#tab-month" aria-expanded="false">月趋势</a></li>
+                    </ul>
+                    <div class="tab-content">
+                    	<!-- 日统计start -->
+                        <div id="tab-day" class="tab-pane <if condition="$curtab eq 'day'">active</if>">
+                    		<div class="col-sm-5 fld">
+                    			<div class="ibox float-e-margins">
+				                    <div class="ibox-content">
+				                        <form role="form" method="get" class="form-horizontal" action="__ACTION__">
+			                            <div class="form-group">
+			                                <label class="col-sm-3 control-label">截至日期</label>
+			                                <div class="input-group col-sm-9">
+			                                	<div class="date col-sm-8" id="select-day">
+			                                		<div class="input-group">
+			                                			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                           			<input type="date" class="form-control" id="end_day" name="end_day" value="{$day['end']}" />
+			                                		</div>
+					                            </div>
+					                            <div class="col-sm-4">
+					                            	<input type="hidden" name="curtab" value="day" />
+					                            	<button type="submit" id="query-day" class="btn btn-primary">查询</button>
+					                            </div>
+			                                </div>
+			                            </div>
+			                           </form>
+			                        </div>
+		                       </div>
+                    		</div>
+					        <div class="row">
+					        	<div class="col-sm-12">
+						        	<div class="ibox">
+						                <div class="ibox-title">
+						                    <h5>趋势图</h5>
+						                </div>
+						                <div class="ibox-content">
+						                    <div id="morris-line-day"></div>
+						                    <div class="row">
+						                    	<div class="col-sm-12">
+							                    	<div class="col-sm-2"></div>
+							                    	<div class="col-sm-8">
+							                    		<div class="col-sm-3">
+							                    			<label>验证券号</label>
+							                    			<label class="label-legend red"></label>
+							                    		</div>
+							                    		<div class="col-sm-3">
+							                    			<label>付款订单</label>
+							                    			<label class="label-legend green"></label>
+							                    		</div>
+							                    		<div class="col-sm-3">
+							                    			<label>退款订单</label>
+							                    			<label class="label-legend blue"></label>
+							                    		</div>
+							                    		<div class="col-sm-3">
+							                    			<label>未付款订单</label>
+							                    			<label class="label-legend orange"></label>
+							                    		</div>
+							                    	</div>
+							                    	<div class="col-sm-2"></div>
+						                    	</div>
+						                    </div>
+						                </div>
+						            </div>
+					            </div>
+					        </div>
+					        <div class="row">
+					            <div class="col-sm-12">
+					                <div class="ibox float-e-margins">
+					                	<div class="ibox-title">
+						                    <h5>明细</h5>
+						                </div>
+					                    <div class="ibox-content">
+					                        <table class="table table-striped table-bordered table-hover" id="editable">
+					                            <thead>
+					                                <tr>
+					                                    <th>日期</th>
+					                                    <th>总订单</th>
+					                                    <th>付款订单</th>
+					                                    <th>退款订单</th>
+					                                    <th>未付款订单</th>
+					                                    <th>验证券号</th>
+					                                </tr>
+					                            </thead>
+					                            <tbody id="day-lines">
+                                                    
+					                            </tbody>
+					                        </table>
+					                        <div class="row">
+					                        	<div class="col-sm-12">
+						                        	<div class="dataTables_paginate paging_simple_numbers">
+						                        		<ul class="pagination">
+															<li class="paginate_button previous ">
+																<a href="{:U('Chart/stats_list',array('curtab'=>'day','end_month' => $month['end'],'end_day' => $day['prev']))}">往前一月</a>
+															</li>
+															<li class="paginate_button next">
+																<a href="{:U('Chart/stats_list', array('curtab'=>'day','end_month' => $month['end'],'end_day' => $day['next']))}">往后一月</a>
+															</li>
+						                        		</ul>
+						                        	</div>
+					                       		</div>
+					                        </div>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+                    	</div>
+                        <!-- 日统计end -->
+
+                        <!-- 月统计start -->
+                    	<div id="tab-month" class="tab-pane <if condition="$curtab eq 'month'">active</if>">
+                    		<div class="col-sm-5 fld">
+                    			<div class="ibox float-e-margins">
+				                    <div class="ibox-content">
+				                        <form method="get" class="form-horizontal">
+			                    		<div class="form-group">
+			                                <label class="col-sm-3 control-label">截至月份</label>
+			                                <div class="input-group col-sm-9">
+			                                	<div class="date col-sm-8" id="select-month">
+			                                		<div class="input-group">
+			                                			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                           			<input type="date" class="form-control" id="end_month" name="end_month" value="{$month['end']}" />
+			                                		</div>
+					                            </div>
+					                            <div class="col-sm-4">
+					                            	<input type="hidden" name="curtab" value="month" />
+					                            	<button type="submit" id="query-month"  class="btn btn-primary">查询</button>
+					                            </div>
+			                                </div>
+			                            </div>
+			                           </form>
+			                        </div>
+		                       </div>
+                    		</div>
+					        <div class="row">
+					        	<div class="col-sm-12">
+						        	<div class="ibox float-e-margins">
+						                <div class="ibox-title">
+						                    <h5>趋势图</h5>
+						                </div>
+						                <div class="ibox-content">
+						                    <div id="morris-line-month"></div>
+						                    <div class="row">
+						                    	<div class="col-sm-12">
+							                    	<div class="col-sm-2"></div>
+							                    	<div class="col-sm-8">
+							                    		<div class="col-sm-3">
+							                    			<label>验证券号</label>
+							                    			<label class="label-legend red"></label>
+							                    		</div>
+							                    		<div class="col-sm-3">
+							                    			<label>付款订单</label>
+							                    			<label class="label-legend green"></label>
+							                    		</div>
+							                    		<div class="col-sm-3">
+							                    			<label>退款订单</label>
+							                    			<label class="label-legend blue"></label>
+							                    		</div>
+							                    		<div class="col-sm-3">
+							                    			<label>未付款订单</label>
+							                    			<label class="label-legend orange"></label>
+							                    		</div>
+							                    	</div>
+							                    	<div class="col-sm-2"></div>
+						                    	</div>
+						                    </div>
+						                </div>
+						            </div>
+					            </div>
+					        </div>
+					        <div class="row">
+					            <div class="col-sm-12">
+					                <div class="ibox float-e-margins">
+					                	<div class="ibox-title">
+						                    <h5>明细</h5>
+						                </div>
+					                    <div class="ibox-content">
+					                        <table class="table table-striped table-bordered table-hover" id="editable">
+					                            <thead>
+					                                <tr>
+					                                    <th>月份</th>
+					                                    <th>总订单</th>
+					                                    <th>付款订单</th>
+					                                    <th>退款订单</th>
+					                                    <th>未付款订单</th>
+					                                    <th>验证券号</th>
+					                                </tr>
+					                            </thead>
+					                            <tbody id="month-lines">
+					                                <volist name="monthorder" id="month">
+                                                        
+                                                    </volist>
+					                            </tbody>
+					                        </table>
+					                        <div class="row">
+					                        	<div class="col-sm-12">
+						                        	<div class="dataTables_paginate paging_simple_numbers">
+						                        		<ul class="pagination">
+															<li class="paginate_button previous ">
+																<a href="{:U('Chart/stats_list', array('curtab'=>'month','end_day' => $day['end'],'end_month' => $month['prev']))}">往前一年</a>
+															</li>
+															<li class="paginate_button next">
+																<a href="{:U('Chart/stats_list', array('curtab'=>'month','end_day' => $day['end'],'end_month' => $month['next']))}">往后一年</a>
+															</li>
+						                        		</ul>
+						                        	</div>
+					                       		</div>
+					                        </div>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+                    	</div>
+                        <!-- 月统计end -->
+                    </div>
+                </div>
+       		</div>
+        </div>
+    </div>
+   <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/morris/raphael-2.1.0.min.js"></script>
+    <script src="__PLUGINS_PATH__/morris/morris.js"></script>
+    <script src="__PLUGINS_PATH__/datapicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+
+    	$(function(){
+    		function get_day_data() {
+    			// 日期选择
+	    		$("#select-day").datepicker({
+					format: "yyyy-mm-dd",
+	                minDate: 0,
+	                language: 'zh-CN',
+	                autoclose: false,
+	                endDate:new Date()
+				}).on("close",function(){
+	                $("#end_day").datepicker({
+	                    startDate:new Date($(this).val()),
+	                    endDate:new Date()
+	                });
+	            });
+	            $('#query-day').addClass('disabled').html('<i class="fa fa-spinner fa-spin"></i> 查询中');
+				var end_day = $("input[name='end_day']").val();
+				$.get("{:U('Chart/getDaydata')}",{"end_day":end_day,active:'day'},function(json){
+					var data = json.data;
+	                $('#day-lines').empty();
+	                $.each(data,function(i,n){
+	                	var item = ['<tr><td>'+n.time+'</td>',
+									'<td>'+n.all+'</td>',
+									'<td>'+n.pay+'</td>',
+									'<td>'+n.refund+'</td>',
+									'<td>'+n.unpay+'</td>',
+									'<td>'+n.verify+'</td></tr>'].join("");
+						$('#day-lines').append($(item));
+	                });
+	                Morris.Line({
+	                    element: 'morris-line-day',
+	                    data: data,
+	                    xkey: 'time',
+	                    ykeys: ['pay', 'unpay','refund','verify'],
+	                    labels: ['付款订单', '未付款订单','退款订单','验证劵号'],
+	                    hideHover: 'auto',
+			        	resize: false,
+	                    lineWidth:2,
+	                    parseTime:false,
+	                    lineColors: ['#0ACC66','#FF9932','#669EB5','#FF3332'],
+	                });
+	                $('#query-day').removeClass('disabled').html('查询');
+	            });
+    		}
+    		function get_month_data() {
+    			$("#select-month").datepicker({
+	                format: "yyyy-mm",
+	                minDate: 0,
+	                language: 'zh-CN',
+	                autoclose: true,
+	                startView: 'year',
+	                minViewMode: 'months',
+	                endDate:new Date()
+	            }).on("close",function(){
+	                $("#end_month").datepicker({
+	                    startDate:new Date($(this).val()),
+	                    endDate:new Date()
+	                });
+	            });
+	            $('#query-month').addClass('disabled').html('<i class="fa fa-spinner fa-spin"></i> 查询中');
+				var end_month = $("input[name='end_month']").val();
+	            $.get("{:U('Chart/getMonthdata')}",{"end_month":end_month,active:'month'},function(json) {
+	            	var data = json.data;
+	            	$('#month-lines').empty();
+	                $.each(data,function(i,n){
+	                	var item = ['<tr><td>'+n.time+'</td>',
+									'<td>'+n.all+'</td>',
+									'<td>'+n.pay+'</td>',
+									'<td>'+n.refund+'</td>',
+									'<td>'+n.unpay+'</td>',
+									'<td>'+n.verify+'</td></tr>'].join("");
+						$('#month-lines').append($(item));
+	                });
+	                Morris.Line({
+	                    element: 'morris-line-month',
+	                    data: data,
+	                    xkey: 'time',
+	                    ykeys: ['pay', 'unpay','refund','verify'],
+	                    labels: ['付款订单', '未付款订单','退款订单','验证劵号'],
+	                    hideHover: 'auto',
+	                    resize: true,
+	                    lineWidth:2,
+	                    parseTime:false,
+	                    lineColors: ['#0ACC66','#FF9932','#669EB5','#FF3332'],
+	                });
+	                $('#query-month').removeClass('disabled').html('查询');
+	            })
+    		}
+
+    		if ($('#tab-day').hasClass('active')) {
+    			get_day_data();
+    			$('a[href="#tab-month"]').click(function(){
+	            	if ($('#morris-line-month').is(":empty")) {
+	            		get_month_data();
+	            	}
+	            });
+    		} else {
+    			get_month_data();
+    			$('a[href="#tab-day"]').click(function(){
+	            	if ($('#morris-line-day').is(":empty")) {
+	            		get_day_data();
+	            	}
+	            });
+    		}
+			
+    	});
+    </script>
+</body>
+</html>

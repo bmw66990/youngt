@@ -1,0 +1,225 @@
+<include file="Common:header" />
+
+  <style type="text/css">
+    .infomation-kinds>li{ 
+      border-bottom: 2px solid transparent;
+    }
+     .infomation-kinds>li.active{ 
+      border-bottom: 2px solid #E60827;
+      color:#E60827;
+    }
+    .infomation-kinds>li:hover{
+      border-bottom: 2px solid #E60827;
+      color:#E60827;
+    }
+    .album{
+      position:relative;
+      left: 0;
+      top: 0;
+      overflow: hidden;
+      border: 3px solid transparent;
+    }
+    .cover{
+      width: 100%;
+      height: 91%;
+      position: absolute;
+      left: 0;
+      top:75%;
+      color:#fff;
+     /* transition: all .5s;*/
+      background-color: rgba(0,0,0,0.75);
+    }
+    /*.cover:hover{
+      top:30%;
+    }*/
+    .environment-info{
+      display:none;
+    }
+    .doorHeader-info{display:none;}
+    .all-info{display: none;}
+  </style>
+
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+  <div class="am-container">
+    <div class="am-u-sm-5">
+      <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;">
+      </a>
+    </div>
+    <div class="am-u-sm-7 am-center">
+      <span class="am-text-lg am-margin-left-xxl">商家相册</span>
+    </div>
+  </div> 
+</header>
+
+<!-- 商家详情 -->
+<div class="am-g am-text-center">
+    <ul class="am-avg-sm-4 infomation-kinds">
+        <li class="am-padding-xs dishes active">菜品</li>
+        <li class="am-padding-xs environment">环境</li>
+        <li class="am-padding-xs doorHeader">门头</li>
+        <li class="am-padding-xs all">全部</li>
+    </ul>
+</div> 
+
+<!-- 菜品信息  dish -->
+<div class="am-container dishes-info">
+    <ul class="am-avg-sm-2 am-padding-top-sm">
+        <volist  name="picture" id="vo">
+        <?php if($vo['album_category'] == 'dish'){ ?>
+            <li class="album">
+                <div class="am-text-center">
+                  <a href="#">
+                    <img src="{$vo['pic']}" class="am-img-responsive" style="width:100%;;height:120px;">
+                    <div class="cover am-text-center">{$vo['title']}</div>
+                  </a>
+                </div>        
+            </li>
+        <?php }?>
+        </volist>        
+    </ul>
+</div>
+
+<!-- 商家环境  environ -->
+<div class="am-container environment-info">
+    <ul class="am-avg-sm-2 am-padding-top-sm">
+        <volist  name="picture" id="vo">
+        <?php if($vo['album_category'] == 'environ'){ ?>
+            <li class="album">
+                <div class="am-text-center">
+                  <a href="#">
+                    <img src="{$vo['pic']}" class="am-img-responsive" style="width:100%;;height:120px;">
+                    <div class="cover am-text-center">{$vo['title']}</div>
+                  </a>
+                </div>        
+            </li>
+        <?php }?>
+        </volist>   
+    </ul>
+</div>
+
+<!--门头 door -->
+<div class="am-container doorHeader-info">
+    <ul class="am-avg-sm-2 am-padding-top-sm">
+        <volist  name="picture" id="vo">
+        <?php if($vo['album_category'] == 'door'){ ?>
+            <li class="album">
+                <div class="am-text-center">
+                  <a href="#">
+                    <img src="{$vo['pic']}" class="am-img-responsive" style="width:100%;;height:120px;">
+                    <div class="cover am-text-center">{$vo['title']}</div>
+                  </a>
+                </div>        
+            </li>
+        <?php }?>
+        </volist> 
+    </ul>
+</div>
+
+<!--全部  -->
+<div class="am-container all-info">
+    <ul class="am-avg-sm-2 am-padding-top-sm">
+        <volist  name="picture" id="vo">     
+            <li class="album">
+                <div class="am-text-center">
+                    <a href="#">
+                        <img src="{$vo['pic']}" class="am-img-responsive" style="width:100%;;height:120px;">
+                        <div class="cover am-text-center">{$vo['title']}</div>
+                    </a>
+                </div>
+            </li>
+        </volist> 
+    </ul>
+</div>
+
+
+  <!-- <div class="am-container am-margin-vertical-lg" style="width:90%;">
+    <ul class="am-g am-avg-sm-2 am-padding-vertical-sm" style="background-color:#f7f7f7;">
+      <li class="am-text-sm am-text-left">
+        <button class="am-btn am-padding-horizontal-xl" style="background-color:#fff;">复制链接</button>
+      </li>
+      <li class="am-text-sm am-text-right">
+        <button class="am-btn am-padding-horizontal-xl" style="background-color:#fff;">推广名片</button>
+      </li>
+    </ul>
+  </div> -->
+
+<script src="__JS_PATH__/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $(".dishes").click(function(){
+      $(".dishes-info").show();
+      $(".environment-info").hide();
+      $(".all-info").hide();
+      $(".doorHeader-info").hide();
+      $(".dishes").addClass("active");
+      $(".environment").removeClass("active");
+      $(".doorHeader").removeClass("active");
+      $(".all").removeClass("active");
+    });
+    $(".environment").click(function(){
+      $(".dishes-info").hide();
+      $(".environment-info").show();
+      $(".all-info").hide();
+      $(".doorHeader-info").hide();
+      $(".dishes").removeClass("active");
+      $(".environment").addClass("active");
+      $(".doorHeader").removeClass("active");
+      $(".all").removeClass("active");
+    });
+    $(".doorHeader").click(function(){
+      $(".dishes-info").hide();
+      $(".environment-info").hide();
+      $(".all-info").hide();
+      $(".doorHeader-info").show();
+      $(".dishes").removeClass("active");
+      $(".environment").removeClass("active");
+      $(".doorHeader").addClass("active");
+      $(".all").removeClass("active");
+    });
+    $(".all").click(function(){
+      $(".dishes-info").hide();
+      $(".environment-info").hide();
+      $(".all-info").show();
+      $(".doorHeader-info").hide();
+      $(".dishes").removeClass("active");
+      $(".environment").removeClass("active");
+      $(".doorHeader").removeClass("active");
+      $(".all").addClass("active");
+    });
+  });
+  </script>
+  <!--底部 -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-no-layout" >
+    <ul class="am-navbar-nav am-cf am-avg-sm-4">
+        <li>
+            <a href="{:U('Index/index')}" style="color:#e60827">
+            <span class="am-icon-home"></span>
+            <span class="am-navbar-label">首页</span>
+            </a>
+        </li>
+     
+        <li>
+            <a href="###">
+                <span class="am-icon-compass"></span>
+                <span class="am-navbar-label">附近</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/index')}">
+                <span class="am-icon-user"></span>
+                <span class="am-navbar-label">个人中心</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/bus_recommend')}">
+                <span class="am-icon-bookmark"></span>
+                <span class="am-navbar-label">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script src="__JS_PATH__/amazeui.min.js"></script>
+</body>
+</html>

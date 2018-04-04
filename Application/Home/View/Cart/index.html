@@ -1,0 +1,201 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<include file="Common:nav" />
+<!--支付页-->
+<div id="bdw">
+    <div id="bd" >
+        <div id="ytcontent">
+            <form id="deal-buy-form" class="common-form" action="{:U('Cart/buy')}" method="post">
+                <div  class="mainbox">
+                    <h2>购买仅需3步！</h2>
+                    <include file="Common:error" />
+                    <ol class="buy-process-bar steps-bar">
+                        <li class="step step--first step--current" style="z-index:2">
+                            <span class="step__num">1.</span>
+                            提交订单
+                            <span class="arrow__background"></span>
+                            <span class="arrow__foreground"></span>
+                        </li>
+                        <li class="step " style="z-index:1">
+                            <span class="step__num">2.</span>
+                            选择支付方式
+                            <span class="arrow__background"></span>
+                            <span class="arrow__foreground"></span>
+                        </li>
+                        <li class="step step--last ">
+                            <span class="step__num">3.</span>
+                            购买成功
+                        </li>
+                    </ol>
+
+                    <empty name="list">
+                        <div class="result-box-wrapper f-tac">
+                            <div class="chartnone">
+                                <img src="__IMAGE_PATH__/chartnone.jpg">
+                                <span><h4>您的购物车还是空的</h4></span>
+                                <span class="re"><a href="{:U('Index/index')}">>>去看看</a>有您喜欢的什么团购</span>
+                            </div>
+                        </div>
+                        <else />
+                        <div class="cart-content">
+                            <div class="table-section summary-table">
+                                <table cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <th><input type="checkbox" id="all-check" <if condition="$cartNum eq count($list)">checked</if> num="{$list|count}" />全选</th>
+                                    <th class="desc">项目</th>
+                                    <th width="160">数量</th>
+                                    <th width="90">单价</th>
+                                    <th class="total" width="90">总价</th>
+                                    <th>操作</th>
+                                    </tr>
+                                    <volist name="list" id="team">
+                                        <tr>
+                                            <td><input type="checkbox" class="team-check" name="tid[]" value="{$team.team_id}" <eq name="team.state" value="Y">checked</eq> ></td>
+                                            <td class="desc">
+                                                <a target="_blank" href="/team-{$team['team_id']}.html">{$team['product']}</a>
+                                            </td>
+                                            <td class="quantity">
+                                                <a class="minus <eq name="team.num" value="1">minus-disabled</eq>" hidefocus="true" href="javascript:void(0)"></a>
+                                                <input tid="{$team.team_id}" price="{$team.team_price}" class="cart-item-num yt-text J-quantity" type="text" value="{$team.num}" name="quantity[]" maxlength="4" autocomplete="off" />
+                                                <a class="plus" hidefocus="true" href="javascript:void(0)"></a>
+                                        <if condition="$team['condbuy'] neq ''">
+                                            <div><a class="condbuy" href="#condbuy">选择类型</a></div>
+                                        </if>
+                                        </td>
+                                        <td id="yui_3_12_0_1_1395628764948_221" class="money">
+                                            ¥
+                                            <span class="team-price">{$team['team_price']}</span>
+                                        </td>
+                                        <td class="money total">
+                                            ¥
+                                            <span class="team-sum">{$team.sum}</span>
+                                        </td>
+                                        <td>
+                                            <!-- <a href="{:U('Cart/delcart', array('team_id' => $team['id']))}" class="del-cart">删除</a> -->
+                                            <input type="hidden" name="team_id[]" value="{$team.team_id}">
+                                            <a href="javascript:;" tid="{$team.team_id}" class="del-cart">删除</a>
+                                        </td>
+                                        </tr>
+                                    </volist>
+                                    <tr>
+                                        <td></td>
+                                        <td class="extra-fee total-fee" colspan="5">
+                                            <strong>已选 <span id="cart-num" style="color:red">{$cartNum}</span> 件商品&nbsp;&nbsp;&nbsp;</strong>
+                                            <strong>您需为订单支付</strong>
+                                            ：
+                                            <span class="inline-block money">
+                                                ¥
+                                                <strong id="cart-total">{$total}</strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                            <!--登陆后显示-->
+                            <present name="member">
+                                <if condition = "$member['mobile'] neq ''">
+                                    <div class="blk-mobile fl">
+                                        <span class="mobile-info" >
+                                            将发送青团券至手机号：
+                                            <input style="vertical-align:middle; width:120px;" id="phone" type="text" class="f-text mobile" value="{$member['mobile']}" name="mobile" maxlength="11">
+                                            <span id="error_content" class="error_color"></span>  
+                                        </span>
+                                    </div>
+                                    <else />
+                                    <a id="get-mobile" href="#verify-mobile">首次购买请先验证手机号</a>
+                                </if>
+                            </present>
+
+                            <!---->
+                            <div class="form-submit">
+                                <input type="hidden" name="iscookie" id="is-cookie" value="0">
+                                <present name="member">
+                                    <input class="btn-1 btn-large " name="" type="submit" value="提交订单" />
+                                    <else />
+                                    <input id="btn-buy-no-login-submit" class="btn-1 btn-large" name="submit" type="button" value="提交订单" />
+                                </present>
+                            </div>
+                        </div>
+                    </empty>
+                </div>
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div id="empty-cart" style="display:none;">
+    <div class="result-box-wrapper f-tac">
+        <div class="chartnone">
+            <img src="__IMAGE_PATH__/chartnone.jpg">
+            <span><h4>您的购物车还是空的</h4></span>
+            <span class="re"><a href="{:U('Index/index')}">>>去看看</a>有您喜欢的什么团购</span>
+        </div>
+    </div>
+</div>
+
+<!-- 选择商品类型的模板 -->
+<div style="display:none">
+    <div id="condbuy">
+        <p>请选择商品类型</p>
+        <volist name="team.condbuy" id="condbuy" key="k">
+            <select name="condbuy[{$k}]">
+                <option value="0">请选择</option>
+                <volist name="condbuy" id="option">
+                    <option value="{$option}">{$option}</option>
+                </volist>
+            </select>
+        </volist>
+        <button>确定</button>
+    </div>
+</div>
+<!--绑定手机验证码-->
+<div id = 'verify-mobile-tmpl' style="display:none">
+    <div id="verify-mobile" class="blk-item common-bind-mobile" style="padding-top:0;">
+        <div id="mobile-waitting"></div>
+        <h3>您的手机<span class="first-desc">（购买成功后系统将发送信息到您的手机，请务必填写）。</span></h3>
+        <div class="text tip error tipMsg" id="code-msg"></div>
+        <div class="field-group field-group--small">
+            <label>手机号：</label>
+            <input id="mobile" class="f-text mobile" type="text" value="" name="mobile" maxlength="11" autocomplete="off">
+            <span id="J-common-mobile-tip" class="tip error">请输入正确的11位手机号码</span>
+        </div>
+        <div id="mobile-msg" class="tip error"></div>
+        <div class="field-group field-group--small" id="pt">
+
+            <input id="get-code" type="button" value="获取验证码">
+            <input style="display:none" id="go-on" type="button" value="继续">
+            <input style="display:none" id="reset-mobile" type="button" value="重新输入手机号">
+        </div>
+        <div id="J-common-verifycode" class="field-group field-group--small field-group--verifycode">
+            <label>验证码：</label>
+            <input id="code" class="f-text verifycode" type="text" value="" name="verifycode" autocomplete="off">
+
+            <input id="check-code" name="check-code" type="button" value="验证" />
+            <span id="J-common-mobile-tip" class="tip error"></span>
+            <div id="code-waitting"></div>
+        </div>
+    </div>
+</div>
+
+<!--百分点代码：购物车页-->
+<script type="text/javascript">
+    window["_BFD"] = window["_BFD"] || {};
+    _BFD.BFD_INFO = {
+        "ids": {$team_ids} || [], //加入购物车的商品id
+        "user_id": "{$member.id}", //网站当前用户id，如果未登录就为0或空字符串
+        "page_type": "shopcart" //当前页面全称，请勿修改
+    };
+    if (dfb_common) {
+        dfb_common();
+    }
+</script>
+<script type="text/javascript" src="__JS_PATH__/teamBuy.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript" src="__JS_PATH__/cart.js?v={:C('JS_VER')}"></script>
+<!--底部开始-->
+<include file="Common:footer" />

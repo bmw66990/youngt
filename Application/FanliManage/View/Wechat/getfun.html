@@ -1,0 +1,70 @@
+<?php 
+    $rand = rand(0,99);
+    $mid = $_GET['mid'];
+    $order_no = 'youngtfanli' . time().$rand;
+?>
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>微信扫码支付</title>
+
+  <!-- Bootstrap -->
+  <link href="__CSS_PATH__/bootstrap.css?v=3" rel="stylesheet">
+  <link rel="stylesheet" href="__CSS_PATH__/paycodePage.css?v=3"/>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+</head>
+<body>
+    <div class="header container">
+        <p class="text-center  h3">
+            <a href="javascript:" onclick="history.back(-1);" class="pay-code-lt">
+                <img src="__IMAGE_PATH__/callback.png" width="18px">
+            </a>
+            <span class="pay-code-title">扫码支付</span>
+        </p>
+    </div>
+    <div class="pay-code-content">
+        <p class="h3 text-center">
+        <?php           
+          $partner = M('fanli_partner')->where('id='.$_GET['mid'])->find();
+          echo $partner['title'];
+        ?>
+        </p>
+        <p class="h5 text-center collection"><i class="left-line"></i>收款商家 <i class="right-line"></i></p>
+    </div>
+    
+    <form method='get' action="http://fanli.ree9.com/Wechat/wechatPay" >
+        <div class="container pay-content">
+            <div class="panel pay-panel">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">支付金额</div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="pay-count" placeholder="输入支付金额" name="origin" value=""/>
+                    </div>
+                </div>
+                <input type="hidden" name='order_no' value="<?php echo $order_no;?>">                
+                <input type="hidden" name='uid' value="<?php echo $_GET['uid'];?>">                
+                <input type="hidden" name='mid' value="<?php echo $_GET['mid'];?>">
+            </div>
+        </div> 
+
+        <div class="pay-btn container">            
+            <button type="submit" class="btn btn-block pay-makeSure" >确认付款</button>   
+        </div>  
+    </form>
+    <script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/bootstrap.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+</body>
+</html>

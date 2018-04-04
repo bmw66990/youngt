@@ -1,0 +1,149 @@
+<include file="Common:header" />
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- 头部开始 -->
+        <div class="col-xs-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="f-tac">
+                    <a class="navbar-brand" href="javascript:history.go(-1);"><span class="glyphicon glyphicon-chevron-left"></span>返回</a>
+
+                    <div class="f-ib">
+                        <h4 class="f-ib f-ff1">申请退款</h4>
+                    </div>
+
+                    <!--<a class="navbar-brand pull-right" href="{:U('User/index')}"> <span class="glyphicon glyphicon-user"></span> 我的 </a>-->
+                </div>
+            </nav>
+        </div>
+        <!-- 头部结束 -->
+
+        <!--申请退款开始 -->
+        <div class="container-fluid" id="content">
+            <div class="col-xs-12">
+                <form id='do-refund-form' role="form" action="{:U('User/doOrderDetail',array('id'=>$order['id'],'type'=>'do_refund'))}" method="post">
+                    <div class="panel panel-default mt5">
+                        <volist name="coupon" id="vo">
+                            <div class="panel-body">
+                                <span>青团券号</span>
+                                <span class="pull-right">{$vo.id}</span>
+                            </div>
+                            <div class="panel-body">
+                                <span>券号状态</span>
+                                <if condition="$vo['consume'] eq 'Y'">
+                                    <span class="pull-right f-c2f">已使用</span>
+                                    <elseif condition="$vo['expire_time'] elt time()" />
+                                    <span class="pull-right">已过期</span>
+                                    <else />
+                                    <span class="pull-right" style="color:red">未使用</span>
+                                </if>	
+                            </div>
+                        </volist>
+                    </div>
+
+                    <div class="panel panel-default mt5">
+                        <div class="panel-body">
+                            <span>金额</span>
+                            <span class="pull-right">￥{$order['refund_money']}</span>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default mt5">
+                        <div class="panel-body f-pr">
+                            退至青团余额
+                            <span class="f-fs1 jianjie">1个工作日内到账</span>
+
+                            <label class="checkbox-inline pull-right f-vat">
+                                <input type="radio" id="inlineCheckbox2" value="1" name="refrom">
+                            </label>
+                        </div>
+
+                        <div class="panel-body f-pr">
+                            原路退
+                            <span class="f-fs1 jianjie">3-10个工作日退回您的原支付方式</span>
+
+                            <label class="checkbox-inline pull-right f-vat">
+                                <input type="radio" id="inlineCheckbox2" value="2"  checked="checked"  name="refrom">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="f-db">请选择退款原因</span>
+                            <span style="font-size:10px;">多选，但至少选择1项</span>
+                        </div>
+
+                        <div class="panel-body f-pr">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    买多了/买错了
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  name="rereason[]" value="买多了/买错了">
+                                    </label>
+                                </li>
+
+                                <li class="list-group-item">
+                                    计划有变，没时间消费
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  name="rereason[]" value="计划有变，没时间消费">
+                                    </label>
+                                </li>
+
+                                <li class="list-group-item">
+                                    预约不上
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  name="rereason[]" value="预约不上">
+                                    </label>
+                                </li>
+
+                                <li class="list-group-item">
+                                    去过了，不太满意
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  name="rereason[]" value="去过了，不太满意">
+                                    </label>
+                                </li>
+
+                                <li class="list-group-item">
+                                    朋友/网上评价不好
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  name="rereason[]" value="朋友/网上评价不好">
+                                    </label>
+                                </li>
+
+                                <li class="list-group-item">
+                                    后悔了，不想要了
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  name="rereason[]" value="后悔了，不想要了">
+                                    </label>
+                                </li>
+
+                                <li class="list-group-item">
+                                    可以直接以团购价到店里消费
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  id="checked" name="rereason[]" value="可以直接以团购价到店里消费">
+                                    </label>
+                                </li>
+
+                                <li class="list-group-item">
+                                    其他
+                                    <label class="checkbox-inline pull-right f-vat">
+                                        <input type="checkbox"  id="check" name="rereason[]" value="other">
+                                    </label>
+                                    <div id="qita" style="display: none;">
+                                        <textarea class="form-control" rows="3" name="oreason"></textarea>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb10 pl10 pr10">
+                        <button type="button" class="btn btn-danger btn-lg btn-block btn-do-refund-submit">申请退款</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--申请退款结束-->
+<script type="text/javascript" src="__JS_PATH__/user.js?v={:C('JS_VER')}"></script>
+        <!-- 底部开始-->
+        <include file="Common:footer" />

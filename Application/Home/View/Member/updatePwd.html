@@ -1,0 +1,84 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+	<include file="left" />
+	<div id="pcontent" class="coupons-box fl">
+      <div class="pmainbox mine">
+        <ul class="filter cf">
+            <li class="current">修改密码</li>
+        </ul>
+  		  <div>
+          <form id="changePwdform" class="signup-form mb20 common-form" method="post" action="{:U('Member/updatePwd')}">
+            <include file="Common:error" />
+            <div class="field-group-1">
+                <label for="oldpassword">原密码</label>
+                <input id="oldpassword" class="f-text" type="password" name="oldpwd" placeholder="请输入原始密码" />
+            </div>
+            <div class="field-group-1">
+                <label for="password">新密码</label>
+                <input id="password" class="f-text" type="password" name="newpwd" placeholder="请输入你要修改的密码" />
+            </div>
+            <div class="field-group-1">
+              <label for="repassword">确认密码</label>
+                <input id="repassword" class="f-text" type="password" name="renewpwd" placeholder="确认输入密码" />
+            </div>                 
+            <div class="field-group-1 ml85">
+                <input type="submit" class="btn-hot" name="submit" value="修改密码">
+          </form>
+        </div>
+  		</div>
+	    <div class="clear"></div>
+  	</div>
+</div></section>
+<script type="text/javascript">
+$(function(){
+  $("#changePwdform").submit(function(){
+
+    var old=$("input[name=oldpwd]").val();
+    if($.trim(old)==''){
+      $('#error-con').html($('#error-top-tmpl').tmpl({error:'请输入原始密码'}));
+      return false;
+    }
+
+    var newpwd=$("input[name=newpwd]").val();
+    if($.trim(newpwd)==''){
+      $('#error-con').html($('#error-top-tmpl').tmpl({error:'请输入你要修改的密码'}));
+      return false;
+    }
+
+    var renewpwd=$("input[name=renewpwd]").val();
+    if($.trim(renewpwd)==''){
+      $('#error-con').html($('#error-top-tmpl').tmpl({error:'请输入确认密码'}));
+      return false;
+    }
+
+    if(newpwd!=renewpwd){
+      $('#error-con').html($('#error-top-tmpl').tmpl({error:'新密码两次输入不一致'}));
+      return false;
+    }
+
+    var patt=/^[\d\w]{6,18}$/;
+    if(!patt.test(newpwd)) {
+      $('#error-con').html($('#error-top-tmpl').tmpl({error:'密码必须是6~18的数字或字母'}));
+      return false;
+    }
+
+    $("#error-message").text('').hide();
+    $("input[name=submit]").val('提交中...').attr('disabled',true);
+
+    $.post($(this).attr('action'),$(this).serialize(),function(data){
+      if(data.status==1){
+        $('#error-con').html($('#success-top-tmpl').tmpl({success:'密码修改成功'}));
+        window.setTimeout(function(){
+          window.location.reload();
+        },3000);
+      }else{
+        $('#error-con').html($('#error-top-tmpl').tmpl({error:data.info}));
+        $("input[name=submit]").val('修改密码').attr('disabled',false);
+      }
+    });
+    return false;
+  });
+})
+</script>
+<include file="Common:footer" />

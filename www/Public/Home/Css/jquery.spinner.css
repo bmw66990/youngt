@@ -1,0 +1,55 @@
+
+/*
+详情页面  数量加减样式
+*/
+.spinner {
+	height: 25px;
+	width: 100px;
+	overflow: hidden;
+	border: 1px solid #eaeaea;
+*zoom:1;
+	-webkit-box-shadow: 0 3px 3px -4px #aaa;
+	-moz-box-shadow: 0 3px 3px -4px #aaa;
+	box-shadow: 0 3px 3px -4px #aaa
+}
+.spinner button, .spinner .value {
+	text-align: center;
+	display: block;
+	float: left;
+	height: 100%;
+	line-height: 25px;
+	margin: 0
+}
+.spinner button {
+	border: none;
+	width: 30px;
+	color: #666;
+	font: 22px Arial bold;
+	padding: 0;
+	outline: none
+}
+.spinner .decrease {
+
+	cursor: pointer;
+}
+.spinner .decrease[disabled] {
+	color:#b6b5b5;
+	cursor: default
+}
+.spinner .increase {
+	cursor: pointer;
+}
+.spinner .value {
+	width: 40px;
+	height: 27px;
+	border: none;
+	font-family: Arial;
+	color: #666666;
+	padding: 0px
+}
+.spinner .value.passive {
+	color: #666666;
+}
+.spinner .error, .spinner .invalid {
+	background: #aa0000
+}

@@ -1,0 +1,37 @@
+<include file="Common:header" />
+<link rel="stylesheet" href="__CSS_PATH__/withdrawal.css"/>
+<style type="text/css">
+    .search-box{
+      position: relative;
+      height:30px; 
+    }
+    .search-box i{
+      position: absolute;
+      left:5%;
+      z-index: 111;
+    }
+    .search-box input{
+      position: absolute;
+      left:3%;
+      width:80%;
+      height:30px;
+      border:none;outline:none;
+    }
+    .cancel{padding-right:3%;height:30px;line-height: 30px;}
+  </style>
+<!-- 头部 -->
+<header class="am-container am-padding-sm">
+<form method='post' action="{:U('Index/search')}">
+    <div class="search-box am-text-sm">
+      <i class="am-icon-search am-vertical-align-middle"></i>
+      <input class="am-radius am-padding-left-lg" type="text" name="keyword"   placeholder="请输入关键词"/>
+      <span class="am-text-center am-vertical-align-middle am-fr" onclick="window.location.href='index.html'">取消</span>
+    </div> 
+</form>
+</header>
+
+  <div class="am-container am-text-center am-margin-vertical-lg">
+      <span>请输入搜索的相关商品</span>
+  </div>
+</body>
+</html>

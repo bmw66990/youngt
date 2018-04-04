@@ -1,0 +1,173 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link rel="stylesheet" href="__CSS_PATH__/member.css?v={:C('CSS_VER')}" type="text/css" />
+<section><div id='section'>
+         <!--退款详情页-->
+       
+        		<div id="ytcontent" style="width:1180px;margin:10px 0;">
+        			<div  class="mainbox mine" style="width:1180px;">
+        				<h2>
+        					退款详情
+                            <span class="op-area f-fs2 f-fwn dp">
+								<a href="{:U('Member/index')}" class="fac">返回我的订单</a>
+							</span>
+                        </h2>
+                        <div class="record-timeline">
+                        	<!--  <div class="record-timeline__preitem">
+                        		退款金额：
+                        		<em>{$refund['refund_price']}</em>
+                        		元 退款方式：退至青团余额
+                        	</div>-->
+							<div class="record-timeline__item record-timeline__item--pending mb20">
+								<h3 class="f-pr">
+									<i class="status-icon dp"></i>
+									退款申请已提交，请您等待处理…
+								</h3>
+								<div class="record-nodes-wrapper f-pr">
+									<div class="progress-bar">
+										<div class="current-bar" style="width:25%"></div>
+									</div>
+									<div class="arrow"></div>
+									<div class="record-node record-node--3 record-node--first record-node--past">
+										<i class="node-dot f-tac c6">1</i>
+										<div class="node-info">
+											<p class="description f-fs2">提交申请</p>
+										</div>
+									</div>
+									<div class="record-node record-node--3 record-node--past">
+										<i class="node-dot">2</i>
+										<div class="node-info">
+											<p class="c6 f-fs2">处理中</p>
+										</div>
+									</div>
+									<div class="record-node record-node--3 record-node--last record-node--past record-node--plast">
+										<i class="node-dot">3</i>
+										<div class="node-info">
+											<p class="c6 f-fs2">退款成功</p>
+										</div>
+									</div>									
+								</div>
+							</div>
+                        </div>
+                        <script>
+                             $(function(){
+								 $("#J-order-detail-trigger").click(function(){
+									 $("#J-order-detail").toggle();
+									 $(this).toggleClass("fold-lnk");
+									 });
+								 $("#cancel-refund").click(function(){
+								 	if(confirm('确定取消退款')) {
+								 		var url=$(this).attr('link');
+									 	$.get(url,function(data){
+									 		alert(data.info);
+									 		if(data.status==1){
+									 			location.href="{:U('Member/index')}";
+									 		}
+									 	});
+								 	}
+								 	return false;
+								 });
+							});
+                        </script>
+                        <div class="info-section info-section--grey mb10" style="position: static;">
+                        	<h3>
+								{$order.title}
+								<span>
+									<a id="J-order-detail-trigger" class="unfold-lnk fac pr10 f-fwn pl10"  href="javascript:;">订单详情</a>
+								</span>
+							</h3>
+							<div id="J-order-detail" class="order-detail" style="position: relative; opacity: 1;display:none">
+								<div class="field-group">
+                                    <label>成交时间：</label>
+                                    <p style="display:inline">
+                                        <span class="minus"></span>
+                                        {$order['pay_time']|date="Y-m-d H:i:s",###}
+                                    </p>
+                                </div>
+                                <if condition="$order.express eq 'Y' && $order.fare gt 0">
+                                    <div class="field-group">
+                                        <label>邮费：</label>
+                                        <p style="display:inline">
+                                            <span class="minus"></span>
+                                            {$order['fare']}
+                                        </p>
+                                    </div>
+                                </if>
+                                <div class="field-group">
+                                    <label>单价：</label>
+                                    <p style="display:inline">
+                                    	<span class="minus"></span>
+                                    	{$order['price']}
+                                    </p>
+                                </div>
+                                <div class="field-group">
+                                    <label>购买数量：</label>
+                                    <p style="display:inline">
+                                        <span class="minus"></span>
+                                        {$order['quantity']}
+                                    </p>
+                                </div>
+                                <div class="field-group">
+                                    <label>订单总金额：</label>
+                                    <p style="display:inline">
+                                        <span class="minus"></span>
+                                        {$order['origin']}
+                                    </p>
+                                </div>
+                                <div class="field-group">
+                                    <label>付款金额：</label>
+                                    <p style="display:inline">
+                                        <span class="minus"></span>
+                                        <em>{$order['origin']}</em>
+                                    </p>
+                                </div>
+							</div>
+                        </div>
+                       <div id="refund-record">
+                        	<table class="table mb10">
+								<caption>退款记录</caption>
+								<tbody>
+									<tr>
+										<th>申请提交时间</th>
+										<th>退款方式</th>
+										<th>状态</th>
+										<th>操作</th>
+									</tr>
+									<tr>
+										<td>{$order.retime|date="Y-m-d H:i:s",###}</td>
+										<td>{$order.tn}</td>
+										<td>退款中</td>
+										<td>
+                                        	<a class="btn btn-mini" id="cancel-refund"  link="{:U('Member/cancelRefund', array('id' => $order['id']))}">取消退款</a>
+                                        </td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="5">
+										退款中
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+                        </div>
+                        <div class="info-section info-section--tips mt20">
+						<h4>1、什么是支付平台？</h4>
+							<p>支付平台是指与青团合作，为您提供支付服务的第三方支付公司（如支付宝、财付通等）。当发生退款时需经过第三方支付公司处理，再退回您的支付宝/财付通/银行卡。</p>
+							<h4>2、如何查询退款？</h4>
+							<p>如您选择退回青团余额，请您登录青团网，进入“我的青团-青团余额”查看。 如您选择原路退回，请您登录支付宝/财付通/银行卡的网站查询账单明细，或致电支付宝/财付通/银行卡的客服查询。</p>
+							<p>支付宝查询退款，请您登录支付宝，进入“最近交易记录-退款记录”查看；财付通查询退款，请您登录财付通，进入“交易查询-收支明细”查看。银行卡查询退款， 请您登录网上银行查询或直接拨打银行客服电话。</p>
+							<h4>3、退款是否有到账通知短信？</h4>
+							<p>选择退回青团余额或原路退，目前暂无到账通知短信，请您谅解。</p>
+							<h4>4、为何会有多条退款申请？</h4>
+							<p>由于您支付时选择了多种支付方式（或先充值到余额），退款也会相应分为多笔，退至您支付宝/财付通/银行卡。</p>
+							<h4>5、退款金额跟订单金额为何不一样？</h4>
+							<p>可能由以下情况导致：1）您的订单中有多张青团券，您只退了部分青团券；2）您支付时使用了代金券或充值卡，代金券和充值卡暂无法退款，请您谅解。</p>
+						</div>
+        			</div>										
+                </div>
+       		  
+       	
+    </div></section>
+<!--底部开始-->
+<include file="Common:footer" />

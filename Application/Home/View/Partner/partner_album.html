@@ -1,0 +1,32 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/partner.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css"  />
+
+<include file="Partner:common"/>
+<section class="clearfix">
+    <div id="section">
+        <!--内容部分-->
+        <div class="model">
+            <div class="model-small fl">
+                <ul class="small-nav">
+                    <li class="curre"><a href="{:U('Partner/partner_album',array('partner_id'=>$partner_info['id']))}">全部图片</a></li>
+                    <!--  					<li><a href="#">公司风采</a></li>
+                                                            <li><a href="#">公司八挂</a></li>-->
+                </ul>
+            </div>	
+            <div class="model-bigger fr no-border">
+                <div class="model-title">
+                    <span class="tit">全部图片</span>
+                </div>
+                <div class="model-pic">
+                    <ul>
+                         <volist name="partner_image" id="pi">
+                                <li><a class="example-image-link" href="{$pi}" data-lightbox="example-set" data-title="这是图片说明"><img src="{$pi}" class="example-image" /></a></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="__JS_PATH__/lightbox.js?v={:C('JS_VER')}" type="text/javascript"></script>
+<include file="Common:footer" />

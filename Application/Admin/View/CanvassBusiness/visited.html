@@ -1,0 +1,61 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">已回访用户<span class="tx-green">+</span></div>
+        <div class="con-form">
+        	<form class="myform" action="{:U('CanvassBusiness/visited')}" method="get">
+	            <li><label>用户编号</label><input type="text" name="id" value="{$displayWhere['id']}"/><label>,</label></li>
+	            <li><label>用户名</label><input type="text" name="username" value="{$displayWhere['username']}"/><label>,</label></li>
+	            <li><label>手机号</label><input type="text" class="w100" name="mobile" value="{$displayWhere['mobile']}"/><label>,</label></li>
+	            <li>
+	                <select name="city_id">
+	                    <option value="0">所有城市</option>
+	                    <volist name="allCity" id="vo">
+	                        <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['city_id']">selected</if>>{$vo.letter}{$vo.name}</option>
+	                    </volist>
+	                </select>
+	            </li>
+	            <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+	        </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w80">ID</th>
+                        <th class="w200">用户名</th>
+                        <th class="w100">城市</th>
+                        <th class="w150">联系电话</th>
+                        <th class="w200">手机来源</th>
+                        <th class="w150">回访时间</th>
+                        <th class="w150">BD</th>
+                        <th class="w100"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="data" id="row">
+                        <tr>
+                            <td class="w80">{$row['id']}</td>
+                            <td class="w200">{$row['username']}</td>
+                            <td class="w100 lh-26">{$allCity[$row['city_id']]['name']}</td>
+                            <td class="w150">{$row['mobile']}</td>
+                            <td class="w200">{$row['from_mobile']}</td>
+                            <td class="w150">{$row['create_time']|date="Y-m-d",###}</td>
+                            <td class="w150">{$row['visit_name']}</td>
+                            <td class="w100 f-12 man">
+                                <if condition="$row['status'] eq 1">
+                                    <label class="bc-teal"><a href="javascript:;" onclick="setHaveTarget({$row['id']})">有意向</a></label>
+                                <else />
+                                    <label class="bc-grey">有意向</label>
+                                </if>
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+                 <div class="selectpage">
+                    <include file="CanvassBusiness:page" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/busniess_user.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

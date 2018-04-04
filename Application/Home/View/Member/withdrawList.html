@@ -1,0 +1,60 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+<include file="left" />
+<div id="pcontent" class="coupons-box fl">
+	<div class="pmainbox mine">
+		<div class="yue">
+			您当前的青团余额：
+			<strong>¥{$member.money}</strong>
+			<a class="btn-1 ml10 " target="blank" href="{:U('Member/withdraw')}">提现</a>
+		</div>
+		<ul class="filter cf">
+			<li id="all">
+				<a href="{:U('Member/balance')}" style="color:black">交易记录</a>
+			</li>
+			<li id="withdraw" class="current">
+				<a href="{:U('Member/withdrawList')}">提现记录</a>
+			</li>
+		</ul>
+		<div class="tab_box">
+        <div class="table-section">
+        	<h3>提现记录</h3>
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th width="130">时间</th>
+                        <th width="auto">详情</th>
+                        <th width="80">状态</th>
+                        <th width="110">金额（元）</th>
+                    </tr>
+                    <volist name="list" id="vo">
+                    <tr class="alt">
+                        <td>{$vo.create_time|date="Y-m-d H:i",###}</td>
+                        <td class="f-tal" style="padding-left:75px;">
+                            现金提现
+                        </td>
+                        <td><if condition="$vo.direction eq income"><span style="color:green">收入</span><else /><span style="color:red">支出</span></if></td>
+                        <td class="expense f-fwb f-tar">{$vo.money}</td>
+                    </tr>
+                    </volist>
+                </tbody>   
+            </table>
+            <div class="clear"></div> 
+		</div>
+        <div class="pagination" style="margin-top:10px;">{$pages}</div>
+		<div class="paginator-wrapper">
+			<p class="info-section ft">
+				您正在提现的金额：
+				<strong class="f-fs2">¥0</strong>
+			</p>
+			<div class="notice f-fs2 ft">
+				<p>您还没有提现记录。</p>
+			</div>
+		</div>
+        </div>
+	</div>
+</div>
+</div></section>
+
+<include file="Common:footer" />

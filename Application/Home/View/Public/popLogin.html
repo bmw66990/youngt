@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>青团网快速登录</title>  
+<link rel="stylesheet" href="__CSS_PATH__/base.css">
+<link rel="stylesheet" href="__CSS_PATH__/pop-login.css">   
+<script src="__JS_PATH__/jquery-1.7.2.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function(){
+                $("#sj").click(function(){
+                  $("#f1").hide();
+                  $(this).hide();
+                  $("#f2").show();
+                  $("#pt").show();
+                });
+                $("#pt").click(function(){
+                  $("#f2").hide();
+                  $(this).hide();
+                  $("#f1").show();
+                  $("#sj").show();
+                });
+            });
+        </script>
+</head>
+<body>
+    <!--快速登录页-->
+    <div class="fast">
+        <div class="yui3-overlay-content yui3-widget-stdmod">
+            <div class="yui3-widget-bd">
+                <div class="mt-dialog">
+                    <div class="body">
+                        <div class="component-login-section component-login-section--dialog">
+                            <h2 class="c6 f-fwn f-fs2">
+                                <!-- 
+                                <a id="sj" class="login-type" href="#">
+                                    手机动态码登录
+                                    <i></i>
+                                </a>
+                                -->
+                                <a id="pt" class="login-type login-type--normal" style="display:none">
+                                    普通方式登录
+                                    <i></i>
+                                </a>
+                                账号登录
+                            </h2>
+                            <div id="f1">
+                                <form id="login-form" class="form form--stack" method="post" action="__APP__/Public/checkUser/act/login">
+                                    <div id="message" class="form-field form-field--icon" style="color:red"></div>
+                                    <div class="form-field form-field--icon">
+                                        <i class="icon icon-user"></i>
+                                        <input id="account" class="f-text" type="text" value="" placeholder="手机号/用户名/邮箱" name="account">
+                                    </div>
+                                    <div class="form-field form-field--icon">
+                                        <i class="icon icon-password"></i>
+                                        <input id="password" class="f-text" type="password" placeholder="密码" name="password">
+                                    </div>
+                                    <div class="form-field form-field--auto-login">
+                                        <a class="forget-password" target="_blank" href="__APP__/Public/resetpwd" >忘记密码？</a>
+                                        <input class="f-check" type="checkbox" name="remember_username" checked="">
+                                        <label class="normal" for="remember-username">记住账号</label>
+                                        <input id="autologin" class="f-check" type="checkbox" name="auto_login">
+                                        <label class="normal">下次自动登录</label>
+                                    </div>
+                                    <div class="form-field form-field--ops">
+                                        <input type="hidden" name="type" value="1">
+                                        <input class="btn-1 w260" type="submit" value="登录" name="commit">
+                                    </div>
+                                </form>
+                            </div>
+                            <p class="signup-guide c6 f-fs2 mt10">
+                                还没有账号？<a target="_blank" href="{:U('Public/register')}">免费注册</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                              
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#login-form').submit(function(){
+            // 消息显示
+            function showMsg(msg){
+                $('#message').empty();
+                $('#message').append(msg);
+            }
+            if($('#account',$(this)).val()==''){
+                showMsg('请输入账户');
+                return false;
+            }
+            if($('#password',$(this)).val()==''){
+                showMsg('请输入密码');
+                return false;
+            }
+            $.post($(this).attr('action'),$(this).serialize(),function(data){
+                if(data.status == -1){
+                    showMsg(data.error);
+                }else{
+                    parent.window.location.reload(); //刷新父窗口
+                    parent.$.fancybox.close();
+                }
+            },'json');
+            return false;
+        });
+    });
+</script>

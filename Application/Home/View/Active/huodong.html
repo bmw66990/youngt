@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>{$title}</title>
+    <link rel="stylesheet"  href="http://m.youngt.com/Public/Wap/css/bootstrap.min.css?v={:C('CSS_VER')}">
+    <link rel="stylesheet" href="http://m.youngt.com/Public/Wap/css/mobile.css?v={:C('CSS_VER')}">
+    <script src="http://m.youngt.com/Public/Wap/js/jquery.min.js"></script>
+    <script src="http://m.youngt.com/Public/Wap/js/bootstrap.min.js"></script>
+    <script src="http://m.youngt.com/Public/Wap/js/alert.js?v={:C('JS_VER')}"></script>
+    <script src="http://m.youngt.com/Public/Wap/js/jquery.lazyload.min.js"></script>
+    <script src="http://m.youngt.com/Public/plugins/idangerous.swiper.min.js"></script>
+    <script type="text/javascript" src="http://m.youngt.com/Public/plugins/selectCity/jquery.cityselect.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    function app_hide_header_footer(){
+        $('footer.footer2').hide();
+        $('nav.navbar').hide();
+        return false;
+    }
+</script>
+<!--
+<script type="text/javascript" src="__PLUGINS_PATH__/jslides/jquery.jslides.js?v={:C('JS_VER')}"></script>
+-->
+<link rel="stylesheet" href="http://m.youngt.com/Public/plugins/jslides/jquery.jslides.css?v={:C('CSS_VER')}">
+<script>
+    $(function() {
+        $(".mainmenu").click(function() {
+            $(".submenu").stop(false, true).hide();
+            var submenu = $(this).parent().next();
+            submenu.css({
+                position: 'absolute',
+                top: 40 + 'px',
+                left: 0 + 'px',
+                zIndex: 1000,
+                width: 100 + '%',
+                background: '#fff',
+            });
+            submenu.stop().slideDown(300);
+
+            $('#fullbg').css('display', 'block');
+        });
+
+        $("#fullbg").click(function() {
+            $(".submenu").stop(false, true).hide();
+            $('#fullbg').css('display', 'none');
+        });
+
+        $('img').lazyload({
+            effect: 'fadeIn'
+        });
+
+    });
+</script>
+<style>
+    html{overflow-x: hidden;}
+    .redBtn{max-width: 130px;height:29px;margin-bottom:0;line-height: 30px;color:#fff;background: #F14F45;border-radius: 3px;display: inline-block;padding-left:8px;font-size: 12px;text-align: center;position: relative;font-weight: normal;overflow: hidden;}
+    .redBtn label{float: left;}
+    .class-menu{line-height: 30px;text-align: center;margin-top:10px; }
+    .class-menu label{width:20%;display: inline-block;padding: 3px 15px;border: 1px solid #ccc;border-radius:3px; margin-right: 10px;font-weight:normal;}
+    .class-menu label a{color:#212121;}
+    .class-menu label.curre{background:#F14F45 ;border: 0;}
+    .class-menu label.curre a{color:#fff;}
+    .iteminfo .title{height:37px;overflow: hidden;line-height: 1.4em;font-size: 13px;}
+    .itemimg{height:85px!important;background: #ccc;}
+    .itemimg img{height: 100%;}
+    .iteminfo .info-title{margin-top: 5px;}
+    .old-price{height: 29px;line-height: 39px;}
+    .now-price{padding: 0 3px;font-size: 1.3em;display: inline-block;font-weight: bold;}
+    .reBtn-fr{float:right}
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="position: relative;">
+            <div id="full-screen-slider" style="height:160px">
+                <ul id="slides" style="height:160px">
+                    <if condition="$activities_id eq '1279' ">
+                        <li>
+                            <a href="javascript:;" target="_blank"><img src="__IMAGE_PATH__/active/pingtuan.jpg"/></a></li>
+                        <elseif condition="$activities_id eq '1285' " />
+                        <li><a href="javascript:;" target="_blank"><img src="__IMAGE_PATH__/active/youdianyouxuan.jpg"/></a></li>
+                        <elseif condition="$activities_id eq '1289' " />
+                        <li><a href="javascript:;" target="_blank"><img src="http://pic.youngt.com/static/Admanage/taqing.jpg"/></a></li>
+                        <elseif condition="$activities_id eq '1290' " />
+                        <li><a href="javascript:;" target="_blank"><img src="http://pic.youngt.com/static/Admanage/hufu.jpg"/></a></li>
+                        <elseif condition="$activities_id eq '1300' " />
+                        <li><a href="javascript:;" target="_blank"><img src="http://pic.youngt.com/static/Admanage/51wap.jpg"/></a></li>
+                        <else />
+                        <li><a href="javascript:;" target="_blank"><img src="http://pic.youngt.com/static/Admanage/3.8.jpg"/></a></li>
+                    </if>
+                    <!--<li><a href="http://a.appshang.com/?appUrl=564011409013d" target="_blank"><img src="__IMAGE_PATH__/active/banner1.jpg"/></a></li>-->
+                </ul>
+            </div>
+        </div>
+        <!--        <div class="col-xs-12 mb5 mt5"  style="background: #F14F45;">
+                    <div class="col-xs-6">
+                        <a href="http://a.appshang.com/index.php/Special/cat/cat_id/2/appUrl/564011409013d"><img src="__IMAGE_PATH__/active/banner_menu_porst.jpg"  /></a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="http://a.appshang.com/index.php/Special/cat/cat_id/3/appUrl/564011409013d"><img src="__IMAGE_PATH__/active/banner_menu_clothing.jpg" /></a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="http://a.appshang.com/index.php/Special/cat/cat_id/4/appUrl/564011409013d"><img src="__IMAGE_PATH__/active/banner_menu_beauty.jpg" /></a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="http://a.appshang.com/index.php/Special/cat/cat_id/8/appUrl/564011409013d"><img src="__IMAGE_PATH__/active/banner_menu_post.jpg" /></a>
+                    </div>
+                </div>-->
+        <if condition="$activities_id eq '1279' ">
+
+            <else/>
+            <!--div class="col-xs-12 class-menu">
+                <label <if condition="!$group_id || $group_id eq 'all'">  class="curre" </if> ><a href="{:U('Activities/index',array('activities_id'=>$activities_id,'plat'=>$plat,'group_id'=>'all'))}">全部</a></label>
+                <label <if condition="$group_id eq '255'">  class="curre" </if>><a href="{:U('Activities/index',array('activities_id'=>$activities_id,'plat'=>$plat,'group_id'=>255))}">美食</a></label>
+                <label <if condition="$group_id eq '12'">  class="curre" </if>><a href="{:U('Activities/index',array('activities_id'=>$activities_id,'plat'=>$plat,'group_id'=>12))}">娱乐</a></label>
+                <label <if condition="$group_id eq 'other'">  class="curre" </if>><a href="{:U('Activities/index',array('activities_id'=>$activities_id,'plat'=>$plat,'group_id'=>'other'))}">其他</a></label>
+            </div-->
+        </if>
+        <div class="col-xs-12" style="margin-bottom:45px;margin-top:10px;">
+            <volist name='list' id='vo'>
+                <div class="col-xs-12">
+                    <a href="#" title="老马家王八汤" onclick="gotoAppTeamDetail(this, {$vo.id});" class="f-tdn">
+                        <div class="item f-pr">
+                            <div class="itemimg">
+                                <img class="lazy" src="{$vo.image}" data-original="{$vo.image}" alt="{$vo.product}" width="70" height="70">
+                            </div>
+
+                            <div class="iteminfo">
+                                <div class="info-title f-toe">
+                                    {$vo.product}
+                                </div>
+
+                                <div class="title">
+                                    {$vo.title|cutStr=25}
+                                </div>
+                                <div class="f-cb f-pr">
+                                    <span class="f-ib old-price"><span class="f-fa f-fs1">原价&#165;{$vo.market_price}</span></span>
+
+                                    <span class="reBtn-fr">
+                                        <label class="redBtn">
+                                            <label>
+                                                <if condition="$vo.activities_name neq ''">
+                                                    {$vo.activities_name}
+                                                    <else/>
+                                                    特惠
+                                                </if>
+                                            </label><label class="now-price">&#165;{$vo.team_price}</label></label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div> </a>
+                </div>
+            </volist>
+            <div class="col-xs-12">
+                <div class="item"></div>
+            </div>
+            <div id="fullbg"></div>
+        </div>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    function gotoAppTeamDetail(self, tid) {
+        //  调取android 团单详情
+        try {
+            window.android.showToast(tid);
+            return false;
+        } catch (e) {
+
+        }
+        //  调取ios 团单详情
+        try {
+            window.iosShowToast(tid);
+            return false;
+        } catch (e) {
+
+        }
+
+        //  window.alert('此版app不支持活动，请更新最新版的app');
+        //  return false;
+
+        var href = "{:U('Team/buy')}";
+        href = href + "?tid=" + tid;
+        $(self).attr('href', href);
+        return true;
+    }
+</script>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Partner/index'))">
+             <li ><a href="{:U('Partner/index')}">商户</a><label>&nbsp;</label></li>
+        </if>
+        <!--<if condition="$res = auth_check_access(array('Partner/index'))">
+             <li ><a href="{:U('Partner/index')}">错误上报</a><label>&nbsp;</label></li>
+        </if>-->
+        <if condition="$res = auth_check_access(array('Partner/add'))">
+             <li ><a href="{:U('Partner/add')}">新建商户</a><label>&nbsp;</label></li>
+        </if>  
+         <if condition="$res = auth_check_access(array('Partner/partnerTeamList'))">
+             <li ><a href="{:U('Partner/partnerTeamList')}">商户团单列表</a><label>&nbsp;</label></li>
+        </if>  
+    </ul>
+</div>
+
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

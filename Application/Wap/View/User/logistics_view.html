@@ -1,0 +1,50 @@
+<include file="Common:header" />
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- 头部开始 -->
+        <div class="col-xs-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="f-tac">
+                    <a class="navbar-brand" href="javascript:history.go(-1);"><span class="glyphicon glyphicon-chevron-left"></span>返回</a>
+
+                    <div class="f-ib">
+                        <h4 class="f-ib f-ff1">查看物流</h4>
+                    </div>
+
+                    <!--<a class="navbar-brand pull-right" href="/User"> <span class="glyphicon glyphicon-user"></span> 我的 </a>-->
+                </div>
+            </nav>
+        </div>
+        <!-- 头部结束 -->
+        <div class="col-xs-12">
+            <div class="pt10 pl20 pb20 logistics">
+                <span>物流状态：
+                    <i class="f-ea">
+                        <if condition="$order['mail_order_pay_state'] eq '1'">
+                            待收货
+                            <elseif condition="$order['mail_order_pay_state'] eq '2'"/>
+                            已收货
+                            <else/>
+                            未发货
+                        </if>
+                    </i></span>
+                <span>运单号：{$express_no}</span>
+                <span>信息来源：{$express_name}</span>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="logi-list col-xs-11 ml45 f-59">
+                <if condition="!empty($list)">
+                    <volist name="list" id="vo">
+                        <li>
+                            <span>{$vo.context}</span>
+                            <span>{$vo.time}</span>
+                        </li>
+                    </volist>     
+                </if>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:header" />

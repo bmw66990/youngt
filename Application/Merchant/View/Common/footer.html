@@ -1,0 +1,38 @@
+
+<!-- basic scripts -->
+<!--[if !IE]> -->
+<script src="__JS_PATH__/jquery-2.0.3.min.js"></script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script src="__JS_PATH__/jquery-1.10.2.min.js"></script>
+<![endif]-->
+<!--[if !IE]> -->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src=__JS_PATH__/jquery-2.0.3.min.js'>" + "<" + "/script>");
+</script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='__JS_PATH__/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+<script type="text/javascript">
+    if ("ontouchend" in document)
+        document.write("<script src='__JS_PATH__/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+
+<script src="__JS_PATH__/jquery.tmpl.min.js"></script>
+
+<script src="__JS_PATH__/bootstrap.min.js"></script>
+<script src="__JS_PATH__/typeahead-bs2.min.js"></script>
+<!-- page specific plugin scripts -->
+<!-- ace scripts -->
+<script src="__JS_PATH__/ace-elements.min.js"></script>
+<script src="__JS_PATH__/ace.min.js"></script>
+<script src="__JS_PATH__/jquery.cookie.js"></script>
+<script src="__JS_PATH__/layer/layer.js"></script>
+<script src="__JS_PATH__/common.js"></script>
+<!-- inline scripts related to this page -->
+</body>
+</html>

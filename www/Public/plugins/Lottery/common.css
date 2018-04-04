@@ -1,0 +1,32 @@
+html{
+	background: #76c48a;
+	font-size: .9em;
+	margin: 0;
+}
+body{margin: 0;padding: 0}
+p{color:#666;line-height: 1.4em;margin:0;}
+a{text-decoration: none;}
+ul,li{list-style: none;}
+span{display: block;font-size:0.9em }
+input,select{width: 80%;height: 20px;line-height: 20px;padding: 5px 0;margin:5px 0;}
+input:focus{border: 1px solid #76c48a}
+select{height: 30px;}
+header{width:100%;padding: 5px;line-height:.7em;text-align: center;margin: 0 auto;color:#fff;background: #018079;}
+section{width:100%;padding: 5px;background: #d4e9d8;margin: 0 auto;}
+	section .pic{width: 90%;margin:5%;}
+	section .pic img{width: 100%;}
+	section .form>ul>li{line-height: 1.7em;color:#018079;margin-top: 5px;width: 100%;}
+	.form .radio-list{width: 100%;float:left;margin-bottom: 10px;font-size: 0.8em}
+	.form .radio-list>ul{display: block;margin:0;padding: 0}
+	.form .radio-list>ul>li{width:70px;float:left;background: #fff;margin:5px 10px;text-align: center;padding: 0 30px;border: 1px solid #ccc;}
+	.form .radio-list input{width: 15px;float: left;}
+	.form .radio-list label{float:left;line-height:2.5em;}
+	.btn{line-height: 30px;width: 100%;padding: 10px 0;text-align: center;margin:0 auto;}
+	.btn .btn-sub{width: 70px;height: 30px;background: #018079;border: 0;color: #fff;margin:0 auto;}
+	.btn .btn-sub:hover{cursor: pointer;background: #009999;}
+footer{height:50px;line-height:50px;text-align: center;font-size: .9em;padding: 20px auto;}
+@media screen and (min-width: 640px){
+
+	header,section{width:640px;}
+
+}

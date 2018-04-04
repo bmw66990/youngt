@@ -1,0 +1,167 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">基本设置</a>
+            </li>
+            <li class="active">商家设置</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                商家设置
+            </h1>
+        </div>
+        <!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <include file="Common:message_tip" />
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a data-toggle="tab" href="#basicinfo">基本设置</a></li>
+                        <li><a data-toggle="tab" href="#txtpwd">修改密码</a></li>
+                    </ul>
+                </div>
+                 <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{:U('Partner/update')}" id="partner-edit-form">
+                    <div class="tab-content">
+                        <div id="basicinfo" class="tab-pane active">
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label>商户帐号</label>
+                                </label>
+                                <input class="col-sm-3" size="20" value="{$partner['username']}" type="text" style="border:none;background:white!important;" readonly="readonly">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label>商户名称</label>
+                                </label>
+                                <input class="col-sm-3" size="20" value="{$partner['title']}" type="text" style="border:none;background:white!important;" readonly="readonly">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label for="phone">联系人</label>
+                                </label>
+                                <input class="col-sm-3"  name="contact" value="{$partner['contact']}"  type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label for="phone">商家地址</label>
+                                </label>
+                                <input class="col-sm-3"  name="address" value="{$partner['address']}"  type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label for="phone">联系电话</label>
+                                </label>
+                                <input class="col-sm-3" size="20" value="{$partner['phone']}" readonly="readonly" id="phone" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label for="email">手机号码</label>
+                                </label>
+                                <input class="col-sm-3" size="20" name="mobile" value="{$partner['mobile']}" type="text" data-toggle="modal" data-target="#myModal" data-backdrop="static"></div>
+                        </div>
+                        <div id="txtpwd" class="tab-pane">
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label for="email">原密码</label>
+                                </label>
+                                <input class="col-sm-3" id='oldpassword' size="20" name="oldpassword" type="password"><span class="form_tips">不修改密码可不填写</span></div>
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label for="email">新密码</label>
+                                </label>
+                                <input class="col-sm-3" id='newpassword' size="20" name="newpassword" type="password"><span class="form_tips">不修改密码请留空，最少6个字符</span></div>
+                            <div class="form-group">
+                                <label class="col-sm-1">
+                                    <label for="email">确认密码</label>
+                                </label>
+                                <input class="col-sm-3" id='cnewpassword' size="20" name="cnewpassword" type="password"><span class="form_tips">请再输入一次上面的新密码，以便确保输对了</span></div>
+                        </div>
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                 <if condition="$res = auth_check_access(array('Partner/update'))">
+                                    <button class="btn btn-info" id='partner-form-submit' type="button"><i class="ace-icon fa fa-check bigger-110"></i> 保存
+                                    </button>
+                                 </if>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+        
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Partner:phone_tip" />
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+      // 修改资料提交
+    $(".main-container-inner").on('click', '#partner-form-submit', function() {
+        var $this = $(this);
+        var $form = $(this).parents('form#partner-edit-form');
+        // 非法参数判断
+        var $oldPassword = $form.find("input#oldpassword").val();
+        var $newPassword = $form.find("input#newpassword").val();
+        var $cnewPassword = $form.find("input#cnewpassword").val();
+        
+        show_message_tip({});
+        if($this.hasClass('disabled')){
+            return false;
+        }
+        if ($oldPassword) {
+            if (!$newPassword || !$cnewPassword) {
+                show_message_tip({error: '新密码不能为空！'});
+                return false;
+            }
+            if ($.trim($newPassword) != $.trim($cnewPassword)) {
+                show_message_tip({error: '两次输入的新密码不一致！'});
+                return false;
+            }
+        }
+
+        var $href = $form.attr('action');
+        var $data = $form.serialize();
+        // 发送请求
+        $this.addClass('disabled');
+        show_message_tip({success:'正在修改，请稍后...'});
+        $.post($href, $data, function(res) {
+            $this.removeClass('disabled')
+            if (res.error && res.code != 0) {
+                $tip.show().text(res.error);
+                show_message_tip(res);
+                return false;
+            }
+            show_message_tip({success:'修改成功！'});
+            window.location.reload();
+            return false;
+        }, 'json')
+
+        return false;
+    });
+    });
+</script>

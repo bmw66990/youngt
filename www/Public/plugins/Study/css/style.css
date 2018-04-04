@@ -1,0 +1,196 @@
+@charset "utf-8";
+.header {
+  width: 1240px;
+  height: 334px;
+  background-image: url(../images/topbg.png);
+  background-size: 1260px;
+  margin: 0 auto;
+  position: relative;
+}
+.header .logo {
+  position: absolute;
+  top: 8px;
+  left: 150px;
+}
+.header .logo a {
+  width: 200px;
+  height: 34px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+}
+.header .logo a:hover {
+  text-decoration: none;
+}
+.header .logo a span:first-child {
+  cursor: pointer;
+  display: inline-block;
+}
+.header .logo a span:last-child {
+  color: #068e8e;
+  display: inline-block;
+  margin-top: 5px;
+
+}
+.header .logo #chose {
+  vertical-align: top;
+  border: none;
+  font-size: 16px;
+  background-color: #f3f3f3;
+}
+.content {
+  width: 1240px;
+  height: 970px;
+  margin: 0 auto;
+  background-color: #f3f3f3;
+}
+.content .nav {
+  width: 1240;
+  height: 50px;
+  background-color: #C9BCBC;
+}
+.content .nav ul {
+  width: 940px;
+  height: 50px;
+  margin: 0 auto;
+}
+.content .nav ul li {
+  width: 188px;
+  line-height: 50px;
+  text-align: center;
+}
+.content .nav ul li a {
+  display: block;
+}
+.content .nav ul li a:hover {
+  text-decoration: none;
+  background-color: #068e8e;
+  color: #fff;
+  cursor: pointer;
+}
+.content .special,
+.content .host,
+.content .self,
+.content .play,
+.content .potos {
+  width: 940px;
+  height: 890px;
+  position: absolute;
+}
+.content .special .m,
+.content .host .m,
+.content .self .m,
+.content .play .m,
+.content .potos .m {
+  margin-top: 10px;
+  background-color: #ffffff;
+  width: 940px;
+  height: 272px;
+  position: relative;
+  left: 150px;
+}
+.content .special .m .pic,
+.content .host .m .pic,
+.content .self .m .pic,
+.content .play .m .pic,
+.content .potos .m .pic {
+  float: left;
+}
+.content .special .m .detail,
+.content .host .m .detail,
+.content .self .m .detail,
+.content .play .m .detail,
+.content .potos .m .detail {
+  width: 446px;
+  float: left;
+  margin-left: 26px;
+}
+.content .special .m .line,
+.content .host .m .line,
+.content .self .m .line,
+.content .play .m .line,
+.content .potos .m .line {
+  border-bottom: 1px solid #e5e5e5;
+  margin-top: 5px;
+}
+.content .special .m .slogan,
+.content .host .m .slogan,
+.content .self .m .slogan,
+.content .play .m .slogan,
+.content .potos .m .slogan {
+  display: block;
+  margin-top: 5px;
+  color: #068e8e;
+  font-family: fantasy;
+}
+.content .special .m .address,
+.content .host .m .address,
+.content .self .m .address,
+.content .play .m .address,
+.content .potos .m .address {
+  width: 440px;
+  height: 154px;
+  font-size: 13px;
+  line-height: 18px;
+  margin-top: 10px;
+}
+.content .special .m .price,
+.content .host .m .price,
+.content .self .m .price,
+.content .play .m .price,
+.content .potos .m .price {
+  width: 446px;
+  height: 36px;
+  position: relative;
+}
+.content .special .m .price .current,
+.content .host .m .price .current,
+.content .self .m .price .current,
+.content .play .m .price .current,
+.content .potos .m .price .current {
+  width: 50px;
+  display: inline-block;
+  vertical-align: super;
+  margin-left: 10px;
+}
+.content .special .m .price .cost,
+.content .host .m .price .cost,
+.content .self .m .price .cost,
+.content .play .m .price .cost,
+.content .potos .m .price .cost {
+  width: 40px;
+  vertical-align: super;
+  display: inline-block;
+  margin-left: 20px;
+}
+.content .special .m .price .long,
+.content .host .m .price .long,
+.content .self .m .price .long,
+.content .play .m .price .long,
+.content .potos .m .price .long {
+  height: 24px;
+  border-left: 1px solid #e5e5e5;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  margin-left: 10px;
+}
+.content .special .m .price .btn,
+.content .host .m .price .btn,
+.content .self .m .price .btn,
+.content .play .m .price .btn,
+.content .potos .m .price .btn {
+  width: 86px;
+  height: 28px;
+  background-color: #068e8e;
+  border-radius: 6px;
+  float: right;
+  color: #ffffff;
+}
+.content .special .spe-f,
+.content .host .spe-f,
+.content .self .spe-f,
+.content .play .spe-f,
+.content .potos .spe-f {
+  margin-top: 26px;
+}

@@ -1,0 +1,108 @@
+/*
+                youngt.com Manage Css common.css
+                        by 2015-5
+                ***********页面内容样式
+*/
+
+/*登陆样式*/
+@font-face{
+    font-family: myloginfamily;
+    src:url('font/lvnmbd.ttf');
+    src:url('font/lvnmbd.otf');
+}
+.login{width:960px;margin: 0px auto;
+}
+.login-right{width:400px;height:600px;color:#fff;padding: 10px 0 0 0;background:#009688;padding-top:100px;overflow: hidden;position: relative;
+}
+.login-right .login-form{width:280px;overflow: hidden;margin: 0 auto;
+}
+.login-right li{margin: 35px auto;height:30px;
+}
+.login-right h2{font-weight: normal;font-family: myloginfamily,微软雅黑;font-size: 60px;
+}
+.login-right span{font-size:14px;color:#fff;text-align: center;width: 300px;display: block;line-height: 16px;margin-bottom: 20px;
+}
+.login-right .canv{width:400px;height: 220px; position: relative;bottom: 0px;background: #fff;
+}
+.canv .left-canv,.canv .right-canv{background: #009688;width:200px;height:222px;float:left;
+}
+.canv .left-canv{-webkit-transform: skew(-65deg);
+                 -moz-transform: skew(-65deg);
+                 -ms-transform: skew(-64deg);
+                 -o-transform: skew(-65deg);
+                 transform: skew(-65deg);
+}
+.canv .right-canv{-webkit-transform: skew(65deg);
+                  -moz-transform: skew(65deg);
+                  -ms-transform: skew(64deg);
+                  -o-transform: skew(65deg);
+                  transform: skew(65deg);
+}
+.bottom-canv{background: #009688;width: 100%;height: 111px;position: absolute;                                                                                 
+}
+/*表单样式*/
+.con-form,.con-edit-form{width:98%;margin:5px 0 0 2%; display: block;}
+.con-form .myform>li{float:left;margin:15px 15px 10px 0;}
+.con-form label{padding: 3px;line-height: 24px;}
+.con-form .form-list{width: 96%;padding: 2% 10px;float: left;margin-top: 20px;}
+.con-form .form-list span{display: inline-block;}
+.con-form .cons{width:700px;margin: 5px 0;display: block;float:left;}
+.con-form .cons li{width: 100%;font-size: 12px;float: left;}
+.con-form .cons li label{display: inline-block;padding: 0 5px;font-size: 16px;color:#727272;}
+.form-list>ul{padding:0;margin: 13px 0;width:100%;}
+.form-list>ul>li{float:left;width:130px;float:left;line-height: 30px;}
+.form-list label{padding: 3px;margin:3px;margin-left:0;line-height: 20px;}
+.form-list .list-title{width:100%;height:32px;border-bottom: 1px solid #ccc;display:block;}
+.form-list tr{width: 100%;min-height:30px;float: left;overflow: hidden;}
+/*.form-list tr:hover{background: #e0f5f3;}*/
+.form-list th{font-size: 16px;height:25px;color: #5d6262;padding:0 0 20px 0;text-align: left;position: relative;}
+.form-list td{min-height:30px;padding-top: 10px;font-size:14px;text-align: left;line-height:20px;}
+.form-list .man{overflow: hidden;}
+.form-list .man>label{float:left;margin: 2px;padding:2px;line-height: 16px;}
+
+/**/
+.con-form .baike-chunk{
+    width: 220px;min-height:250px;border: 1px solid #ccc;margin-left: 30px;margin-top:20px;line-height: 40px;text-align: center;display:inline-block;overflow: hidden;
+    padding-bottom: 10px;
+}
+.baike-chunk span{display:block;font-size: 1.5em;}
+.baike-chunk li{border-bottom: 1px solid #ccc;width: 190px;margin-left: auto;margin-right: auto;}
+
+/**背景颜色标签**/
+.span_blue span{background: #3366ff;color:#fff;}
+.span_blue a:hover{color:#3366ff;}
+.span_green span{background: #66cc00;color:#fff;}
+.span_green a:hover{color:#66cc00;}
+.span_red span{background: #ff6666;color:#fff;}
+.span_red a:hover{color:#ff6666;}
+.span_orange span{background: #ff9900;color:#fff;}
+.span_orange a:hover{color:#ff9900;}
+.span_violet span{background: #cc99cc;color:#fff;}
+.span_violet a:hover{color:#cc99cc;}
+
+.con-edit-form .form-title{float:left;line-height: 35px;font-size: 18px;color:#727272;padding-left: 10px;margin-top: 5px;}
+.con-edit-form ul{width:100%;float: left;}
+.con-edit-form ul li{float:left;line-height: 25px;margin-top: 10px;min-height:30px;}
+.con-edit-form label{padding: 0 4px;}
+.con-edit-form label,.con-edit-form input,.con-edit-form select,.con-edit-form label textarea{float:left;}
+.con-edit-form ul li>label:first-child{padding: 0 10px;margin:0;text-align: right;width: 90px;display: inline-block;}
+.li-onlyline li{width:100%;}
+.form-remark{width:90%;padding-left: 10%;line-height: 25px;font-size: 12px;}
+.form-s-remark{min-width:300px;margin-left:20px;line-height:25px;font-size: 12px;}
+
+
+.con-edit-form .form-title{float:left;line-height: 35px;font-size: 18px;color:#727272;padding-left: 10px;margin-top: 5px;}
+.con-edit-form ul{width:100%;float: left;}
+.con-edit-form ul li{float:left;line-height: 25px;margin-top: 10px;min-height:30px;}
+.con-edit-form label{padding: 0 4px;}
+.con-edit-form label,.con-edit-form input,.con-edit-form select,.con-edit-form label textarea{float:left;}
+.con-edit-form ul li>label:first-child{padding: 0 10px;margin:0;text-align: right;width: 90px;display: inline-block;}
+.li-onlyline li{width:100%;}
+.form-remark{width:90%;padding-left: 10%;line-height: 25px;font-size: 12px;}
+.form-s-remark{min-width:300px;margin-left:20px;line-height:25px;font-size: 12px;}
+table td,table  td label{
+    word-wrap: break-word; 
+    word-break: normal; 
+    word-break:break-all;
+}
+

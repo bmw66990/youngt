@@ -1,0 +1,38 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">共享文件<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-s-title">
+                <label <if condition="!$action || $action eq ''"> class="currt" </if>><a href="{:U('Workbench/sharedFile',array('action'=>''))}">全部</a></label>
+                <label  <if condition="$action eq 'myfiles'"> class="currt" </if>><a href="{:U('Workbench/sharedFile',array('action'=>'myfiles'))}">我上传的</a></label></div>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w500">文件名</th>
+                        <th class="w100">大小</th>
+                        <th class="w120">上传人</th>
+                        <th class="w120">上传时间</th>
+                        <th class="w120">所属小组</th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr>
+                            <td class="w500"><label><a href="{$vo.file_url}" target="_blank">{$vo.filename}</a></label></td>
+                            <td class="w100"><label>{$vo.file_size}</label></td>
+                            <td class="w120"><label class="tx-teal">{$vo.admin_name}</label></td>
+                            <td class="w120"><label class="tx-teal">{$vo.upload_time}</td>
+                            <td class="w120"><label class="tx-teal">{$vo.workbench_group_name}</label></td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <include file="page" />
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/workbench.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

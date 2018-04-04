@@ -1,0 +1,66 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Encyclopedias:menu" />
+    <div class="content">
+        <div class="con-title">百科管理<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-s-title tx-teal">
+                <if condition="$res = auth_check_access(array('Encyclopedias/encyclopediasTypeManage'))">
+                    <label>
+                        <a href="javascript:popup('{:U('Encyclopedias/encyclopediasTypeManage')}',400,300);" >管理分类</a>
+                    </label>
+                </if>
+                <if condition="$res = auth_check_access(array('Encyclopedias/youngtEncyclopediasAdd'))">
+                    <label><a href="{:U('Encyclopedias/youngtEncyclopediasAdd')}">新建百科</a></label>
+                </if>
+            </div>
+
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w60">ID</th>
+                        <th class="w300">标题</th>
+                        <th class="w200">分类</th>
+                        <th class="w120">日期</th>
+                        <th class="w70">排序</th>
+                        <th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr>
+                            <td class="w60"><label>{$vo.encyclopedias_id}</label></td>
+                            <td  class="w300">
+                                <label class="td-title">
+                                    <a href="{:U('Encyclopedias/encyclopediasDetail',array('encyclopedias_id'=>$vo['encyclopedias_id']))}">{$vo.encyclopedias_title}</a>
+                                </label>
+                            </td>
+                            <td class="w200 f-12"><label>{$vo.encyclopedias_type_name}</label></td>
+                            <td class="w120 f-12"><label>{$vo.encyclopedias_begin_time|date="Y-m-d",###}</label></td>
+                            <td class="w70"><label>{$vo.encyclopedias_order_sort}</label></td>
+                            <td class="w120 f-12 man">
+                        <if condition="$res = auth_check_access(array('Encyclopedias/youngtEncyclopediasEdit'))">
+                            <label class="bc-teal">
+                                <a href="{:U('Encyclopedias/youngtEncyclopediasEdit',array('encyclopedias_id'=>$vo['encyclopedias_id']))}">编辑</a>
+                            </label>
+                        </if>
+                        <if condition="$res = auth_check_access(array('Encyclopedias/youngtEncyclopediasDelete'))">
+                            <label  class="bc-teal">
+                                <a href="{:U('Encyclopedias/youngtEncyclopediasDelete',array('encyclopedias_id'=>$vo['encyclopedias_id']))}" class='notice-delete' confirm_tip='确定删除该青团百科吗？'>删除</a>
+                            </label>
+                        </if>
+                        </td>
+                        </tr>
+                    </volist>
+
+
+                </table>
+                <div class="selectpage">
+                    <include file="Encyclopedias:page" />
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/encyclopedias.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

@@ -1,0 +1,41 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link href="__CSS_PATH__/links.css" rel="stylesheet" type="text/css" />
+       <!--新闻页-->
+        <div id="bdw">
+        	<div id="bd">	 	
+        		<div id="mainbox" class="mainbox ytnews fl">
+        			<div class="blk">  
+                        <h1>{$new.title}</h1>
+        				<div class="artinfo">
+        					<span class="pr10">发布时间：{$new.begin_time|date ='Y-m-d',###}</span>
+        					<span>发布人：{$username}</span>
+        				</div>
+        				<div id="artibody" class="cf">
+        					<p style="font-size:14px;">{$new.detail}</p>
+        				</div>
+                            <div id="artnext" class="f-fs2 cf">
+                                <div class="fl next">
+                                    <if condition="$uper['id'] eq ''">
+                                        <strong>已经是第一篇</strong>
+                                    <else />
+    		                           	<strong>上一篇：</strong>
+    		                            <a href="{:U('Help/news',array('id'=>$uper['id']))}">{$uper['title']|msubstr=0,15}</a>
+    		                        </if>
+                                </div>
+		                        <div class="fr next" >
+                                    <if condition="$downer['id'] eq ''">
+                                        <strong>已经是最后一篇</strong>
+                                    <else />
+                                        <strong>下一篇：</strong>
+                                        <a href="{:U('Help/news',array('id'=>$downer['id']))}">{$downer['title']|msubstr=0,15}</a>
+                                    </if>	
+		                        </div>
+		                    </div>
+		        	 	</div>     	 
+	        		</div>
+        	    <div class="clear"></div>
+        	</div>
+        </div>	
+	    <!--底部开始-->
+<include file="Common:footer" />

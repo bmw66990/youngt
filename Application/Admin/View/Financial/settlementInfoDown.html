@@ -1,0 +1,35 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content">
+        <div class="con-title">商家结算打款下载<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Financial/settlementInfoDown')}" method="post" >
+                <li><label>银行类型</label>
+                    <select class="w200" name="bank_type">
+                        <option value="">--全部--</option>
+                        <option value="Y"  <if condition="$bank_type == 'Y'"> selected </if>>农行</option>
+                        <option value="N"  <if condition="$bank_type == 'N'"> selected </if>>非农行</option>
+                    </select>
+                </li>
+                <li><label>是否有大额行号</label>
+                    <select class="w200" name="is_bank_large_no">
+                        <option value="">--全部--</option>
+                        <option value="Y" <if condition="$is_bank_large_no == 'Y'"> selected </if>>有大额行号</option>
+                        <option value="N" <if condition="$is_bank_large_no == 'N'"> selected </if>>无大额行号</option>
+                    </select>
+                </li>
+                <li>
+                    <label>
+                        <input type="hidden" name="down_type" value="download" />
+                        <if condition="$res = auth_check_access(array('Financial/settlementInfoDown'))">
+                            <input type="submit" class="btn-teal small-btn" value="下载" />
+                        </if>
+                    </label>
+                </li>
+            </form>
+        </div> 
+    </div>
+</section>
+<include file="Common:footer" />

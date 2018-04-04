@@ -1,0 +1,83 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content">
+        <div class="con-title">现金支付<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <span class="f-16 tx-grey fl wall">总金额：<label class="tx-orange">&#165;{$all_money|default='0.00'}</label></span>
+            <form id="cash-payment-form" class="myform" action="{:U('Financial/cashPayment')}" method="get">
+                <li><label>日期</label>
+                    <input class="laydate-icon w150" id="start" name='start_time' format="YYYY-MM-DD"    value='{$start_time}' type="text" ><label>-</label>
+                    <input class="laydate-icon w150" id="end"  name='end_time' format="YYYY-MM-DD"    value='{$end_time}' type="text"></li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+                <li><label class="btn-teal"><a target="_blank" id="cash-payment-btn" href="#">下载</a></label></li>
+            </form>
+
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w200">项目名称</th>
+                        <th class="w200">用户名/邮箱</th>
+                        <th class="w120">动作</th>
+                        <th class="w120">金额</th>
+                        <th class="w150">操作员</th>
+                        <th class="w70"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr>
+                            <td class="w200">
+                                <label><a target="_blank" href="{:C('YOUNGT_URL')}/team-{$vo.team_id}.html" >{$vo.team_product}</a></label>
+                            </td>
+                            <td  class="w200">
+                        <if condition="$vo.user_username neq ''">
+                            <label>{$vo.user_username}</label><br/>
+                        </if>
+                        <if condition="$vo.user_email neq ''">
+                            <label>{$vo.user_email}</label><br/>
+                        </if>
+                        <if condition="$res = auth_check_access(array('User/getUserFlow'))">
+                            <if condition="$vo.user_id neq ''">
+                                <label class="tx-teal">[<a href="javascript:popup('{:U('User/getUserFlow',array('user_id'=>$vo['user_id']))}',800,520);">流水</a>]</label>
+                            </if>
+                        </if>
+                        </td>
+                        <td class="w120">
+                        <if condition="$vo.order_service eq 'cash'">
+                            <label>现金支付</label><br>
+                            <else/>
+                            <label>其他支付</label><br>
+                        </if>
+                        <label>{$vo.order_pay_time|date="Y-m-d H:i",###}</label>
+                        </td>
+                        <td class="w120"><label class="tx-orange">{$vo.order_money|default='0.00'}</label></td>
+                        <td class="w150">
+                        <if condition="$vo.admin_user_username neq ''">
+                            <label>{$vo.admin_user_username}</label><br/>
+                        </if>
+                        <if condition="$vo.admin_user_email neq ''">
+                            <label>{$vo.admin_user_email}</label><br/>
+                        </if>
+                        </td>
+                        <td class="w70">
+                        <if condition="$res = auth_check_access(array('Financial/viewCashPayment'))">
+                            <label class="bc-teal">
+                                <a href="javascript:popup('{:U('Financial/viewCashPayment',array('order_id'=>$vo['order_id']))}',450,600);">详情</a>
+                            </label>
+                        </if>
+                        </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        <include file="Financial:page" />
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/financial.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

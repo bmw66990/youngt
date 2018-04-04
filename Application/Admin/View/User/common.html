@@ -1,0 +1,22 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('User/index'))">
+            <li ><a href="{:U('User/index')}">用户</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('User/manage'))">
+            <li ><a href="{:U('User/manage')}">管理员</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('User/agent'))">
+            <li ><a href="{:U('User/agent')}">代理</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('User/authorityManager'))">
+            <li ><a href="{:U('User/authorityManager')}">权限管理</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('User/authorityGroupManager'))">
+            <li ><a href="{:U('User/authorityGroupManager')}">权限组管理</a><label>&nbsp;</label></li>
+        </if>    
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

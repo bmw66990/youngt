@@ -1,0 +1,59 @@
+<include file="Common:header" />
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.all.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/lang/zh-cn/zh-cn.js"></script>
+<section>
+    <!--左侧导航-->
+    <include file="Encyclopedias:menu" />
+    <div class="content">
+        <div class="con-title">新建百科<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form id='youngt-encyclopedias-operation-form' action="{:U('Encyclopedias/'.$operation_type)}" method='post'>
+                <ul class="li-onlyline">
+                    <li><label>标题</label><input id="title" name="encyclopedias[title]" value="{$title}" class="w700" type="text"></li>
+                    <li><label>分类</label>
+                        <select id="type_id" name="encyclopedias[type_id]" class="w150">
+                            <option value="">请选择分类</option>
+                            <volist  name="encyclopedias_type_list" id="etl">
+                                <option value="{$etl.id}"  <if condition="$etl.id == $type_id"> selected </if>>{$etl.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>发布时间</label>
+                    <input  class="laydate-icon w100" name="encyclopedias[begin_time]" <if condition="$begin_time neq ''">  value='{$begin_time|date="Y-m-d",###}' </if>  format="YYYY-MM-DD"  id="start" type="text" >
+                    </li>
+                    <li><label>排序</label><input id="order_sort" name="encyclopedias[order_sort]" class="w100" type="text" value="{$order_sort|default='0'}"></li>
+                    <li><label class="m-top-5">内容</label><textarea id="content" class='content'  name="encyclopedias[content]">{$content}</textarea></li>
+                    <li>
+                        <input  type="hidden" name='operation_type' value="{$operation_type}">
+                        <input  type="hidden" name='encyclopedias[id]' value="{$id}">
+                        <input id='youngt-encyclopedias-operation-btn' class="small-btn btn-teal w100 h40" type="submit" value="提交">
+                    </li>
+                </ul>
+            </form>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Team/uploadImg',array('type'=>'youngtEncyclopedias'))}";
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return "{:U('Team/uploadImg',array('type'=>'youngtEncyclopedias'))}";
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+    var summary = UE.getEditor('content',
+            {autoHeightEnabled: true,
+                autoFloatEnabled: true,
+            });
+</script>
+<style>
+    div#content{
+        margin-left: 100px;
+    }
+</style>
+<script type="text/javascript" src="__JS_PATH__/encyclopedias.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

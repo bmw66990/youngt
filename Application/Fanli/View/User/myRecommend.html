@@ -1,0 +1,123 @@
+<include file="Common:header" />
+<!-- 我的粉丝 -->
+<style type="text/css">
+    .user-leve2{ 
+      border-bottom:2px solid transparent;
+    }
+    .user-leve1{
+     
+
+    }
+    .user-leve-active{
+      color:#E60827;
+      border-bottom:2px solid #E60827;
+    }
+    .pay-table2{display: none;}
+  </style>
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-4 am-margin-top-xs">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xxl am-fl" style="color:#333;">
+            </a>
+        </div>
+        <div class="am-u-sm-8 am-center am-margin-top-xs">
+            <span class="am-text-lg am-padding-left-sm">我的粉丝</span>
+        </div>
+    </div> 
+</header>
+
+
+<!-- 表单 -->
+<div class="am-g am-margin-vertical-sm">
+    <ul class="am-avg-sm-2 am-text-center am-padding-horizontal-sm">
+        <li class="user-leve1 am-padding-xs user-leve-active">直接<span>({$data['firstcount']})</span></li>
+        <li class="user-leve2 am-padding-xs">间接<span>({$data['secondcount']})</span></li>
+    </ul>
+</div>
+
+
+<!--一级用户 -->
+<div class="am-g pay-table1">
+    <table class="am-table am-table-hover am-text-center am-text-sm">
+        <colgroup>
+            <col width="15%">
+            <col width="20%">
+            <col width="25%">
+            <col width="40%">
+        </colgroup>
+        <thead style="background-color:#f7f7f7;">
+            <tr>    
+                <i class="cut-line"></i>
+                <th class="am-text-center">序号</th>
+                <th class="am-text-center">买担保id</th>
+                <th class="am-text-center">微信名称</th>
+                <th class="am-text-center">时间</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist  name="user_first" id="vo">
+            <tr>
+                <td>{$vo['id']}</td>
+                <td>{$vo['cardid']}</td>
+                <td>{$vo['nickname']}</td>
+                <td>
+                    <span>{$vo['subscribe_time']|date='Y-m-d h:i', ###}
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- 二级用户 -->
+<div class="am-g pay-table2">
+    <table class="am-table am-table-hover am-text-center am-text-sm">
+        <colgroup>
+            <col width="15%">
+            <col width="20%">
+            <col width="25%">
+            <col width="40%">
+        </colgroup>
+        <thead style="background-color:#f7f7f7;">
+            <tr>
+                <i class="cut-line"></i>
+                <th class="am-text-center">序号</th>
+                <th class="am-text-center">卡号</th>
+                <th class="am-text-center">微信名称</th>
+                <th class="am-text-center">时间</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist  name="user_second" id="vo">
+            <tr>
+                <td>{$vo['id']}</td>
+                <td>{$vo['cardid']}</td>
+                <td>{$vo['nickname']}</td>
+                <td><span>{$vo['subscribe_time']|date='Y-m-d h:i', ###}</td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $(".user-leve1").click(function(){
+      $(".pay-table2").hide();
+      $(".pay-table1").show();
+      $(".user-leve2").removeClass("user-leve-active");
+      $(".user-leve1").addClass("user-leve-active");
+    });
+
+  $(".user-leve2").click(function(){
+      $(".pay-table1").hide();
+      $(".user-leve1").removeClass("user-leve-active");
+      $(".pay-table2").show();
+      $(".user-leve2").addClass("user-leve-active");
+    });
+});
+</script>
+
+<include file="Common:foot" />

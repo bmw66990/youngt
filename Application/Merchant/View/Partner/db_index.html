@@ -1,0 +1,103 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">基本设置</a>
+            </li>
+            <li class="active">联系业务员</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                联系业务员
+            </h1>
+        </div>
+        <!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div style="font-size: 20px">
+                    <div style="margin-top: 20px;" class="formitm mt30">
+                        <span class="lab ml20 db">业务员姓名：</span>                                   
+                        <span class="lab ml20 db">{$db['db_username']}</span>
+                    </div>    
+                    <div style="margin-top: 20px;" class="formitm mt30">
+                        <span class="lab ml20 db">业务员手机：</span>                                   
+                        <span class="lab ml20 db">{$db['db_phone']}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Partner:phone_tip" />
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+      // 修改资料提交
+    $(".main-container-inner").on('click', '#partner-form-submit', function() {
+    //$('#partner-form-submit').die().live('click', function() {
+        var $this = $(this);
+        var $form = $(this).parents('form#partner-edit-form');
+        // 非法参数判断
+        var $oldPassword = $form.find("input#oldpassword").val();
+        var $newPassword = $form.find("input#newpassword").val();
+        var $cnewPassword = $form.find("input#cnewpassword").val();
+        
+        show_message_tip({});
+        if($this.hasClass('disabled')){
+            return false;
+        }
+        if ($oldPassword) {
+            if (!$newPassword || !$cnewPassword) {
+                show_message_tip({error: '新密码不能为空！'});
+                return false;
+            }
+            if ($.trim($newPassword) != $.trim($cnewPassword)) {
+                show_message_tip({error: '两次输入的新密码不一致！'});
+                return false;
+            }
+        }
+
+        var $href = $form.attr('action');
+        var $data = $form.serialize();
+        // 发送请求
+        $this.addClass('disabled');
+        show_message_tip({success:'正在修改，请稍后...'});
+        $.post($href, $data, function(res) {
+            $this.removeClass('disabled')
+            if (res.error && res.code != 0) {
+                $tip.show().text(res.error);
+                show_message_tip(res);
+                return false;
+            }
+            show_message_tip({success:'修改成功！'});
+            window.location.reload();
+            return false;
+        }, 'json')
+
+        return false;
+    });
+    });
+</script>

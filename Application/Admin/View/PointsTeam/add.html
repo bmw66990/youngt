@@ -1,0 +1,83 @@
+<include file="Common:header" />
+<script type="text/javascript" src="__JS_PATH__/team.js?v={:C('JS_VER')}"></script>
+<section>
+	<include file="subnav" />
+ 	<div class="content">
+		<div class="con-title">积分商品添加<span class="tx-green">+</span></div>
+		<div class="con-edit-form">
+			<form action="{:U('PointsTeam/insert')}" method="post">
+			<ul>
+			<li><label>城市</label>
+				<select class="w150" name="city_id" id="city">
+                    <option value="">--请选择城市--</option>
+                    <volist name="cityList" id="c">
+                        <option value="{$c.id}">{$c.letter}-{$c.name}</option>
+                    </volist>
+                </select>
+			</li>
+			<li>
+                <label>商户</label><input type="text" id="partner-name" readonly="">
+                <input type="hidden" name="partner_id" id="partner-id">
+                <input class="small-btn bc-teal w100 h40" type="button" url="{:U('Team/partner')}" onclick="partner(this, $('#city').val())" value="选择商户">
+            </li>
+			</ul>
+			<ul class="li-onlyline">
+				<li><label>商品名称</label>
+					<input class="w700" name="name" type="text">
+				</li>
+				<li><label>花费积分</label>
+					<input class="w300" name="score" type="text">
+				</li>
+				<li><label>开始时间</label>
+					<input class="w70" name="begin_time" type="text" ><label>,</label>
+					<label>结束时间</label>
+					<input class="w70" name="end_time" type="text" ><label>,</label>
+					<label>过期时间</label>
+					<input class="w70" name="expire_time" type="text" ><label>,</label>
+				</li>
+				<div class="form-remark tx-grey">时间格式：hh:ii:ss (例：14:05:58)，日期格式：YYYY-MM-DD （例：2010-06-10）</div>
+
+				<li>
+					<label>每人限兑</label>
+					<input type="text" name="convert_num" class="w120" value="10">
+					<input type="checkbox" name="is_convert" value="N" ><label>不限</label>
+				</li>
+				<li>
+					<label>商品数量</label>
+					<input type="text" name="limit_num" class="w120" value="50">
+					<input type="checkbox" name="is_limit" value="N" ><label>不限</label>
+				</li>
+				<li><label>商品图片</label>
+					<include file="upload" />
+					<input type="hidden" name="image" id="uploadimage" value="">
+				</li>
+				<li><label>排序</label>
+					<input class="w70" name="sorts" type="text">
+				</li>
+                                                                <li><label>商品说明</label>
+					<textarea  class="form-control" name="remark"></textarea>
+				</li>
+				<!-- <li><label>是否显示</label>
+					<label><input type="radio" name="is_display" value="display">是</label>
+					<label><input type="radio" name="is_display" value="forbidden">否</label>
+				</li> -->
+				<li><input class="small-btn bc-teal w100 h40" type="submit" value="提交"></li>
+			</ul>
+			</form>
+		</div>  
+	</div>
+</section>
+<script type="text/javascript">
+var UPLOAD_URL = "{:U('PointsTeam/uploadImg')}";
+$(function(){
+	$(":checkbox").click(function(){
+		var $checkbox = $(this).prev();
+		if(!$checkbox.attr("disabled")){ 
+			$checkbox.attr("disabled",true);
+		 }else{
+			$checkbox.attr("disabled",false);
+		}
+	});
+})	
+</script>
+<include file="Common:footer" />

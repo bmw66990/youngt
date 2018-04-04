@@ -1,0 +1,77 @@
+<include file="Common:popup_header" />
+<link href="__CSS_PATH__/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="__CSS_PATH__/Font-Awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="__CSS_PATH__/animate.min.css" rel="stylesheet">
+<link href="__CSS_PATH__/style.min.css?v=4.0.0" rel="stylesheet">
+<!--本页面样式-->
+<style type="text/css">
+	.tlist{background: #fff!important;}
+	.tlist:hover{cursor: pointer;background: #f3f3f3!important;}
+	
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form name="form1" class="form-inline" action="{:U('Team/partner')}" method="get">
+                            <div class="form-group">
+                                <label for="starttime" class="sr-only">商家ID</label>
+                                <input name="id" value="{$searchValue.id}" type="text" class="form-control" placeholder="商家ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="businessid" class="sr-only">商家名称</label>
+                                <input name="title" value="{$searchValue.title}" type="text" class="form-control" placeholder="商家名称">
+                            </div>
+                            <input type="hidden" name="city_id" value="{$cityId}">
+                            <input class="btn btn-primary" type="submit" value="筛选" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover" >
+                            <tr style="background:#fff">
+                                <th>ID</th>
+                                <th>名称</th>
+                            </tr>
+                            <volist name="list" id="row">
+                                <tr class="tlist" >
+                                    <td class="pid">
+                                        {$row.id}
+                                    </td>
+                                    <td class="ptitle">{$row.title}</td>
+                                </tr>
+                            </volist>
+                        </table> 
+                    </div>
+                    <div class="selectpage">
+                        <div class="pagenumber">
+                            {$pages}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".tlist").click(function() {
+                if (window.parent.parent.document.getElementById('partner-title')) {
+                    window.parent.parent.document.getElementById('partner-title').value = $(this).children('.ptitle').text();
+                }
+                window.parent.parent.document.getElementById('partner-name').value = $(this).children('.ptitle').text();
+                window.parent.parent.document.getElementById('partner-id').value = $(this).children('.pid').text();
+                window.parent.parent.document.getElementById('team-product').value = $(this).children('.ptitle').text();
+                window.parent.layer.closeAll();
+            });
+        })
+    </script>
+</body>
+</html>

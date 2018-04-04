@@ -1,0 +1,90 @@
+<include file="Common:header" />
+<style>
+    .con-edit-form ul.auth-rule-list{
+        float: right;
+        width: 95%;
+    }
+    .con-edit-form li.auth-rule-li{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .con-edit-form ul.auth-rule-li-list{
+        margin-left: 10px;
+    }
+    .con-edit-form li.auth-rule-li-li{
+        float: left;
+        width: 200px;
+        margin: 4px;
+    }
+    .con-edit-form li.auth-rule-li div.auth-rule-name  span.check-all-con{
+        display: inline-block;
+        margin-left: 15px;
+    }
+    .con-edit-form li.auth-rule-li div.auth-rule-name  span.check-all-con input.checkall{
+        margin-right: 10px;
+        position: relative;
+        top: 2px;
+    }
+    .auth-rule-name{
+        background-color: #009999;
+        color: #eee;
+        padding: 4px;
+    }
+</style>
+
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">权限组管理<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-edit-form">
+                <form action="{:U('User/'.$operation_type)}" method='post'>
+                    <ul class="li-onlyline">
+                        <li><label>权限名称</label><input id="title" name='auth_group[title]' value='{$title}' class="w500" type="text"></li>
+                        <li><label>状态</label>
+                            <select class="w150" id="city_id" name='auth_group[status]'>
+                                <volist  name="auth_rule_type" id="art">
+                                    <option value="{$key}"  <if condition="$key == $status"> selected </if>>{$art}</option>
+                                </volist>
+                            </select>
+                        </li>
+                        <li><label class="m-top-5">备注</label><textarea id="content" name="auth_group[remark]">{$remark}</textarea></li>
+                        <li><label>权限列表</label>
+                            <ul class='auth-rule-list'>
+                                <volist  name="auth_rule_list" id="arl">
+                                    <li class='auth-rule-li'>
+                                        <div class='auth-rule-name'>{$arl.name}<span class="check-all-con"><input type="checkbox" check_list="li.auth-rule-li" class="checkall  check-all" > 全选</span></div>
+                                        <ul class='auth-rule-li-list'>
+                                            <volist  name="arl.list" id="arll">
+                                                <li class='auth-rule-li-li'>
+                                                <input type='checkbox' name="auth_group[rule][]" class="checkone  check-all" <if condition="$arll.checked eq '1'"> checked='checked'</if>  value='{$arll.id}'/>
+                                                <span title='{$arll.title}[{$arll.name}]'>
+                                                    <if condition="$arll.title neq ''">
+                                                        {$arll.title|msubstr=0,12}
+                                                        <else/>
+                                                        {$arll.name|msubstr=0,20}
+                                                    </if>
+                                                </span>
+                                                </li>
+                                            </volist>
+                                        </ul>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </li>
+                        <li>
+                            <input  type="hidden" name='operation_type' value="{$operation_type}">
+                            <input  type="hidden" name='module_name' value="{$module_name}">
+                            <input  type="hidden" name='auth_group[id]' value="{$id}">
+                            <input  class="small-btn btn-teal" type="submit" value="提交">
+                            <input type="checkbox" check_list="ul.li-onlyline" class="checkall"  check_one="input.check-all" style="margin-left: 10px;margin-right: 5px;" > 全选
+                        </li>
+                    </ul>
+                </form>
+            </div> 
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/user.js"></script>
+<include file="Common:footer" />

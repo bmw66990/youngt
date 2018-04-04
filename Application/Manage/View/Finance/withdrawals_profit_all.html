@@ -1,0 +1,72 @@
+<include file="Common:header"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <h3><a href="{:U('Finance/withdrawals')}" class="J_menuItem">财务</a> / <small><a href="{:U('Finance/withdrawals')}" class="J_menuItem">提现</a></small></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--本月交易利润-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>本月交易利润</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover text-center" id="editable">
+                            <thead>
+                            <th>商家</th>
+                            <th class="text-center">订单数（已减去退款）</th>
+                            <th class="text-center">交易金额（已减去退款）</th>
+                            <th class="text-center">退款</th>
+                            <th class="text-center">接待量</th>
+                            <th class="text-center">利润</th>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr>
+                                    <th>{$vo.partner_username}</th>
+                                    <td>{$vo.partner_order_count}</td>
+                                    <td>{$vo.partner_order_sum_money}元</td>
+                                    <td>{$vo.partner_order_refund_sum_money}元（{$vo.partner_order_refund_count}）</td>
+                                    <td>{$vo.partner_reception_count}</td>
+                                    <td>{$vo.partner_profit_money}元</td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--..//本月交易利润结束-->
+    </div>
+<include file="Common:footer"/>
+
+<script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+<script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+<script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+<script src="__PLUGINS_PATH__/layer/layer.js"></script>
+<script src="__PLUGINS_PATH__/layer/layer.config.js"></script>
+<script src="__JS_PATH__/content.min.js?v=1.0.0"></script>
+<script>
+</script>
+</body>
+</html>

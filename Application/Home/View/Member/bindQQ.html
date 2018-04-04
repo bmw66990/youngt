@@ -1,0 +1,33 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+	<include file="left" />
+	<div id="pcontent" class="coupons-box fl">
+    <if condition="$member['sns'] neq ''">
+      <div class="pmainbox mine">
+          <span style="display:block; font-size:20px;">您的账号目前已绑定QQ账号</span>
+          <p style="margin:25px;"><a href="{:U('Member/bindQQ', array('act' => 'del'))}" id="cancel-bind" class="btn-hot">解除绑定账号</a></p>
+  		</div>
+    <else />
+       <div class="pmainbox mine">
+          <span style="display:block; font-size:20px;">您的账号尚未绑定QQ账号</span>
+          <p style="margin:25px;"><a href="{:U('Public/qqLogin')}" class="btn-hot">立即绑定</a></p>
+      </div>
+    </if>  
+	    <div class="clear"></div>
+  	</div>
+</div></section>
+<script type="text/javascript">
+$(function(){
+  $("#cancel-bind").click(function(){
+    $.get(this.href,function(data){
+      alert(data.info);
+      if(data.status==1){
+        window.location.reload();
+      }
+    });
+    return false;
+  });
+})
+</script>
+<include file="Common:footer" />

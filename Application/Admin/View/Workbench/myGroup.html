@@ -1,0 +1,45 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">我的小组<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-s-title">
+                <label><a href="javascript:;" onclick="popup('{:U('Workbench/addGroup')}',650,550)">创建小组</a></label>
+            </div>
+            <div class="form-list">
+                <div class="workbench">
+                    <ul>
+                        <volist name="topData" id="top">
+                            <li>
+                                <eq name="top.admin_id" value="$uid">
+                                    <span class="favitor" style="cursor:pointer" onclick="setGroupStatus({$top.id},1)"><img src="__IMAGE_PATH__/ico/workfavi.png"></span>
+                                <else />
+                                    <span class="favitor"><img src="__IMAGE_PATH__/ico/workfavi.png"></span>
+                                </eq>
+                                <span><a href="{:U('Workbench/groupTask', array('gid' => $top['id']))}">{$top.username}</a></span>
+                                <span><label class="workbench-ico">{$top.num}</label></span>
+                            </li>
+                        </volist>
+                    </ul>
+                    <ul>
+                        <volist name="data" id="row">
+                            <li>
+                                <eq name="row.admin_id" value="$uid">
+                                    <span class="favitor" style="cursor:pointer" onclick="setGroupStatus({$row.id},1)"><img src="__IMAGE_PATH__/ico/work.png"></span>
+                                <else />
+                                    <span class="favitor"><img src="__IMAGE_PATH__/ico/work.png"></span>
+                                </eq>
+                                <span><a href="{:U('Workbench/groupTask', array('gid' => $row['id']))}">{$row.username}</a></span>
+                                <span><label class="workbench-ico">{$row.num}</label></span>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/workbench.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

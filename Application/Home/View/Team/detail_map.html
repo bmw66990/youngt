@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+#allmap {width:100%; height:470px;overflow: hidden;margin:0;}
+.myclass{ height:80px; width:260px; font-size:12px; line-height:22px;}
+.bigdiv{width:100%; height:100%; margin:0 auto;}
+</style>
+<link href="__CSS_PATH__/links.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=B3f7707c25da5b29a6ff69618788a296"></script>
+<title>商家位置|百度地图</title>
+</head>
+<body>
+	<div class="bigdiv">
+		<div id="allmap"></div>
+	</div>
+	 <script type="text/javascript">
+		var map = new BMap.Map("allmap");
+		var longs={$partner['long']};
+		var lat={$partner['lat']};
+		
+		var point = new BMap.Point(longs,lat);
+		//map.enableScrollWheelZoom(true);
+		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+		map.enableContinuousZoom();     //启用地图惯性拖拽，默认禁用
+		map.centerAndZoom(point, 15);
+		map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+		var marker = new BMap.Marker(point);  // 创建标注
+		map.addOverlay(marker);               // 将标注添加到地图中
+		marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		//创建信息窗口
+		var sContent ="<div class='myclass'>商家：{$partner['title']}<br>地址：{$partner['address']}<br>电话：{$partner['phone']}</div>";
+		var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+		//map.centerAndZoom(point, 15);
+		//map.addOverlay(marker);
+		marker.addEventListener("click", function(){          
+		   this.openInfoWindow(infoWindow);
+		   //图片加载完毕重绘infowindow
+		   document.getElementById('imgDemo').onload = function (){
+		       infoWindow.redraw();
+		   }
+		});
+	</script>
+</body>
+</html>

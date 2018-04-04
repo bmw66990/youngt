@@ -1,0 +1,159 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">验证详情</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <include file="Common:message_tip" />
+        <div class="panel panel-warning mt10">
+            <style>
+                li.list-group-item{
+                    border:0px;
+                }
+                </style>
+            <div class="panel-heading text-center f-fs2">
+                <b>{$team['product']}</b>
+            </div>
+
+            <div class="panel-body f-fs2 shyz">
+
+                <ul class="list-group">
+
+                    <li class="list-group-item f-toe">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">详情:</label>
+                            <div class="col-sm-10 f-toe">
+                                {$team['title']}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">项目名称:</label>
+                            <div class="col-sm-10">
+                                {$team['product']}
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">验证时间:</label>
+                            <div class="col-sm-10">
+                                {$coupon['consume_time']|date="Y-m-d H:i:s",###}
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">消费金额:</label>
+                            <div class="col-sm-10">
+                                {$team['team_price']}
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">券号:</label>
+                            <if condition="is_array($coupon_id)">
+                                <div class="col-sm-10">
+                                    <volist name="coupon_id" id="vo">	
+                                        <span style="margin-right:10px;">{$vo}</span>
+                                    </volist>
+                                </div>	
+                                <else />
+                                <div class="col-sm-10">
+                                    {$coupon_id}
+                                </div>
+                            </if>	
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">状态:</label>
+                            <div class="col-sm-10 fac">
+                                <span class="label label-success">验证成功</span>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+        <!--新增打印数据-->
+        <div style="display:none" id="copy">
+            <div style="font-size: 13px;">
+                <div style=" text-align: center;">青团网</div>
+                <div>项目标题:{$team['product']}</div>
+                <div>消费时间:{$coupon['consume_time']|date="Y-m-d H:i:s",###}</div>
+                <div>券号数量:{$scoupon_id['num']}</div>
+                <div>验证券号: {$scoupon_id['su']}</div>
+                <div>验证状态:验证成功</div>
+            </div>
+        </div>
+        <div class="f-ti qtqyzok" title="验证成功"></div>
+        <if condition="$partner['enable'] eq 'N' ">
+            <a style="padding:8px 90px;background-color:#2fb7ab;margin-left:20px;" id="print-result" onclick="myPreview()" class="btn btn-warning">
+                打印
+            </a>
+        </if>
+        <div id="mh"></div>
+        <a href="{:U('Coupon/index')}" class="btn btn-success">返回</a>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+<include file="Common:header" />
+<script src="__JS_PATH__/LodopFuncss.js"></script>
+        <script language="JavaScript" type="text/javascript">
+            $(function(){
+                // 对浏览器初始化设置
+                var init = function() {
+                    // document.onkeypress = banBackSpace;
+                    //禁止后退键 作用于IE、Chrome
+                    // document.onkeydown = banBackSpace;
+                    window.history.forward(1);//屏蔽浏览器自带的后退键
+                }();
+
+            });
+            function CreateOneFormPage(){
+                LODOP=getLodop();//(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM'));
+                if ((LODOP==null)||(typeof(LODOP.VERSION)=="undefined")) {
+
+                }
+                LODOP.PRINT_INIT("");
+                LODOP.SET_PRINT_PAGESIZE(3,"0","0.2mm","");
+                LODOP.ADD_PRINT_HTM(1,0,"100%","1",document.getElementById("copy").innerHTML);
+            };
+            function myPreview() {
+                CreateOneFormPage();
+                LODOP.PRINT();
+            };
+        </script>
+<!--script type="text/javascript" src="__JS_PATH__/CheckCouponResult.js"></script-->
+

@@ -1,0 +1,49 @@
+<include file="Common:header" />
+<section>
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">积分记录<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('PointsTeam/scoreList')}" method="get">
+                
+                <li><label>用户名</label><input class="w120" name="username" value="{$searchValue.username|default=''}" type="text"/></li>
+                <li><label>用户手机</label><input class="w120" name="mobile" value="{$searchValue.mobile|default=''}" type="text"/></li>
+                <li>
+                    <input type="submit" class="btn-teal small-btn" value="筛选" />
+                </li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w120">ID</th>
+                        <th class="w200">用户名/邮箱</th>
+                        <th class="w200">手机号/城市</th>
+                        <th class="w120">积分</th>
+                        <th class="w100">详情</th>
+                    </tr>
+                    <volist name="data" id="vo">
+                        <tr>
+                            <td class="w120">{$vo['id']}</td>
+                            <td class="w200">{$vo['username']}/{$vo['email']}
+                        <if condition="checkMobile($vo['mobile']) eq true">
+                            <lable class="f-12 tx-teal">
+                                <a href="javascript:popup('{:U('User/smsUser',array('mobile'=>$vo['mobile']))}',500,400);">[短信]</a>
+                            </lable>
+                        </if>
+                        </td>
+                        <td class="w200 lh-26">{$vo['mobile']} / {$cityList[$vo['city_id']]['name']}</td>
+                        <td class="w120">{$vo['score']}</td>
+                        <td class="w100">{$vo['action']|credit_state=""}</td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        {$pages}
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<include file="Common:footer" />

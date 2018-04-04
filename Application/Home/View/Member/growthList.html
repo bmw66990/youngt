@@ -1,0 +1,194 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+  <include file="left" />
+<!--右侧内容开始-->
+  <div id="pcontent" class="coupons-box fl">
+
+    <div class="pmainbox mine">
+
+      <div class="tab">
+        <div class="tab_menu">
+          <ul >
+              <li class="selected">
+                  <a href="{:U('Member/growthList')}">我的成长值</a>
+              </li>
+              <li>
+                  <a href="{:U('Member/creditList')}">我的积分</a>
+              </li>
+              <li>
+                  <a href="{:U('Member/scoreGoods')}">积分商城</a>
+              </li>
+              <li>
+                  <a href="{:U('Member/scoreList')}">积分兑换记录</a>
+              </li>
+          </ul>
+        </div>
+        <div class="tab_box">
+          <!-- 我的成长值-->
+          <div>
+            <h3 class="f-fs3 growth-title">我的成长值</h3>
+
+            <div class="alert-warning">
+              <div class="growth-content">
+                <p class="f-fs2">
+                  我当前的等级是：
+                  <span class="sp-growth-icons level-avatar level-avatar-0 mr25 f-ib"></span>
+                  我目前的成长值是：
+                  <span class="f-fwb cl-f7">{$growth}</span>
+                </p>
+                <script type="text/javascript">
+                $(function(){
+                  var num="{$growth}";
+                  var user_num='';
+                  if(num<300){
+                      $('.f-fs2 .sp-growth-icons').css('background-position','-20px 0');
+                      user_num=(num*(100/6))/300+'%';
+                  }else if(num<1000){
+                      $('.f-fs2 .sp-growth-icons').css('background-position','-20px -24px');
+                      user_num=100/6+((num-300)*(100/6)/700)+'%';
+                  }else if(num<3000){
+                      $('.f-fs2 .sp-growth-icons').css('background-position','-20px -49px');
+                      user_num=2*100/6+((num-1000)*(100/6)/2000)+'%';
+                  }else if(num<10000){
+                      $('.f-fs2 .sp-growth-icons').css('background-position','-20px -73px');
+                      user_num=3*100/6+((num-3000)*(100/6)/7000)+'%';
+                  }else if(num<30000){
+                      $('.f-fs2 .sp-growth-icons').css('background-position','-20px -99px');
+                      user_num=4*100/6+((num-10000)*(100/6)/20000)+'%';
+                  }else if(num<100000){
+                      $('.f-fs2 .sp-growth-icons').css('background-position','-20px -124px');
+                      user_num=5*100/6+((num-30000)*(100/6)/70000)+'%';
+                  }else if(num>=100000){
+                      $('.f-fs2 .sp-growth-icons').css('background-position','-20px -149px');
+                      user_num=100+'%';
+                  }    
+                  $('#icon_user').css('width',user_num);
+                      $.post("{:U('Member/getGrowth')}",function(data){
+                        $('#growth').html(data.html);
+                      }); 
+                  })
+                </script>
+
+                <!-- 进度条 -->
+                <div class="progress-bar orange stripes">
+                  <span id="icon_user" style="width:16%"></span>
+                </div>
+                <!-- 成长值 icon-->
+                <div class="mb5">
+                  <span class="sp-growth-icons level-icon level-icon-0 f-ib w15"></span>
+                  <span class="sp-growth-icons level-icon level-icon-1 f-ib w15 ml95"></span>
+                  <span class="sp-growth-icons level-icon level-icon-2 f-ib w15 ml95"></span>
+                  <span class="sp-growth-icons level-icon level-icon-3 f-ib w15 ml95"></span>
+                  <span class="sp-growth-icons level-icon level-icon-4 f-ib w15 ml95"></span>
+                  <span class="sp-growth-icons level-icon level-icon-5 f-ib w15 ml95"></span>
+                  <span class="sp-growth-icons level-icon level-icon-6 f-ib w15 ml95"></span>
+                </div>
+
+                <!-- 成长值 -->
+                <div class="progress-values cl-99">
+                  <span class="level-value f-ib f-tal">0</span>
+                  <span class="level-value level-value-1 f-ib f-tal">300</span>
+                  <span class="level-value level-value-1 f-ib f-tal">1000</span>
+                  <span class="level-value level-value-3 f-ib f-tal">3000</span>
+                  <span class="level-value level-value-1 f-ib f-tal">10000</span>
+                  <span class="level-value level-value-1 f-ib f-tal">30000</span>
+                  <span class="level-value level-value-4 f-ib f-tal">100000</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 成长值规则 -->
+            <h3 class="f-fs3 growth-title">成长值增长</h3>
+
+            <div class="growth-rule">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>级别</th>
+                    <th>成长值</th>
+                    <th>消费金额</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>v1</td>
+                    <td>0-300</td>
+                    <td>0-300元</td>
+                  </tr>
+
+                  <tr>
+                    <td>v2</td>
+                    <td>301-1000</td>
+                    <td>301-1000元</td>
+                  </tr>
+
+                  <tr>
+                    <td>v3</td>
+                    <td>1001-3000</td>
+                    <td>1001-3000元</td>
+                  </tr>
+
+                  <tr>
+                    <td>v4</td>
+                    <td>3000-10000</td>
+                    <td>3000-10000元</td>
+                  </tr>
+
+                  <tr>
+                    <td>v5</td>
+                    <td>10001-30000</td>
+                    <td>10001-30000元</td>
+                  </tr>
+
+                  <tr>
+                    <td>v6</td>
+                    <td>30001-100000</td>
+                    <td>30001-100000元</td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+              <div class="growth-qrcode pt10">
+                <a href="{:U('Public/client')}" class="download-btn download-btn--android" title="android"></a>
+                <a href="{:U('Public/client')}" class="download-btn download-btn--iphone" title="iphone"></a>
+                <span class="ewm"></span>
+                <span style="margin-left:73px; margin-top:5px">扫一扫下载客户端！</span>
+              </div>
+            </div>
+
+            <div class="growth-rule-desc cl-66" >
+              <p>
+                说明：
+              </p>
+              <p>
+                1.退款时，会减去获得的成长值
+              </p>
+              <p>
+                2.消费1元增加一个成长值，不足1元的按1元计算。
+              </p>
+            </div>
+
+            <h3 class="f-fs3 growth-title">我的成长记录</h3>
+            <div id="growth"></div>
+          </div>
+          <!-- 我的成长值结束 -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div></section>
+<!--右侧内容结束-->
+<script type="text/javascript">
+$(function(){
+  $.get($base_url+"/Member/growthList",function(data){
+    $("#growth").html(data.html);
+  })
+})
+</script>
+<include file="Common:footer" />

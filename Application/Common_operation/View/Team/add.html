@@ -1,0 +1,549 @@
+<include file="Common:header" />
+<div class="wrapper-content animated fadeInRight">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <form action="{:U('Team/insert')}" method="post" id="team-form" class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="col-sm-2 control-label">城市</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" name="city_id" id="city">
+                                        <if condition="$user_info['plat'] && $user_info['plat'] eq 'manage'">
+                                            <option value="{$user_info.city_id}" selected='selected'>{$user_info.city_name}</option>
+                                            <elseif condition="$user_info['plat'] && $user_info['plat'] eq 'merchant'"/>
+                                            <option value="{$user_info.city_id}" selected='selected'>{$user_info.city_name}</option>
+                                            <else/>
+                                              <option value="">--请选择城市--</option>
+                                            <volist name="city" id="c">
+                                                <option value="{$c.id}">{$c.letter}-{$c.name}</option>
+                                            </volist>
+                                        </if>
+                                    </select>
+                                </div>
+                                <div class="col-sm-8">
+                                    <label class="col-sm-2 control-label">商家</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <if condition="$user_info['plat'] && $user_info['plat'] eq 'merchant'">
+                                            <input type="text" class="form-control" id="partner-name" value="{$user_info.username}" readonly="">
+                                            <input type="hidden" name="partner_id" id="partner-id" value="{$user_info.id}">
+                                            <else/>
+                                            <input type="text" class="form-control" id="partner-name" readonly="">
+                                            <input type="hidden" name="partner_id" id="partner-id">
+                                            </if>
+                                            <span class="input-group-btn"> 
+                                                  <if condition="$user_info['plat'] && $user_info['plat'] neq 'merchant'">
+                                                    <button type="button" class="btn btn-primary" onclick="partner(this, $('#city').val())" data-title="选择商家" >选择商家</button>
+                                                  </if>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目类型</label>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <select class="form-control" name="group_id" url="{:U('Team/getSubCate')}" onchange="getSubCate(this)">
+                                                <option value="0">选择分类</option>
+                                                <volist name="group" id="pvo">
+                                                    <option value="{$pvo['id']}">{$pvo['name']}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" name="sub_id" id="subcate">
+                                                <option value="0">选择细分类</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select id="team_team_type" name="team_type" class="form-control" onchange="showTypeItem(this.value)">
+                                                <option value="normal">团购项目</option>
+                                                <option value="newuser">新用户独享</option>
+                                                <option value="limited">限量抢购</option>
+                                                <option value="timelimit">秒杀项目</option>
+                                                <option value="discount">特卖</option>
+                                                <option value="goods">邮购</option>
+                                                <!--option value="cloud_shopping">云购</option-->
+                                                <option value="newguser">新客立减</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="team_limit_where">
+                                <label class="col-sm-2 control-label">限制条件</label>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <select class="form-control" name="conduser">
+                                                <option value="Y">以购买成功人数成团</option>
+                                                <option value="N">以产品购买数量成团</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <select class="form-control" name="buyonce">
+                                                <option value="Y">仅购买一次</option>
+                                                <option value="N" selected="">可购买多次</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="limited_timelimit" style="display:none">
+                                <label class="col-sm-2 control-label">每天活动</label>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="radio radio-success radio-inline">
+                                                <input id="flv_y" type="radio" name="flv" value="Y" checked="">
+                                                <label for="flv_y"> 是 </label>
+                                            </div>
+                                            <div class="radio radio-danger radio-inline">
+                                                <input id="flv_n" type="radio" name="flv" value="N" >
+                                                <label for="flv_n"> 否 </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="goods" style="display:none">
+                                <label class="col-sm-2 control-label">选择型号</label>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="checkbox checkbox-success checkbox-inline">
+                                                <input type="checkbox" name="is_optional_model" value="Y" id="team-models">
+                                                <label for="team-models">
+                                                    可选择型号
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+
+                                        </div>
+                                    </div>
+                                    <div style="clear:both"></div>
+                                    <div class="row form-inline" style="padding:10px;border:1px solid #ccc;margin-left:110px;width:420px;overflow:hidden;line-height:35px;display:none;" id="team-models-item">
+                                        <p>
+                                            <label>型号：</label>
+                                            <input type="hidden" name="attr_id[]" value="0">
+                                            <input type="text" style="width:30%;" class="form-control" name="attr_item[]">
+                                            <label>库存：</label><input  style="width:25%;" type="text"  name="attr_num[]" value="0" class="form-control team-models-item-num">&nbsp;&nbsp;
+                                            <a href="javascript:;" class="tx-green remove-team-models-item">删除</a>
+                                        </p>
+                                        <p>
+                                            <label>型号：</label>
+                                            <input type="hidden" name="attr_id[]" value="0">
+                                            <input type="text" name="attr_item[]"  style="width:30%;" class="form-control" >
+                                            <label>库存：</label><input type="text"  style="width:25%;" name="attr_num[]" value="0" class="form-control team-models-item-num">&nbsp;&nbsp;
+                                            <a href="javascript:;" class="tx-green remove-team-models-item">删除</a>
+                                        </p>
+                                        <p><a href="javascript:;" class="tx-green" id="add-team-models-item">添加型号</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="goods_fare" style="display:none">
+                                <label class="col-sm-2 control-label">邮费</label>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="fare" value="0">
+                                        </div>
+                                        <div class="col-sm-4">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="team_product">
+                                <label class="col-sm-2 control-label">商品名称</label>
+                                <div class="col-sm-5">
+                                    <input type="text" name="product" id="team-product" maxlength="15"  class="form-control" placeholder="例如:  小肥羊4-6人餐" />
+                                </div>
+                                <div class="col-sm-5">
+                                    <span class="help-block m-b-none "> 最多输入15个字符</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品标题</label>
+                                <div class="col-sm-7">
+                                    <input type="text" name="title" maxlength="25" class="form-control" placeholder="详细标题及其他说明" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="help-block m-b-none "> 最多输入25个字符</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品图片</label>
+                                <div class="col-sm-6">
+                                    <div class="page-container">
+                                        <div id="uploader" class="wu-example">
+                                                <include file="upload" />
+                                                <input type="hidden" name="image" id="uploadimage" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="help-block ">图片尺寸要求440*280</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">标签</label>
+                                <div class="col-sm-6">
+                                  <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="promotion_d" type="checkbox" name="promotion[]" value="D">
+                                        <label for="promotion_d">
+                                            多套餐
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="promotion_q" type="checkbox" name="promotion[]" value="Q">
+                                        <label for="promotion_q">
+                                            清餐
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input id="promotion_m" type="checkbox" name="promotion[]" value="M">
+                                        <label for="promotion_m">
+                                            免预约
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">关键词</label>
+                                <div class="col-sm-7">
+                                   <input type="text" name="sel3" class="form-control" placeholder="例如: 火锅   自助餐" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="help-block m-b-none "> 关键词之间用空格隔开</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序权重</label>
+                                <div class="col-sm-2">
+                                    <input type="text" name="sort_order" value="0" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group" id="team_max_periods_number" style="display:none">
+                                <label class="col-sm-2 control-label">期数</label>
+                                <div class="col-sm-2">
+                                    <input type="text" value="1" name="max_periods_number" class="form-control" />
+                                    请填写数字，本云购最大卖的期数 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">市场价</label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">¥</span>
+                                        <input type="text" name="market_price" value="1" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-sm-4 control-label">网站价</label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">¥</span>
+                                            <input type="text" name="team_price" value="1" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-sm-4 control-label">供货价</label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">¥</span>
+                                            <input type="text" name="ucaii_price" value="0" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">参加活动</label>
+                                <div class="col-sm-2">
+                                     <select class="form-control" name='activities_id' id='select-activities-id' load_href="{:U('Team/getActivityList')}">
+                                        <option value='0'>无活动</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-sm-4 control-label">活动价</label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">¥</span>
+                                            <input type="text" id="lottery_price" name="lottery_price" class="form-control" placeholder="" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="team_pre_number">
+                                <label class="col-sm-2 control-label">虚拟购买</label>
+                                <div class="col-sm-2">
+                                    <input type="text" name="pre_number" value="0" class="form-control" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">最低购买</label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="permin_number" value="0" class="form-control" placeholder="" />
+                                </div>
+                                <div class="col-sm-5" id="team_max_number">
+                                    <label class="col-sm-4 control-label">最高数量</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="max_number" value="0" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">每人限购</label>
+                                <div class="col-sm-2">
+                                     <input type="text" name="per_number" value="0" class="form-control" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-group input-daterange" id="">
+                                <label class="col-sm-2 control-label">上架时间</label>
+                                <div class="col-sm-7">
+                                	<div class="input-daterange input-group" id="datepicker">
+	                            		<div class="input-group date">
+		                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                               		<input type="text" class="form-control" value="{$tmpData.begin_time|date='Y-m-d 00:00',###}" name="begin_time" id="begin_time" format="YYYY-MM-DD hh:mm:ss">
+	                            		</div>
+		                                <span class="input-group-addon">-</span>
+		                                <div class="input-group date">
+			                                <input type="text" class="form-control" value=""  name="end_time" id="end_time"  format="YYYY-MM-DD hh:mm:ss"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                </div>
+		                            </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">券号过期时间</label>
+                                <div class="col-sm-4">
+                                   <div class="input-group date" id="datepicker1">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input type="text" class="form-control" value="{$tmpData.expire_time|date='Y-m-d 00:00',###}" name="expire_time" id="expire_time"  format="YYYY-MM-DD hh:mm">
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">支持退款</label>
+                                <div class="col-sm-6">
+                                    <div class="radio radio-success radio-inline">
+                                        <input type="radio" id="allowrefund_y" name="allowrefund" value="Y" checked="">
+                                        <label for="allowrefund_y"> 是 </label>
+                                    </div>
+                                    <div class="radio radio-danger radio-inline">
+                                        <input type="radio" id="allowrefund_n" name="allowrefund" value="N" >
+                                        <label for="allowrefund_n"> 否 </label>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">递送方式</label>
+                                <div class="col-sm-6">
+                                    <div class="radio radio-success radio-inline">
+                                        <input type="radio" id="delivery_coupon" name="delivery" value="coupon" checked="">
+                                        <label for="delivery_coupon"> 青团券 </label>
+                                    </div>
+                                    <div class="radio radio-success radio-inline">
+                                        <input type="radio" id="delivery_voucher" name="delivery" value="voucher" >
+                                        <label for="delivery_voucher"> 商户券 </label>
+                                    </div>
+                                    <div class="radio radio-success radio-inline">
+                                        <input type="radio" id="delivery_express" name="delivery" value="express" >
+                                        <label for="delivery_express"> 快递 </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">本单简介</label>
+                                <div class="col-sm-9">
+                                     <textarea id="summary" name="summary" style="width: 100%;min-height:200px;min-width:800px;">{$tmpData['summary']}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">特别提醒</label>
+                                <div class="col-sm-9">
+                                    <textarea id="notice" name="notice" style="width: 100%;min-height:220px;min-width:800px;">{$tmpData['notice']}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">本单详情</label>
+                                <div class="col-sm-9" style="position:relative;">
+                                    <textarea id="detail" name="detail" class="f-textarea editor" style="width:100%;min-height:400px;min-width:800px;">{$tmpData['detail']}</textarea>
+                                    <div style="position:absolute;top:0;left:20px;height:100%;width:1px;background:red;color:red;padding-top:5px;padding-left:3"><span style="position:absolute;bottom:-20px;left:-4px;">0</span></div>
+                                    <div style="position:absolute;top:0;left:660px;height:100%;width:1px;background:red;color:red;padding-top:5px;padding-left:3"><span style="position:absolute;bottom:-20px;left:-4px;">640</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">                   
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input class="btn btn-primary col-sm-5" type="button" onclick="return ajax_check_submit_from(this);" check_url="{:U('Team/check_team_data')}" value="提交">
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+<include file="Common:footer" />
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.all.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/lang/zh-cn/zh-cn.js"></script>
+
+
+<script type="text/javascript" src="__PUBLIC__/plugins/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="__CSS_PATH__/laydate/laydate.js"></script>
+
+<script type="text/javascript" src="__JS_PATH__/team.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript" src="__JS_PATH__/common.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript">
+$(function(){
+	$("#select-activities-id").change(function(){
+		var $_result = $(this).val();
+		if($_result==0){
+			$("#lottery_price").attr("disabled","true");
+		}else{
+			$("#lottery_price").removeAttr("disabled");
+		}
+	});
+})
+</script>
+
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Team/uploadImg',array('type'=>'team','access_token'=>$_GET[access_token]))}";
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return "{:U('Team/uploadImg',array('type'=>'teaminfo','access_token'=>$_GET[access_token]))}";
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+
+//                                                var notice = UE.getEditor('notice',
+//                                                        {autoHeightEnabled: true,
+//                                                            autoFloatEnabled: true
+//                                                        });
+
+//                                                var systemreview = UE.getEditor('systemreview',
+//                                                        {autoHeightEnabled: true,
+//                                                            autoFloatEnabled: true
+//                                                        });
+    
+    KindEditor.ready(function(K) {
+         window.notice = K.create('#notice', {afterBlur: function() {
+                this.sync();
+            },
+            items:kindEditorItems,            
+            uploadJson: "{:U('Team/uploadImg',array('type'=>'teaminfo','access_token'=>$_GET[access_token]))}"});
+        window.summary = K.create('#summary', {
+            afterBlur: function() {
+                this.sync();
+            }, 
+            items:kindEditorItems,
+            uploadJson: "{:U('Team/uploadImg',array('type'=>'teaminfo','access_token'=>$_GET[access_token]))}"
+        });
+        window.detail = K.create('#detail', {
+            afterBlur: function() {
+                this.sync();
+            },
+            items:kindEditorItems,
+            uploadJson: "{:U('Team/uploadImg',array('type'=>'teaminfo','access_token'=>$_GET[access_token]))}"});
+    });
+    
+    getActivityList($('select#city').val());
+
+
+//                                              // 时间选择控件
+    laydate.skin('molv');
+    var begin_time = {
+        elem: '#begin_time',
+        format: $('#begin_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59', //最大日期
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+            end_time.min = datas; //开始日选好后，重置结束日的最小日期
+            begin_time.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end_time = {
+        elem: '#end_time',
+        format: $('#end_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+            expire_time.min = datas; //开始日选好后，重置结束日的最小日期
+        }
+    };
+
+    var expire_time = {
+        elem: '#expire_time',
+        format: $('#expire_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+        }
+    };
+    laydate(begin_time);
+    laydate(end_time);
+    laydate(expire_time);
+    $(function() {
+        $('input[name="allowrefund"]').click(function(){
+            if ($(this).val() == 'N') {
+                var html = '<span style="line-height:1.5;color:red;">本单不支持退款</span><br>'+$('textarea[name="notice"]').text();
+            }
+            if ($(this).val() == 'Y') {
+                var html = $('textarea[name="notice"]').text();
+            }
+            window.notice.html(html);
+        });
+    });
+
+</script>

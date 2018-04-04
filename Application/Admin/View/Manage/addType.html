@@ -1,0 +1,112 @@
+<include file="Common:popup_header" />
+<style type="text/css">
+    body, .box{
+        margin: 20px;
+        overflow: visible;
+    }
+    .class-btn{
+        margin-left: 100px;
+        margin-top: 20px;
+    }
+    .massage-error{
+        color:red;
+        font-size: 16px;
+        text-align: center;
+    }
+    .massage-success{
+        color: #40a35c;
+        font-size: 16px;
+        text-align: center;
+    }
+    input,select{
+        height:25px;
+        line-height: 25px;
+    }
+</style>
+<p class="massage-success"></p>
+<p class="massage-error"></p>
+<if condition="$error neq ''">
+    <p class="error">{$error}</p>
+    <else/>
+<div class="box">
+    <form name="sendPhoneForm">
+        <li><span class="label">添加新分类</span></li>
+        <li><span class="tx-grey">中文名称、英文名称：均要求分类唯一性</span>
+        <li><span class="label">中文名称：</span><input type="text" name="name"/></li>
+        <li><span class="label">英文名称：</span><input type="text" name="ename"/></li>
+        <li><span class="label">首字母：</span><input type="text" name="letter"/></li>
+        <li><span class="label">排序：</span><input type="text" name="sort_order"/></li>
+        <if condition="$type eq 'group'">
+            <li>
+                <span class="label">所属分类：</span>
+                <select name="fid">
+                    <option value="0">一级大类</option>
+                    <volist name="group" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+            </li>
+        <else />
+            <li><span class="label">自定义分组：</span><input type="text" name="czone"/></li>
+        </if>
+        <li><span class="label">导航显示：</span><select name="display"><option value="Y">显示</option><option value="N">不显示</option></select></li>
+        <if condition="$type eq 'group'">
+            <li><span class="label">热门分类：</span><select name="hot_type"><option value="N">否</option><option value="Y">是</option></select></li>
+        <elseif condition="$type eq 'district'" />
+            <li><span class="label">城市编号：</span><input type="text" name="fid" /></li>
+            <elseif condition="$cate_info['zone'] eq 'city'" />
+             
+             <li><span class="label">平台费率：</span>
+                 <input type="text" name="platform_rate"  value="{$cate_info['platform_rate']}" />
+                 <span class="tx-red f-12">(参考值：0.10)注：该值用于给代理结算，给代理结算利润=总利润*(1-平台费率)，请谨慎填写。</span>
+             </li>
+             <li><span class="label">开户行名称：</span>
+                 <input type="text" name="agent_bank_name"  value="{$cate_info['agent_bank_name']}" />
+                 <span class="tx-red f-12">(参考值：中国人民银行)注：该值用于给代理结算打款使用。</span>
+             </li>
+             <li><span class="label">银行账户：</span><input type="text" name="agent_bank_no"  value="{$cate_info['agent_bank_no']}" /></li>
+             <li><span class="label">开户行用户名：</span><input type="text" name="agent_bank_user"  value="{$cate_info['agent_bank_user']}" /></li>
+             
+        </if>
+        <input type="hidden" name="zone" value="{$type}">
+        <li><input class="class-btn" type="submit" value="确定"></li>
+    </form>
+</div>
+</if>
+</body>
+</html>
+<script type="text/javascript" >
+$(function(){
+    $(':submit').click(function(){
+        var state = true;
+        $('input').each(function(i,row){
+            if(i != 4){
+                if($(this).val() == ''){
+                    state = false;
+                    $(this).css('border','1px solid red')
+                    var error = $(this).parents().find('span').eq(0).text();
+                    $('.massage-error').text('请输入'+error);
+                    return false;
+                }
+            }
+        });
+        if(state){
+            $.post("{:U('Manage/doAddType')}",$('form').serialize(),function(data){
+                if(data.status == 1){
+                    $('.massage-error').text();
+                    setTimeout(success_after,3000);
+                    $('.massage-success').text(data.success);
+                }else{
+                    $('.massage-error').text(data.error);
+                }
+            });
+        }
+        return false;
+    })
+    function success_after(){
+        parent.location.reload();
+        window.parent.jQuery.fancybox.close();
+    }
+});
+
+</script>

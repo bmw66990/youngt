@@ -1,0 +1,98 @@
+body{
+	background-color: #f7f7f7;
+}
+body,div,form{
+	padding:0;
+	margin:0;
+}
+.header{
+	background-color:#E60827;
+	color: #fff;
+	width: 100%;
+}
+
+.pay-code-lt{
+	float: left;
+}
+
+a,
+a:focus {
+    color: #fff;
+}
+
+.bindPhine-txt{
+	font-size: 1.5rem;
+}
+
+.bindPhone-content{
+	margin: 0% auto;
+    padding-bottom: 20px;
+}
+#bindPhone-form{
+	padding: 10px 24px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.form-group1{
+	padding:3% 0;
+	position: relative;
+}
+
+.form-group2{
+	padding:3% 0;
+	overflow: hidden;
+}
+
+.user-yzCode{
+	float:left;
+	width:65%;
+}
+
+.get-yzCode{
+	float: right;
+	width:30%;
+	font-size: 1.2rem;
+	padding:3px 5px;
+	color:#fff;
+	background-color: #E60827;
+	border-radius:4px;
+	outline: none;
+}
+
+.user-checkbox{
+	color:#E60827;
+}
+
+.user-agreement-txt{
+	color: #E60827;
+	font-size: 1.5rem;
+}
+
+.submitPhone{
+	width:100%;
+	height:auto;
+	margin: 10% auto;	
+}
+
+.submitPhone-btn{
+	color: #fff;
+	font-size: 1.2em;
+    background-color: #E60827;
+    border-radius: 25px;
+    outline: none;
+}
+
+/*.phone-style{
+	position: absolute;
+    top: 33%;
+    left: 3%;
+    font-size: 2.0rem;
+    color:#E60827;
+}*/
+
+#user-phoneNum,
+.user-yzCode{
+	padding:6px 10%;
+	text-align: left;
+}

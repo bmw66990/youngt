@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>百科分类</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <link rel="stylesheet" href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+        <script type="text/javascript" src="__PLUGINS_PATH__/laydate/laydate.js"></script>
+    </head>
+    <body>
+        <div class="box">
+            <li><span class="label">添加新分类</span></li>
+            <li><span class="tx-grey">要求分类名称唯一性</span>
+            <li><span class="label">分类名称：</span><input id='encyclopedias_name' type="text" /></li>
+            <li><span class="label">显示平台：</span>
+                <select id='show_plat' name='show_plat'>
+                    <volist  name="encyclopedias_type_show_plat" id="etsp">
+                        <option value="{$key}">{$etsp}</option>
+                    </volist>
+                </select>
+            </li>
+            <li><span class="label">排序：</span><input id='encyclopedias_order_sort' type="text" value="0" /></li>
+            <if condition="$res = auth_check_access(array('Encyclopedias/encyclopediasTypeAdd'))">
+                <li><input load_href="{:U('Encyclopedias/encyclopediasTypeAdd')}" id='encyclopedias_type_add' class="class-btn" type="button" value="确定"></li>
+            </if>
+            <table style="text-align:center;line-height:24px;">
+                <tr>
+                    <th class="w100">ID</th>
+                    <th class="w120">分类名称</th>
+                    <th class="w120">显示平台</th>
+                    <th class="w100">排序</th>
+                </tr>
+                <volist  name="list" id="vo">
+                    <tr class="f-12">
+                        <td class="w100">{$vo.id}</td>
+                        <td class="w120">{$vo.name}</td>
+                        <td class="w120">
+                    <if condition="isset($encyclopedias_type_show_plat[$vo['show_plat']])">
+                        {$encyclopedias_type_show_plat[$vo['show_plat']]}
+                    </if>
+                    </td>
+                    <td class="w100">{$vo.order_sort}</td>
+                    </tr>
+                </volist>
+            </table>
+        </div>
+        <script type="text/javascript" src="__JS_PATH__/encyclopedias.js?v={:C('JS_VER')}"></script>
+    </body>
+</html>

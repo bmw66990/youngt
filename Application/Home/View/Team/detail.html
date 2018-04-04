@@ -1,0 +1,589 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/detail.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__JS_PATH__/detail.js?v={:C('JS_VER')}"></script>
+<include file="Common:nav" />
+<!--详情页内容-->
+<section class="clearfix"><div id='section'>
+        <!--内容部分-->
+        <div class="pro-top fl">
+            
+             <h1>{$team.product}</h1>
+            <div class="pro-remarks fl">
+                {$team.title}
+            </div>
+            
+            <!--产品图片轮播-->
+            <div id="pro-pic-carous" class="fl">
+            	<if condition="$team.muslim && $team.muslim eq 1">
+            		<div class="pro-list-tags">
+		        		<img src="__IMAGE_PATH__/qingzhen_defalt.png" />
+		        	</div>
+            	</if>
+                <div class="pic_box"> 
+                    <li><img src="{$team.image}" alt="" /> </li>
+                </div>
+<!--                <div class="pro-pic-footremark">
+                    <li id="collect-show-con">
+
+                    </li>
+                    <li> JiaThis Button BEGIN 
+                        <div class="jiathis_style"><span class="jiathis_txt">分享到</span>
+                            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator  jtico_jiathis seico" target="_blank"><img src="__IMAGE_PATH__/share.png" /></a>
+                        </div>
+                        <script type="text/javascript" >
+                                    var jiathis_config = {
+                                    summary: "",
+                                            shortUrl: false,
+                                            hideMore: false
+                                    }
+                        </script>
+                        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                         JiaThis Button END 
+                    </li>
+                    <li class="last_time" id='last_time'></li>
+                </div>-->
+            </div>
+            <!--产品图片轮播结束-->
+            <!--产品信息-->
+            <div class="pro-con-infor fl">
+               
+                <div id='team-state-con' for='{$team.id}'>       
+                    
+                </div>
+            </div>
+            <div class="ercode">
+           <li>
+                            <img style="width:130px;height:130px;" src="__IMAGE_PATH__/qrcode_app_down.png">
+                                    <span>下载APP</span> <span>轻松购享优惠</span>
+                    </li>
+                    <li>
+                            <img style="width:145px;height:145px;" src="__IMAGE_PATH__/qrcode_for_gh.jpg">
+                                    <span>微信扫一扫</span> <span>随时随地查看团购券</span>
+                    </li>
+               
+                    <div class="pro-pic-footremark">
+                    <li id="collect-show-con"></li>
+                    <li><!-- JiaThis Button BEGIN -->
+                        <div class="jiathis_style"><span class="jiathis_txt">分享到</span>
+                            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator  jtico_jiathis seico" target="_blank"><img src="__IMAGE_PATH__/share.png" /></a>
+                        </div>
+                        <script type="text/javascript" >
+                                    var jiathis_config = {
+                                    summary: "",
+                                            shortUrl: false,
+                                            hideMore: false
+                                    }
+                        </script>
+                        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                        <!-- JiaThis Button END -->
+                    </li>
+                </div>
+            </div>
+            <script type="text/javascript">
+            </script>
+            <!--产品信息结束-->
+        </div>
+        <!--内容部分-->
+        <div class="cont-center fl">
+            <div class="cont-center-left fl">
+                <!--推荐团购-->
+                <div class="other-t fl">
+                    <h4>青团推荐其他团购</h4>
+                    <ul>
+                        <volist name='other' id="vo">
+                            <li>
+                                <label class="t_red w_100">&#165;{$vo.team_price}</label><label class="t_lgrey w_120">门店价:&#165;{$vo.market_price}</label><label class="other-tt"><a  target="_blank"  href="__APP__/team-{$vo.id}.html">{$vo.title|msubstr=0,40}</a></label><label class="t_lgrey">已售{$vo.now_number}</label>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+                <!--推荐团购结束-->
+                <!--详情-->
+                <div class="product-content fl">
+	                <div id="nav-over">
+		                <div class="con-nav">
+		                    <dl class="c"><h3><a href="#gmxz">购买须知</a></h3></dl>
+		                    <dl><h3><a href="#shdz">商户地址</a></h3></dl>
+		                    <dl><h3><a href="#cpjs">产品介绍</a></h3></dl>
+		                    <dl><h3><a href="#tgxq">团购详情</a></h3></dl>
+		                    <dl><h3><a href="#pj">团购评价</a></h3></dl>
+		                    <dl id="team-j-qg" class="submit"><a href="#"><img src="__IMAGE_PATH__/bottombuy.png"></a></dl>
+		                </div>
+		            </div>
+                    <div class="product-con">
+                    	<div class="xz" id="gmxz">
+                            <div class="text">
+                                <ul>
+                                    <li><label class="t fl">有效期</label><label class="cn fr">{$team['begin_time']|date='Y-m-d',###} 至 {$team['expire_time']|date='Y-m-d',###}</label></li>
+                                    <li><label class="t fl">商家电话</label><label class="cn fr">{$partner['phone']}</label></li>
+                                </ul>
+                                {$team.notice}
+                            </div>
+                        </div>
+                               <!--商户地址-->
+                        <div class="cz" id="shdz">
+                            <div class="title t_orange"><label>商户地址</label></div>
+                            <div class="text">
+                                <div class="merchant_map fl">
+                                    <!--地图 335*240-->
+                                    <img src="http://api.map.baidu.com/staticimage?width=310&height=240&center={$partner['long']},{$partner['lat']}&zoom=14&markers={$partner['long']},{$partner['lat']}" />
+                                    <a href="__URL__/map/pid/{$team['partner_id']}" class="popwin ckdt" title="{$partner.title}"> <i class="view-map-icon"></i>查看完整地图 </a>
+                                </div>
+                                <div class="merchant_add fl">
+                                    <!--地址-->
+                                    <dl>
+                                        <h4><a style='float: none;margin-left: 20px;' href="{:U('Partner/index',array('partner_id'=>$partner['id']))}" target="_blank"> {$partner.title} </a></h4>
+                                        <if condition="$comments['userCount'] eq 0">
+                                            <span class="biz-info__rate-count">未有评论</span>
+                                            <else/>
+                                            <span><img class="fl" src="__IMAGE_PATH__/ststars.png" /><label class="t_red">4.3</label> <a href="#">{$mark["num"]}评价>></a></span>  
+                                        </if>
+                                        <span>地址：{$partner['address']}</span>
+                                        <span>电话：{$partner['phone']}</span>
+                                        <span><a class="view-map popwin" href="__URL__/map/pid/{$partner['id']}" title="{$partner.title}">查看地图</a></span>
+                                        <span><a class="search-path" id="search-path" href="__URL__/map/act/goto/pid/{$partner['id']}" title="">公交/驾车去这里</a></span>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cz" id="cpjs">
+                            <div class="title t_orange"><label>产品介绍</label></div>
+                            <div class="text">
+                                {$team.summary}
+                            </div>
+                        </div>
+                        
+                        <div class="cz" id="tgxq">
+                            <div class="title t_orange"><label>团购详情</label></div>
+                            <div class="text">
+                                {$team.detail}
+                            </div>
+                        </div>
+                                         <!--商户评价-->
+                        <div class="cz" id="pj">
+                            <div class="title">
+                                <label class=""><a class="t_orange" href="#">团购评价</a></label>
+                                <!--                            <label class="cz_blue"><a href="#" class="t_orange" >商户评价</a></label>-->
+                            </div>
+                            <div class="text" id="showpj">
+                                <li style="display:block;" class="tabs_item">
+                                    <!--团购评价部分-->
+                                    <div id='team-pj-detail' class="pj-detail clearfix">
+
+                                    </div>    
+                                </li>
+                                <li style="display:none;" class="tabs_item">
+                                    <!--商户评价部分-->  
+                                    <div class="pj-detail">
+                                        <span class="pj-remind">商户评价是用户对该商户的点评</span>
+                                        <div class="pj-content2">
+                                            <ul>
+                                                <li class="pj-con-title b_litblue">
+                                                    <label>李元芳</label><label><img src="__IMAGE_PATH__/merchant_pj.png"/></label><label>口味4(非常好)</label><label>环境4(非常好)</label><label>服务4(非常好)</label><label class="mername">新元华店</label>
+                                                </li>
+                                                <li class="pj-text">去过几次就是很多了，要等，菜比较便宜，味道也对的起这个价 </li>
+                                                <li class="pj-time">2015-5-12</li>
+                                            </ul>
+                                        </div>
+                                        <div class="pj-content2">
+                                            <ul>
+                                                <li class="pj-con-title b_litblue">
+                                                    <label>李元霸</label><label><img src="__IMAGE_PATH__/merchant_pj.png"/></label><label>口味4(非常好)</label><label>环境4(非常好)</label><label>服务4(非常好)</label><label class="mername">新元华店</label>
+                                                </li>
+                                                <li class="pj-text">去过几次就是很多了，要等，菜比较便宜，味道也对的起这个价 </li>
+                                                <li class="pj-time">2015-5-12</li>
+                                            </ul>
+                                        </div>
+                                        <div class="selectpage fl">
+                                            <div class="pagenumber">
+                                                <ul>
+                                                    <li class="selected">1</li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li><a href="#">4</a></li>
+                                                    <li><a href="#">5</a></li>
+                                                    <li class="hide">...</li>
+                                                    <li><a href="#">50</a></li>
+                                                    <li><a href="#">下一页</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id='team-deal-buy-bottom-con' class="bottom-order fl b_litblue"></div>
+                <!--详情结束-->
+            </div>
+            <div class="cont-center-right fl">
+                <!--下载手机版于关注微信-->
+<!--                <div class="youngt">
+                    <a href="http://hami.youngt.com/Public/client" target="_blank">
+                        <img src="__IMAGE_PATH__/app.png" />
+                    </a>
+                </div>
+                <div class="youngt">
+                    <img src="__IMAGE_PATH__/weixin.png" />
+                </div>-->
+                <div class="youngb b_litblue fl">
+                    <h3>商务合作</h3>
+                    <img src="__IMAGE_PATH__/hz.png" /><label class="fl">希望在青团组织团购吗？<a href="{:U('Public/signUp')}">提交需求>></a></label>
+                </div>
+                <div class="youngliulan b_litblue fl">
+                    <h3>最近浏览<label class="fr"><a href="#">清空</a></label></h3>
+                    <div id='team-history-list-con'>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--内容部分结束--> 
+        <!--其他团购-->
+        <div class="other-pur fl">
+            <h3>该品牌其他团购</h3>
+            <ul class="other-pro-list">
+                <volist name="possible" id='vo'>
+                    <li>
+                        <a target="_blank" href="__APP__/team-{$vo.id}.html">
+                            <img style="width:251px;height: 190px;" src="{$vo.image}" title="{$vo.title}" /><br/>
+                            <span class="other-pro-title" title='{$vo.product}'>{$vo.product|msubstr=0,12}</span>
+                            <span class="other-pro-remarks" title='{$vo.title}'>{$vo.title|msubstr=0,16}</span>
+                            <span class="other-pro-price"><label class="now-price t_orange">&#165;{$vo.team_price}</label><label class="last-price">&#165;{$vo.market_price}</label><label class="pro-sold">已售{$vo.now_number}</label></span>
+                            <span class="other-pro-is-mapp">免预约</span>
+                        </a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+        <!--其他团购结束-->
+        <!--添加购物车成功-->
+        <a id="cart-alert-click" href="#cart-alert"></a>
+        <div style="display:none">
+            <div class="cart-alert" id="cart-alert">
+                <div class="cart-alert-left">
+                    <img src="__IMAGE_PATH__/check.png"/>
+                    <label><h4>成功加入购物车</h4></label>
+                    <label class="cart-textremark">您购物车共有<span id="alert-cart-num" style="display:inline;color:red;">0</span>件商品</label>
+                </div>
+                <div class="cart-alert-right">
+                    <li><a href="javascript:;" id="continue-cart"><<继续浏览</a></li>
+                    <li><a href="{:U('Cart/index')}">去购物车结算>></a></li>
+                </div>     
+            </div>
+        </div>
+        <!--添加购物车成功-->  
+
+    </div></section>
+<script id="team-state-tmpl" type="text/x-jquery-tmpl">  
+    <form action='__APP__/Team/buy/' method='get'>
+    <!-- 
+    <div class="pro-price fl">
+    <label class="now-price"><label class="f-small">&#165;</label>${team_price}</label>
+    <label class="last-price">价值&#165;${market_price}</label>
+    
+    <label class="lab">APP下单减5元</label>
+    <label class="pro-help"><a href="#"><img src="__IMAGE_PATH__/pro_help.png" /></a></label>
+   
+    </div>
+     -->
+    <div class="pro-price fl">
+       <span class="t_grey">抢购价：<label class="t_orange f-blod">&#165;<label style="font-size: 2em;">${team_price}</label></label></span>
+       <del class="t_lgrey">&#165;${market_price}</del>
+       <span class="zhekou">${discount}折</span>
+    </div>
+    <div class="pro-staic fl">
+        <li>已售 <label class="t_red f-blod">${now_number}</label></li>
+        <li>${comment_count}人已评价</li>
+        <li class="no-right-border">
+        <span class=" rating-16x16 common-rating"  style='display:inline-block;margin-left:0px'> <span class="rate-stars" style="width:${(comment_num_avg/5)*100}%"></span> </span>
+        <label class="t_red f-blod">${comment_num_avg}</label></li>
+    </div>
+    <!--
+    <div class="pro-staic fl">
+    <li>已售<label class="t_orange">${now_number}</label>份</li>
+    <li>
+    <span class=" rating-16x16 common-rating"  style='display:inline-block;margin-left:0px'> <span class="rate-stars" style="width:${(comment_num_avg/5)*100}%"></span> </span>
+    <label class="t_orange" style='position: relative; top: -4px;'>${comment_num_avg}</label><span>${comment_count}条团购评价</span></li>
+    <li class="no-right-border">
+    {{if allowrefund=='Y'}}
+    <img src="__IMAGE_PATH__/anytimere.png"/>
+    {{else}}
+    <a title="不支持随时退款" > <span>不支持"随时退款"</span> </a>
+    {{/if}}
+    <img src="__IMAGE_PATH__/exre.png" />
+    </li>
+    </div>
+    -->
+    {{if team_type == 'ota'}}
+    <!-- <div class="pro-valid fl"><span>可用时间：<input type="text" name="use_date" value="2016-05-24"></span></div><br/> -->
+    {{else}}
+    {{if team_type !='goods'}}
+    <div class="pro-valid fl"><span>有效期至：{$team['expire_time']|date='Y-m-d',###}</span></div><br/>
+    {{/if}}
+    {{if team_type=='goods' && fare && fare>0}}
+    <div class="pro-valid fl"><span>快递：</span><span>&#165;${fare}</span></div>
+    {{/if}}
+    {{if team_attribute && team_attribute.length>0}}
+    <div id='team_attr_con' class="pro-model fl">
+            <span>类型：</span>
+            <span id="class-model">
+                 {{each(i,attr) team_attribute}}
+                  <label class="attr_item curos_" attr_id='${attr.id}' >${attr.name}</label>
+                 {{/each}}
+            </span>
+            <input type="hidden" id='team-attr-select-id' name='team_attr_id' />
+    </div>
+    {{/if}}
+    {{/if}}
+    <div class="pro-number fl"><span>数量：</span>
+    <span>
+    <input type="text" id='team-pay-num-spinner' name='num' class="spinnerExample"/>
+    </span>
+    <!-- <span class="fxpoint"><a href="#">分享得微信红包</a></span> -->
+    </div>
+    <div class="pro-submit fl">
+    {{if now_state == 2}}
+    <a href="#"><img src="__IMAGE_PATH__/exa.png" /></a>
+    {{else now_state == 3}}
+    <a href="#"><img src="__IMAGE_PATH__/afterbegain.png" /></a>
+    {{else now_state == 4}}
+    <a href="#"><img src="__IMAGE_PATH__/over.png" /></a>
+    {{else now_state == 5}}
+    <a href="#"><img src="__IMAGE_PATH__/sailover.png" /></a>
+    {{else now_state == 1}}
+    <input name='id' type='hidden' value='${id}'/>
+    <button type='submit 'style='border:0px;width: 163px;height: 50px;' onclick="return add_dfb_cart(${id}, ${team_price},$('#team-pay-num-spinner').val(),'${is_optional_model}','${team_type}')"><img src="__IMAGE_PATH__/now_buy.png" /></button>
+    {{if team_type != 'goods'}}
+    <a href="javascript:;" style='margin-left: 10px;' onclick="add_cart_btn(${id}, ${team_price},$('#team-pay-num-spinner').val(),'${is_optional_model}')"><img src="__IMAGE_PATH__/buy_che.png" /></a>
+    {{/if}}
+    {{/if}}
+    </div>
+     <div class="infor-ico t_grey">
+     {{if allowrefund=='Y'}}
+        <label>随时退</label>
+        <label>极速退</label>
+        <label>过期退</label>
+     {{/if}}
+        <label>真实评价</label>
+    </div>
+    </form>
+</script>
+
+<script  id="team-deal-buy-bottom-tmpl" type="text/x-jquery-tmpl">
+    <label>
+    {{if now_state == 2}}
+    <div class="btn-wks fr">
+    <a href="#"><img src="__IMAGE_PATH__/exa.png" /></a>
+    </div>
+    {{else now_state == 3}}
+    <div class="btn-wks fr">
+    <a href="#"><img src="__IMAGE_PATH__/afterbegain.png" /></a>
+    </div>
+    {{else now_state == 4}}
+    <div class="btn-wrappered fr">
+    <a href="#"><img src="__IMAGE_PATH__/over.png" /></a>
+    </div>
+    {{else now_state == 5}}
+    <div class="btn-wrappered fr">
+    <a href="#"><img src="__IMAGE_PATH__/sailover.png" /></a>
+    </div>
+    {{else now_state == 1}}
+    <div class="btn-wrapper fr" >
+    {{if team_type!='goods'}}
+            <a href="__APP__/Team/buy/id/${id}"><img src="__IMAGE_PATH__/bottombuy.png"/></a>
+            <a href="javascript:;" onclick='createCart(${id}, ${team_price},1)'><img src="__IMAGE_PATH__/bottomstor.png"/></a>
+    {{/if}}
+    </div>
+    {{/if}}
+    </label>
+    <label class="t_orange"><h1>&#165;${team_price}</h1></label>
+    <label class="t_grey">价值<br/>&#165;${market_price}</label>
+    <label class="t_grey">已售<br/>${now_number}份</label>
+</script>
+
+<script id="team-j-qg-tmpl" type="text/x-jquery-tmpl">
+    {{if now_state == 1}}
+    {{if team_type != 'goods'}}
+    <a href="__APP__/Team/buy/id/${id}"><img src="__IMAGE_PATH__/bottombuy.png" /></a>
+    {{/if}}
+    {{/if}}
+</script>
+<script id="team-history-list-tmpl" type="text/x-jquery-tmpl">
+    <dl>
+    <span><a target="_blank"  href="__APP__/team-${id}.html"><img src="${image}"/></a></span>
+    <span class="ll_title"><a target="_blank"  href="__APP__/team-${id}.html" title='${product}'>{{if product}}${product.substring(0, 11)}...{{else}}--{{/if}}</a></span>
+    <span class="rmb"><label class="t_orange">&#165;${team_price}</albel><label style="font-size:15px;" class="last-price">&#165;${market_price}</label></span>
+    </dl>
+</script>
+<script id="collect-show-con-tmpl" type="text/x-jquery-tmpl">
+    {{if is_collect == 0}}
+    <img src="__IMAGE_PATH__/favi.png" />
+    <a href="javascript:;" load_href="__APP__/Team/addCollect/tid/${id}">收藏这单</a>
+    {{else}}
+    <img src="__IMAGE_PATH__/favi_d.png" />
+    <a href="javascript:;" load_href="__APP__/Team/delCollect/tid/${id}">已收藏</a>
+    {{/if}}
+</script>
+
+<!--百分点详情页部分-->
+<script type="text/javascript">
+            var team_group_id = '{$team.group_id}';
+            var tag = 'entity';
+            if (team_group_id == '1560'){
+    tag = 'virtual';
+    }
+
+    // 域名获取
+    var host_href = window.location.href;
+            host_href = host_href.substring(0, host_href.indexOf('.com/'));
+            // 库存
+            var stock = 0;
+            var max_number = '{$team.max_number}' || 0;
+            var now_number = '{$team.now_number}' || 0;
+            if (parseInt(max_number) <= 0){
+    stock = 1;
+    } else{
+    stock = parseInt(max_number) - parseInt(now_number);
+            if (stock <= 0){
+    stock = 0;
+    }
+    }
+
+    // 商圈
+    var business_circle = ["{$team.city}"];
+            var zone = "{$partner.zone}";
+            var station = "{$partner.station}";
+            var style = '否';
+            if (zone){
+    business_circle.push(zone);
+            style = '是';
+    }
+    if (station){
+    business_circle.push(station);
+            style = '是';
+    }
+
+
+    window["_BFD"] = window["_BFD"] || {};
+            _BFD.BFD_INFO = {
+
+            "id" : "{$team.id}", //商品id号
+
+                    "name" : "{$team.product}", //商品名称
+
+                    "link" : window.location.href, //商品链接
+
+                    "image_link" : "{$team.image}", //商品大图地址
+
+                    "price" : "{$team.team_price}", //在售价
+
+                    "market_price" : "{$team.market_price}", //市场价
+
+                    "category" : [["{$team.group}", host_href + ".com/Category/index/gid/{$team.group_id}"], ["{$team.sub}", host_href + ".com/Category/index/gid/{$team.group_id}/sid/{$team.sub_id}"]], //商品的类别详细信息，第一个元素为类别名称，第二个元素为类别地址，2维数组;类别从大到小，数组最后一项为商品当前属类别
+
+                    "category_id" : ["255", "416"], //类别ID;对应类别详细信息，一维数组
+
+                    "brand" : "{$partner.title}", //商品所属品牌名称;
+
+                    "onsale" : true, //上下架标识  在架为true, 下架为false;
+
+                    "discount" : "{$team['team_price']/$team['market_price']}", //折扣百分比数值
+
+                    "type" : "{$team.group}", //频道
+
+                    "style" : style, //商品是否存在商圈
+
+                    "location" : ["{$team.city}"], //地域
+
+                    "business_circle" : business_circle, //商圈
+
+                    "end_time" : "{$team.end_time}", //下架时间，团购一般都有，时间戳格式
+
+                    "stock" : stock, //库存
+
+                    "tag" : tag, //Tag标签，表示该商品是一个实体物（比如：衣服），您就传："entity"。如果是虚拟物品（比如：代金券），您就传："virtual"
+
+                    "description" : "{$team.title}", //描述
+
+                    "start_time" : "{$team.begin_time}", //商品的上架时间,double类型,单位：秒，时间戳格式
+
+                    "address" : "{$partner.address}", //商家的地址
+
+                    "rating_count" : 0, //商品的评价人数
+
+                    "rating" : 0, //商品的评分
+
+                    "buy_count" : "{$team.now_number}", //商品的购买人数
+
+                    "coord" : [["{$partner.lat}", "{$partner.long}"]], //店铺所在地的经纬度，二维数组，多商圈的店铺请提供全部店铺的经纬度
+
+                    "user_id" : "{$member.id}", //网站当前用户id，如果未登录就为0或空字符串
+
+                    "page_type" : "detail" //当前页面全称，请勿修改
+            };
+            $.get("{:U('Public/isLogin')}", function(data) {
+            if (data.status == 1) {
+            try {
+            _BFD['BFD_INFO']['user_id'] = data.id;
+            } catch (e) {
+
+            }
+            }
+            }, 'json');
+//            if (dfb_common) {
+//               dfb_common();
+//            }
+
+            // 点击立即抢购  添加  购物车
+            function add_dfb_cart(team_id, team_price, num, is_optional_model,team_type){
+            // 添加百分点
+            try{
+            _BFD.AddCart1(team_id, team_price, num);
+            } catch (e){
+
+            }
+
+            if (team_type && team_type=='goods' && is_optional_model && is_optional_model == 'Y'){
+            var attr_id = $('#team_attr_con').find('input#team-attr-select-id').val();
+                    if (!attr_id){
+                            window.alert('请选择类型！');
+                            return false;
+                    }
+            }
+
+            return true;
+            }
+            //createCart(${id}, ${team_price},$('#team-pay-num-spinner').val())
+            function add_cart_btn(team_id, team_price, num, is_optional_model){
+                if (is_optional_model && is_optional_model == 'Y'){
+                        var attr_id = $('#team_attr_con').find('input#team-attr-select-id').val();
+                        if (!attr_id){
+                                window.alert('请选择类型！');
+                                return false;
+                        }
+                }
+                return createCart(team_id, team_price,num)
+            }
+            $(function(){
+                var oimg= $("#tgxq img");
+                var oSrc = "__IMAGE_PATH__/load_index.gif"; //默认图片地址
+                for(i=0;i<oimg.length;i++){
+                    var src = oimg[i].getAttribute("src");
+                    oimg[i].setAttribute("data-layzr",src);
+                    oimg[i].setAttribute("src",oSrc);
+                }
+                var layzr = new Layzr({ 
+                 attr: 'data-layzr', 
+                 threshold: 0, 
+                 callback: null 
+                });
+           });
+
+
+</script>
+<script type="text/javascript" src="__JS_PATH__/teamDetail.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript" src="__JS_PATH__/cart.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>提现明细</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop_new.css" />
+        <link rel="stylesheet" href="__CSS_PATH__/common.css" />
+    </head>
+    <style type="text/css">
+        .table{width: 100%;box-sizing: border-box;padding: 10px;line-height: 1.5em;}
+        .table .table-title{font-weight: bold;border-top:2px solid #ccc ;padding: 8px 0;font-size:1.2em;}
+        .table .table-content{text-align: center;line-height: 2em;}
+        .table .table-content table{border: 1px solid #ccc;width: 100%;}
+        .addrule{color:#626262;font-size: 1.2em;padding-left: 10px;}
+        .aHref{display: block;width: 120px;position: relative;left: 80%;top:10px}
+    </style>
+    <body>
+        <div class="box">
+            <h3>{$agent_info.city_name}站 {$month|date='Y年m月'}提现明细</h3>
+            <p style="font-size: 1.1em;margin: 8px 0;padding-left: 10px;">
+                实际提现金额 <i class="tx-red">{$agent_info.money}元</i>&nbsp;&nbsp;&nbsp;&nbsp;
+                平台使用费 <i class="tx-red">{$platform_rate_money}元</i>
+            </p>
+            <p style="font-size: 1.1em;margin: 8px 0;padding-left: 10px;">
+                提现金额 <i class="tx-red">{$net_profit_money}元</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                平台利率 <i class="tx-red">{$plat_rate}</i>
+            </p>
+           <div class="table">
+                <div class="table-title">
+                    本月交易利润
+                </div>
+                <div class="table-content">
+                    <table cellpadding="0" cellspacing="0" rules=all>
+                        <thead>
+                        <th>商家</th>
+                        <th class="text-center">订单数（已减去退款）</th>
+                        <th class="text-center">交易金额（已减去退款）</th>
+                        <th class="text-center">退款</th>
+                        <th class="text-center">接待量</th>
+                        <th class="text-center">利润</th>
+                        </thead>
+                        <tbody class="all">
+                            <tr>
+                                <th>合计</th>
+                                <td>{$month_profit['all_money']['order_count']}</td>
+                                <td>{$month_profit['all_money']['order_sum_money']}元</td>
+                                <td>{$month_profit['all_money']['order_refund_sum_money']}元（{$month_profit['all_money']['order_refund_count']}）</td>
+                                <td>{$month_profit['all_money']['reception_count']}</td>
+                                <td>{$month_profit['all_money']['profit_money']}元</td>
+                            </tr>
+                        <volist id='mpl' name="month_profit['list']">
+                            <tr>
+                                <th>{$mpl['partner_username']}</th>
+                                <td>{$mpl['partner_order_count']}</td>
+                                <td>{$mpl['partner_order_sum_money']}元</td>
+                                <td>{$mpl['partner_order_refund_sum_money']}元（{$mpl['partner_order_refund_count']}）</td>
+                                <td>{$mpl['partner_reception_count']}</td>
+                                <td>{$mpl['partner_profit_money']}元</td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                    <div class="aHref"><a href="{:U('Financial/withdrawals_profit_all',array('agent_pay_id'=>$agent_info['id']))}" class="tx-blue" target="_blank">查看详情</a></div>
+                </div>
+            </div>
+            <!--支付费用-->
+            <div class="table">
+                <div class="table-title">
+                    支付费用统计
+                </div>
+                <div class="table-content">
+                    <table cellpadding="0" cellspacing="0" rules=all>
+                        <thead>
+                        <th>费用类型</th>
+                        <th>金额</th>
+                        <th>费率</th>
+                        <th>手续费</th>
+                        </thead>
+                        <tbody>
+                            <volist name="payment_fees['list']" id="pfl">
+                            <tr>
+                                <th>{$pfl['name']}</th>
+                                <td>{$pfl['money']}</td>
+                                <td>{$pfl['rate']}</td>
+                                <td>{$pfl['rate_money']}</td>
+                            </tr>
+                        </volist>
+                        <tr>
+                            <th>合计</th>
+                            <td>~</td>
+                            <td>~</td>
+                            <td>{$payment_fees['all_rate_money']}元</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--短信费用-->
+            <div class="table">
+                <div class="table-title">
+                    短信费用
+                </div>
+                <div class="table-content">
+                    <table cellpadding="0" cellspacing="0" rules=all>
+                        <thead>
+                            <tr>
+                                <th>条数</th>
+                                <th>费率</th>
+                                <th>费用</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{$sms_charges['sms_count']}</td>
+                                <td>{$sms_charges['rate']}</td>
+                                <td>{$sms_charges['sms_money']}元</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

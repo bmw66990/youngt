@@ -1,0 +1,186 @@
+<include file="Common:header"/>
+<link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="__PLUGINS_PATH__/datapicker/datepicker3.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+             	<div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline"  method="get" action="__ACTION__">
+                        	<div class="row ">
+                        		<div class="col-lg-12" style="margin-bottom: 5px;">
+                        			<div class="form-group">
+		                                <label for="id" class="sr-only">订单编号</label>
+		                                <input type="text" class="form-control" name="id" id="id" value="{$displayWhere['id']}" placeholder="订单编号">
+		                            </div>
+		                            <div class="form-group">
+		                                <label for="username" class="sr-only">用户名</label>
+		                                <input type="text" class="form-control" name="username" id="username"  value="{$displayWhere['username']}" placeholder="用户名">
+		                            </div>
+		                            <div class="form-group">
+		                                <label for="team_id" class="sr-only">项目编号</label>
+		                                <input type="text" class="form-control" name="team_id"  id="team_id" value="{$displayWhere['team_id']}" placeholder="项目编号">
+		                            </div>
+		                             <div class="form-group">
+		                                <label for="mobile" class="sr-only">手机号码</label>
+		                                <input type="text" class="form-control" name="mobile" id="mobile" value="{$displayWhere['mobile']}" placeholder="手机号码">
+		                            </div>
+                        		</div>
+	                        	<div class="col-lg-12">
+	                        		<div class="form-group">
+		                                <label for="starttime" class="sr-only">下单开始日期</label>
+		                                <input type="text" placeholder="下单开始日期" id="starttime" name="start_time" value="{$displayWhere['start_time']}" class="form-control">
+		                            </div>
+		                            <div class="form-group">
+		                                <label for="endtime" class="sr-only">下单结束日期</label>
+		                                <input type="text" placeholder="下单结束日期" id="endtime" name="end_time" value="{$displayWhere['end_time']}" class="form-control">
+		                            </div>
+		                             <div class="form-group">
+		                                <label for="start_paytime" class="sr-only">支付开始日期</label>
+		                                <input type="text" placeholder="支付开始日期" id="start_paytime" name="start_paytime" value="{$displayWhere['start_paytime']}"class="form-control">
+		                            </div>
+		                            <div class="form-group">
+		                                <label for="end_paytime" class="sr-only">支付结束日期</label>
+		                                <input type="text" placeholder="支付结束日期" id="end_paytime" name="end_paytime" value="{$displayWhere['end_paytime']}"class="form-control">
+		                            </div>
+		                            <div class="form-group">
+		                            	<label for="starttime" class="sr-only">支付结束日期</label>
+		                            	<select name="state" class="form-control">
+		                            		<option value="">全部</option>
+		                            		<option value="pay" <if condition="$displayWhere['state'] eq 'pay'" >selected </if>>已付款</option>
+                        					<option value="unpay" <if condition="$displayWhere['state'] eq 'unpay'"> selected </if>>未付款</option>
+		                            	</select>
+		                            </div>
+	                            	<input class="btn btn-primary" type="submit" value="筛选" />
+	                        	</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>团单</th>
+                                    <th>用户名</th>
+                                    <th>数量</th>
+                                    <th>总款</th>
+                                    <th>余付</th>
+                                    <th>支付</th>
+                                    <th>订单来源</th>
+                                	<th style="width:200px;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="data" id="vo">
+			                        <tr>
+			                            <td <if condition="$vo['state'] eq 'unpay'">style="color:red;"<else />style="color:#009900"</if>>{$vo['id']}</td>
+			                            <td><i class="text-danger">{$vo['team_id']}</i>({$vo['product']})</td>
+			                            <td>{$vo['username']}/{$vo['email']}
+			                            	[<a class="layer-iframe" data-href="__APP__/Manage/User/getUserFlow/user_id/{$vo[\"user_id\"]}" data-title="流水">流水</a>]</td>
+			                            <td>{$vo['quantity']}</td>
+			                            <td>{$vo['origin']}</td>
+			                            <td>{$vo['credit']}</td>
+			                            <td>{$vo['money']}</td>
+			                            <td>{$vo['yuming']|order_from=""}</td>
+			                            <!--<i class="fa fa-windows"></i> 电脑
+			                            <i class="fa fa-apple"></i> 苹果
+			                            <i class="fa fa-android"></i> 安卓-->
+			                            <td>
+			                                <if condition="$res = auth_check_access(array('Order/getOrderDetail'))">
+			                                <button class="btn btn-info btn-sm J_menuItem layer-iframe"  data-href="__URL__/getOrderDetail/id/{$vo[\'id\']}" data-title="订单详情"><i class="fa fa-binoculars"></i> 详情</button>
+			                                </if>
+			                                {:ota_action($vo)}
+			                            </td>
+			                        </tr>
+			                    </volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$pages}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+    <script src="__PLUGINS_PATH__/datapicker/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function() {
+			 $("#starttime").datepicker({
+			 	format: "yyyy-mm-dd",
+			 	endDate:new Date()
+			 }).on("changeDate",function(){
+			 	var $endDate = $(this).val();
+				$("#endtime").datepicker({
+					 	startDate:new Date($endDate),
+					 	endDate:new Date()
+						 });
+			 });
+			 $("#start_paytime").datepicker({
+			 	format: "yyyy-mm-dd",
+			 	endDate:new Date()
+			 }).on("changeDate",function(){
+				 	var $payDate = $(this).val();
+				 	$("#end_paytime").datepicker({
+				 		format: "yyyy-mm-dd",
+				 		startDate:new Date($payDate),
+				 		endDate:new Date()
+				 	});
+			 });
+
+			// 订单详情
+			$(".layer-iframe").on("click",function(){
+				$url = $(this).attr("data-href");
+				$title = $(this).attr("data-title");
+				layer.open({
+				    type: 2,
+				    title: $title,
+				    offset:"10%",
+				    shadeClose: true,
+				    shade: 0.8,
+					content:$url,
+					area:['780px','70%']
+				}); 
+			});
+
+			// 释放订单
+			$('#order-del').click(function(){
+				var that = this;
+				$url = $(this).data('href');
+				$.get($url,function(json){
+					layer.msg(json.info, function(){
+						if (json.status == 1) {
+							$(that).closest('tr').fadeOut();
+						}
+					});
+				},'json');
+				return false;
+			});
+		});
+    </script>
+    
+</body>
+
+</html>

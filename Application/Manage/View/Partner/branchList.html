@@ -1,0 +1,100 @@
+<include file="Common:header"/>
+	<link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+             	<div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline" action="{:U('Partner/index')}" method="get">
+                            <div class="form-group">
+                                <label for="team_id" class="sr-only">商家编号</label>
+                                <input type="text" name="id" value="{$searchValue.id}" class="form-control" id="team_id" placeholder="商家编号">
+                            </div>
+                            <div class="form-group">
+                                <label for="partner" class="sr-only">商家名称</label>
+                                <input type="text" name="title" value="{$searchValue.title}" class="form-control" id="partner" placeholder="商户名称">
+                            </div>
+                            <div class="form-group">
+                                <label for="businessid" class="sr-only">选择BD</label>
+                                <select name="db_id" class="form-control">
+                                	<option value="">选择BD</option>
+                                	<volist name="bdList" id="bd">
+				                        <option value="{$bd.id}" <if condition="$bd['id'] eq $searchValue['db_id']">selected</if>>{$bd.db_name}</option>
+				                    </volist>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="businessid" class="sr-only">选择分类</label>
+                                <select name="group_id" class="form-control">
+                                	<option value="">选择分类</option>
+                                	<volist name="partner" id="cate">
+			                        <option value="{$cate.id}" <if condition="$cate['id'] eq $searchValue['group_id']">selected</if>>{$cate.name}</option>
+			                        </volist>
+                                </select>
+                            </div>
+                        	<input class="btn btn-primary" type="submit" value="筛选" />
+                        	<a href="{:U('Partner/add')}" class="btn btn-primary">新建商家</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+			                    <tr>
+			                        <th>ID <i class="fa fa-sort"></i></th>
+			                        <th>名称 <i class="fa fa-sort"></i></th>
+			                        <th>分类 <i class="fa fa-sort"></i></th>
+			                        <th>电话号码 <i class="fa fa-sort"></i></th>
+			                        <th>BD业务员 <i class="fa fa-sort"></i></th>
+			                        <th>操作</th>
+			                    </tr>
+		                    </thead>
+		                    <tbody>
+		                    <volist name="list" id="row">
+		                        <tr>
+		                            <td>{$row.id}</td>
+		                            <td>{$row.title}</td>
+		                            <td>{$partner[$row['group_id']]['name']}</td>
+		                            <td>{$row.phone}&nbsp;&nbsp;&nbsp;&nbsp;{$row.mobile}</td>
+		                            <td>{$bdList[$row['db_id']]['db_name']}</td>
+		                            <td style="text-align:left">
+		                                <if condition="$res = auth_check_access(array('Partner/edit'))">
+		                                <a href="{:U('Partner/edit', array('id' => $row['id']))}" class="btn btn-success">编辑</a>&nbsp;
+		                                </if>
+		                                <if condition="$res = auth_check_access(array('Partner/dingzuo'))">
+		                                <a href="{:U('Partner/dingzuo', array('id' => $row['id']))}" class="btn btn-warning">订座</a>
+		                                </if>
+		                            </td>
+		                        </tr>
+		                    </volist>
+		                    </tbody>
+		                </table>
+		                <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$pages}
+                                </div>
+                            </div>
+                        </div>
+                	</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+</body>
+</html>

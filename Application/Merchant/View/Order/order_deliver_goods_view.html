@@ -1,0 +1,143 @@
+<include file="Common:header" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <include file="Common:message_tip" /> 
+                <style>
+                     div.mobile-rebind-dialog div.formitm{
+                        padding-top: 5px;
+                     }
+                     div.mobile-rebind-dialog div.formitm span.goods_title{
+                         display: inline-block;
+                         width: 80px;
+                         vertical-align: top;
+                     }
+                     div.mobile-rebind-dialog div.formitm span.goods_con{
+                      display: inline-block;
+                     }
+                </style>
+                <div class="mobile-rebind-dialog">
+                    <form id='do-order-deliver-goods-form'  action="{:U('Order/doOrderDeliverGoods')}" method="post" >
+                        <fieldset>
+                            <div class="formitm">
+                                <span class="goods_title">商品名称：</span><span class="goods_con">{$order.team_product}</span>                   
+                            </div>
+                            <div class="formitm">
+                                <span class="goods_title">用户名称：</span><span class="goods_con">{$order.user_username}</span>       
+                            </div>
+                            <div class="formitm">
+                                <span class="goods_title">购买信息：</span><span class="goods_con">{$order.pay_detail}</span>       
+                            </div>
+                            <div class="formitm">
+                                <span class="goods_title">送货地址：</span><span class="goods_con">{$order.order_address}</span>       
+                            </div>
+                            <if condition="$order.order_remark && $order.order_remark neq ''">
+                                <div class="formitm">
+                                    <span class="goods_title">用户备注：</span><span class="goods_con">{$order.order_remark}</span>       
+                                </div>
+                            </if>
+                            <div class="formitm">
+                                <span class="goods_title">送货时间：</span><span class="goods_con">{$order.order_delivery_time}</span>       
+                            </div>
+                            <div class="formitm">
+                                <span class="goods_title">支付时间：</span><span class="goods_con">{$order.order_pay_time}</span>       
+                            </div>
+                            <if condition="$action eq 'delivergoods'">
+                                <div class="formitm">
+                                    <span class="goods_title">快递类型：</span><span class="goods_con">
+                                        <select id="express_id" name="express_id">
+                                            <option value="">请选择快递</option>
+                                            <volist id="er" name="express_res">
+                                                <option value="{$er.id}">{$er.name}</option>
+                                            </volist>
+                                        </select>
+                                    </span>       
+                                </div>
+                                <div class="formitm">
+                                    <span class="goods_title">快递单号：</span><span class="goods_con"><input name="express_no" id='express_no' style='width: 220px;height: 30px;line-height: 25px;' type="text" value=''></span>        
+                                </div>						            
+                                <div class="formitm formitm-1">
+                                    <input class="id" id='order_id' name='order_id'  type="hidden" value='{$order.order_id}'>  
+                                     <if condition="$res = auth_check_access(array('Order/doOrderDeliverGoods'))">
+                                         <input class="btn btn-success" id='do-order-deliver-goods-btn' type="button" value='确认发货'>  
+                                     </if>
+                                </div>
+                                <elseif condition="$action eq 'viewgoods'"/>
+                                <if condition="$order.order_express_name neq ''">
+                                    <div class="formitm">
+                                        <span class="goods_title">快递类型：</span><span class="goods_con">
+                                            {$order.order_express_name}
+                                        </span>       
+                                    </div>
+                                </if>
+                                <if condition="$order.order_express_no neq ''">
+                                    <div class="formitm">
+                                        <span class="goods_title">快递单号：</span><span class="goods_con">{$order.order_express_no}</span>        
+                                    </div>	
+                                </if>
+                                <div class="formitm formitm-1">
+                                    <input id='btn-close' class="btn btn-info"  type="button" value='关闭'>  
+                                </div>
+                            </if>
+                        </fieldset>
+                    </form> 
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Common:footer" />
+<script>
+    $(function() {
+        
+         $(".main-content").on('click', '#btn-close', function() {
+             parent.layer.closeAll();
+             return false;
+         });
+
+        // 点击确认发货
+       $(".main-content").on('click', '#do-order-deliver-goods-btn', function() {
+            var $this = $(this);
+            var $form = $this.parents('form#do-order-deliver-goods-form');
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            var href = $form.attr('action');
+            var data = $form.serialize();
+            var express_id = $form.find('#express_id').val();
+            var express_no = $form.find('#express_no').val();
+            if (!$.trim(express_id)) {
+                show_message_tip({error: '请选择快递'});
+                return false;
+            }
+            if (!$.trim(express_no)) {
+                show_message_tip({error: '请输入快递单号'});
+                return false;
+            }
+
+            $this.addClass('disabled');
+            show_message_tip({success: '正在处理，请稍后...'});
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                
+                if (res.code && res.code != 0 && res.error) {
+                    show_message_tip(res);
+                    return false;
+                }
+                show_message_tip(res);
+                parent.window.setTimeout(function() {
+                    parent.window.location.reload();
+                    parent.layer.closeAll();
+                }, 500);
+            }, 'json');
+            return false;
+
+        });
+    });
+</script>

@@ -1,0 +1,32 @@
+/*reset jQuery Mobile CSS*/
+.ui-shadow-inset,.ui-shadow{box-shadow: none;}
+.ui-btn, label.ui-btn{border: 0;border-radius: 5px;}
+*{text-shadow:none}
+.ui-grid-b a,.ui-grid-c a{line-height: 1.7em!important;}
+a{font-weight: 400!important;}
+.ui-select{margin: 0;}
+.ui-input-text, .ui-input-search{margin: 0;}
+.ui-input-btn input{opacity: 1;text-indent: 0;}
+a.ui-btn{border-width:0!important;}
+.ui-listview li{border-bottom: 1px solid #f0f0f0;padding: 5px;box-sizing: border-box;}
+.ui-listview li:last-child{border: 0;}
+.ui-btn-icon-right:after{background-color:rgb(255,255,255);background: url(../Image/ico/pay_unselected.png) center no-repeat;}
+.ico-selected.ui-btn-icon-right:after{background: url(../Image/ico/pay_selected.png) center no-repeat;}
+/*ui-ico*/
+.ui-ico-order{background: url(../Image/ico/me_icon_order.png) top center no-repeat;}
+.ui-ico-coupon{background: url(../Image/ico/me_icon_coupon.png) top center no-repeat;}
+.ui-ico-address{background: url(../Image/ico/me_icon_address.png) top center no-repeat;}
+.ui-ico-surpermarket{background: url(../Image/ico/icon_mall.png) top center no-repeat;}
+.ui-ico-express{background: url(../Image/ico/icon_express.png) top center no-repeat;}
+.ui-ico-sale{background: url(../Image/ico/icon_sale.png) top center no-repeat;}
+.ui-ico-buy{background: url(../Image/ico/icon_buy.png) top center no-repeat;}
+.ui-ico-coupo {background: url(../Image/ico/icon_coupon.png) top center no-repeat;}
+.ui-ico-sign{background: url(../Image/ico/icon_sign.png) top center no-repeat;}
+.ui-ico-suggest{background: url(../Image/ico/icon_suggest.png) top center no-repeat;}
+.ui-ico-comment{background: url(../Image/ico/icon_comment.png) top center no-repeat;}
+
+.ui-page-theme-a .ui-focus{text-shadow: none;-webkit-box-shadow:none;-moz-box-shadow:none;}
+.ui-mobile label{margin: 0;}
+
+.ui-btn-icon-top{padding-top: 3.5em;
+		}

@@ -1,0 +1,118 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/partner.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css"  />
+<link href="__CSS_PATH__/ticket.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css"  />
+
+<include file="Partner:common"/>
+<include file="Common:error" />
+<section class="clearfix">
+    <div id="section">
+        <!--内容部分-->
+        <div class="model">
+            <div class="model-title">
+                <span class="tit">在线订座</span>
+            </div>
+            <div class="comment-bcon">
+                <form method="post" id="form-online-reservation" action="{:U('Partner/online_reservation',array('partner_id'=>$partner_info['id']))}" name="seat-form">
+                    <div class="eat-infor">
+                        <span class="input-text">
+                           订座时间 <input type="text" id="time" name="time">
+                        </span>
+                        <span class="input-text">
+                           订座人数 <input type="text" id="num" maxLength="4" name="num">
+                        </span>
+                        <span class="input-text">
+                           姓名 <input type="text" id="username" maxLength="30" name="username">
+                        </span>
+                        <span class="input-text">
+                           手机号码 <input type="text" id="mobile" maxLength="12" name="mobile" value="{$user_info.mobile|default=''}">
+                        </span>
+                        <span style="margin-top: 20px;">
+                            <input id="btn-online-reservation" type="button" class="common-btn btn-green btn-default" name="" value="立即订座" />
+                        </span>
+                    </div>
+                    <div class="seat-infor">
+                        <span class="select-seat">
+                            <if condition="$partner_dingzuo_info.is_hall_status eq 2">
+                                  <label class="bor-red unselect">大厅(已满)</label>
+                                <else/>
+                                 <label class="bor-green">大厅(有空位)</label>
+                            </if>
+                            <if condition="$partner_dingzuo_info.is_box_status eq 2">
+                                  <label class="bor-red unselect">包厢(已满)</label>
+                                <else/>
+                                 <label class="bor-green">包厢(有空位)</label>
+                            </if>
+                        </span>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="__PLUGINS_PATH__/laydate/laydate.js"></script>
+<script>
+    $(function(){
+        laydate({
+            elem: '#time',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            festival: true, //显示节日 
+            istime: true,
+        });
+        //选择就餐位置
+        $(".select-seat label").on("click", function() {
+            var $index = $(this).index();
+            if (!$(this).hasClass("unselect")) {
+                $(this).addClass("select").siblings().removeClass("select");
+                $("div.seat-list").eq($index).css("display", "block").siblings("div").css("display", "none");
+            }
+        })
+        
+        $("#btn-online-reservation").on("click", function() {
+            var $this = $(this);
+            var $form = $this.parents('form#form-online-reservation');
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            var href = $form.attr('action');
+            var data = $form.serialize();
+            var time = $form.find('#time').val();
+            var num = $form.find('#num').val();
+            var username = $form.find('#username').val();
+            var mobile = $form.find('#mobile').val();
+            if (!$.trim(time)) {
+                show_error_tip({error: '请选择订座时间'});
+                return false;
+            }
+            if (!$.trim(num)) {
+                show_error_tip({error: '请输入订座人数'});
+                return false;
+            }
+            if (!$.trim(username)) {
+                show_error_tip({error: '请输入姓名'});
+                return false;
+            }
+            if (!$.trim(mobile)) {
+                show_error_tip({error: '请输入手机号码'});
+                return false;
+            }
+
+            $this.addClass('disabled');
+            show_success_tip({success: '正在处理，请稍后...'});
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    show_error_tip(res);
+                    return false;
+                }
+                show_success_tip(res);
+                window.setTimeout(function() {
+                    window.location.reload();
+                }, 500);
+            }, 'json');
+            return false;
+        })
+    });
+</script>
+<include file="Common:footer" />

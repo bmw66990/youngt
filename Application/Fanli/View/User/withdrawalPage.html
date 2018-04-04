@@ -1,0 +1,64 @@
+<include file="Common:header" />
+<link rel="stylesheet" href="__CSS_PATH__/withdrawal.css">
+<!-- 头部 -->
+<header class="am-header am-header-default" data-am-widget="header">
+  <div class="am-u-sm-5">
+    <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl">
+    </a>
+  </div>
+  <div class="am-u-sm-7 am-center">
+    <span class="am-text-default am-margin-left-xxl" style="color:#fff;">提现详情</span>
+  </div>
+</header>
+
+  <!-- 这是提现详情页 1 -->
+<div class="container withdrawal-content">
+  <form id="business-information-form" method='get' action="__URL__/wancheng" >
+  <div class="am-panel">
+    <div class="am-panel-hd">
+      <div class="am-panel-title am-left">输入提现金额</div>
+    </div>
+    <div class="am-panel-bd am-form am-form-horizontal">
+      <div class="am-form-group">
+        <div class="am-form-group am-u-sm-2 am-text-right am-margin-top-sm">
+          <span class="am-icon-rmb am-text-xxl"></span>
+        </div>
+        <div class="am-u-sm-10 am-margin-top-sm">
+          <input type="text" id="withdrawal" name="jine" value="" style="border:none;outline:none;height:50px;"/>
+        </div>
+      </div>
+    </div>
+    <div class="withdrawal-panel-footer">
+      <p class="withdrawal-prompt">
+        <span class="am-text-sm">可提现金额<span class="prompt-count"><?php echo $_GET['pay']?></span>元</span>
+        <span class="withdrawal-all">全部提现</span>
+      </p>
+    </div>
+  </div>
+  <div class="promptFriend">温馨提示：提现24小时内到账</div>
+  <div class="am-container am-margin-top-lg">    
+    <button class="am-btn am-btn-block am-radius withdrawal-makeSure" style="border:none">申请提现</button>    
+
+  </div> 
+  </form> 
+</div> 
+
+<script type="text/javascript" src="__JS_PATH__/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(".withdrawal-makeSure").click(function(){
+      $(".withdrawal-content").hide();
+      $(".withdrawal-content2").show();
+    });
+
+    
+    
+    $(".withdrawal-all").click(function(){
+      var count = $(".prompt-count").text();
+      $("#withdrawal").val(count);   
+    });
+
+    $(".withdrawal-finish-btn").click(function(){
+      $("#toast").show();
+    });
+  </script>
+<include file="Common:foot" />

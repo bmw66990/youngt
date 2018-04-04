@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{$title}</title>
+    <meta name="description" content="{$description}"/>
+    <meta name="keywords" content="{$keywords}"/>
+    <link rel="stylesheet" href="__CSS_PATH__/base.css">
+    <link href="__CSS_PATH__/common.css" type="text/css" rel="stylesheet"/>
+    <script src="__JS_PATH__/jquery-1.7.2.js" type="text/javascript"></script>
+    <link rel="icon" href="__PUBLIC__/Image/favicon.ico" size="16x16"/>
+</head>
+<body>
+<!--商户验证-->
+<div class="mobile-rebind-dialog">
+    <div class="blind">
+        <div class="mt-dialog">
+            <div class="body">
+                <div class="mobile-rebind-dialog">
+                    <div style='color:#f00;font-size:20px;text-align:center;'>
+                        温馨提示：不是商家请勿点击消费。
+                    </div>
+                    <div class="alert alert-success alert-dismissable" id="success" style="display: none">
+                        验证成功！
+                    </div>
+                    <div class="alert alert-danger alert-dismissable" id="error" style="display: none">
+                        券号不正确!
+                    </div>
+                    <form class="common-form" action="{:U('Public/doVerifyCoupon')}">
+
+                        <div class="field-group mobile">
+
+                            <label>青团券号</label>
+
+                            <input class="f-text ui-cardnum-show" value="" id="coupon" type="text" name="id"
+                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="14"/>
+                            <input type="hidden" class="ui-cardnum-hide" value=""/>
+                        </div>
+
+                        <div class="field-group operate">
+                            <input class="btn" type="submit" name='consume' value="点击消费" style="margin-left:-100px">
+                            <input class="btn" type="submit" name='check' value="查询编号" style="margin-left:90px">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type='text/javascript' src="__JS_PATH__/verifyCoupon.js?v=5" ></script>

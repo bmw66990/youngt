@@ -1,0 +1,72 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">订座列表<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('DingZuo/index')}" method="get">
+                <li><label>订座编号</label><input class="w60" type="text" name="id" value="{$displayWhere['id']}"/><label>,</label></li>
+                <li><label>商家编号</label><input type="text" name="partner_id" value="{$displayWhere['partner_id']}" /><label>,</label></li>
+                <li><label>订座名称</label><input type="text" name="title" value="{$displayWhere['title']}" /><label>,</label></li>
+                <li>  <select name="city_id">
+                    <option value="0">所有城市</option>
+                    <volist name="all_city" id="vo">
+                        <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['city_id']">selected</if>>{$vo.letter}{$vo.name}</option>
+                    </volist>
+                </select><label>,</label></li>
+                <li>  <select name="class_id">
+                    <option value="0">所有分类</option>
+                    <volist name="dingZuo_class" id="vo">
+                        <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['class_id']">selected</if>>{$vo.name}</option>
+                    </volist>
+                </select></li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w60">ID</th>
+                        <th class="w200">订座名称</th>
+                        <th class="w150">分类</th>
+                        <th class="w150">联系电话</th>
+                        <th class="w80">是否开启</th>
+                        <th class="w80">排序</th>
+                        <th class="w80"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th></tr>
+                    <volist name="data" id="row">
+                        <tr>
+                            <td class="w60"><label class="tx-teal">{$row['id']}</a></label></td>
+                            <td class="w200"><label class="tx-teal">{$row['title']}</label>
+                            </td>
+                            <td class="w150"><label class="td-title">{$row['cate_name']}</label><br />[<label class="tx-teal">{$all_city[$row['city_id']]['name']|default="全国"}</label>]
+                            </td>
+                            <td class="w150 f-12"><label>{$row['phone']}</label><br/><label>{$row['mobile']}</label></td>
+                            <td class="w80 f-12"><label class="tx-red"><if condition="$row['status'] eq 'Y'">开启<else />关闭</if></label></td>
+                            <td class="w80"><label class="f-12">{$row['sort_order']}</label></td>
+                            <td class="w80 f-12 man">
+                                <if condition="$res = auth_check_access(array('DingZuo/edit'))">
+                                    <label  class="bc-teal">
+                                        <a href="{:U('DingZuo/edit',array('id'=>$row['id']))}">编辑</a>
+                                    </label>
+                                </if>
+                                <if condition="$res = auth_check_access(array('DingZuo/delete'))">
+                                    <label  class="bc-teal">
+                                        <a href="javascript:delDingZuo({$row['id']});">删除</a>
+                                    </label>
+                                </if>
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/partner.js?v=C('JS_VER')" ></script>

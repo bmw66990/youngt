@@ -1,0 +1,33 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content">
+        <div class="con-title">团单信息下载<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Financial/teamlistDown')}" method="post" >
+                <li><label>地区</label>
+                    <select class="w200" name="city_id">
+                        <option value="">--请选择地区--</option>
+                        <volist  name="citys" id="city">
+                            <option value="{$city.id}"  <if condition="$city.id == $city_id"> selected </if>>{$city.letter}-{$city.name}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><label>日期</label>
+                    <input class="laydate-icon w150" id="start" name="start_time" value="{$start_time}" format="YYYY-MM-DD hh:mm:ss" type="text" ><label>-</label>
+                    <input class="laydate-icon w150" id="end" name="end_time"  value="{$end_time}" format="YYYY-MM-DD hh:mm:ss"></li>
+                <li>
+                <li>
+                    <label>
+                        <if condition="$res = auth_check_access(array('Financial/teamInfoDown'))">
+                            <input type="submit" class="btn-teal small-btn" value="下载" />
+                        </if>
+                    </label>
+                </li>
+            </form>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/financial.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

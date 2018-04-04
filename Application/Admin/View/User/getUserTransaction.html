@@ -1,0 +1,36 @@
+<include file="Common:popup_header" />
+<if condition="$error neq ''">
+    <p class="error">{$error}</p>
+    <else />
+<div class="box">
+    <h2>用户支付明细</h2>
+    <!--商品添加与编辑相同，请后台判断添加代码-->
+    <table style="text-align:center;line-height:24px;width:90%;margin: auto" border="1px" cellpadding="0" >
+        <tr>
+            <th width="30%">时间</th>
+            <th width="15%">项目编号</th>
+            <th width="20%">支付编号</th>
+            <th width="10%">份数</th>
+            <th width="10%">余额支付</th>
+            <th width="15%">第三方支付</th>
+        </tr>
+        <volist name="data" id="vo">
+            <tr>
+                <td>{$vo['pay_time']|date="Y-m-d H:i:s",###}</td>
+                <td>{$vo['team_id']}</td>
+                <td>{$vo['pay_id']}</td>
+                <td>{$vo['quantity']}</td>
+                <td>{$vo['credit']}</td>
+                <td>{$vo['money']}</td>
+            </tr>
+        </volist>
+    </table>
+    <div class="selectpage">
+        <div class="pagenumber">
+            {$pages}
+        </div>
+    </div>
+</div>
+</if>
+</body>
+</html>

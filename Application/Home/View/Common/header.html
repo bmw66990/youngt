@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="cn">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="renderer" content="webkit">
+		<!--[if lt ie 8]>
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<![endif]-->
+        <meta property="qc:admins" content="2140326316617567463757" />
+        <title>{$title}</title>
+        <meta name="description" content="{$description}" />
+        <meta name="keywords" content="{$keywords}" />
+        <link rel="icon" href="__IMAGE_PATH__/favicon.ico" size="16x16" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+        <link href="__CSS_PATH__/base.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+        <link href="__CSS_PATH__/default.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+        <!--[if ie 8]>
+        <script src="http://haiqiancun.com/file/demo/custom.modernizr.js"></script>
+        <![endif]-->
+        <script src="__JS_PATH__/jquery-select.js" type="text/javascript"></script>
+        <script type="text/javascript" src="__JS_PATH__/jquery-1.7.2.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/jquery.easing.min.js"></script>
+        <script src="__JS_PATH__/backtop.js?v={:C('JS_VER')}" type="text/javascript"></script>
+        <script src="__JS_PATH__/common.js?v={:C('JS_VER')}" type="text/javascript"></script>
+        <script src="__JS_PATH__/default.js??v={:C('JS_VER')}" type="text/javascript"></script>
+        <script src="__JS_PATH__/jquery.tmpl.min.js" type="text/javascript"></script>
+        <link type="text/css" rel="stylesheet" href="__PLUGINS_PATH__/libs/css/jquery-ui.min.css" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/libs/js/jquery-ui.min.js"></script>    
+        <link href="__PLUGINS_PATH__/fancybox/Css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="__PLUGINS_PATH__/selectCity/jquery.cityselect.js"></script>
+        <script type="text/javascript" src="__PLUGINS_PATH__/layzr/layzr.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/jquery.cookie.js"></script>
+    </head>
+    <body>
+        <header>
+            <!--头部公共部分-->
+            <div id="topmenu" class="b_litblue">
+                <div class="toptext">
+                     <div class="toptext-menu-x">
+                        <ul>
+                        	<li><label class="t_green mr10 change-c-n" id="youngtCityName"></label><span class="line-row"></span></li>
+	                        <li class="more-showul change-c-b"><a href="{:U('Public/city')}"><img src="__IMAGE_PATH__/all_area.png" width="17px">切换城市<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a>
+	                        	<div class="mouseover-top">
+	                        		<div class="top-city-list">
+		                        		<span>周边城市</span>
+		                        		<ul>
+		                        			<volist name="periphery_city" id="hot">
+												<li><a href="http://{$hot.ename}.{$domain}">{$hot.name}</a></li>
+		                        			</volist>
+			                        	</ul>
+			                        	<span class="more-city"><a href="{:U('Public/city')}">更多城市>></a></span>
+	                        		</div>
+	                        	</div>
+	                        </li>
+                        </ul>
+                    </div>
+                    <!--<div class="toptext-menu-y">
+                        <ul>
+                            <li  class="no-right-border t-right"><a href="{:U('Merchant/Public/login')}">我是商家</a></li>
+                            <li><a href="{:U('Public/signUp')}">商户报名</a></li>
+                            <li class="ll"><a href="javascript:;"  >最近浏览</a>
+                                <div class="mouseover-top llid">
+                                    <div class="mouseover-text">
+                                        <ul id="top-history-list-con">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="{:U('Member/account')}">我的青团</a></li>
+
+                            <li id="gw" class="gw">
+                                <a href="{:U('Cart/index')}" >购物车(<span id="user-cart-nums" style='display:inline-block;color:red'>0</span>)</a>
+                                <div id="gwid" class="mouseover-top gwid">
+
+                                </div>
+                            </li>
+                            <li><a href="{:U('Member/index')}">我的订单</a></li>
+                        </ul>
+                    </div>-->
+                       <div class="toptext-menu-y">
+                        <ul>
+                        	<li class="youngt-register"></li>
+		                    <li class="youngt-login"></li>
+		                    <li><a href="{:U('Member/account')}">我的账户</a><span class="line-row"></span></li>
+		                    <li><a href="{:U('Member/index')}">我的订单</a><span class="line-row"></span></li>
+		                    <li  class="more-showul">
+		                    	<a href="{:U('Cart/index')}">购物车(<span id="user-cart-nums" style='display:inline-block;color:red'>0</span>)<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a><span class="line-row"></span>
+                                <div class="mouseover-top" id="gwid">
+                                        <div class="mouseover-text">
+                                       	</div>
+                                </div>
+                            </li>
+                            <li class="more-showul"><a href="javascript:;" >最近浏览<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a><span class="line-row"></span>                 
+                                <div class="mouseover-top">
+                                    <div class="mouseover-text">
+                                    	<ul id="top-history-list-con" class="no-bottom-border">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+		                    <li class="more-showul"><a href="{:U('Merchant/Public/login')}">我是商家<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a><span class="line-row"></span>
+		                    	<div class="mouseover-top">
+	                        		<div class="mouseover-list">
+			                        	<ul>
+			                        		<li><a href="{:U('Public/signUp')}" class="fancybox fancybox.iframe fac">商户报名</a></li>
+			                        		<li><a href="{:U('Public/verifyCoupon')}" id="verify-coupon" class="fancybox fancybox.iframe fac">券号验证</a></li>
+			                        		<li><a href="{:U('Public/merchants')}" class="fancybox fancybox.iframe fac">加盟分站</a></li>
+			                        	</ul>
+	                        		</div>
+	                        	</div>
+		                    </li>
+		                    <li><a href="http://kefu.rongkecloud.com/RKServiceClientWeb/index.html?ek=fa91161ab7229527cf52d1eb671cb5f7f607fbd3&bg=4&gd=260">联系客服</a></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="logo">
+                <div class="img-logo">
+                    <a href="{:U('/')}"><img src="__IMAGE_PATH__/logo.png"/></a>
+                </div>
+                <div id="search" >
+                    <form action="{:U('Category/search')}" method="get">
+                        <label>
+                            <div class="select">
+                                <label>团购</label>
+                                <select name="" class="select_class">
+                                    <option value="团购" >团购</option>
+                                </select>
+                            </div>
+                        </label>
+                        <label><input type="text" class="input-text" name="key" value="{$searchParams['key']}" placeholder="请输入商品名称、地址等" /></label>
+                        <label><input type="submit" value="搜索" class="sub" /></label>
+                    </form>
+                </div>
+                <div class="ico">
+                    <img src="__IMAGE_PATH__/ico.png"/>
+                </div>
+            </div>
+        </header>
+        <script id="top-history-list-tmpl" type="text/x-jquery-tmpl">
+            <li>
+            <a href="__APP__/team-${id}.html">
+            <img src="${image}" style='max-width:100px;' />
+            {{if product}}
+            <h4 title='${product}'>${product.substring(0, 11)}...</h4>
+            {{else}}
+            <h4 title=''>--</h4>
+            {{/if}}
+            <br/>
+            <span class="t_orange">&#165;${team_price}</span>
+            </a>
+            </li>
+        </script>
+        <script id="top-cart-list-tmpl" type="text/x-jquery-tmpl">
+
+            {{if list && list.length<=0}}
+            <br/>
+            <div class="mouseover-text">
+            <p>
+            暂时没有产品
+            </p>
+            </div>
+            {{else}}
+            <div class="mouseover-text">
+            <ul>
+            {{each(i,cart) list}}
+            {{if i<5}}
+            <li><a href="__APP__/team-${cart.team_id}.html">
+            <img src="${cart.image}" />
+            {{if product}}
+            <h4 title='${cart.product}'>${cart.product.substring(0, 11)}...</h4>
+            {{else}}
+            <h4 title=''>--</h4>
+            {{/if}}
+            <br/>
+            <span class="t_orange">&#165;${cart.team_price}</span></a></li>
+            {{/if}}
+            {{/each}}
+            {{if list.length>5}}
+            <li style='  height: 20px;margin-top: 0px;'>…… ……</li>
+            {{/if}}
+            </ul>
+            </div>
+            <div class="submit">
+            <label>购物车里总共有${list.length}个产品</label>
+            <label class="sbutton"><a href="{:U('Cart/index')}">查看购物车</a></label>
+            </div>
+            {{/if}}
+        </script>
+        <!--头部公共部分结束-->
+        <script type="text/javascript">
+            var ISLOGIN;
+            var $base_url = '__APP__';
+            window.$base_url = '__APP__';
+
+            // 获取购物车数据
+            var getTopCartList = function() {
+                var href = "{:U('Cart/index')}";
+                $.post(href, {}, function(res) {
+                    $('#gwid').html($('#top-cart-list-tmpl').tmpl(res));
+                    var num = res.list.length || 0;
+                    $("#user-cart-nums").text(num);
+                    return false;
+                });
+            }
+
+            // 获取顶部历史记录
+            var getTopHistoryList = function() {
+                var href = "{:U('Public/history')}";
+                $.post(href, {}, function(res) {
+                    if (res.data && res.data.length > 0) {
+                        $('#top-history-list-con').html($('#top-history-list-tmpl').tmpl(res.data));
+                    }
+                    return false;
+                });
+            };
+
+            $(function() {
+                $("#verify-coupon").fancybox({
+                    'autoScale': false,
+                    'scrolling': 'no',
+                    'transitionIn': 'fade',
+                    'transitionOut': 'fade',
+                    'speedIn': 500,
+                    'speedOut': 500,
+                    'width': 480,
+                    'height': 400,
+                    'type': 'iframe'
+                });
+
+                // 初始化执行的数据
+                var init = function() {
+
+                    $.get("{:U('Index/ajaxCityName')}", '', function(data) {
+                        $('#youngtCityName').html(data.name);
+                        if (data.id == 1) {
+                            var html = "";//"<span><a target='_blank' href=" + $base_url + "/Study/index>毕业季</a></span>"
+                            $('#nav-right').append(html);
+                        }
+                    });
+
+                    // 获取历史浏览
+                    if (getTopHistoryList) {
+                        getTopHistoryList();
+                    }
+
+                    // 获取顶部购物车列表
+                    if (getTopCartList) {
+                        getTopCartList();
+                    }
+
+                }();
+
+            });
+        </script>

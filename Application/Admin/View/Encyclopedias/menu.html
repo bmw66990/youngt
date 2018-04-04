@@ -1,0 +1,19 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Encyclopedias/qingtuanEncyclopedias'))">
+            <li><a href="{:U('Encyclopedias/qingtuanEncyclopedias')}">青团百科</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Encyclopedias/youngtEncyclopedias'))">
+            <li><a href="{:U('Encyclopedias/youngtEncyclopedias')}">百科管理</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Encyclopedias/newsNotice'))">
+            <li><a href="{:U('Encyclopedias/newsNotice')}">新闻公告</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Encyclopedias/substationNotice'))">
+            <li><a href="{:U('Encyclopedias/substationNotice')}">分站公告</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

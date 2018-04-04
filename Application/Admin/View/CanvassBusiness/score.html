@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>添加客户</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <div class="box">
+            <form name="viewDetails" id="score-form" action="{:U('CanvassBusiness/score')}" method="post">
+            	<h2>访问记录</h2>
+                <div class="details">
+                	<volist name="list" id="row">
+	                    <li style="background:#ddd;padding:5px 0;">
+	                    	<label class="w200" style="text-align:left">访问时间：{$row.create_time|date='Y-m-d',###}</label>
+							<label class="w150">BD:{$bdList[$row['visit_db_id']]}</label>
+	                    </li>
+	                    <li style="margin-bottom:10px;">备注：{$row.remark_content}</li>
+                    </volist>
+
+                   <li><label>备注：</label><textarea name="remark" id="" cols="30" rows="10"></textarea></li>
+                   <li><label>&nbsp;</label><input type="button" id="score-btn" class="btn-teal class-btn" value="确定" /></li>
+                </div>
+                <input type="hidden" name="id" value="{$id}">
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+               $("#score-btn").click(function(event) {
+               		$(this).attr('disabled',true);
+               		var $this=$(this);
+               		$.post("{:U('CanvassBusiness/score')}",$("#score-form").serialize(),function(data){
+               			alert(data.info);
+               			if(data.status==1){
+               				window.parent.jQuery.fancybox.close();
+               				window.parent.parent.document.location.reload();
+               			}
+               			$this.attr('disabled',false);
+               		})
+               });
+            })
+        </script>
+    </body>
+</html>

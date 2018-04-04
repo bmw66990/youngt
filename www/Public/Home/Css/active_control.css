@@ -1,0 +1,28 @@
+/*control css*/
+
+ /*list*/
+	/*txt lis*/
+	.txt-list{display: inline-block}
+	.txt-list>.txt-list-title{font-size: 1.5em;display:block;line-height: 2em;}
+	.txt-list .txt-list-li{width: 90%;margin: 0px auto;padding: 10px 4.88888%;border: 1px solid #ccc;border-top:0 ;}
+	.txt-list-li ul{width: 100%;display: block;padding: 0;margin:0;}
+	.txt-list-li li{line-height: 2em;font-size: .9em;width: 100%;float: left;}
+	.txt-list-li li a{color:#212121;font-size: 1em;}
+	.txt-list-li li label{padding: 0 10px;}
+/*form*/
+	
+	.enrollform{line-height:2.5em;}
+	.enrollform li {width:100%;display: block;overflow: hidden;margin-bottom: 15px;}
+	.enrollform li label{float: left;}
+	.enrollform li label:last-child{width: 60%;}
+	.enrollform li label.formTitle{text-align: right;width: 80px;margin-right:10px;display: inline-block;}
+	.enrollform li label.formTitle:before{color:red;content: "* ";}
+	.enrollform li label.no-impor:before{content: "";}
+	.enrollform input[type="text"]{line-height: 1.8em;font-size: 0.9em;padding-left: .3em;width: 100%;height:1.8em}
+	.enrollform textarea{line-height: 1.8em;font-size: 0.9em;padding-left: .3em;}
+
+/*button*/
+	.btn{border: 0;cursor: pointer;padding: 5px 8px;}
+	.btn-small{}
+	.btn-default{width: 85px;height: 30px;}
+	.btn-green{background: #0d9ea3;color:#fff;}

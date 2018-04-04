@@ -1,0 +1,72 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">市场反馈<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Index/feedback')}" method="get">
+                <li><input type="text" name="content" value="{$displayWhere['content']}"/><label>,</label></li>
+                <li>
+                    <select name="category">
+                        <option value="0">选择分类</option>
+                        <volist name="feedback" id="vo">
+                            <option value="{$key}" <if condition="$key eq $displayWhere['category']">selected</if>>{$vo}</option>>
+                        </volist>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+                </form>
+                <div class="form-list">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr class="list-title">
+                            <th class="w200">客户</th>
+                            <th class="w100">类型</th>
+                            <th class="w200">内容</th>
+                            <th class="w200">地址</th>
+                            <th class="w70">状态</th>
+                            <th class="w150">日期</th>
+                            <th class="w70"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th></tr>
+                        <volist name="data" id="row">
+                        <tr>
+                            <td class="w200"><label>{$row['username']}</label><br /><label>邮箱/电话:{$row['mobile']}</label><br /><label>qq:{$row['qq']}</label></td>
+                            <td class="w100"><label class="td-title">{$feedback[$row['category']]}</label></td>
+                            <td class="w200">{$row['content']}</td>
+                            <td class="w200 f-12"><label>{$row['address']}</label></td>
+                            <td class="w70 f-12"><label class="tx-teal">{$row['name']}</label></td>
+                            <td class="w150">{$row['create_time']|date="Y-m-d H:i:s",###}</td>
+                            <td class="w70 f-12 man">
+                                <if condition="$res = auth_check_access(array('Index/delFeedback'))">
+                                    <label class="bc-teal"><a href="javascript:delFeedback({$row['id']})">删除</a></label>
+                                </if>
+                                <if condition="$res = auth_check_access(array('Index/saveFeedback'))">
+                                    <label  class="bc-teal"><if condition="$row['user_id'] eq 0"><a class="save-feedback" href="javascript:;" data-href="{:U('Index/saveFeedback',array('id'=>$row['id']))}">处理</a><else />已处理</if></label>
+                                </if>
+                            </td>
+                        </tr>
+                        </volist>
+                    </table>
+                    <div class="selectpage">
+                        <div class="pagenumber">
+                           {$pages}
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/index.js"></script>
+<script>
+    $(function(){
+        $('.save-feedback').on('click',function(){
+            var that = this;
+            $.get($(this).data('href'),function(json){
+                alert(json.msg);
+                if (json.code == 0) {
+                    $(that).off('click').html('已处理').css({background:'#009999',color:'#000'});
+                }
+            },'json');
+        });
+    });
+</script>

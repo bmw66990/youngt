@@ -1,0 +1,202 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+        <include file="left" />
+        <div id="pcontent" class="coupons-box fl">
+
+            <if condition = "$info neq ''">
+                <div style="border:1px solid #FFE6D0;height:40px; width:800px; margin:5px auto; background-color:#FFF6DB;" id='dis'>
+                    <div style="font-size:18px; margin:10px auto; padding:0px 220px;" id='con'>
+                        请选择城市！
+                    </div>
+                </div>
+            </if>
+            <div class="pmainbox mine">
+                <ul class="filter cf">
+                    <li <if condition="!$info_type || $info_type eq 'info'"> class="current" </if>>
+                    <a href="{:U('Member/account')}">基本信息</a>
+                    </li>
+                    <li <if condition="$info_type eq 'address'"> class="current" </if>>
+                    <a href="{:U('Member/addressList')}">收货地址</a>
+                    </li>
+                    <!-- <li>选择城市</li>
+                    <li>个人资料</li>
+                    <li>收货地址</li> -->
+                </ul>
+                <!--基本信息开始-->
+
+                <div class="tab_box clearfix">
+                    <if condition="!$info_type || $info_type eq 'info'"> 
+                        <form id="account-form" method="post" action="{:U('Member/account')}" style='background:#eee;'>
+                            <include file="Common:error" />
+                            <div id="settings-info-container" class="common-form f-fs2" >
+                                <div class="field-group f-display">
+                                    <if condition="$member['mobile'] eq ''">
+                                        <label>手机号：</label>
+                                        <span class="text">手机尚未绑定</span>
+                                        <a class="settings-mobile-rebind fac" href="{:U('Member/changeMobile')}" >立即绑定</a>
+                                        <else />
+                                        <label>手机号：</label>
+                                        <span class="text">{$member['mobile']}</span>
+                                        <a class="settings-mobile-rebind fac" href="{:U('Member/changeMobile')}">更换</a>
+                                    </if>
+                                </div>
+                                <div class="field-group f-display">
+                                    <label>邮　箱：</label>
+                                    <span class="text mail">{$member.email}</span>
+                                </div>
+                                <div class="field-group f-display">
+                                    <label>用户名：</label>
+                                    <span class="text">{$member.username}</span>
+                                    <!-- <a class="inline-link f-fs1" href="__APP__/Member/Account/changename" id="changename">修改</a> -->
+                                </div>
+
+                                <div class="field-group f-display">
+                                    <label for="repassword">所在城市：</label>
+                                    <select name="czone" id="czone">
+                                        <option value="0"></option>
+                                    </select>
+                                    <select name="city_id" id="ename" class="f-fs2">
+                                        <volist name="citys" id="vo">
+                                            <option value="{$vo.ename}" <if condition="$vo.ename eq $city_id">selected="selected"</if>>{$vo.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <div class="field-group f-display">
+                                    <input class="btn-hot" type='submit' name='submit' value='修改城市'>
+                                </div>
+                            </div>
+                        </form>   
+                        <elseif condition="$info_type eq 'address'"/>
+                        <div class="goodsAddress">
+                            <div class="goodsAddress-title">
+                                <span class="w_100">收货人</span>
+                                <span class="w_400">收货地址/邮编</span>
+
+                                <span class="w_100">联系电话</span>
+                                <span class="w_150"></span>
+                                <span class="fr">操作</span>
+                            </div>
+                            <ul class="t_grey add-list">
+                                <if condition="!empty($address_list)">
+                                    <volist name="address_list" id="al">
+                                        <li><span class="w_100">{$al.name}</span>
+                                            <span class="w_400">{$al.province}{$al.area}{$al.city}{$al.street}，{$al.zipcode}</span>
+                                            <span class="w_100">{$al.mobile_hide}</span>
+                                            <span class="w_150">
+                                                <if condition="$al.default eq 'Y'">
+                                                    <label>默认地址</label>
+                                                    <else/>
+                                                    <label class="bc-orange setinfo"><a class='address-delete-set-btn' confirm_tip='确认要将该地址设置为默认地址？' href="{:U('Member/setDefaultAddress',array('address_id'=>$al['id']))}">设为默认地址</a></label>
+                                                </if>
+                                            </span>
+                                            <span class="fr">
+                                                <label><a href="{:U('Member/deleteAddress',array('address_id'=>$al['id']))}" confirm_tip='确认要将该地址删除？' class="address-delete-set-btn ahref-green">删除</a></label>
+                                                <label><a href="{:U('Member/editAddress',array('address_id'=>$al['id']))}" class="address-edit-btn ahref-green">修改</a></label></span>
+                                        </li>
+                                    </volist>
+                                </if>
+                            </ul>
+
+                        </div>  
+                        <div class="order-cell order-status"><a href="{:U('Member/addAddress')}" id='add-new-address-btn'  class="detail fancybox fancybox.iframe fac">添加新地址</a></div>    
+                    </if>
+                </div> 
+            </div>
+        </div></section>
+<script type="text/javascript">
+    $(function() {
+     <if condition = "!$info_type || $info_type eq 'info'" >
+            //ajax获取省市信息
+            $.get("{:U('Member/getProvince')}", function(data) {
+            $("#czone").html(data.html);
+                    if ($("#czone").val() == '') {
+            $("#ename").html('<option value="">请选择</option>');
+                    return false;
+            }
+            $.get("{:U('Member/getCities')}", {id: $("#czone").val()}, function(data) {
+            $("#ename").html(data.html);
+            });
+            });
+            // 省份改变时查询城市列表
+            $('#czone').change(function() {
+            if ($(this).val() == '') {
+            $("#ename").html('<option value="">请选择</option>');
+                    return false;
+            }
+            $.post("{:U('Member/getCities')}", {id: $(this).val()}, function(data) {
+            if (data.html != '') {
+            $("#ename").html(data.html);
+            }
+            });
+            });
+            $("#account-form").submit(function() {
+            $("input[name=submit]").val('提交中...').attr('disabled', true);
+                    $.post($(this).attr('action'), $(this).serialize(), function(data) {
+                    if (data.status == 1) {
+                    $('#error-con').html($('#success-top-tmpl').tmpl({success: '账户信息修改成功'}));
+                            window.setTimeout(function() {
+                            window.location.reload();
+                            }, 3000);
+                    } else {
+                    $('#error-con').html($('#error-top-tmpl').tmpl({error: data.info}));
+                            $("input[name=submit]").val('修改城市').attr('disabled', false);
+                    }
+                    });
+                    return false;
+            });
+            <elseif condition = "$info_type eq 'address'" />
+            
+            $("ul.add-list li").die().live('mouseenter', function() {
+                $(this).find(".setinfo").show();
+            }).live('mouseleave', function() {
+                $(this).find(".setinfo").hide();
+            });
+            
+            $('#add-new-address-btn,.address-edit-btn').fancybox({
+		'autoScale':false,
+		'scrolling':'no',
+		'transitionIn':'fade',
+		'transitionOut':'fade',
+		'speedIn': 500,
+		'speedOut': 500,
+		'width': 550,
+		'height': 400,
+		'type':'iframe'
+	    });
+            
+            $('.address-delete-set-btn').die().live('click',function(){
+            var $this = $(this);
+            var $href = $this.attr('href');
+            var $html = $this.html();
+            var confirm_tip = $this.attr('confirm_tip');
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            if(confirm_tip){
+                var tip_res = window.confirm(confirm_tip);
+                if (!tip_res) {
+                    return false;
+                }
+            }
+            $this.addClass('disabled');
+            $this.html('正在处理...');
+            $.post($href, {}, function(res) {
+                $this.removeClass('disabled');
+                $this.html($html);
+                if (res.code && res.code != 0 && res.error) {
+                    window.alert(res.error);
+                    return false;
+                }
+                window.alert('操作成功！');
+                window.location.reload();
+                return false;
+            }, 'json');
+            return false;
+        });
+            
+            </if>
+    })
+</script>
+<include file="Common:footer" />

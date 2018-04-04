@@ -1,0 +1,88 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">项目分类<span class="tx-green">+</span></div>
+
+        <div class="con-form">
+            <div class="con-s-title tx-teal"><a  href="javascript:popup('{:U('Manage/addType',array('action'=>'group'))}',400,450)">新建分类</a></div>
+            <form class="myform"  action="{:U('Manage/groupType')}" method="get">
+                <li><label>分类中文名</label><input type="text" name="name" value="{$displayWhere['name']}"><label>,</label></li>
+                <li><label>分类英文名</label><input type="text" name="ename" value="{$displayWhere['ename']}"><label>,</label></li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w120">ID</th>
+                        <th class="w120">分类名称</th>
+                        <th class="w120">英文名称</th>
+                        <th class="w100">首字母</th>
+                        <th class="w150">所属分类</th>
+                        <th class="w100">导航</th>
+                        <th class="w100">排序</th>
+                        <th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="data" id="row">
+                        <tr>
+                            <td class="w120"><label>{$row['id']}</label></td>
+                            <td class="w120">
+								<label class="tx-teal">{$row['name']}</label>
+							</td>
+                            <td class="w120"><label>{$row['ename']}</td>
+                            <td class="w100"><label>{$row['letter']}</label></td>
+                            <td class="w150"><label>{$row['czone']}</label></td>
+                            <td class="w100"><label class="tx-red">{$row['display']}</label></td>
+                            <td class="w100"><label>{$row['sort_order']}</label></td>
+                            <td class="w120">
+                                <if condition="$res = auth_check_access(array('Manage/editType'))">
+                                    <label class="bc-teal">
+                                        <a href='javascript:popup("{:U('Manage/editType',array('id'=>$row['id']))}",400,450);'>编辑</a>
+                                    </label>
+                                </if>
+                                <if condition="$res = auth_check_access(array('Manage/delCate'))">
+                                    <label class="bc-teal">
+                                        <a href="javascript:delType({$row['id']},'{$zone}');">删除</a>
+                                    </label>
+                                </if>
+                            </td>
+                        </tr>
+
+
+						<isset name="row.sub">
+						<volist name="row.sub" id="li">
+							<tr>
+								<td class="w120"><label>{$li['id']}</label></td>
+								<td class="w120">
+									<label class="tx-teal">&nbsp;&nbsp;&nbsp;|---&nbsp;&nbsp;&nbsp;{$li['name']}</label>
+								</td>
+								<td class="w120"><label>{$li['ename']}</td>
+								<td class="w100"><label>{$li['letter']}</label></td>
+								<td class="w150"><label>{$li['czone']}</label></td>
+								<td class="w100"><label class="tx-red">{$row['display']}</label></td>
+								<td class="w100"><label>{$li['sort_order']}</label></td>
+								<td class="w120">
+									<if condition="$res = auth_check_access(array('Manage/editType'))">
+										<label class="bc-teal">
+											<a href='javascript:popup("{:U('Manage/editType',array('id'=>$li['id']))}",400,450);'>编辑</a>
+										</label>
+									</if>
+									<if condition="$res = auth_check_access(array('Manage/delCate'))">
+										<label class="bc-teal">
+											<a href="javascript:delType({$li['id']},'{$zone}');">删除</a>
+										</label>
+									</if>
+								</td>
+							</tr>
+						</volist>
+						</isset>
+                    </volist>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/cate.js?C('JS_VER')"></script>

@@ -1,0 +1,67 @@
+<include file="Common:header"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">团单名称</label>
+                                <div class="col-sm-6">
+                        			<p class="form-control-static">{$data['title']}</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">在线时间</label>
+                                <div class="col-sm-6">
+                                			<p class="form-control-static">{$data['begin_time']|date="Y-m-d",###} - {$data['end_time']|date="Y-m-d",###}</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">青团券有效时间</label>
+                                <div class="col-sm-6">
+                                			<p class="form-control-static">{$data['expire_time']|date="Y-m-d",###}</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">限购数量</label>
+                                <div class="col-sm-6">
+                                	<p class="form-control-static">最低   ({$data['permin_number']})   最高 (<if condition="$data['max_number'] eq 0">无上限<else />{$data['max_number']}</if>)</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">项目定价</label>
+                                <div class="col-sm-6">
+                                			<p class="form-control-static">市场价  （{$data['market_price']}）   团购价   （{$data['team_price']}）   供货价   （{$data['ucaii_price']}）</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">销售城市：</label>
+                                <div class="col-sm-6">
+                                			<p class="form-control-static">{$data['city_name']}</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">商家：</label>
+                                <div class="col-sm-60">
+                                			<p class="form-control-static">{$data['partner_username']}</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+</body>
+
+</html>

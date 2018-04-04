@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{$description}" />						
+        <meta name="keywords" content="{$keywords}" />
+        <link rel="stylesheet" href="__CSS_PATH__/base.css?v={:C('CSS_VER')}">
+        <link rel="icon" href="__IMAGE_PATH__/favicon.ico" size="16x16"/>		
+        <script type="text/javascript" src="__JS_PATH__/jquery-1.7.2.js"></script>
+        <!--[if IE]> 
+        <script> 
+             (function(){if(!/*@cc_on!@*/0)return;var e =                "header,footer,nav,article,section".split(','),i=e.length;while(i--){document.createElement(e[i])}})() 
+        </script> 
+        <![endif]--> 
+    </head>
+    <style>
+        #ytcontent{padding: 0;width: 740px;}
+        #ytcontent .mainbox {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #D4D4D4;clear: both;height: auto !important;min-height: 400px; padding: 20px;padding-bottom:40px;border-radius:0;}
+        #ytcontent h3{border-bottom: 1px solid #DCDCDC;font-size: 28px;margin-bottom: 10px;padding-bottom: 10px;}	
+        #ytcontent .mainbox h3 span.op-area {font-weight: normal;position: absolute;right: 20px;top: 40px;}	
+        .fac{color: #2BB8AA;}
+        a.fac:hover {text-decoration: underline;}
+        .info-section {background: none repeat scroll 0 0 #FFFBF2;border: 1px solid #F6E0AF;font-size: 12px;margin: 0 0 10px;overflow: hidden;padding: 8px 16px;}
+        .info-section dt {font-weight: bold;margin-bottom: 2px;}
+        .info-section em {color: #DD0000;}
+        .bunch-section {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #D3E9FD;margin: 0 0 10px;overflow: hidden;}
+        .bunch-section__label {background: none repeat scroll 0 0 #D3E9FD;color: #333333;padding: 5px 8px;}
+        .bunch-section__content {padding: 5px 8px 10px;}
+        .bunch-section__content .coupon-field {background-color: #F8F8F8;border: 1px solid #F4F4F4;min-height: 20px;padding: 5px 0 1px 10px;}
+        .bunch-section__content .coupon-field__tip {color: #999999;padding-bottom: 5px;}
+        .bunch-section__content .coupon-field li {margin-bottom: 5px;}
+        .coupon-field li span {color: #999999;}
+        .bunch-section__content .flow-list {line-height: 1.8;}
+        .bunch-section__content .flow-list li {display: inline-block;margin-right: 10px;width: 170px;}
+        .bunch-section__content .info-table {width: 100%;}
+        .info-table .left {text-align: left;}
+        .info-table th {font-weight: bold;}
+        .info-table th, .info-table td {padding:5px;text-align:center;}
+        .info-table span.money {font-family: arial;}
+        .total {color:#CC3333;}
+    </style>
+    <body>
+        <!--查看订单详情-->
+        <div id="bdw">
+            <div id="bd">
+                <div id="ytcontent">
+                    <div  class="mainbox f-pr">
+                        <h3 class="ft">
+                            订单详情
+                        </h3>
+                        <dl id="primary-info" class="info-section">
+                            <dt>
+                            当前订单状态：
+                            <em>{:getUserOrderState($content)}</em>
+                            </dt>
+                        </dl>
+                        <dl class="bunch-section">
+                            <if condition="$team.team_type eq 'goods'  && $content.express eq 'Y'">
+                            <dt class="bunch-section__label f-fs2 f-fwb">
+                            收货地址 
+                            </dt>
+                            <dd class="bunch-section__content">
+                                <ul class="flow-list">
+                                        <li>收货人：{$content.address.name}</li>
+                                        <li>联系电话：{$content.address.mobile}</li>
+                                        <li>邮编：{$content.address.zipcode}</li>
+                                </ul>
+                                <ul class="flow-list">
+                                        <li style="width:100%">地址：{$content.address.province}{$content.address.area}{$content.address.city}{$content.address.street}</li>
+                                </ul>
+                            </dd>
+                            <else />
+                            <dt class="bunch-section__label f-fs2 f-fwb">
+                            青团券 
+                            </dt>
+                            <dd class="bunch-section__content">
+                                <div class="coupon-field" style="height:80px; overflow-y:scroll">
+                                    <p class="coupon-field__tip">小提示：记下或拍下青团券密码向商家出示即可消费，无需等待短信</p>
+                                    <ul>
+                                        <volist name="coupon" id="vo">
+                                            <li>
+                                                青团券密码：{$vo['id']}
+                                                <span class="ml10">{$vo.info}</span>
+                                            </li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                            </dd>
+                            </if>
+                            <dt class="bunch-section__label">订单信息</dt>
+                            <dd class="bunch-section__content">
+                                <ul class="flow-list">
+                                    <li>订单编号：{$content.id}</li>
+                                    <li style='width:200px;'>下单时间：{$content.create_time|date="Y-m-d H:i",###}</li>
+                                </ul>
+                            <if condition="$content['state'] eq 'pay' ">
+                                <ul class="flow-list">
+                                    <li>付款方式：{$content.service|order_service}
+                                    </li>
+                                    <li style='width:200px;'>付款时间：{$content.pay_time|date="Y-m-d H:i",###}</li>
+                                </ul>
+                            </if>
+                            </dd>
+                            <dt class="bunch-section__label">团购信息</dt>
+                            <dd class="bunch-section__content">
+                            <table style="width:100%;">
+                                <if condition="$team.team_type eq 'goods' && $content.express eq 'Y'">
+                                <tr>
+                                    <td>项目名称：<a class="fac" href="/team-{$team.id}.html" target="_blank">{$team.product}</a></td>
+                                    <td style="width:220px;font-weight:bold">{$content.pay_detail}</td>
+<!--                                                    <td style="width:100px;font-weight:bold;text-align: right;">单价：&#165;{$team.team_price}</td>-->
+                                    <td style="width:150px;font-weight:bold;text-align: right;">价格：&#165;{$team.team_price}*{$content.quantity}=&#165;{$team['team_price'] * $content['quantity']|sprintf='%.2f',###}</td>
+                                </tr>
+                                <else/>
+                                <tr>
+                                    <td style="width:150px">项目名称：<a class="fac" href="/team-{$team.id}.html" target="_blank">{$team.product}</a></td>
+                                    <td style="width:150px;font-weight:bold">数量：{$content.quantity}</td>
+<!--                                                    <td style="width:150px;font-weight:bold;text-align: right;">单价：&#165;{$team.team_price}</td>-->
+                                    <td style="width:150px;font-weight:bold;text-align: right;">价格：&#165;{$team.team_price}*{$content.quantity}=&#165;{$team['team_price'] * $content['quantity']|sprintf='%.2f',###}</td>
+                                </tr>                                    
+                                </if>
+                            </table>
+                            <if condition="$content.fare gt 0">
+                            <dd class="f-tar bunch-section__content f-fwb">邮费：<span>&#165;{$content.fare}</span></dd>
+                            </if>
+                            <dd class="f-tar bunch-section__content f-fwb">实际支付：<span class="total">&#165;{$content.origin}</span></dd>
+                            <notempty name="content.ota">
+                            <dt class="bunch-section__label">第三方信息</dt>
+                            <dd class="bunch-section__content">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <th style="width:70px;text-align:right;">电子凭证:</th>
+                                        <td style="width:10px;"></td>
+                                        <td style="width:150px;">{$content.ota.ecode}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px;text-align:right;">取票人姓名:</th>
+                                        <td style="width:10px;"></td>
+                                        <td style="width:150px;">{$content.ota.link_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px;text-align:right;">取票人手机号:</th>
+                                        <td style="width:10px;"></td>
+                                        <td style="width:150px;">{$content.ota.link_phone}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px;text-align:right;">游玩日期:</th>
+                                        <td style="width:10px;"></td>
+                                        <td style="width:150px;">{$content.ota.pro_sdate}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px;text-align:right;">订单状态:</th>
+                                        <td style="width:10px;"></td>
+                                        <td style="width:150px;">{$content.ota.status|substr="2"}</td>
+                                    </tr>
+                                </table>
+                            </dd>
+                            </notempty>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>	
+    </body>
+</html>

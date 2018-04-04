@@ -1,0 +1,35 @@
+<div id="error-con">
+    <if condition="$error neq ''">
+        <div class="alert alert-danger alert-dismissable">
+            {$error}
+        </div>
+    </if>
+</div>
+<script id="error-top-tmpl" type="text/x-jquery-tmpl">
+    {{if error}}
+   <div class="alert alert-danger alert-dismissable">
+    ${error}
+  </div>
+  {{/if}}
+</script>
+
+<script id="success-top-tmpl" type="text/x-jquery-tmpl">
+    {{if success}}
+   <div class="alert alert-success alert-dismissable">
+    ${success}
+  </div>
+  {{/if}}
+</script>
+<script>
+    function show_error_tip($obj){
+        $('div#error-con').html('');
+        $('div#error-con').html($('#error-top-tmpl').tmpl($obj));
+        return false;
+    }
+    
+    function show_success_tip($obj){
+        $('div#error-con').html('');
+        $('div#error-con').html($('#success-top-tmpl').tmpl($obj));
+        return false;
+    }
+</script>

@@ -1,0 +1,138 @@
+<include file="Common:header" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <include file="Common:message_tip" /> 
+                <style>
+                    #team-manage-form table tr td{
+                        height:50px;
+                        vertical-align: middle;
+                    }
+                    </style>
+                <div class="mobile-rebind-dialog">
+                      <form id="team-manage-form">
+                        <table width="100%" class="m-table f-tac mt10">                                
+                            <tbody>
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        参与活动
+                                    </td>
+                                    <td class="f-tal">
+                                        {$team_info.activities_name|default=''}
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        团单售卖时间
+                                    </td>
+                                    <td class="f-tal" id='begin_end_time'>
+                                        <input type="text" id="begin_time" name="begin_time" value="{$team_info.begin_time|date='Y-m-d H:i:s',###}"  size="15" style="padding:4px;" />至
+                                        <input type="text" id="end_time" name="end_time" value="{$team_info.end_time|date='Y-m-d H:i:s',###}"  size="15" style="padding:4px;" />
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        优惠金额
+                                    </td>
+                                    <td class="f-tal">
+                                        <input type="text" id='discount_price' team_price='{$team_info.old_team_price}'  ucaii_price='{$team_info.old_ucaii_price}'  name="discount_price" value="{$team_info.discount_price|default='0'}">
+                                        (活动团单的供货价和团购价为原金额减去该金额)
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb" style="width:90px;">
+                                        参与数量
+                                    </td>
+                                    <td class="f-tal">
+                                        <input type="text" id='max_number' name="max_number" value="{$team_info.max_number|default='0'}">
+                                        (不填写 或 填写 0 按照不限量处理)
+                                    </td>                                 
+                                </tr> 
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="hidden" name="team_id" id='team_id' value="{$team_info.id}">
+                                        <a class="btn btn-success" id='participate-activities-submit' href="{:U('TeamManage/edit_activities_team')}">确认</a>
+                                    </td>                                                                
+                                </tr>                                                                                  
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Common:footer" />
+<script src="__JS_PATH__/laydate/laydate.js"></script>
+<script>
+    $(function() {
+        
+        laydate({
+            elem: '#end_time',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            festival: true, //显示节日 
+            istime: true,
+        });
+        laydate({
+            elem: '#begin_time',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            festival: true, //显示节日 
+            istime: true,
+        });
+        
+        $(".main-content").on('click', '#participate-activities-submit', function() {
+            var $this = $(this);
+            var discount_price = Number($('#discount_price').val());
+            var begin_time = $('#begin_time').val();
+            var end_time = $('#end_time').val();
+            var max_number = Number($('#max_number').val());
+            var ucaii_price = Number($('#discount_price').attr('ucaii_price'));
+            var team_id = $('#team_id').val();
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            if (!discount_price) {
+                show_message_tip({error:'请输入优惠价'});
+                return false;
+            }
+            if (ucaii_price && discount_price >= ucaii_price) {
+                var error_info = "优惠价必须小于" + ucaii_price;
+                show_message_tip({error:error_info});
+                return false;
+            }
+            var href = $(this).attr('href');
+            var data = {
+                tid: team_id,
+                discount_price: discount_price,
+                max_number: max_number,
+                begin_time: begin_time,
+                end_time: end_time
+            };
+            $this.addClass('disabled');
+            show_message_tip({success:'正在处理，请稍后...'});
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    show_message_tip(res);
+                    return false;
+                }
+                show_message_tip(res);
+                parent.window.setTimeout(function() {
+                    layer.closeAll();
+                    parent.window.location.reload();
+                }, 500);
+                return false;
+            }, 'json');
+
+            return false;
+        });
+    });
+</script>

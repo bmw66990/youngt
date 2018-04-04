@@ -1,0 +1,43 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <div class="tab-menu">
+        <ul>
+            <li ><a href="index.html">圈子管理</a><label>&nbsp;</label></li>
+            <li class="current"><a href="adCircle.html">广告设置</a><label>&nbsp;</label></li>
+            <li ><a href="report.html">举报内容</a><label>&nbsp;</label></li>
+            <li ><a href="black_user.html">黑名单</a><label>&nbsp;</label></li>            
+        </ul>
+    </div>
+    <div class="nav-dis-menu">
+        <label>&nbsp;</label>           
+    </div>
+    <div class="content">
+        <div class="con-title">新建广告<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('Circle/doAddAdCircle')}" method="post">
+                <ul class="li-onlyline">
+                    <li><label>显示小区</label>
+                        <select name="catid">
+                            <option value="0">所有小区</option>
+                            <volist name="all_city" id="vo">
+                                <option value="{$vo['catid']}">{$vo.catid}-{$vo.catname}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>广告标题</label><input class="w300" type="text" name="title"></li>
+                    <li><label>广告链接</label><input class="w300" type="text" name="link"></li>
+                    <li><label>上传图片</label><span style="width:700px;display:inline-block;">
+						<include file="upload" />
+						<input type="hidden" name="picture" id="uploadimage" value="">
+					</span></li>
+                    <li><input class="small-btn btn-teal w100 h40" type="submit" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Partner/uploadImg',array('type'=>'Admanage'))}";
+</script>

@@ -1,0 +1,29 @@
+/*
+* CSS Document
+* User: daipingshan <491906399@qq.com>
+* Date: 2015/3/27
+* Time: 10:40
+*/
+@charset "utf-8";
+#popup{
+    margin:-45px auto;
+    padding:0px;
+    width:90%;
+}
+th{text-align:center}
+td{text-align:center}
+.red-color{color: red}
+.center{text-align: center}
+.left{text-align: left}
+.page_pt15{margin-top:-15px;}
+.table20{width: 20%}
+table{
+    table-layout:fixed;
+}
+td{
+    width:100%;
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+}

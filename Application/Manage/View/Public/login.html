@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代理登录_青团生活_青团网</title>
+    <meta name="keywords" content="青团网站团购网站_县城本地生活服务,青团网_团购_县城本地生活服务_青团网站 - 县城本地生活服务！为您汇集最全面最优惠的大学城美食娱乐团购打折促销信息！青团网为您精选内的自助餐、电影票、KTV、美发、足浴特色商家，享尽无敌折扣">
+    <meta name="description" content="青团网站_团购网站_大学生校园团购网站,青团网_团购_县城本地生活服务_青团网,青团网站,团购,打折,杨凌打折,优惠券,优惠券,校园团购">
+    <link rel="shortcut icon" href="__IMAGE_PATH__/favicon.ico">
+    <link href="__PLUGINS_PATH__/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PLUGINS_PATH__/Font-Awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<link href="__CSS_PATH__/animate.min.css" rel="stylesheet">
+    <link href="__CSS_PATH__/style.min.css?v=4.0.0" rel="stylesheet">
+    <base target="_blank">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+        	<div>
+        		<h1 class="logo-name"><img src="__IMAGE_PATH__/logo.png"/></h1>
+        	</div>
+            <h3>欢迎登陆</h3>
+            <form class="m-t" role="form"  id="login_form">
+                <div class="form-group">
+                    <input type="text" class="form-control" name='username' id="username" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name='password' id="password" placeholder="密码" required="">
+                </div>
+                <div class="form-group">
+                	<div class="row">
+            			<div class="col-sm-6">
+            				<input type="text" name='code' class="form-control" id="code"  placeholder="验证码" required="">
+            			</div>
+        				<div class="col-sm-6">
+        					<div class="row">
+        						<img src="__URL__/verify/" id="verifyImg" width="115" height="34" onclick="fleshVerify()" style="position: relative;left: -30px;">
+        					</div>
+        				</div>
+                			
+                	</div>
+                </div>
+                <p class="text-center text-danger" id="prompt"></p>
+                <button type="submit" class="btn btn-primary block full-width m-b" id="loginbtn">登录</button>
+                <p class="text-muted text-center">
+                    <a href="{:C('OLD_MANAGE_URL')}">
+                        <small>切换到旧版代理后台</small>
+                    </a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+    <script src="__PLUGINS_PATH__/jQuery-2.1.4/jquery-2.1.4.min.js"></script>
+    <script src="__PLUGINS_PATH__/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    	function check_charcode(code, _cb) {
+            if (!code || code.length < 5) {
+                _cb({code: -1});
+                return false;
+            }
+
+            $.post("{:U('Public/loginCheckVerify')}", {code:code}, function(data) {
+                   _cb(data);
+                   return false;
+            })
+
+            return true;
+        }
+        function fleshVerify() {
+            //重载验证码
+            var time = new Date().getTime();
+            $('#verifyImg').attr('src', '__URL__/verify/' + time);
+        }
+        function show_err_msg(error) {
+            $('#prompt').html(error);
+        }
+        
+        $(function() {
+            $('#loginbtn').click(function() {
+                var username = $('#username').val();
+                var password = $('#password').val();
+                var code = $('#code').val();
+                show_err_msg('');
+                $("#loginbtn").html("<i class='fa fa-spinner fa-spin'></i>");
+                if (!username) {
+                    show_err_msg('请输入用户名！！！');
+                    $('#username').focus();
+                    $("#loginbtn").html("登录");
+                    return false;
+                }
+                if (!password) {
+                    show_err_msg('请输入密码！！！');
+                    $('#password').focus();
+                    $("#loginbtn").html("登录");
+                    return false;
+                }
+                if (!code) {
+                    show_err_msg('请输入验证码！！！');
+                    $('#code').focus();
+                    $("#loginbtn").html("登录");
+                    return false;
+                }
+                 
+                $.post("__URL__/doLogin", $('#login_form').serialize(), function(data) {
+                    if (data.status == 1) {
+                        window.location.href = "{:U('Index/index')}";
+                    } else {
+                        $("#loginbtn").html("登录");
+                        show_err_msg(data['info']);
+                        fleshVerify();
+                    }
+                })
+                return false
+            })
+        });
+    </script>
+</body>
+</html>

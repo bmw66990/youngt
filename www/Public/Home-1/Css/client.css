@@ -1,0 +1,128 @@
+﻿@charset "utf-8";
+/*专题页*/
+.mbbox{background:#FFF7E4;height:90px;}
+.mbheader{height:76px;margin:0 auto;padding:20px 0 0;width:980px;}
+.mbheader h1 a.nmlogo{background:url(../Image/logo.png);width:198px;height:62px;display:block;}
+.mbnav{margin-top:24px;text-align:right;width:600px;}
+.mbnav li{display:inline-block;width:100px;text-align:center;position:relative;}
+.mbnav li a{height:30px;display:inline-block;}
+.mbnav a.navlink{color:#808080;font:18px "微软雅黑";}
+.mbnav a.active, .mbnav a.navlink:hover{color: #FF6282;}
+.bg1{background:url(../Image/top_bg1.jpg);height:621px;position:relative;width:1128px;margin:0 auto;}
+.bg1 .downloadblock{height: 200px;right:0;position: absolute;top: 300px;width: 400px;}
+.bg1 .downloadblock a{display:inline-block;position:absolute;}
+.bg1 .downloadtop{border-radius:5px;height:107px;left:107px;left:30px;top:45px;width:242px;}
+.bg1 .iPhoneicon{height:35px;width:35px;left:82px;top:166px;}
+.bg1 .androidicon{height:35px;width:35px;left:134px;top:166px;}
+.bg1 .weixinicon{height:35px;width:35px;left:186px;top:166px;}
+.downloadblock span{position:absolute;top:160px;left:290px;width:100px;}
+.contentbox .downloadtext{background:#fff url(../Image/index_11.jpg) no-repeat center;width:1128px;height:136px;margin:0 auto;}
+/*弹出层样式*/
+#floatFrame {
+	display:none;
+	color:#666;
+	background-color:#F6F5F2;
+}
+#floatFrame ul{
+	background-color: #fff;
+}
+#floatFrame li {
+	float: left;
+	padding:50px 50px 0 50px;
+	background-color: #fff;
+}
+#floatFrame li div {
+	width: 74px;
+	height: 138px;
+	cursor:pointer;
+	background:url(../Image/pop.png) no-repeat;
+}
+#floatFrame li div.img1 {
+	background-position: 0 0;
+}
+#floatFrame li div.img2 {
+	background-position: 0 -152px;
+}
+#floatFrame li div.img3 {
+	background-position: 0 -304px;
+}
+#floatFrame li div.img4 {
+	background-position: 0 -456px;
+}
+#floatFrame li div.img1Hover {
+	background-position:-87px 0;
+}
+#floatFrame li div.img2Hover {
+	background-position:-87px -152px;
+}
+#floatFrame li div.img3Hover {
+	background-position:-87px -304px;
+}
+#floatFrame li div.img4Hover {
+	background-position:-87px -456px;
+}
+/*修改jqueryUI默认样式*/
+.ui-dialog .ui-dialog-content {
+	padding:0;
+	z-index:101;
+}
+.ui-widget-header {
+	background:none;
+	border:none;
+}
+/*
+.ui-button {
+	padding:5px 10px;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	background:url(../Image/btnBg.jpg) repeat-x;
+	color:#fff;
+}
+*/
+#floatFrame .fl {
+	width:296px;
+}
+.qrCodeBg {
+	width:176px;
+	height:192px;
+	margin:20px 0 0 50px;
+	padding-top:20px;
+	background:url(../Image/qrCodeBg.png) no-repeat;
+}
+#qrCode {
+	margin:0 auto;
+}
+/*二维码图片样式调节*/
+.andriodCode {
+	width:120px;
+	height:120px;
+	background:url(../Image/qrcode.png) no-repeat #fff;
+}
+.iphoneCode {
+	width:120px;
+	height:120px;
+	background:url(../Image/qrcode.png) 0 -232px no-repeat #fff;
+}
+.wapCode {
+	width:116px;
+	height:116px;
+	background:url(../Image/qrcode.png) 0 -467px no-repeat #fff;
+}
+.weixinCode {
+	width:122px;
+	height:122px;
+	background:url(../Image/qrcode.png) 0 -698px no-repeat #fff;
+}
+#floatFrame .fl p {
+	margin-top:20px;
+	text-align:center;
+}
+#floatFrame .fr {
+	width:400px;
+	padding-top:30px;
+}
+#floatFrame .fr p {
+	padding-top:20px;
+	padding-right:50px;
+	line-height:1.5;
+} 

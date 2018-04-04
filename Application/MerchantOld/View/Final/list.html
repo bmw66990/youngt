@@ -1,0 +1,45 @@
+<div class="mt30">                  	
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>                                         
+                <th width="134">申请时间</th>
+                <th width="100" >金额</th>
+                <th width="50" >明细</th>
+                <th width="150">结算时间</th>
+                <th width="100">操作</th>
+            </tr>                                    
+        </thead>
+        <tbody>
+        <volist id="vo" name="list">
+            <tr>
+                <td>
+                    {$vo.create_time|date='Y-m-d H:i:s',###}
+                </td>
+                <td >{$vo['money']}</td>
+                <td> 
+            <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                <a href="{:U('Coupon/couponDetail',array('pay_id'=>$vo['id']))}" class="fac">明细</a>
+            </if>
+            </td>
+            <td>
+            <if condition="$vo['pay_time'] neq 0">
+                {$vo.pay_time|date='Y-m-d H:i:s',###}
+                <else/>
+                等待处理
+            </if>
+            </td> 
+            <td>
+            <if condition="$res = auth_check_access(array('Coupay/download'))">
+                <a id="down" href="{:U('Coupay/download',array('pay_id'=>$vo['id']))}" class="btn btn-warning" target="_blank">
+                    下载
+                </a>
+            </if>
+            </td>                                      
+            </tr> 
+        </volist>                   
+        </tbody>
+    </table>
+</div>
+<nav class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</nav>

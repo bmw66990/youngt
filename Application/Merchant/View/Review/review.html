@@ -1,0 +1,77 @@
+<include file="Common:header" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <include file="Common:message_tip" /> 
+                <style>
+            #btn-review-reply{
+                    margin-top: 10px;
+            }
+       </style>
+                <div class="mobile-rebind-dialog">
+                    <div>
+                        <div style='margin-top: 10px;margin-bottom: 10px;' class="time f-fr f-tar"><span style='margin-right: 100px;'>{$username|substr=0,3}***</span>   评价时间：{$order['create_time'] | date = 'Y-m-d',###} </div>
+                        <div class="cf"></div>
+                        <p class="comment mt10">评论内容:{$order['content']}</p>
+                    </div>
+                    <!--商户回复-->
+                    <div class="m-form">
+                        <form id='review-reply-form'  action="{:U('Review/review')}" method="post" >
+                            <fieldset>
+                                <div class="formitm">
+                                    <textarea class="form-control"  placeholder="您的回复会被公开展示，请注意措辞。最多500字" id='content'  rows="4" style='min-width:415px;max-width:415px;min-height:200px;max-height:200px;'></textarea>    
+                                </div>						            
+                                <div class="formitm formitm-1">
+                                    <input class="id" id='id' type="hidden" value='{$id}'>  
+                                     <if condition="$res = auth_check_access(array('Review/review'))">
+                                    <input class="btn btn-success" id='btn-review-reply' type="submit" value='回复'>  
+                                     </if>
+                                </div>
+                            </fieldset>
+                        </form> 
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Common:footer" />
+<script>
+    $(function() {
+        $(".main-content").on('click', '#btn-review-reply', function() {
+            var $this = $(this);
+            var $content = $("#content").val();
+            var $id = $('#id').val();
+            var $href = $(this).parents('form#review-reply-form').attr('action');
+            if($this.hasClass('disabled')){
+                return false;
+            }
+            if(!$.trim($content)){
+                show_message_tip({error: '评论内容不能为空'});
+                return false;
+            }
+            $this.addClass('disabled');
+            show_message_tip({success: '正在处理，请稍后...'});
+            $.post($href, {content: $content, id: $id}, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    show_message_tip(res);
+                    return false;
+                }
+                show_message_tip(res);
+                parent.window.setTimeout(function() {
+                    parent.window.location.reload();
+                    parent.layer.closeAll();
+                }, 500);
+                return false;
+            }, 'json');
+            return false;
+
+        });
+    });
+</script>

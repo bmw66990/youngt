@@ -1,0 +1,122 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link href="__CSS_PATH__/detail.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<section>
+    <div id='section'>
+    <include file="left" />
+    <div id="pcontent" class="coupons-box fl">
+
+        <div class="pmainbox mine">
+
+            <div class="tab">
+                <div class="tab_menu">
+                    <ul >
+                        <li>
+                            <a href="{:U('Member/growthList')}">我的成长值</a>
+                        </li>
+                        <li>
+                            <a href="{:U('Member/creditList')}">我的积分</a>
+                        </li>
+                        <li class="selected">
+                            <a href="{:U('Member/scoreGoods')}">积分商城</a>
+                        </li>
+                        <li>
+                            <a href="{:U('Member/scoreList')}">积分兑换记录</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab_box">
+                    <!-- 积分商城开始 -->
+                    <div id="credit">
+                      <span class="db myjf f-fs3">
+                        <b>积分商品详情</b>
+                      </span>
+                        <div class="points-goods-de">
+                            <img src="{$scoreInfo.image|getImagePath}">
+                            <h1>{$scoreInfo.name}</h1>
+                            <span class="goods-price">{$scoreInfo.score}积分</span>
+                            <if condition="$scoreInfo.limit_num gt 0">
+                            <span class="goods-label"><label>已兑换：{$scoreInfo.consume_num}/{$scoreInfo.limit_num}</label>
+                               <if condition="$scoreInfo.convert_num gt 0">
+                                    <label>每人限购{$scoreInfo.convert_num}份</label>
+                               </if>
+                            </span>
+                            </if>
+                        <span class="goods-label positon-to">
+                            <label>有效期至：{$scoreInfo.expire_time|date="Y-m-d",###}<br>数量：<button onclick="up($('#nub').val());">-</button><input type="text" value="1" id="nub"><button onclick="next($('#nub').val());">+</button></label>
+                            <label class="btn-change"><a href="{:U('Member/createScoreCoupon',array('id'=>$scoreInfo['id']))}" onclick="createScoureCoupon(this.href);return false;">兑换</a></label>
+                        </span>
+                        </div>
+                        <div class="points-goods-model">
+                            <span class="goods-title">商品详情</span>
+                            <h2>{$scoreInfo.title}</h2>
+                            <span class="merchant">电话：{$scoreInfo.phone}</span>
+                            <span class="merchant">地址：{$scoreInfo.address}</span>
+                        </div>
+                        <div class="points-goods-model">
+                            <span class="goods-title">商品说明</span>
+                            <p>{$scoreInfo.remark}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+    <div class="clear"></div>
+    <!--兑换成功-->
+    <a id="cart-alert-click" href="#cart-alert"></a>
+    <div style="display:none">
+        <div class="cart-alert" id="cart-alert">
+            <div class="cart-alert-left" style="width: 200px;">
+                <img src="__IMAGE_PATH__/check.png"/>
+                <label><h4>恭喜您，兑换成功</h4></label>
+                <label class="cart-textremark">您的兑换码是:<span id="alert-cart-num" style="display:inline;color:red;">0</span></label>
+            </div>
+            <div class="cart-alert-right" style="width: 310px;">
+                <li><a href="javascript:;" id="continue-cart"><<继续浏览</a></li>
+                <li><a href="{:U('Member/scoreList')}">查看兑换记录>></a></li>
+            </div>
+        </div>
+    </div>
+    <!--兑换成功-->
+</section>
+<include file="Common:footer" />
+<script type="text/javascript">
+    // 加入购物车的弹窗,后期根据需求修改
+    $(function(){
+        $("#cart-alert-click").fancybox({
+            'showCloseButton':false
+        });
+        $("#continue-cart").click(function(){
+            $.fancybox.close();
+        });
+    });
+    function up(num){
+        if(num == 1){
+            $('#nub').val(1);
+        }else{
+            var add_val = parseInt(num) - 1;
+            $('#nub').val(add_val);
+        }
+    }
+    function next(num){
+        var add_val = parseInt(num) + 1;
+        $('#nub').val(add_val);
+    }
+
+    function createScoureCoupon(url){
+        var num = $('#nub').val();
+        $.get(url,{num:num},function(data){
+            if(data.status == 1){
+                $('#alert-cart-num').text(data.code);
+                $("#cart-alert-click").trigger('click');
+            }else{
+                alert(data.error);
+            }
+        })
+    }
+</script>
+

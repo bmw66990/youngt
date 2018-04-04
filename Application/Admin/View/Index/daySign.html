@@ -1,0 +1,31 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="incite-worlds">新的一天开始了，祝您工作愉快!</div>
+        <if condition="$user['is_daySign'] eq 1">
+        <div class="sign-btn bc-teal fl"><a href="javascript:daySign();">今日签到</a></div>
+        <else />
+        <div class="sign-btn bc-grey fl">今日已签</div>
+        </if>
+        <div class="sign-btn-remark">这个月已迟到<label class="tx-red">{$user['late_count']}</label>次</div>
+        <div class="sign-list fl">
+            <h3>今日签到列表<span class="tx-green">+</span>
+                <ul>
+                    <li class="sign-list-title tx-grey"><label>姓名</label><label>日期</label><label>签到时间</label><label>签到IP</label><label>签到结果</label></li>
+                    <volist name="data" id="sign">
+                        <li <if condition="$sign['uname'] eq $user['uname']">class="tx-green"</if>>
+                            <label>{$sign['uname']}</label>
+                            <label>{$sign['day']}</label>
+                            <label><if condition="$sign['time'] eq 0">今天未签到<else />{$sign['time']|date="Y-m-d H:i:s",###}</if></label>
+                            <label><if condition="$sign['ip'] eq ''">今天未签到<else />{$sign['ip']}</if></label>
+                            <label <if condition="$sign['result'] gt 0">class="tx-grey"<elseif  condition="$sign['result'] eq 0"/>class="tx-orange"<elseif  condition="$sign['result'] lt 0"/>class="tx-red"</if>>{$sign['result_data']}</label>
+                        </li>
+                    </volist>
+                </ul>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/index.js"></script>

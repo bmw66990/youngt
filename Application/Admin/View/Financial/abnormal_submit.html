@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>结算异常处理</title>
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+        <link rel="stylesheet" href="__CSS_PATH__/pop_new.css" />
+    </head>
+    <style type="text/css">
+        .box{height: 300px!important;min-height: 300px;min-width: 300px;overflow: hidden;}
+        textarea{display: inline-block;}
+        .team>*{display: inline-block;}
+        .team>span{text-align: center;}
+        .w100{width: 100px;}
+    </style>
+    <body>
+        <div class="box">
+            <if condition="$agent_pay_info.paymark neq 1">
+                <form id='form-abnormal-submit' action="{:U('Financial/abnormal_submit')}" method='post'>
+                    <div class="poptitle">
+                        异常处理
+                    </div>
+                    <div class="team">
+                        <li><span>异常原因</span>
+                            <textarea name='content' cols="20" rows="3">
+                                                                          {$agent_pay_info.content|htmlentities}
+                            </textarea>
+                        </li>
+                        <li><span>修改价格</span>
+                            <input name='money' type="text" value='{$agent_pay_info.money}' class="w100"/>
+                        </li>
+                        <li>
+                            <input type='hidden' name='agent_pay_id' value='{$agent_pay_info.id}'/>
+                            <button id='btn-abnormal-submit' class="class-btn">确定</button>
+                        </li>
+                    </div>
+                </form>
+                <else/>
+                <form name="viewDetails">
+                    <div class="poptitle">
+                        异常记录
+                    </div>
+                    <div class="team">
+                        <li><label>异常原因</label>{$agent_pay_info.content|htmlentities}</li>
+                        <li><label>修改后金额</label>{$agent_pay_info.money}</li>
+                    </div>
+                </form>
+            </if>
+        </div>
+    </body>
+</html>
+<script>
+    $(function() {
+        $('button#btn-abnormal-submit').die().live('click', function() {
+            // 点击提现
+            var $this = $(this);
+            var $form = $this.parents('form#form-abnormal-submit');
+            var $href = $form.attr('action');
+            var $data = $form.serialize();
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+
+            var btn_html = $this.html();
+            $this.addClass('disabled');
+            $this.html('正在操作...');
+            $.post($href, $data, function(res) {
+                $this.removeClass('disabled');
+                $this.html(btn_html);
+                if (res.code != 0 && res.error) {
+                    parent.window.alert(res.error);
+                    return false;
+                }
+                parent.window.alert('修改成功！');
+                parent.window.location.reload();
+                return false;
+            });
+            return false;
+
+        });
+    });
+</script>

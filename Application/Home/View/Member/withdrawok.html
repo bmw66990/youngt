@@ -1,0 +1,31 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link rel="stylesheet" href="__CSS_PATH__/member.css?v={:C('CSS_VER')}" type="text/css" />
+<section><div id='section'>
+<!--右侧内容开始-->
+<div id="bd" >
+    <div id="content" class="bdh">                  
+            <div id="notice">
+                <div class="notice__head">
+                    <i class="notice__icon"></i>
+                    <p class="notice__title ft">恭喜您！提现成功！</p>
+                    <span class="dp f-fs2 mt5 c6">您已成功提现<span style="color:red;">{$money}</span>元，提现金额会在2-5个工作日到账，请注意查收！<a href="{:U('Member/balance')}" class="fac">查看青团余额</a></span>
+                </div>                          
+            </div>      
+            <div class="mainbox-signuped">
+                    <p class="ft f-fwb">温馨提示：</p>
+            <ul class="c6">
+                <li>
+                   • 手机购买时可直接使用青团余额，购买非常便捷！免费下载<a href="{:U('Public/client')}" class="fac">青团手机版；</a>                              
+                </li>
+                <li>
+                    •
+                    如有疑问，请联系客服。
+                </li>
+                </ul>
+                </div>  
+    </div>
+</div>
+<!--右侧内容结束-->
+</div></section>
+<include file="Common:footer" />

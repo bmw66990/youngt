@@ -1,0 +1,39 @@
+/*
+城市选择css
+*/
+span{display: inline-block;}
+#bdw{min-height:500px;z-index: 0;}
+#bd{margin: 0 auto;padding: 10px 0 5px; width: 1200px;}
+.choosecity{background:#fff;border:1px solid #D4D4d4;box-shadow:0 0 1px #D4EDF4;padding-bottom:30px;font-size:15px;overflow: hidden;}
+.choosedcity{height:18px;z-index:0;background:url(../Image/content-title-bg.png) repeat;border-bottom:1px solid #e5e5e5;padding: 16px 20px;}
+.choosedcity form {display: inline-block;vertical-align: middle;}
+.choosedcity .label {font-weight: bold;vertical-align: middle;}
+.province-city-select select{width: 100px;height:28px;line-height: 28px;}
+.choosedcity a{color:#339999;font-family:"黑体", "微软雅黑";font-weight:bold;}
+
+.choosedcity .sousuo{  background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #D4D4D4;border-radius: 2px 0 0 2px;font-size: 12px;height: 24px;line-height: 24px;
+    outline: 0 none; padding: 0 4px;}
+.city-list{border-bottom:1px solid #e5e5e5;padding:20px;font-weight:bold;}
+.city-list h3{display:inline-block;vertical-align:top;width:70px;}
+.city-list p{display:inline-block;vertical-align:top;width:860px;}
+.city-list a{display:inline-block;margin:0 10px 5px 0;width:3.0em;color:#068e8e;}
+.city-list a:hover{text-decoration:underline;}
+.joinlinkbtn{display:inline-block;height:34px;width:170px;}
+.joinlinkbtn a{background:url(../Image/joinLinkBtn.png);display:block;height:34px;width:170px;}
+.joinlinkbtn a:hover{background:url(../Image/joinLinkBtn.png) left bottom;}
+.city-choose{display:inline-block;float:right;margin:6px 58px 0 0;}
+.city-choose-1{font-size:12px;font-weight:normal;display:inline-block;vertical-align:central;}
+.citylist h2{z-index:0;background:#068e8e;color:#fff;display:inline-block;height:32px;line-height:32px;padding:0 14px;margin:20px 20px 12px; position: relative;width:128px;}
+.citylist h2 span { border-color: #068e8e #FFFFFF #FFFFFF; border-style: solid;border-width: 6px;display: block;float: none;font-size: 0;height: 0;left: 20px;line-height: 0;position: absolute;top: 32px;width: 0;}
+.citylist li{border-bottom:1px solid #fff;border-top:1px solid #fff;}
+.citylist p{border-bottom:1px solid #fff;border-top:1px solid #fff;padding:6px 10px 6px 30px;}
+.citylist .label{border:1px solid #DDDDDD;color:#666666;display: inline-block;height:30px;line-height:24px;margin-right:5px;vertical-align:top;width:30px;}
+.citylist .label strong{background:#F1F1F1;border:1px solid #f7f7f7;display:block;font-family:Tahoma;font-size:16px;height:28px;width:28px;text-align:center;}
+.citylist span{display:inline-block;width:880px;}
+.citylist .hover {border-color: #E5E5E5;}
+.citylist .hover p {background: none repeat scroll 0 0 #F7F7F7;}
+.citylist .hover .label {border-color: #1FB7BB;}
+.citylist .hover .label strong {background: none repeat scroll 0 0 #45ABAB;border-color: #45ABAB;color: #FFFFFF;}
+.citylist a {color:#339999;display: inline-block;height: 20px;line-height: 20px;margin: 5px 10px;padding: 0 2px 1px;}
+.citylist a:hover {background: none repeat scroll 0 0 #45ABAB;border-radius: 2px;color: #FFFFFF;}
+.citylist a:hover {background: none repeat scroll 0 0 #45ABAB;border-radius: 2px;color: #FFFFFF;}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>团单详情</title>
+<link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+</head>
+<style>
+li{
+    line-height: 28px;
+}
+li>label{
+    padding: 0 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+li>b{
+    display: inline-block;
+    color: #009999;
+    font-weight: 600;
+}
+</style>
+<body>
+<div class="box">
+	<div class="details">
+        <li><label>项目名称</label>{$data['title']}</li>
+        <li><label>项目时间</label>开始：{$data.begin_time|date='Y-m-d',###}      截至：{$data.end_time|date='Y-m-d',###}      有效期：{$data.expire_time|date='Y-m-d',###}</li>
+        <notempty name="data.attr">
+            <li><label>可选型号</label>
+                <volist name="data.attr" id="attr">
+                    {$attr.name}<b>（{$attr.max_num}）</b>&nbsp;&nbsp;
+                </volist>
+            </li>
+        </notempty>
+        <li><label>限购数量</label>最低：{$data.permin_number|ternary=###,0}    最高：{$data['max_number'] == 0 ? 无上限 : $data['max_number']}</li>
+        <li><label>项目定价</label>市场价格：<b>{$data.market_price}</b>元      项目价格：<b>{$data.team_price}</b>元      供货价：<b>{$data.ucaii_price}</b> 元</li>
+        <li><label>销售城市</label>{$city[$data['city_id']]['name']}</li>
+        <li><label>商家</label><b>{$data['partner_username']}</b></li>
+        <li><label>成交情况</label>成交量：<b>（虚拟购买：{$data['pre_number']|isNullChange=""}+实际购买：{$data['buy_num']|isNullChange=""}）={$data['cout']|isNullChange=""}</b>,实际共<b>（{$data['buy_count']|isNullChange=""}）</b>人购买了<b>（{$data['buy_num']|isNullChange=""}）</b>份，已消费<b>（{$data['consume_num']|isNullChange=""}）</b>,已退款<b>（{$data['refund_num']|isNullChange=""}）</b>
+        </li>
+        <li><label>项目统计</label>在线支付：<b>({$data['money']|isNullChange=""})</b> 余额支付：<b>({$data['credit']|isNullChange=""})</b> 毛利：<b>({$data['buy_num']*($data['team_price']-$data['ucaii_price'])|isNullChange=""})</b></li>
+        <li><label>项目收支</label>支付总额：<b>({$data['origin']|isNullChange=""})</b></li>
+        <li><label>BD</label>{$data['bd_username']}</li>
+    </div>
+</div>
+</body>
+</html>

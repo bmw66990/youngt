@@ -1,0 +1,54 @@
+<include file="Common:header" />
+
+<section>
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">已消费青团券<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<include file="search" />
+			<div class="form-list">
+				<table cellpadding="0" cellspacing="0">
+					<tr class="list-title">
+						<th class="w120">券号</th>
+						<th class="w300">项目</th>
+						<th class="w200">用户</th>
+						<th class="w150">发送短信</th>
+						<th class="w150">消费时间</th>
+						<th class="w60"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+					</tr>
+					<volist name="list" id="row">
+					<tr>
+						<td class="w120"><label class="tx-teal">{$row.id}</a></label></td>
+						<td class="w300">
+							<label class="tx-teal"><a href="{:U('Order/payList', array('team_id' => $row['team_id']))}" title="点击查付款订单" target="_blank">{$row.team_id}</a></label>
+							<label class="tx-grey"><a href="{$row.team_id|getTeamUrl}" title="{$team[$row['team_id']]['product']}" target="_blank">({$team[$row['team_id']]['product']})</a></label>
+						</td>
+						<td class="w200"><label class="td-title">
+							<lable>{$userList[$row['user_id']]['username']}</lable>
+							<a href="" target="_blank">{$userList[$row['user_id']]['mobile']}</a><br />
+							<lable class="f-12 tx-teal">
+								<if condition="checkMobile($mobileList[$row['order_id']]) eq true">
+                                <a href="javascript:popup('{:U('User/smsUser',array('mobile'=>$mobileList[$row['order_id']]))}',500,400);">[短信]</a>|
+                                </if>
+                                <a href="javascript:popup('{:U('User/getUserFlow',array('user_id'=>$row['user_id']))}',800,520);">[流水]</a>
+                            </lable>
+						</td>
+						<td class="w150"><label>{$row.sms_time|date='Y-m-d H:i:s',###}</label></td>
+						<td class="w150"><label class="f-12">{$row.consume_time|date='Y-m-d H:i:s',###}</label></td>
+						<td class="w60">
+							<if condition="$res = auth_check_access(array('Coupon/undoCoupon'))">
+							<label class="bc-teal"><a href="javascript:toAjax('{:U('Coupon/undoCoupon', array('id'=>$row['id'],'oid'=>$row['order_id']))}','确定撤销券号')">撤销</a></label>
+							</if>
+						</td>
+					</tr>
+					</volist>
+				</table>
+				<div class="selectpage">
+					<div class="pagenumber">{$pages}</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+
+<include file="Common:footer" />

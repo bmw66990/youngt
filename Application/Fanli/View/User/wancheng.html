@@ -1,0 +1,39 @@
+<include file="Common:header" />
+<div class="header container">
+    <p class="text-center  h3">                  
+        <a href="index.html" class="withdrawal-code-lt">
+          <img src="__IMAGE_PATH__/callback.png" width="18px">
+        </a>
+        <span class="withdrawal-code-title">结果详情</span>
+    </p>
+</div>
+
+<!-- 这是提现详情页 2 -->
+<div class="withdrawal-content2" style="display:block">
+    <div class="withdrawal-bg"><img src="__IMAGE_PATH__/img-ok.png" class="img-responsive withdrawal-bg-img"></div>
+    <div class="withdrawal-prompt-success">
+        <p class="h4 text-center">提现申请成功</p>
+        <p class="h6 text-center">24小时内到账</p>
+    </div>
+    <div class="withdrawal-form">
+        <ul class="withdrawal-list">
+            <li class="withdrawal-count withdrawal-list-item">提现金额
+                <span class="withdrawal-count-num">￥<?php echo $_GET['jine']?></span>                
+                <a href="withdrawalhis.html"><button class="withdrawal-history">提现记录</button></a>
+            </li>
+            <li class="withdrawal-method withdrawal-list-item">提现到
+                <span class="withdrawal-method-weixin">微信</span>
+            </li>
+            <li class="withdrawal-allow-count withdrawal-list-item">可提现金额
+                <span class="withdrawal-allow-all">￥<?php echo $_GET['pay']-$_GET['jine']?></span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="withdrawal-finish container">
+        <a href="index.html" class="btn btn-block withdrawal-finish-btn">完成</a>
+    </div> 
+</div>
+
+  
+<include file="Common:footer" />

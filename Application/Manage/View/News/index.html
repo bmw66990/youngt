@@ -1,0 +1,34 @@
+<include file="Common:header" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+       <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="list-group">
+                        	<volist name="data" id="vo">
+                            <a class="list-group-item" target="_blank" href="{:U('Home/Help/news',array('id'=>$vo['id']))}">
+                                <h4 class="list-group-item-heading">[<i class="text-danger">{$vo['id']}</i>] {$vo['title']}<small class="text-right"><p>{$vo['begin_time']|date="Y-m-d",###}</p></small></h4>
+                            </a>
+                            </volist>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$pages}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+<include file="Common:footer"/>
+</body>
+</html>

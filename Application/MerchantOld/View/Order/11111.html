@@ -1,0 +1,53 @@
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/normalize.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/style.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/review.css"/>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery-ui.min.js"></script>
+<!--<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.fancybox-1.3.4.pack.min.js"></script>-->
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/bootstrap.min.js"></script>
+<style>
+    div.m-form div.formitm{
+       padding-top: 5px;
+    }
+    div.m-form div.formitm span.goods_title{
+        display: inline-block;
+        width: 80px;
+        vertical-align: top;
+    }
+    div.m-form div.formitm span.goods_con{
+     display: inline-block;
+    }
+</style>
+<div class="body">
+    <div class="m-form">
+     <fieldset>
+                <div class="formitm">
+                    <span class="goods_title">状态：</span>
+                    <span class="goods_con">
+                        <if condition="$order.mail_order_pay_state eq 1">
+                        已发货
+                        <elseif condition="$order.mail_order_pay_state eq 2"/>
+                        已收货
+                        </if>
+                    </span>                   
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">快递类型：</span><span class="goods_con">{$express_name}</span>       
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">快递单号：</span><span class="goods_con">{$order.express_no}</span>       
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">物流信息：</span>
+                    <span class="goods_con">
+                            <volist id="vo" name="list">
+                                <div style='margin-top:10px;'>
+                                    <p>时间：{$vo.time}</p><p>详情：{$vo.context}</p>
+                                </div>
+                            </volist>
+                    </span>
+                </div>             
+            </fieldset>
+    </div>
+</div>
+<script type="text/javascript" src="__JS_PATH__/Order.js"></script>

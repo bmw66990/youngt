@@ -1,0 +1,65 @@
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/normalize.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/style.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/review.css"/>
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/bootstrap.min.css"/>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+<style>
+    .box li.auth-group-list-li{
+        float: left;
+        width: 180px;
+    }
+    .box div.auth-group-list{
+        margin-left: 50px;
+    }
+    .box li.auth-group-list-li span.label{
+        text-align: left;
+    }
+    .box li.auth-group-list-li input.checked-auth-group-one{
+        float: left;
+    }
+</style>
+<div class="box">
+    <form id="user-do-auth-form" action="{:U('User/'.$operation_type)}" method="post">
+        <li><h4>权限管理</h4></li>
+        <div class='auth-group-list'>
+            <volist  name="auth_group_list" id="agl">
+                <li class='auth-group-list-li'><input class='checked-auth-group-one' type="checkbox" name='user[group_id][]' value='{$agl.id}' <if condition="$agl.checked eq '1'"> checked='checked'</if> /><span class="label_">{$agl.title}</span></li>
+            </volist>
+        </div>
+        <li>
+            <input  type="hidden" name='operation_type' value="{$operation_type}">
+            <input  type="hidden" name='user[id]' value="{$id}">
+            <input  type="hidden" name='user[module_name]' value="{$module_name}">
+            <input id="user-do-auth-btn" class="btn btn-info" type="button" value="确定">
+        </li>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function() {
+        // 设置管理员权限
+        $('#user-do-auth-btn').die().live('click', function() {
+            var $this = $(this);
+            var $from = $this.parents('form#user-do-auth-form');
+            var href = $from.attr('action');
+            if ($this.hasClass('disabled')) {
+                parent.window.alert('正在处理，请稍等！');
+                return false;
+            }
+            var data = $from.serialize();
+            $this.addClass('disabled');
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    parent.window.alert(res.error);
+                    return false;
+                }
+                parent.window.alert('设置成功！');
+                parent.window.location.reload();
+            }, 'json');
+            return false;
+        });
+    })
+</script>

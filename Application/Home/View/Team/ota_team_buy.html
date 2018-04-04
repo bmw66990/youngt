@@ -1,0 +1,288 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<include file="Common:nav" />
+<!--支付页-->
+<div id="bdw">
+    <div id="bd" >
+        <div id="ytcontent">
+            <form id="deal-buy-form" class="common-form" action="__APP__/team/teamBuy" method="post">
+                <div  class="mainbox">
+                    <h2>购买仅需3步！</h2>
+                    <include file="Common:error" />
+                    <ol class="buy-process-bar steps-bar">
+                        <li class="step step--first step--current" style="z-index:2">
+                            <span class="step__num">1.</span>
+                            提交订单
+                            <span class="arrow__background"></span>
+                            <span class="arrow__foreground"></span>
+                        </li>
+                        <li class="step " style="z-index:1">
+                            <span class="step__num">2.</span>
+                            选择支付方式
+                            <span class="arrow__background"></span>
+                            <span class="arrow__foreground"></span>
+                        </li>
+                        <li class="step step--last ">
+                            <span class="step__num">3.</span>
+                            购买成功
+                        </li>
+                    </ol>
+                    <div class="table-section summary-table">
+                        <table cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <th class="desc">项目</th>
+                                    <th width="160">数量</th>
+                                    <th width="90">单价</th>
+                                    <th class="total" width="90">总价</th>
+                                </tr>
+                                <tr>
+                                    <td class="desc">
+                            <if condition="$team.team_type && $team.team_type eq 'cloud_shopping'">
+                                 <a target="_blank" href="{:U('Team/could_shoping_detail',array('tid'=>$team['id'],'pn'=>$team['now_periods_number']))}"> {$team['title']}
+                                <else/>
+                                 <a target="_blank" href="__APP__/team-{$team.id}.html"> {$team['product']}
+                            </if>
+                                           &nbsp;&nbsp;{$team_attr['name']|default=''}
+                                        </a>
+                                    </td>
+                                    <td class="quantity">
+                                        <a class="minus" style='display:none' hidefocus="true" href="javascript:void(0)"></a>
+                                        <input id="deal-buy-quantity" farefree="{$team['farefree']}" class="yt-text J-quantity" type="text" value="{$order_num}" name="quantity" maxlength="4" autocomplete="off" />
+                                        <a class="plus" hidefocus="true" href="javascript:void(0)"></a>
+                                    </td>
+                                    <td id="yui_3_12_0_1_1395628764948_221" class="money">
+                                        ¥
+                                        <span id="deal-buy-price">{$team['team_price']}</span>
+                                    </td>
+                                    <td class="money total">
+                                        ¥
+                                        <span id="deal-buy-total"></span>
+                                    </td>
+                                </tr>
+                           
+                                <tr>
+                                    <td></td>
+                                    <td class="extra-fee total-fee" colspan="3">
+                                        <strong>您需为订单支付</strong>
+                                        ：
+                                        <span class="inline-block money">
+                                            ¥
+                                            <strong id="deal-buy-total-t">{($team['team_price']+$team['fare'])}</strong>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="ota-info">
+                            <ul>
+                                <li>
+                                    <label>使用日期:</label>
+                                    <input id="time" name="use_date" value="2016-05-30" type="text">
+                                </li>
+                                <li>
+                                    <label>取票人:</label>
+                                    <input name="realname" type="text" placeholder="请输入您的姓名">
+                                </li>
+                                <li>
+                                    <label>取票人手机:</label>
+                                    <input name="mobile" type="tel" maxlength="11" placeholder="请输入您的手机号" value="{$member['mobile']}">
+                                </li>
+                                <li>
+                                    <label for="">取票人身份证号码:</label>
+                                    <input name="link_cno" type="text" placeholder="请输入您的身份证号码">
+                                </li>
+                            </ul>
+                            <!-- 数量:
+                            <input type="text" name="quantity" value="1"> -->
+                        </div>
+                    </div>
+                    <input type="hidden" name='team_attr_id'  value="{$team_attr['id']}"/>
+                    <if condition="$member && $team['team_type'] eq 'goods'">
+                        <div id="deal-buy-delivery" class="blk-item J-deal-buy-delivery delivery">
+                            <h3>收货地址</h3>
+                            <div id="address-list-content">
+                                <ul class="address-list" <if condition="empty($address_list)"> style="display:none" </if>>
+                                    <if condition="!empty($address_list)">
+                                          <volist name="address_list" id="address">
+                                                <li class="selected">
+                                                <input id="address_{$address.id}"  type="radio"  <if condition="$address.default eq 'Y'"> checked="checked" </if> value='{$address.id}' name="address_id">
+                                                    <label class="detail" for="address_{$address.id}" >{$address.name} {$address.province} {$address.area} {$address.city} {$address.street} {$address.mobile} 
+                                                       <if condition="$address.default eq 'Y'">
+                                                        <label class="t_lgrey">[默认地址]</label>
+                                                       </if>
+                                                    </label>
+                                                </li>
+                                          </volist>
+                                    </if>
+                                    <li class="selected">
+                                        <input  type="radio" id="address_newaddress" name="address_id" value="newaddress">
+                                        <label class="detail" for="address_newaddress">使用新地址</label>
+                                    </li>
+                                    </ul>
+                                    <div class="address-field-list" id="pro_city"   <if condition="!empty($address_list)"> style="display:none" </if>>
+                                        <div id="city_2" class="field-group field-group--small">
+                                            <label>
+                                                <span class="required">*</span>
+                                                省市区：
+                                            </label>
+                                            <span>
+                                                <select id="address-prov" class="prov address-province" autocomplete="off" name="address[province]"></select>
+                                                <select id="address-city" class="city address-city" autocomplete="off" name="address[area]"></select>
+                                                <select id="address-dist" class="dist address-district" autocomplete="off" name="address[city]"></select>
+                                            </span>
+                                            <div class="dist-select error_color"></div>
+                                        </div>
+                                        <div class="field-group field-group--small">
+                                            <label><span class="required">*</span>街道地址：</label>
+                                            <input id="address-street" class="f-text address-detail" type="text" value="" name="address[street]" size="60" maxlength="60">
+                                            <div class="street-input error_color"></div>
+                                        </div>
+                                        <div class="field-group field-group--small">
+                                            <label><span class="required">*</span>邮政编码：</label>
+                                            <input id="address-zipcode" class="f-text address-zipcode" type="text" value="" name="address[zipcode]" size="10" maxlength="20">
+                                            <div class="zipcode-input error_color "></div>
+                                        </div>
+                                        <div class="field-group field-group--small">
+                                            <label><span class="required">*</span>收货人姓名：</label>
+                                            <input id="address-name" class="f-text address-name" type="text" value="" name="address[name]" size="15" maxlength="15">
+                                            <div class="name-input error_color"></div>
+                                        </div>
+                                        <div class="field-group field-group--small">
+                                            <label><span class="required">*</span>电话号码：</label>
+                                            <input id="address-mobile" class="f-text address-mobile" type="text" value="{$member['mobile']}" name="address[mobile]" size="15" maxlength="15">
+                                            <div class="mobile-input error_color"></div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <hr>
+                            <h4>希望送货的时间:</h4>
+                            <ul class="delivery-type">
+                                <if condition="!empty($delivery_time)">
+                                          <volist name="delivery_time" id="dt">
+                                                 <li>
+                                                 <input type="radio" id="delivery_time_{$dt.id}" <if condition="$key eq 0"> checked="checked"</if>  name="d_time" value="{$dt.id}">
+                                                    <label for="delivery_time_{$dt.id}">{$dt.name}</label>
+                                                </li>
+                                          </volist>
+                                </if>
+                            </ul>
+                            <hr>
+                            <h4>配送说明<span>（快递公司由商家根据情况选择，请不要指定。其他要求会尽量协调）</span></h4>
+                            <input class="f-text comment" type="text" value="" name="remark" />
+                        </div>
+                    </if>
+                    <!--登陆后显示-->
+                    <present name="member">
+                        <if condition = "$member['mobile'] neq ''">
+                            <div class="blk-mobile fl">
+                                <span class="mobile-info" >
+                                    <if condition="$team['team_type'] eq 'goods'">
+                                         用户手机号：
+                                        <else/>
+                                         将发送青团券至手机号：
+                                    </if>
+                                     <input style="vertical-align:middle; width:120px;" id="phone" type="text" class="f-text mobile" value="{$member['mobile']}" name="mobile" maxlength="11">
+                                     <span id="error_content" class="error_color"></span> 
+                                </span>
+                            </div>
+                            <else />
+                            <a id="get-mobile" href="#verify-mobile">首次购买请先验证手机号</a>
+                        </if>
+                    </present>
+
+                    <!---->
+                    <div class="form-submit">
+                        <input type="hidden" name="tid" value="{$team['id']}" />
+                        <present name="member">
+                            <input id="btn-buy-submit" team_type="{$team['team_type']}" class="btn-1 btn-large btn-buy-submit" name="" type="submit" value="提交订单" />
+                            <else />
+                            <input id ='btn-buy-no-login-submit' class="btn-1 btn-large btn-buy" name="submit" type="button" value="提交订单" />
+                        </present>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!-- 选择商品类型的模板 -->
+<div style="display:none">
+    <div id="condbuy">
+        <p>请选择商品类型</p>
+        <volist name="team.condbuy" id="condbuy" key="k">
+            <select name="condbuy[{$k}]">
+                <option value="0">请选择</option>
+                <volist name="condbuy" id="option">
+                    <option value="{$option}">{$option}</option>
+                </volist>
+            </select>
+        </volist>
+        <button>确定</button>
+    </div>
+</div>
+<!--绑定手机验证码-->
+<div id = 'verify-mobile-tmpl' style="display:none">
+    <div id="verify-mobile" class="blk-item common-bind-mobile" style="padding-top:0;">
+        <div id="mobile-waitting"></div>
+        <h3>您的手机<span class="first-desc">（购买成功后系统将发送信息到您的手机，请务必填写）。</span></h3>
+        <div class="text tip error tipMsg" id="code-msg"></div>
+        <div class="field-group field-group--small">
+            <label>手机号：</label>
+            <input id="mobile" class="f-text mobile" type="text" value="" name="mobile" maxlength="11" autocomplete="off">
+            <span id="J-common-mobile-tip" class="tip error">请输入正确的11位手机号码</span>
+        </div>
+        <div id="mobile-msg" class="tip error"></div>
+        <div class="field-group field-group--small" id="pt">
+
+            <input id="get-code" type="button" value="获取验证码">
+            <input style="display:none" id="go-on" type="button" value="继续">
+            <input style="display:none" id="reset-mobile" type="button" value="重新输入手机号">
+        </div>
+        <div id="J-common-verifycode" class="field-group field-group--small field-group--verifycode">
+            <label>验证码：</label>
+            <input id="code" class="f-text verifycode" type="text" value="" name="verifycode" autocomplete="off">
+
+            <input id="check-code" name="check-code" type="button" value="验证" />
+            <span id="J-common-mobile-tip" class="tip error"></span>
+            <div id="code-waitting"></div>
+        </div>
+    </div>
+</div>
+
+<!--百分点代码：购物车页-->
+<script type="text/javascript">
+    window["_BFD"] = window["_BFD"] || {};
+    _BFD.BFD_INFO = {
+        "ids": ["{$team['id']}"], //加入购物车的商品id
+        "user_id": "{$member.id}", //网站当前用户id，如果未登录就为0或空字符串
+        "page_type": "shopcart" //当前页面全称，请勿修改
+    };
+    if (dfb_common) {
+        dfb_common();
+    }
+    $(function(){
+        var prov = "{$city['czone']}";
+        var city = "{$city['name']}";
+        $('#city_2').citySelect({prov:prov, city:city, required:false,url:"__PLUGINS_PATH__/selectCity/city.min.js"});
+    });
+</script>
+
+<script type="text/javascript" src="__JS_PATH__/teamBuy.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript" src="__PLUGINS_PATH__/laydate/laydate.js"></script>
+<script>
+    $(function(){
+        laydate({
+            elem: '#time',
+            format: 'YYYY-MM-DD',
+            festival: true, //显示节日 
+            istime: true,
+        });
+    });
+</script>
+
+<!--底部开始-->
+<include file="Common:footer" />
+
+

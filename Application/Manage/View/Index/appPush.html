@@ -1,0 +1,146 @@
+<include file="Common:header"/>
+<!--本页面样式-->
+	<link href="__PLUGINS_PATH__/iCheck/custom.css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/plugins/date/WdatePicker.js"></script>
+<style type="text/css">
+	.table{border-color: #ccc;border-width: 1px; border-style: solid;width: 260px;}
+	.table tr td:nth-child[2]{width: 200px;}
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+    	<if condition="$res = auth_check_access(array('Index/appPush'))">
+    	<!--消息推送-->
+    	<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>App消息推送 </h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="form_basic.html#">选项1</a>
+                                </li>
+                                <li><a href="form_basic.html#">选项2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form  action="{:U('Index/doAppPush')}" method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">推送时间</label>
+                                <div class="col-sm-2">
+                                    <input type="text"   onFocus="WdatePicker({readOnly:true,dateFmt:'HH:mm:ss'})"  class="form-control">
+                                    <span class="help-block m-b-none text-danger">定时推送时须填写此项</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">推送内容</label>
+                                <div class="col-sm-10">
+                                	<div class="row">
+                                		<div class="col-sm-12">
+	                                		<div class="form-group">
+	                                			<div class="row">
+	                                				<div class="col-sm-2">
+		                                				<div class="radio i-checks">
+			                                        		<label>
+                                                            <input type="radio" value="team"  name="type" checked=""> <i></i> 推荐团单
+                                                            </label>
+                                                            <div id="crate"></div>
+			                                   		 	</div>
+	                                				</div>
+		                                			<div class="col-sm-4">
+		                                				<div class="input-group">
+                                                            <div class="input-group">
+                                                                <!-- Table -->
+                                                                <table class="table" id='team_push'>
+                                                                </table>
+                                                            </div>
+					                                        <span class="input-group-btn"> 
+				                                       			<button type="button" class="btn btn-primary layer-iframe crate" data-href="{:U('Index/pushTeam')}" data-title="选择团单" >选择团单</button> 
+					                                        </span>
+					                                    </div>
+		                                			</div>
+	                                			</div>
+	                                    	</div>
+	                                	</div>
+	                                </div>
+	                                <div class="row">
+                                		<div class="col-sm-12">
+	                                		<div class="form-group">
+	                                			<div class="row">
+	                                				<div class="col-sm-2">
+		                                				<div class="radio i-checks">
+			                                        		<label id="context"><input type="radio" value="content" name="type"> <i></i> 自定义内容</label>
+			                                   		 	</div>
+	                                				</div>
+		                                			<div class="col-sm-4">
+		                                				<div class="input-group">
+					                                       <textarea name="content" rows="5" cols="50" class="form-control context" disabled=""></textarea>
+					                                    </div>
+		                                			</div>
+	                                			</div>
+	                                    	</div>
+	                                	</div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" type="submit">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	</if>
+    </div>
+   <include file="Common:footer"/>
+    <script src="__JS_PATH__/content.min.js?v=1.0.0"></script>
+    <script src="__PLUGINS_PATH__/iCheck/icheck.min.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+    <script>
+        $(document).ready(function(){
+        	//推送消息
+        	$("#context").on("ifClicked","input",function(){
+        		$(".context").removeAttr("disabled");
+        		$(".crate").attr("disabled","disabled");
+        	})
+        	$("#crate").on("ifClicked","input",function(){
+        		$(".context").attr("disabled","disabled");
+        		$(".crate").removeAttr("disabled");
+        	});
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+
+            $(".layer-iframe").on("click",function(){
+                $url = $(this).attr("data-href");
+                $title = $(this).attr("data-title");
+                layer.open({
+                    type: 2,
+                    title: $title,
+                    offset:"10%",
+                    shadeClose: true,
+                    shade: 0.8,
+                    content:$url,
+                    area:['780px','80%']
+                }); 
+            });
+        });
+    </script>
+    
+</body>
+
+</html>

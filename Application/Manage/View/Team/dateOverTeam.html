@@ -1,0 +1,98 @@
+<include file="Common:header"/>
+<!--团单列表-->
+<link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="__PLUGINS_PATH__/datapicker/datepicker3.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+             	<div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                       即将到期团单（7天之内）
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover text-center" id="editable">
+                            <thead>
+                                <tr>
+                                    <th>团单编号</th>
+                                    <th>团单标题</th>
+                                    <th>权重</th>
+                                    <th>团单时间</th>
+                                    <th>团单价</th>
+                                    <th>签单价</th>
+                                    <th>成交量</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="data" id="vo">
+                                <tr>
+                                    <td>{$vo['id']}</td>
+                                    <td>{$vo['product']}</td>
+                                    <td><input style="width:50px;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="sort_order" value="{$vo['sort_order']}" onblur="ajaxSet_sortOrder($(this),{$vo.id},{$vo.sort_order})"/></td>
+                                    <td>{$vo['begin_time']|date="Y-m-d",###}<br />{$vo['end_time']|date="Y-m-d",###}</td>
+                                    <td>{$vo['team_price']}</td>
+                                    <td>{$vo['ucaii_price']}</td>
+                                    <td>{$vo['now_number']}</td>
+                                    <td>
+                                        <if condition="$res = auth_check_access(array('Team/getTeamDetail'))">
+                                            <button class="btn btn-info btn-sm J_menuItem layer-iframe" data-href="__URL__/getTeamDetail/id/{$vo[\'id\']}" data-title="团单详情" ><i class="fa fa-binoculars"></i> 详情</button>
+                                        </if>
+                                        <if condition="$res = auth_check_access(array('Team/edit'))">
+                                            <a href="__URL__/edit/id/{$vo['id']}" class="btn btn-info btn-sm J_menuItem" target="_blank"><i class="fa fa-paste"></i> 编辑</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$pages}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.config.js"></script>
+    <script src="__PLUGINS_PATH__/datapicker/bootstrap-datepicker.js"></script>
+    <script>
+    	$(document).ready(function(){
+    		var $endtime;
+    		$("#start_time").datepicker({
+    			format: "yyyy-mm-dd",
+				endDate:new Date()
+    		}).on("changeDate",function(){
+    			$endtime = $(this).val();
+				$("#end_time").datepicker({
+					 	startDate:new Date($endtime),
+					 	endDate:new Date()
+						 });
+    		})
+    	})
+    </script>
+    
+</body>
+
+
+</html>

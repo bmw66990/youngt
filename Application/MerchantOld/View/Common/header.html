@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>商户后台管理</title>
+        <link rel="shortcut icon" href="__ASSET_PATH__/Image/favicon.ico" size="16x16" />
+        <link rel="apple-touch-icon" href="__ASSET_PATH__/Image/touchicon.png"/>
+
+        <link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/jquery.fancybox-1.3.4.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/normalize.css"/>
+        <link rel="stylesheet" href="__CSS_PATH__/common/style.css"/>
+        <style>@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");</style>
+        <script type="text/javascript" src="__JS_PATH__/common/jquery.min.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/common/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/common/jquery.fancybox-1.3.4.pack.min.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/common/bootstrap.min.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/common/common.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/common/jquery.cookie.js"></script>
+    </head>
+    <body>
+        <div id="hdw">
+            <div id="hd" class="w980 f-pr">
+                <a class="logo f-db"></a>
+                <ul class="navs">
+                    <if condition="$partners_info['username'] neq ''">
+                        <li class="option option--username f-pr f-tac f-ib" title="{$partners_info.username}">
+                            <a href="__APP__/__APP_NAME__/Partner">欢迎您:{$partners_info.username}</a>
+                        </li>
+                        <li class="option f-pr f-tac f-ib">
+                            <a href="__APP__/__APP_NAME__/Public/logout">退出</a>
+                        </li>
+                        <li class="option f-pr f-tac f-ib">
+                            <a href="__APP__/__APP_NAME__/Partner/editPwd/show/1" id="editPwd">修改密码</a>
+                        </li>
+                    </if>
+                    <li class="option f-pr f-tac f-ib">
+                        <a target="_blank" href="http://www.youngt.com">青团首页</a>
+                    </li>
+                    <li class="option f-pr f-tac f-ib">
+                        <a href="__APP__/__APP_NAME__">商户中心</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+          <script type="text/javascript">
+                      var $base_url = '__APP__/__APP_NAME__';
+                      window.$base_url = '__APP__/__APP_NAME__';
+         </script>

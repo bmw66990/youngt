@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="cn">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="renderer" content="webkit">
+		<!--[if lt ie 8]>
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<![endif]-->
+        <meta property="qc:admins" content="2140326316617567463757" />
+        <title>首页_青团网站_团购网站_县城本地生活服务,青团网_团购_县城本地生活服务</title>
+        <meta name="description" content="首页_青团网站团购网站_县城本地生活服务,青团网_团购_县城本地生活服务_青团网站 - 县城本地生活服务！为您汇集最全面最优惠的大学城美食娱乐团购打折促销信息！青团网为您精选内的自助餐、电影票、KTV、美发、足浴特色商家，享尽无敌折扣！" />
+        <meta name="keywords" content="首页_青团网站_团购网站_大学生校园团购网站,青团网_团购_县城本地生活服务_青团网,青团网站,团购,打折,杨凌打折,优惠券,优惠券,校园团购" />
+        <link rel="icon" href="__IMAGE_PATH__/favicon.ico" size="16x16" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+        <link href="__CSS_PATH__/base.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+        <link href="__CSS_PATH__/default.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+        <!--[if ie 8]>
+        <script src="http://haiqiancun.com/file/demo/custom.modernizr.js"></script>
+        <![endif]-->
+        <script src="__JS_PATH__/jquery-select.js" type="text/javascript"></script>
+        <script type="text/javascript" src="__JS_PATH__/jquery-1.7.2.js"></script>
+        <!--<script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>-->
+        <script type="text/javascript" src="__JS_PATH__/jquery.easing.min.js"></script>
+        <script src="__JS_PATH__/backtop.js?v={:C('JS_VER')}" type="text/javascript"></script>
+        <script src="__JS_PATH__/common.js?v={:C('JS_VER')}" type="text/javascript"></script>
+        <script src="__JS_PATH__/default.js?v={:C('JS_VER')}" type="text/javascript"></script>
+        <script src="__JS_PATH__/jquery.tmpl.min.js" type="text/javascript"></script>
+        <link type="text/css" rel="stylesheet" href="__PLUGINS_PATH__/libs/css/jquery-ui.min.css" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/libs/js/jquery-ui.min.js"></script>
+        <link href="__PLUGINS_PATH__/fancybox/Css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/jquery.cookie.js"></script>
+    </head>
+    <body>
+        <header>
+            <!--头部公共部分-->
+            <div id="topmenu" class="b_litblue">
+                <div class="toptext">
+                    <div class="toptext-menu-x">
+                        <ul>
+                        	<li><label class="t_green mr10 change-c-n" id="youngtCityName"></label><span class="line-row"></span></li>
+	                        <li class="more-showul change-c-b"><a href="{:U('Public/city')}"><img src="__IMAGE_PATH__/all_area.png" width="17px">切换城市<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a>
+	                        	<div class="mouseover-top">
+	                        		<div class="top-city-list">
+		                        		<span>周边城市</span>
+		                        		<ul id="periphery_city">
+		                        			
+			                        	</ul>
+			                        	<span class="more-city"><a href="{:U('Public/city')}">更多城市>></a></span>
+	                        		</div>
+	                        	</div>
+	                        </li>
+                        </ul>
+                    </div>
+                    <div class="toptext-menu-y">
+                        <ul>
+                        	<li class="youngt-register"></li>
+		                    <li class="youngt-login"></li>
+		                    <li><a href="{:U('Member/account')}">我的青团</a><span class="line-row"></span></li>
+		                    <li><a href="{:U('Member/index')}">我的订单</a><span class="line-row"></span></li>
+		                    <li  class="more-showul">
+		                    	<a href="{:U('Cart/index')}">购物车(<span id="user-cart-nums" style='display:inline-block;color:red'>0</span>)<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a><span class="line-row"></span>
+                                <div class="mouseover-top" id="gwid">
+                                    <div class="mouseover-text">
+                                   	</div>
+                                </div>
+                            </li>
+                            <li class="more-showul"><a href="javascript:;" >最近浏览<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a><span class="line-row"></span>                 
+                                <div class="mouseover-top">
+                                    <div class="mouseover-text">
+                                    	<ul id="top-history-list-con" class="no-bottom-border">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+		                    <li class="more-showul"><a href="{:U('Merchant/Public/login')}">我是商家<img class="more" src="__IMAGE_PATH__/class_menu_more.png"></a><span class="line-row"></span>
+		                    	<div class="mouseover-top">
+	                        		<div class="mouseover-list">
+			                        	<ul>
+			                        		<li><a href="{:U('Public/signUp')}" class="fancybox fancybox.iframe fac">商户报名</a></li>
+			                        		<li><a href="{:U('Public/verifyCoupon')}" id="verify-coupon" class="fancybox fancybox.iframe fac">券号验证</a></li>
+			                        		<li><a href="{:U('Public/merchants')}" class="fancybox fancybox.iframe fac">加盟分站</a></li>
+			                        	</ul>
+	                        		</div>
+	                        	</div>
+		                    </li>
+		                    <li><a href="http://kefu.rongkecloud.com/RKServiceClientWeb/index.html?ek=fa91161ab7229527cf52d1eb671cb5f7f607fbd3&bg=4&gd=260" target="_blank">联系客服</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div id="logo">
+                <div class="img-logo">
+                    <a href="{:U('/')}"><img src="__IMAGE_PATH__/logo.png"/></a>
+                </div>
+                <!--<div class="c-ctiy">
+                    <div class="c-ctiy-top">
+                        <span id="youngtCityName" class="change-c-n"></span>
+                        <span class="change-c-b">[<a href="{:U('Public/city')}">切换城市</a>]</span>
+                    </div>
+                    <div class="c-ctiy-bottom">
+                        <a href="{:U('/')}"><img src="__IMAGE_PATH__/url.png" /></a>
+                    </div>
+                </div>-->
+                <div id="search" >
+                    <form action="{:U('Category/search')}" method="get">
+                        <label>
+                            <div class="select">
+                                <label>团购</label>
+                                <select name="" class="select_class">
+                                    <option value="团购" >团购</option>
+                                </select>
+                            </div>
+                        </label>
+                        <label><input type="text" class="input-text" name="key" value="{$searchParams['key']}" placeholder="请输入商品名称、地址等" /></label>
+                        <label><input type="submit" value="搜索" class="sub" /></label>
+                    </form>
+                </div>
+                <div class="ico">
+                    <img src="__IMAGE_PATH__/ico.png"/>
+                </div>
+            </div>
+        </header>
+        <nav class="clearfix">
+            <div id='nav'>
+                <div id="nav-left" class="fl">
+                    <span class="menu-title b_green">全部团购分类<i class="onover">&nbsp;</i></span>
+                </div>
+                <div id="nav-right" class="b_grey fl">
+                    <span class="b_n_grey"><a href="{:U('/')}">团购首页</a></span>
+                    <span><a href="{:U('Category/today')}">今日新单</a></span>
+                    <span><a href="{:U('Category/index',array('gid'=>255))}">美食</a></span>
+                    <span><a href="{:U('Around/index')}">附近团购</a></span>
+                    <!--span><a href="{:U('Category/cloud_shoping_team_list')}">一元众筹</a></span-->
+                     <span><a href="{:U('Partner/reservation_index')}">订座</a></span>
+                    <!--    <span><a href="#">结婚</a></span>
+                        <span><a href="#">亲子</a></span>-->
+                </div>
+            </div>
+        </nav>
+        <!--首页内容开始-->
+        <section class="clearfix"><div id='section'>
+                <div class="demo-one fl">
+                    <div class="demo-one-left b_litblue">
+                        <div class="class-menu" >
+                            <ul>
+                                <li >
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/255')}">美食</a></span>
+                                    <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/255/sid/589')}">烧烤</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/255/sid/418')}">火锅</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/255/sid/587')}">自助餐</a></span>
+                                    <div class="class-menu-float">
+                                        <ul id="fm01" class="float-menu">
+                                            <h3><a href="{:U('Category/index/gid/255')}">美食</a></h3>
+                                            <li><a href="{:U('Category/index/gid/255/sid/589')}">烧烤</a></li>
+                                            <li><a href="{:U('Category/index/gid/255/sid/416')}">地方菜</a></li>
+                                            <li><a href="{:U('Category/index/gid/255/sid/431')}">蛋糕</a></li>
+                                            <li><a href="{:U('Category/index/gid/255/sid/1652')}">果蔬</a></li>
+                                            <li><a href="{:U('Category/index/gid/255/sid/418')}">火锅</a></li>
+                                            <li><a href="{:U('Category/index/gid/255/sid/427')}">小吃</a></li>
+                                            <li><a href="{:U('Category/index/gid/255/sid/417')}">西餐</a></li>
+                                            <li><a href="{:U('Category/index/gid/255/sid/587')}">自助餐</a></li>
+
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li >
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/12')}">休闲娱乐</a></span>
+                                    <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/12/sid/256')}">ktv</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/12/sid/599')}">酒吧</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/12/sid/420')}">电影</a></span>
+                                    <div class="class-menu-float">
+                                        <ul id="fm02" class="float-menu">
+                                            <h3><a href="{:U('Category/index/gid/12')}">休闲娱乐</a></h3>
+                                            <li><a href="{:U('Category/index/gid/12/sid/599')}">酒吧</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/605')}">采摘</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/591')}">电玩</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/604')}">滑雪</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/256')}">ktv</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/420')}">电影</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/430')}">其他娱乐</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/421')}">游泳</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/428')}">桌球</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/595')}">门票</a></li>
+                                            <li><a href="{:U('Category/index/gid/12/sid/1187')}">真人CS</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li >
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/12/sid/420')}">电影</a></span>
+                                    <!--  <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                      <div class="class-menu-float">
+                                          <ul id="fm02" class="float-menu">
+                                              <h3><a href="{:U('Category/index/gid/255')}">休闲娱乐</a></h3>
+                                              <li><a href="{:U('Category/index/gid/12/sid/420')}">电影</a></li>
+                                          </ul>
+                                      </div>-->
+                                </li>
+                                <li>
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/404/sid/13')}">酒店/极速订房</a></span>
+                                    <!-- <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                     <div class="class-menu-float">
+                                         <ul id="fm02" class="float-menu">
+                                             <h3><a href="{:U('Category/index/gid/255')}">休闲娱乐</a>酒店/极速订房</h3>
+                                             <li><a href="{:U('Category/index/gid/404/sid/13')}">酒店</a></li>
+                                         </ul>
+                                     </div>-->
+                                </li>
+                                <li>
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/404/sid/407')}">旅游</a></span>
+                                    <!--  <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                      <span class="class-menu-n"><a href="{:U('Category/index/gid/404/sid/407')}">旅游</a></span>
+                                      <div class="class-menu-float">
+                                          <ul id="fm02" class="float-menu">
+                                              <h3><a href="{:U('Category/index/gid/255')}">休闲娱乐</a>旅游</h3>
+                                              <li><a href="{:U('Category/index/gid/404/sid/407')}">旅游</a></li>
+                                          </ul>
+                                      </div>-->
+                                </li>
+                                <li>
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/14')}">丽人</a></span>
+                                    <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/14/sid/424')}">美容</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/14/sid/422')}">美发</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/14/sid/423')}">美甲</a></span>
+                                    <div class="class-menu-float">
+                                        <ul id="fm02" class="float-menu">
+                                            <h3><a href="{:U('Category/index/gid/14')}">丽人</a></h3>
+                                            <li><a href="{:U('Category/index/gid/14/sid/424')}">美容美体</a></li>
+                                            <li><a href="{:U('Category/index/gid/14/sid/422')}">美发</a></li>
+                                            <li><a href="{:U('Category/index/gid/14/sid/423')}">美甲</a></li>
+                                            <li><a href="{:U('Category/index/gid/14/sid/607')}">其他美容</a></li>
+                                            <li><a href="{:U('Category/index/gid/14/sid/1651')}">医疗体检</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/419')}">生活服务</a></span>
+                                    <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/419/sid/425')}">足疗洗浴</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/419/sid/1030')}">家居建材</a></span>
+                                    <div class="class-menu-float">
+                                        <ul id="fm02" class="float-menu">
+                                            <h3><a href="{:U('Category/index/gid/419')}">生活服务</a></h3>
+                                            <li><a href="{:U('Category/index/gid/419/sid/425')}">足疗洗浴</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/608')}">鲜花婚庆</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/426')}">配镜</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/1030')}">家居建材</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/412')}">摄影写真</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/598')}">电话卡</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/429')}">其他生活</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/15')}">学习培训</a></li>
+                                            <li><a href="{:U('Category/index/gid/419/sid/592')}">体检洗牙</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li id="goods-category-content">
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/16')}">购物</a></span>
+                                    <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/16/sid/1654')}">农特产品</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/16/sid/405')}">本地自取</a></span>
+                                    <div class="class-menu-float">
+                                        <ul id="fm02" class="float-menu">
+                                            <h3><a href="{:U('Category/index/gid/16')}">购物</a></h3>
+                                            <li><a href="{:U('Category/index/gid/16/sid/1654')}">农特产品</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/405')}">本地自取</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/580')}">童装</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/579')}">男装</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/125')}">女装</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/586')}">情侣用品</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/581')}">内衣内裤</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/583')}">母婴</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/129')}">箱包</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/126')}">化妆品</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/131')}">家居</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/127')}">数码电器</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/582')}">配饰</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/584')}">运动户外</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/128')}">本地</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/130')}">鞋帽</a></li>
+                                            <li><a href="{:U('Category/index/gid/16/sid/585')}">创意玩具</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="class-menu-t"><a href="javascript:void(0)">结婚</a></span>
+                                    <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                    <span class="class-menu-n">婚纱摄影</span>
+                                    <span class="class-menu-n">婚纱礼服</span>
+                                    <div class="class-menu-float">
+                                        <ul id="fm02" class="float-menu">
+                                            <h3><a href="javascript:void(0)">结婚</a></h3>
+                                            <li><a href="#">代金券</a></li>
+                                            <li><a href="#">火锅</a></li>
+                                            <li><a href="#">自助餐</a></li>
+                                            <li><a href="#">聚餐宴请</a></li>
+                                            <li><a href="#">代金券</a></li>
+                                            <li><a href="#">蛋糕</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="no-bottom-border" >
+                                    <span class="class-menu-t"><a href="{:U('Category/index/gid/15')}">教育培训</a></span>
+                                    <span class="fr class-menu-i"><i>&nbsp;</i></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/15/sid/1723')}">驾校</a></span>
+                                    <span class="class-menu-n"><a href="{:U('Category/index/gid/15/sid/1722')}">中小学</a></span>
+                                    <div class="class-menu-float">
+                                        <ul id="fm02" class="float-menu">
+                                            <h3><a href="{:U('Category/index/gid/15')}">教育培训</a></h3>
+                                            <li><a href="{:U('Category/index/gid/15/sid/1723')}">驾校</a></li>
+                                            <li><a href="{:U('Category/index/gid/15/sid/1722')}">中小学</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="demo-one-right fl">
+                        <div class="banner fl" id="banner">
+                            <a id="prevbt"></a>
+                            <a id="nextbt"></a>
+                            <ul id="admanage">
+                            </ul>
+                        </div>
+                        <script type="text/javascript">
+
+                        </script>
+                        <div class="raat-made fl">
+                              <ul>
+                              	<li>
+                              		<a id="admanage-partner-a-conten" href="http://kd.youngt.com/" target="_blank" ><img src="__IMAGE_PATH__/admanage-partner1.jpg" ></a>
+                              	</li>
+                              </ul>
+                        </div>
+                   		<div class="demo-class-menu fl">
+                            <div class="demo-class-menu-li fl">
+                                <dt><img src="__IMAGE_PATH__/hot_class.png"/>热门分类</dt>
+                                <dd><a href="{:U('Category/index/gid/255/sid/418')}">火锅</a></dd>
+                                <dd><a href="{:U('Category/index/gid/255/sid/587')}">自助餐</a></dd>
+                                <dd><a href="{:U('Category/index/gid/255/sid/417')}">西餐</a></dd>
+                                <dd><a href="{:U('Category/index/gid/12/sid/599')}">酒吧</a></dd>
+                                <dd><a href="{:U('Category/index/gid/404/sid/407')}">旅游</a></dd>
+                                <dd><a href="{:U('Category/index/gid/404/sid/13')}">酒店</a></dd>
+                                <dd><a href="{:U('Category/index/gid/14/sid/424')}">美发</a></dd>
+                                <dd><a href="{:U('Category/index/gid/14/sid/422')}">美容</a></dd>
+                                <dd><a href="{:U('Category/index/gid/418/sid/608')}">鲜花婚庆</a></dd>
+                            </div>
+                            <div id="district" class="demo-class-menu-li fl ">
+                            	<dd class="demo-class-more"><img src="__IMAGE_PATH__/share.png" class="fr"/></dd>
+                            </div>
+                            <div id="hotCity" class="demo-class-menu-li fr pl10">
+                            </div>
+                        </div>
+                        <div class="down-qr fl">
+                            <img src="__IMAGE_PATH__/down_qr.png" />
+                        </div>
+                    </div>
+                </div>
+                <div id="ajax-team">
+                    <div id="ajax-img" style="width: 100%;text-align: center;">
+                        <img src="__IMAGE_PATH__/load_index.gif" style="margin:auto;width:500px;"/>
+                    </div>
+                </div>
+            </div></section>
+        <div id="goods-category-tmpl" style="display:none" type="text/x-jquery-tmpl">
+            <span class="class-menu-t"><a href="{:U('Category/index/gid/1847')}">本地批发</a></span>
+            <span class="fr class-menu-i"><i>&nbsp;</i></span>
+            <span class="class-menu-n"><a href="{:U('Category/index/gid/1847/sid/1848')}">烟酒副食</a></span>
+            <span class="class-menu-n"><a href="{:U('Category/index/gid/1847/sid/1849')}">各类书籍</a></span>
+            <div class="class-menu-float">
+                <ul id="fm02" class="float-menu">
+                    <h3><a href="{:U('Category/index/gid/1847')}">本地批发</a></h3>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1848')}">烟酒副食</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1849')}">各类书籍</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1850')}">香烟</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1851')}">高中教辅</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1852')}">粮油调料</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1853')}">水果</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1854')}">零食</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1855')}">干货</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1856')}">家居百货</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1857')}">电子电器</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1858')}">文具</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1859')}">幼儿书籍</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1860')}">小学教辅</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1861')}">初中教辅</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1862')}">大学用书</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1863')}">工具书</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1864')}">各类文学</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1866')}">酒水饮料</a></li>
+                    <li><a href="{:U('Category/index/gid/1847/sid/1865')}">其他</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="goods-category-other-tmpl" style="display:none" type="text/x-jquery-tmpl">
+            <span class="class-menu-t"><a href="{:U('Category/index/gid/16')}">购物</a></span>
+            <span class="fr class-menu-i"><i>&nbsp;</i></span>
+            <span class="class-menu-n"><a href="{:U('Category/index/gid/16/sid/1654')}">农特产品</a></span>
+            <span class="class-menu-n"><a href="{:U('Category/index/gid/16/sid/405')}">本地自取</a></span>
+            <div class="class-menu-float">
+                <ul id="fm02" class="float-menu">
+                    <h3><a href="{:U('Category/index/gid/16')}">购物</a></h3>
+                    <li><a href="{:U('Category/index/gid/16/sid/1654')}">农特产品</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/405')}">本地自取</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/580')}">童装</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/579')}">男装</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/125')}">女装</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/586')}">情侣用品</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/581')}">内衣内裤</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/583')}">母婴</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/129')}">箱包</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/126')}">化妆品</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/131')}">家居</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/127')}">数码电器</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/582')}">配饰</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/584')}">运动户外</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/128')}">本地</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/130')}">鞋帽</a></li>
+                    <li><a href="{:U('Category/index/gid/16/sid/585')}">创意玩具</a></li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            $(function() {
+                var nav_init = function() {
+                    $('#goods-category-content').html($('#goods-category-other-tmpl').html());
+                    $.get("{:U('Index/ajaxCityName')}", '', function(data) {
+                        $('#youngtCityName').html(data.name);
+                        if (data.id == 1) {
+                            var html = "";//"<span><a target='_blank' href=" + $base_url + "/Study/index>毕业季</a></span>"
+                            $('#nav-right').append(html);
+                        }
+                        if (data.id == 325) {
+                            $('#goods-category-content').html($('#goods-category-tmpl').html());
+                        }
+                    });
+                }();
+            });
+
+        </script>
+        <!--首页内容结束-->
+        <script src="__JS_PATH__/youngtIndex.js?v={:C('JS_VER')}" type="text/javascript"></script>
+    <include file="Common:footer" />
+
+    <script type="text/javascript">
+        var $base_url = '__APP__';
+        window.$base_url = '__APP__';
+    </script>
+    <script id="top-history-list-tmpl" type="text/x-jquery-tmpl">
+        <li>
+        <a href="__APP__/team-${id}.html">
+        <img src="${image}" style='max-width:100px;' />
+        {{if product}}
+        <h4 title='${product}'>${product.substring(0, 11)}...</h4>
+        {{else}}
+        <h4 title=''>--</h4>
+        {{/if}}
+        <br/>
+        <span class="t_orange">&#165;${team_price}</span>
+        </a>
+        </li>
+    </script>
+    <!--首页周边城市-->
+   <script id="top-periphery-city-list-tmpl" type="text/x-jquery-tmpl">
+        <li><a href="http://${ename}.{$Think.const.APP_DOMAIN}">${name}</a></li>
+ </script>
+    <script id="top-cart-list-tmpl" type="text/x-jquery-tmpl">
+        {{if list && list.length<=0}}
+        <br/>
+        <div class="mouseover-text">
+        <p>
+        	暂时没有团购
+        </p>
+        </div>
+        {{else}}
+        <div class="mouseover-text">
+        <ul>
+        {{each(i,cart) list}}
+        {{if i<5}}
+        <li><a href="__APP__/team-${cart.team_id}.html">
+        <img src="${cart.image}" />
+        {{if product}}
+        <h4 title='${cart.product}'>${cart.product.substring(0, 11)}...</h4>
+        {{else}}
+        <h4 title=''>--</h4>
+        {{/if}}
+        <br/>
+        <span class="t_orange">&#165;${cart.team_price}</span></a></li>
+        {{/if}}
+        {{/each}}
+        {{if list.length>5}}
+        <li style='  height: 20px;margin-top: 0px;'>…… ……</li>
+        {{/if}}
+        </ul>
+        </div>
+        <div class="submit">
+        <label>购物车里总共有${list.length}个团购</label>
+        <label class="sbutton"><a href="{:U('Cart/index')}">查看购物车</a></label>
+        </div>
+        {{/if}}
+    </script>
+    <script id="district-tmpl" type="text/x-jquery-tmpl">
+        <div id="AllAera" class="">
+        	<dt><img src="__IMAGE_PATH__/all_area.png" class="fl"/>全部区域</dt>
+	        <dd class="aera">
+	        {{each(i,value) data}}
+	        <li><a href="__APP__/Category/index/zid/${value.id}" target="_blank">${value.name}</a></li>
+	        {{/each}}
+	        </dd>
+        </div>
+    </script>
+    <script id="hotCity-tmpl" type="text/x-jquery-tmpl">
+        <dt><img src="__IMAGE_PATH__/hot_bd.png" class="fl"/>周边城市</dt>
+        {{each(i,value) data}}
+        <dd><a href="http://${value.ename}.youngt.com" target="_blank">${value.name}</a></dd>
+        {{/each}}
+		
+    </script>
+
+    <script id="admanage-tmpl" type="text/x-jquery-tmpl">
+        {{each(i,val) data}}
+        <li><a href="${val.linkarr}" title="${val.textarr}"><img src="${val.picarr}" width="765" height="340" /></a></li>
+        {{/each}}
+    </script>
+
+
+    <script id="team-tmpl" type="text/x-jquery-tmpl">
+        {{each(keys,val) data}}
+        <div class="demo-pic fl" >
+        <div class="pro-show-pic fl">
+        <div class="index-pro-min">
+        <ul>
+        {{each(key,team) val}}
+        <a href="__APP__/team-${team.id}.html" title="${team.title}" target="_blank">
+        <li>
+        <img src="${team.image}" alt="${team.title}"/><br/>
+        <span class="pro-title">${team.product}</span>
+        <span class="pro-remarks">${team.title}</span>
+        <span class="pro-price"><label class="now-price t_orange">&#165;${team.team_price}</label><label class="last-price">&#165;${team.market_price}</label><label class="pro-sold">已售${team.now_number}</label></span>
+        <span class="pro-is-mapp">
+        {{if team.not_time==1}}
+        <label class="notime">免预约</label>
+        {{/if}}
+        {{if team.today==1}}
+        <label class="payfor">今日新单</label>
+        {{/if}}
+        {{if team.all_type==1}}
+        <label class="orders">多套餐</label>
+        {{/if}}
+        </span>
+        </li>
+        </a>
+        {{/each}}
+        </ul>
+        </div>
+        </div>
+        </div>
+        {{/each}}
+    </script>
+    <script id="cate-team-tmpl" type="text/x-jquery-tmpl">
+        <div class="demo-pic fl" >
+        {{each(i,val) data}}
+        {{if val}}
+        {{if i=='delicacy'}}
+        <div class="demo-title fl title-text"><img src="__IMAGE_PATH__/food.png " class="fl" /> &nbsp;&nbsp;美食</div>
+        {{else i=='amusement'}}
+        <div class="demo-title fl title-text"><img src="__IMAGE_PATH__/enle.png " class="fl" />&nbsp;&nbsp;休闲娱乐</div>
+        {{else i=='movie'}}
+        <div class="demo-title fl title-text"><img src="__IMAGE_PATH__/film.png " class="fl" />&nbsp;&nbsp;电影</div>
+        {{else i=='hotel'}}
+        <div class="demo-title fl title-text"><img src="__IMAGE_PATH__/hotel.png " class="fl" />&nbsp;&nbsp;旅游酒店</div>
+        {{else i=='beauty'}}
+        <div class="demo-title fl title-text"><img src="__IMAGE_PATH__/liren.png " class="fl" />&nbsp;&nbsp;丽人</div>
+
+        {{else i=='sales'}}
+          <div class="demo-title fl title-text"><img src="__IMAGE_PATH__/hot_sale.png " class="fl" /> &nbsp;&nbsp;特卖</div>
+        {{/if}}
+
+        <div class="pro-show-pic fl">
+        <div class="index-pro-4">
+        <ul>
+        {{each(key,team) val}}
+        {{if team != count}}
+        <a href="__APP__/team-${team.id}.html" title="${team.title}" target="_blank">
+        <li>
+        	{{if team.muslim==1}}
+        	<div class="pro-list-tags">
+        		<img src="__IMAGE_PATH__/qingzhen_small.png" class="lis"/>
+        	</div>
+        	{{/if}}
+        <img src="${team.image}" alt="${team.title}" /><br/>
+        <span class="pro-title">${team.product}</span>
+        <span class="pro-remarks">${team.title}</span>
+        <span class="pro-price"><label class="now-price t_orange">&#165;${team.team_price}</label><label class="last-price">&#165;${team.market_price}</label><label class="pro-sold">已售${team.now_number}</label></span>
+        <span class="pro-is-mapp">
+        {{if team.not_time==1}}
+        <label class="notime">免预约</label>
+        {{/if}}
+        {{if team.today==1}}
+        <label class="payfor">今日新单</label>
+        {{/if}}
+        {{if team.all_type==1}}
+        <label class="orders">多套餐</label>
+        {{/if}}
+        </span>
+        </li>
+        </a>
+        {{/if}}
+        {{/each}}
+        </ul>
+        </div>
+        {{if i=='delicacy'}}
+        {{if val.count == 8}}
+        <div class="index-pro-4all">
+        <a href="{:U('Category/index/gid/255')}" >查看全部美食<img src="__IMAGE_PATH__/more.png" /></a>
+        </div>
+        {{/if}}
+        {{else i=='amusement'}}
+        {{if val.count == 8}}
+        <div class="index-pro-4all">
+        <a href="{:U('Category/index/gid/12')}" >查看全部休闲娱乐<img src="__IMAGE_PATH__/more.png" /></a>
+        </div>
+        {{/if}}
+        {{else i=='movie'}}
+        {{if val.count == 4}}
+        <div class="index-pro-4all">
+        <a href="{:U('Category/index/gid/12/sid/420')}" >查看全部电影<img src="__IMAGE_PATH__/more.png" /></a>
+        </div>
+        {{/if}}
+        {{else i=='hotel'}}
+        {{if val.count == 4}}
+        <div class="index-pro-4all">
+        <a href="{:U('Category/index/gid/404')}" >查看全部旅游酒店<img src="__IMAGE_PATH__/more.png" /></a>
+        </div>
+        {{/if}}
+        {{else i=='beauty'}}
+        {{if val.count == 4}}
+        <div class="index-pro-4all">
+        <a href="{:U('Category/index/gid/14')}" >查看全部丽人<img src="__IMAGE_PATH__/more.png" /></a>
+        </div>
+        {{/if}}
+        {{else i=='sales'}}
+           {{if val.count == 5}}
+            <div class="index-pro-4all">
+            <a href="{:U('Category/index/gid/1618')}" >查看全部特卖<img src="__IMAGE_PATH__/more.png" /></a>
+            </div>
+            {{/if}}
+        {{/if}}
+        </div>
+        {{/if}}
+        {{/each}}
+        </div>
+    </script>

@@ -1,0 +1,41 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">资料修改<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('User/doEditUser')}" method="post">
+                <ul class="li-onlyline">
+                    <li><label>用户名</label><input type="text" class="w150" name="username" value="{$user_data['username']}"/><label>,</label></li>
+                    <li><label>登陆密码</label><input type="text" class="w150" name="password"/><label>,</label><div class="form-s-remark fl tx-grey">若不修改，请留空白</div></li>
+                    <li><label>姓名</label><input type="text" name="realname" value="{$user_data['realname']}" class="w150"/><label>,</label></li>
+                    <li class="cut-solid"></li>
+                    <li><label>邮箱</label><input type="text" class="w150" name="email" value="{$user_data['email']}"/><label>,</label></li>
+                    <li><label>电话</label><input type="text" class="w150" name="mobile" value="{$user_data['mobile']}"/><label>,</label></li>
+                    <li><label>QQ</label><input type="text" class="w150" name="qq" value="{$user_data['qq']}"/><label>,</label></li>
+                    <li><label>管理员分类</label>
+                        <select class="w150" name="manager">
+                            <volist name="userType" id="vo">
+                                <option value="{$key}" <if condition="$key eq $user_data['manager']">selected</if>>{$vo}</option>
+                            </volist>
+                        </select>
+                        <label>,</label></li>
+                    <li><label>所属城市</label>
+                        <select class="w150" name="city_id">
+                            <option value="0">请选择城市</option>
+                            <volist name="all_city" id="vo">
+                                <option value="{$vo['id']}" <if condition="$vo['id'] eq $user_data['city_id']">selected</if>>{$vo['letter']}{$vo['name']}</option>
+                            </volist>
+                        </select>
+                        <label>,</label>
+                       </li>   
+                    <input type="hidden" name="id" value="{$user_data['id']}">
+                    <input type="hidden" name="url_param" value="{$url_param}">
+                    <li><input class="small-btn bc-teal w100 h40" type="submit" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />

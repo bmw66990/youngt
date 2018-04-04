@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>退款详情弹出框</title>
+    <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+    <link rel="stylesheet" href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" />
+</head>
+<body>
+<div class="box">
+    <div class="details">
+        <li><label>结算id</label>{$order.partner_pay_id}</li>
+        <li><label>结算金额</label>{$order.partner_pay_money}</li>
+        <li><label>青团账户</label>{$order.bank_id}</li>
+        <li><label>商家姓名</label><input id="partner_bank_user" name="partner_bank_user" value="{$order.partner_bank_user}"></li>
+        <li><label>商家账号</label><input id="partner_bank_no" name="partner_bank_no" value="{$order.partner_bank_no}"></li>
+        <li><label>商家银行</label><input id="partner_bank_name" name="partner_bank_name" value="{$order.partner_bank_name}"></li>
+        <li><label>申请时间</label>{$order.partner_pay_create_time|date="Y-m-d H:i:s",###}</li>
+        <li><label>结算时间</label>{$order.partner_pay_pay_time|date="Y-m-d H:i:s",###}</li>
+        <input id="pay_id" value="{$order.partner_pay_id}" type="hidden" >
+        <select id="refund-type" name="bank_id" class="form-control" >
+            <option value="0" <eq name="order.bank_id" value="未知卡号">selected</eq> >未知卡号</option>
+            <option value="1" <eq name="order.bank_id" value="青团平安账号">selected</eq> >青团平安账号</option>
+            <option value="2" <eq name="order.bank_id" value="农行账号尾号686">selected</eq> >农行账号尾号686</option>
+            <option value="3" <eq name="order.bank_id" value="农行账号尾号769">selected</eq> >农行账号尾号769</option>
+            <option value="4" <eq name="$bank_id" value="光大账号尾号5613">selected</eq> >光大账号尾号5613</option>
+            <option value="5" <eq name="$bank_id" value="光大账号尾号4038">selected</eq> >光大账号尾号4038</option>
+        </select>
+        </li>
+        <li>
+            <span id='refund-deal'  load_href="{:U('Financial/youngtbank')}"   style='padding: 10px;' class="class-btn">修改</span>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__JS_PATH__/youngtbank.js?v=26"></script>
+</html>

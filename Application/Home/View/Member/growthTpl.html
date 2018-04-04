@@ -1,0 +1,20 @@
+<table class="table">                   
+<thead>
+    <tr>
+      <th>时间</th>
+      <th width="60%">详情</th>
+      <th>成长值</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <volist name="list" id="vo">
+    <tr>
+      <td>{$vo.create_time|date="Y-m-d H:i",###}</td>
+      <td>{$vo.title}</td>
+      <td>{$vo.money}</td>
+    </tr>
+  </volist>
+  </tbody>
+</table>  
+<div class="pagination ajax-pages" data-src="#growth" style="margin-top:10px;">{$pages}</div>

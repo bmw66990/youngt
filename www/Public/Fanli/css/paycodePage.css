@@ -1,0 +1,73 @@
+body{
+	background-color: #f7f7f7;
+}
+
+
+.header{
+	background-color:#E60827;
+	color: #fff;
+}
+
+.pay-code-lt{
+	float: left;
+}
+
+.collection{
+	position: relative;
+}
+
+.pay-code-content .left-line{
+	display: inline-block;
+    width: 10%;
+    height: 1px;
+    right: 60%;
+    top: 50%;
+    position: absolute;
+    background-color: #ededed;
+}
+
+.pay-code-content .right-line{
+	display: inline-block;
+    width: 10%;
+    height: 1px;
+    left: 60%;
+    top: 50%;
+    position: absolute;
+    background-color: #ededed;
+}
+
+.pay-panel{
+	background-color: #fff;
+}
+
+.panel-heading{
+	border-bottom: 1px dashed #efefef;
+}
+
+.panel-title{
+	font-size: 1.5em;
+}
+
+.pay-content{
+	margin-top:5%; 
+}
+
+#pay-count{
+	height: 80px;
+	padding:0 25%;
+	outline: none;
+	font-size: 1.5em;
+	border-style: none;
+	text-align: center;
+}
+
+.pay-btn{
+	margin-top: 10%;
+}
+
+.pay-makeSure{
+	color: #fff;
+	font-size: 1.5em;
+	background-color:#E60827;
+	border-radius: 25px;
+}

@@ -1,0 +1,24 @@
+<div class="mt30">
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="140">分店名称</th>
+                <th width="160">地址</th>
+                <th width="200" >手机</th>
+                <th width="100">交易总额</th>
+                <th width="80" >详情</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="partner">
+            <tr>
+                <td>{$vo.username}
+                <td>{$vo.address}</td>
+                <td><if condition="$vo.phone neq ''">{$vo.phone}--</if>{$vo.mobile}</td>
+            <td><if condition="$vo['money'] gt 0">{$vo.money}<else />0</if></td>
+            <td class="f-tal"> <a target="blank" href="__URL__/detail?partner_id={$vo.id}" class="fac">查看详情</a> </td>
+            </tr> 
+        </volist>                                    
+        </tbody>
+    </table>
+</div>

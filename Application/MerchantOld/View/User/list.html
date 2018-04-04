@@ -1,0 +1,55 @@
+<div class="mt30">
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="130">账号</th>
+                <th width="80">状态</th>
+                <th width="130" >最后登录ip</th>
+                <th width="130" >最后登录时间</th>
+                <th width="220">操作</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="list">
+            <tr>
+                <td >{$vo.username}</a></td>
+                <td>
+            <if condition="$vo['status'] neq 0">
+                <span style='color:#2BB8AA;'>正常</span>
+                <else/>
+                <span style='color:red'>禁用</span>
+            </if>
+            </td>
+            <td>{$vo.login_ip|default='-.-.-.-'}</td>
+            <td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+            <td>
+            <if condition="$res = auth_check_access(array('User/accessManagerEdit'))">
+                <a class='access-manager-edit-a' href="{:U('User/accessManagerEdit',array('id'=>$vo['id']))}" class="fac">编辑</a>
+            </if>
+            <if condition="$res = auth_check_access(array('User/accessManagerDelete'))">
+                <a class='access-manager-operation' confirm_tip='你确定要删除该账号？' href="{:U('User/accessManagerDelete',array('id'=>$vo['id']))}" class="fac">删除</a>
+            </if>
+            <if condition="$res = auth_check_access(array('User/accessManagerdoAuth'))">
+                <a class='access-manager-do-auth-a' href="{:U('User/accessManagerdoAuth',array('id'=>$vo['id']))}" class="fac">授权</a>
+            </if>
+
+            <if condition="$vo['status'] neq 0">
+                <if condition="$res = auth_check_access(array('User/accessManagerdoDisabled'))">
+                    <a class='access-manager-operation' confirm_tip='你确定要禁用该账号？'  href="{:U('User/accessManagerdoDisabled',array('id'=>$vo['id']))}" class="fac">禁用</a>
+                </if>
+                <else/>
+                <if condition="$res = auth_check_access(array('User/accessManagerdoRecovery'))">
+                    <a class='access-manager-operation' confirm_tip='你确定要恢复该账号？'   href="{:U('User/accessManagerdoRecovery',array('id'=>$vo['id']))}" class="fac">恢复</a>
+                </if>
+            </if>
+
+            </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<nav class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</nav>

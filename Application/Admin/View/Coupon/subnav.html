@@ -1,0 +1,21 @@
+<!--左侧导航-->
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Coupon/index'))">
+            <li><a href="{:U('Coupon/index')}">未消费</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Coupon/used'))">
+            <li><a href="{:U('Coupon/used')}">已消费</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Coupon/expired'))">
+            <li><a href="{:U('Coupon/expired')}">已过期</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Coupon/refund'))">
+            <li><a href="{:U('Coupon/refund')}">已退款</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+
+</div>

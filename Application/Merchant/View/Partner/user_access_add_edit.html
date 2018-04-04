@@ -1,0 +1,89 @@
+<include file="Common:header" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                 <include file="Common:message_tip" />
+                 <style>
+                     form.form-horizontal{
+                         max-width: 95%;
+                         margin: auto;
+                     }
+                     </style>
+                <form enctype="multipart/form-data" action="{:U('User/'.$operation_type)}" class="form-horizontal" method="post" id='access-manager-add-form'>
+                   <div id="basicinfo" class="tab-pane active">
+                            <div class="form-group">
+                                   <label>登陆账号：</label>
+                                    <input name="login_access[username]" class="form-control" type="text" maxlength="30" id="username" placeholder="登录账号" value='{$username}'>
+                                    <span class="middle red">字母、数字、下划线</span>
+                            </div>
+                            <div class="form-group">
+                                <label>登录密码：</label>
+                                <input type="password" class="form-control"  name="login_access[password]" id="form-field-tags" value="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label>确认密码：</label>
+                               <input type="password" class="form-control" name="login_access[rpassword]" id="form-field-tags" value="" placeholder="">
+                            </div>
+                        </div>
+                        <div class="clearfix form-actions">
+                            <div>
+                                 <input type='hidden' value='{$id}' name='login_access[id]'/>
+                                 <input type='hidden' value='{$operation_type}' name='operation_type'/>
+                                 <if condition="$res = auth_check_access(array('User/'.$operation_type))">
+                                    <button class="btn btn-info" type="button" id="access-manager-add-btn"><i class="ace-icon fa fa-check bigger-110"></i> 保存
+                                    </button>
+                                 </if>
+                            </div>
+                        </div>
+                </form>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Common:footer" />
+<script>
+    $(function() {
+        // 用户修改密码
+    $(".main-content").on('click', '#access-manager-add-btn', function() {
+    // $('#access-manager-add-btn').die().live('click', function() {
+        var $this = $(this);
+        var $form = $(this).parents('form#access-manager-add-form');
+        
+        if($this.hasClass('disabled')){
+            return false;
+        }
+        // 非法参数判断
+        var $username = $form.find("input#username").val();
+        if (!$.trim($username)) {
+            show_message_tip({error:'账号不能为空'});
+            return false;
+        }
+        
+        var $href = $form.attr('action');
+        var $data = $form.serialize();
+        $this.addClass('disabled');
+        show_message_tip({success:'正在操作，请稍后...'});
+        // 发送请求
+        $.post($href, $data, function(res) {
+            $this.removeClass('disabled')
+            if (res.error && res.code != 0) {
+                show_message_tip(res);
+                return false;
+            }
+            show_message_tip(res);
+            parent.window.setTimeout(function() {
+                layer.closeAll();
+                parent.window.location.reload();
+            }, 500);
+            return false;
+        }, 'json')
+
+        return false;
+    });
+    });
+</script>

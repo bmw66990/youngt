@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--<mime-mapping> 
+    <extension>css</extension> 
+    <mime-type>text/css</mime-type> 
+    </mime-mapping> -->
+        <meta charset="UTF-8">
+        <meta name="keywords" content="青团毕业季" />
+        <!--content主要的网站描述-->
+        <meta name="description" content="青团毕业季" />
+        <!--网站标题的图标-->
+        <!--强制使用最新的IE内核使用  渲染-->
+        <meta http-equiv="X-UA-Compatible" content="IEedge">
+        <!--强制可视页面宽度适合移动端屏的宽度-->
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>青团毕业季</title>
+        <script src="__PLUGINS_PATH__/Study/js/jquery-1.9.1.min.js"></script>
+        <script src="__PLUGINS_PATH__/Study/js/myjs.js"></script>
+        <!--针对IE的备注方式  只有IE能看得见-->
+        <!--[if lte IE 9]>
+        <script type="text/javascript" src="__PLUGINS_PATH__/Study/js/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="__PLUGINS_PATH__/Study/css/comcon.css">
+        <link rel="stylesheet" href="__PLUGINS_PATH__/Study/css/style.css">
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="logo"><img src="__PLUGINS_PATH__/Study/images/logo.gif" alt="" width="160px;"><a> <select id="chose"><option value="1">杨凌</option></select><br><span>本地精品生活指南</span></a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="nav">
+                <ul>
+                    <li class="pull-left"><a href="##" herf="">特色中餐</a>
+                    </li>
+                    <li class="pull-left"><a href="##" herf="">热辣火锅</a>
+                    </li>
+                    <li class="pull-left"><a href="##" herf="">人气自助</a>
+                    </li>
+                    <li class="pull-left"><a href="##" herf="">采摘游玩</a>
+                    </li>
+                    <li class="pull-left"><a href="##" herf="">毕业摄影</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="inner">
+                <volist name="team" id="group" key="key">
+                    <div class="special erg">
+                        <volist name="group" id="vo">
+                            <div class="spe-f m">
+                                <div class="pic"> <a href="__APP__/team-{$vo.id}.html" target="_blank"><img src="{$vo.image}" alt="{$vo.title}" width="380" height="270"></a>
+                                </div>
+                                <div class="detail">
+                                    <a href="__APP__/team-{$vo.id}.html" target="_blank"><h2>{$vo.product}</h2></a>
+                                    <div class="line"></div>
+                                    <a href="__APP__/team-{$vo.id}.html" target="_blank"><div><span class="slogan">{$vo.title}</span></div></a>
+                                    <div class="line"></div>
+                                    <div class="address">
+                                        <p>wifi,免费</p>
+                                        <p>电话：{$vo.phone}</p>
+                                        <p>地址：{$vo.address}</p>
+                                    </div>
+                                    <div class="price" style="margin-top:-50px;"><img src="__PLUGINS_PATH__/Study/images/discount.png" alt=""><span class="current" style="width:60px;">{$vo.team_price}元青团价</span><span class="long"></span> <span class="cost" style="width:60px;"><del>{$vo.market_price}元</del>原价</span>
+                                        <a href="__APP__/team-{$vo.id}.html" target="_blank"><button class="btn">我要吃</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </volist>
+                    </div>
+                </volist>
+            </div>
+        </div>
+    </div>
+    <script src="__JS_PATH__/common.js?v={:C('JS_VER')}" type="text/javascript"></script>
+    <script type="text/javascript">
+        window["_BFD"] = window["_BFD"] || {};
+
+        _BFD.BFD_INFO = {
+            "channel_name": "毕业季", //频道名称，只是用把这个链接http://yangling.youngt.com/Study/index（这个只是杨凌这个城市的毕业季）
+            "user_id": "{$member.id}", //网站当前用户id，如果未登录就为0或空字符串
+            "page_type": "channel" //当前页面全称，请勿修改
+        };
+
+        $.get("{:U('Public/isLogin')}", function(data) {
+            if (data.status == 1) {
+                try {
+                    _BFD['BFD_INFO']['user_id'] = data.id;
+
+                } catch (e) {
+
+                }
+            }
+            if (dfb_common) {
+                dfb_common();
+            }
+        }, 'json');
+
+
+
+        if (!window["_BFD"]) {
+            window["_BFD"] = {};
+        }
+        _BFD.client_id = "Cqingtuanwang";
+        var uid = '';
+        try {
+            if (_BFD.BFD_INFO.user_id) {
+                uid = _BFD.BFD_INFO.user_id;
+            }
+        } catch (e) {
+
+        }
+        _BFD.BFD_USER = {
+            "user_id": uid, //网站当前用户id，如果未登录就为0或空字符串      
+            "user_cookie": document.cookie //网站当前用户的cookie，不管是否登录都需要传      
+        };
+
+        _BFD.script = document.createElement("script");
+        _BFD.script.type = "text/javascript";
+        _BFD.script.async = true;
+        _BFD.script.charset = "utf-8";
+        _BFD.script.src = (('https:' == document.location.protocol ? 'https://ssl-static1' : 'http://static1') + '.bfdcdn.com/service/qingtuan/qingtuan.js');
+        document.getElementsByTagName("head")[0].appendChild(_BFD.script);
+
+    </script>
+
+</body>

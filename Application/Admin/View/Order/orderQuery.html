@@ -1,0 +1,30 @@
+<include file="Common:header" />
+<section>
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">支付查询<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="myform li-onlyline">
+                <li><label class="f-16">支付类型:</label><label class="f-12">
+                        <if condition="$service neq ''">
+                            {$service}
+                            <elseif condition="$data.service_name neq ''"/>
+                            {$data.service_name}
+                        </if>
+
+                    </label></li>
+                <li><label class="f-16">商户订单号:</label><label class="f-12">{$data.pay_id}</label></li>
+                <li><label class="f-16">支付流水号:</label><label class="f-12">{$data.trade_no}</label></li>
+                <li><label class="f-16">金额:</label><label class="f-12 tx-orange">&#165;{$data.pay_money}</label></li>
+                <li><label class="f-16">状态:</label>
+                    <eq name="data.pay_result" value="Y">
+                    <label class="tx-teal f-12">已付款</label>
+                <else />
+                <label class="tx-red f-12">未付款</label>
+                </eq>
+                </li>
+            </div>
+        </div> 
+    </div>
+</section>
+<include file="Common:footer" />

@@ -1,0 +1,147 @@
+<include file="Common:header" />
+
+<section>
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">待审核团单<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<form class="myform" method="get" action="{:U('Team/beCheck')}">
+				<li><label>项目编号</label><input type="text" name="id" value="{$searchValue.id}" class="w80" /></li>
+				<li><label>关键字</label><input type="text" name="product" value="{$searchValue.product}" class="w80" /></li>
+				<li>
+					<label>分类</label>
+					<select name="group_id">
+						<option value="">--请选择分类--</option>
+						<volist name="group" id="row">
+						<eq name="row.fid" value="0">
+							<option value="{$row.id}" <eq name="row.id" value="$searchValue.group_id">selected</eq>>{$row.name}</option>
+						</eq>
+						</volist>
+					</select>
+				</li>
+				<li>
+					<label>选择城市</label>
+					<select name="city_id">
+						<option value="">--请选择地区--</option>
+						<volist name="city" id="row">
+							<option value="{$row.id}" <eq name="row.id" value="$searchValue.city_id">selected</eq>>{$row.letter}-{$row.name}</option>
+						</volist>
+					</select>
+				</li>
+				<li><label>开始日期</label><input name="begin_time" value="{$searchValue.begin_time}" class="laydate-icon w100" id="start" type="text" ></li>
+				<li><label>结束日期</label><input name="end_time" value="{$searchValue.end_time}" class="laydate-icon w100" id="end" type="text"></li>
+
+				<li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+			</form>
+			<script>
+			$(function(){
+				laydate.skin('molv');
+				var start = {
+				    elem: '#start',
+				    format: 'YYYY-MM-DD',
+				    max: '2099-06-16 23:59:59', //最大日期
+				    //istime: true,
+				    istoday: false,
+				    choose: function(datas){
+				         end.min = datas; //开始日选好后，重置结束日的最小日期
+				         end.start = datas //将结束日的初始值设定为开始日
+				    }
+				};
+				var end = {
+				    elem: '#end',
+				    format: 'YYYY-MM-DD',
+				    max: '2099-06-16 23:59:59',
+				    istoday: false,
+				    choose: function(datas){
+				        start.max = datas; //结束日选好后，重置开始日的最大日期
+				    }
+				};
+				laydate(start);
+				laydate(end);
+			});
+			</script>
+			<div class="form-list">
+				<table cellpadding="0" cellspacing="0">
+					<tr class="list-title">
+						<th class="w60">ID</th>
+						<th class="w300">项目名称</th>
+						<th class="w150">类别</th>
+						<th class="w120">日期</th>
+						<th class="w100">成交</th>
+						<th class="w70">价格</th>
+						<th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+					</tr>
+
+					<volist name="list" id="row">
+					<tr>
+						<td class="w60">
+							<label class="bc-teal"><a href="{:U('Order/payList', array('team_id' => $row['id']))}" title="点击查付款订单" target="_blank">{$row.id}</a></label><br />
+							<label class="tx-red f-12">{$row.sort_order}</label>
+						</td>
+						<td class="w300">
+							<empty name="row.image">
+								<img src="__IMAGE_PATH__/ico/nopic.png" alt="无图片" title="无图片" />
+							<else />
+								<img src="__IMAGE_PATH__/ico/havepic.png" alt="有图片" title="有图片" />
+							</empty>
+							<label class="td-title">
+                                                            <if condition="$row.team_type && $row.team_type eq 'cloud_shopping'">
+                                                                <a href="{:C('YOUNGT_URL')}/Team/could_shoping_detail/tid/{$row.id}/pn/{$row.now_periods_number}.html" target="_blank">{$row.title}
+                                                                <else/>
+                                                                  <a href="{$row.id|getTeamUrl}" target="_blank"> {$row.product}
+                                                            </if>
+                                                               </a></label><br/>
+							<label class="f-12 tx-grey">今日浏览<label class="tx-red">{$row.view_count_day}</label>次(共{$row.view_count})</label>
+							<a target=blank href=N></a><br/>
+							<label class="f-12 tx-grey">{$partnerList[$row['partner_id']]}</label>
+						</td>
+						<td class="w150 lh-26">
+							<img src="__IMAGE_PATH__/ico/td_add.png"/> {$city[$row['city_id']]['name']}<br/>
+                                                        <img src="__IMAGE_PATH__/ico/ribbon.png"/> {$group[$row['group_id']]['name']}-<a href='#' sub_id="{$row['sub_id']}" class='team-sub-id-btn'>{$group[$row['sub_id']]['name']}</a><br/>
+							<img src="__IMAGE_PATH__/ico/td_by.png" /> {$userList[$row['user_id']]}
+						</td>
+                        <td class="w120 f-12">
+	                        <label>{$row.begin_time|date='Y-m-d', ###}</label><br/>
+	                        <label>{$row.end_time|date='Y-m-d', ###}</label><br/>
+	                        <label>{$row.expire_time|date='Y-m-d', ###}</label>
+                        </td>
+						<td class="w100 f-12">
+							<label class="tx-teal">{$row['now_number']-$row['pre_number']}</label>/<label>{$row.now_number}</label><br/>
+							<label class="f-12"><?php echo (100-round($row['ucaii_price']/$row['team_price']*100))?>%</label>
+				    	</td>
+						<td class="w70">
+							<label>{$row.team_price}</label><br/>
+				    		<label>{$row.ucaii_price}</label><br/>
+				    		<label>{$row['team_price']-$row['ucaii_price']}</label>
+						</td>
+						<td class="w120 f-12 man">
+							<if condition="$res = auth_check_access(array('Team/detail'))">
+								<label class="bc-teal"><a href="{:U('Team/detail', array('id' => $row['id']))}" onclick="popup(this.href,600,500);return false;">详情</a></label>
+							</if>
+							<if condition="$res = auth_check_access(array('Team/edit'))">	
+								<label class="bc-teal"><a href="{:U('Team/edit', array('id' => $row['id']))}">编辑</a></label>
+							</if>
+							<if condition="$res = auth_check_access(array('Team/toCheck'))">
+							<label class="bc-teal tx-yellow"><a href="javascript:toAjax('{:U('Team/toCheck', array('id' => $row['id']))}','确定审核通过')">未审核</a></label>
+							</if>
+							<if condition="$res = auth_check_access(array('Team/downloadXls'))">	
+								<label class="bc-teal">
+									<a href="javascript:toAjax('{:U('Team/downloadXls', array('id' => $row['id']))}','确定下载券号')">下载</a>
+								</label>
+							</if>	
+							<if condition="$res = auth_check_access(array('Team/del'))">	
+								<label class="bc-teal"><a href="javascript:toAjax('{:U('Team/del', array('id' => $row['id']))}','确定删除团单')">删除</a></label>
+							</if>
+						</td>
+					</tr>
+					</volist>
+				</table>
+				<div class="selectpage">
+					<div class="pagenumber">{$pages}</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+
+<include file="Common:footer" />

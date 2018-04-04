@@ -1,0 +1,130 @@
+<include file="Common:header" />
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- 头部开始 -->
+        <div class="col-xs-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="f-tac">
+                    <a class="navbar-brand" href="javascript:history.go(-1);"><span class="glyphicon glyphicon-chevron-left"></span>返回</a>
+
+                    <div class="f-ib">
+                        <h4 class="f-ib f-ff1  f-title">注册</h4>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <!-- 头部结束 -->
+    </div>
+
+    <!-- 注册开始 -->
+    <div class="row">
+        <div class="col-sm-12">
+            <form role="form">
+                <div class="form-group mt10">
+                    <input type="text" class="form-control"  name="mobile" id="mobile" placeholder="请输入11位手机号" required pattern="[0-9]{11}">
+                </div>
+
+                <div class="f-db f-cb">
+                    <div class="form-group col-xs-8" style="margin-left:-15px">
+                        <input type="text" class="form-control"  name="code" placeholder="请输入验证码" required>
+                    </div>
+                    <button type="button" class="btn  btn-successed" id="btnSendCode">
+                        获取验证码
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control"  name="password" placeholder="请输入4-16位密码" required min="4" maxlength="16">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control"  name="pwd" placeholder="请再次输入4-16位密码" required min="4" maxlength="16">
+                </div>
+                <button type="submit" class="btn btn-danger btn-lg btn-block">
+                    找回密码
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- 注册结束 -->
+</div>
+
+<!-- 底部开始-->
+<include file="Common:footer" />
+<script type="text/javascript">
+    $(function(){
+        $("#btnSendCode").click(function(){
+            //timer处理函数
+            var obj = $(this);
+            var InterValObj; 	//timer变量，控制时间
+            var curCount = 120;	//当前剩余秒数
+            var mobile=$("#mobile").val();//用户uid
+            if(mobile == ''){
+                alert('请输入手机号码！');
+                return false;
+            }
+            var SetRemainTime = function() {
+                if (curCount == 0) {
+                    window.clearInterval(InterValObj);//停止计时器
+                    obj.text("重新发送验证码");
+                    obj.removeAttr('disabled',false);
+
+                }else {
+                    curCount--;
+                    obj.text(curCount + "秒后重新获取");
+                    obj.attr('disabled',true);
+                }
+            }
+            //向后台发送处理数据
+            $.post("{:U('Public/smsCode')}",{mobile:mobile,reSetPwd:'wapnpwd'},function(sms){
+                if(sms.status == 1){
+                    alert(sms.success);
+                    //设置button效果，开始计时
+                    InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                }else{
+                    alert(sms.error);
+                }
+                return false;
+            });
+
+            return false;
+        });
+
+
+        //注册提交数据；
+        $('button[type=submit]').click(function(){
+            if($('input[name=mobile]').val()==''){
+                alert('请输入手机号码！');
+                return false;
+            }
+            if($('input[name=code]').val()==''){
+                alert('请输入验证码！');
+                return false;
+            }
+            if($('input[name=password]').val()==''){
+                alert('请输入密码！');
+                return false;
+            }
+            if($('input[name=password]').val()!=$('input[name=pwd]').val()){
+                alert('两次密码不一致');
+                return false;
+            }
+            $.post("{:U('Public/doRetrievePwd')}",$('form').serialize(),function(data){
+                if(data.status== -1){
+                    alert(data.error);
+                }else{
+                    setTimeout("window.location.href = \"{:U('Public/login')}\"",3000);
+                    alert(data.success);
+                }
+                return false;
+            });
+            return false;
+        })
+    });
+
+
+</script> 
+

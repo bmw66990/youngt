@@ -1,0 +1,55 @@
+<div class="merchant-top">
+    <div class="merchant-infor">
+        <div class="merchant-pic">
+            <if condition="$partner_info.image neq ''">
+                <img style='width:160px;height:120px;' src="{$partner_info.image}">
+                <else/>
+                <img style='width:160px;height:120px;' src="__IMAGE_PATH__/partner/shangjia.png">
+            </if>
+
+        </div>
+        <div class="merchant-infor-con">
+            <li><h2>{$partner_info.username}</h2><span><label><img src="__IMAGE_PATH__/partner/shop-shop_03.png"/></label><label><img src="__IMAGE_PATH__/partner/shop-shop_05.png"/></label></span></li>
+            <li class="t_grey">地址：{$partner_info.address}</li>
+            <li><label><img src="__IMAGE_PATH__/partner/shop-shop_14.png"/>{$partner_info.phone}&nbsp;&nbsp;&nbsp;{$partner_info.mobile}</label>
+                <!--                <label><img src="__IMAGE_PATH__/partner/shop-shop_17.png"/>wx55455</label>
+                                <label><img src="__IMAGE_PATH__/partner/shop-shop_19.png"/>555422455</label>-->
+            </li>
+        </div>
+        <div class="merchant-erma">
+            <!--商家地址二维码-->
+            <img src="__IMAGE_PATH__/qrcode_app_down.png" >
+            <span>微信扫一扫访问</span>
+        </div>
+    </div>
+    <div class="merchant-nav">
+        <ul>
+            <li><a href="{:U('Partner/index',array('partner_id'=>$partner_info['id']))}">首页</a></li>
+<!--            <li><a href="merchant_intro.html">商家介绍</a></li>
+            <li><a href="merchant_news.html">商家动态</a></li>-->
+            <li><a href="{:U('Partner/partner_album',array('partner_id'=>$partner_info['id']))}">商家相册</a></li>
+            <li><a href="{:U('Partner/partner_map',array('partner_id'=>$partner_info['id']))}">商家地图</a></li>
+<!--            <li><a href="merchant_product.html">商品大全</a></li>-->
+            <li><a href="{:U('Partner/group_buying_activity',array('partner_id'=>$partner_info['id']))}">团购活动</a></li>
+<!--            <li><a href="merchant_server.html">客户服务</a></li>-->
+            <li><a href="{:U('Partner/user_comments',array('partner_id'=>$partner_info['id']))}">网友点评</a></li>
+            <if condition="$partner_info.is_dingzuo && $partner_info.is_dingzuo eq 1">
+                  <li><a href="{:U('Partner/online_reservation',array('partner_id'=>$partner_info['id']))}">在线订座</a></li>
+            </if>
+        </ul>
+    </div>
+</div>
+<script>
+    $(function() {
+        var set_partner_menu_init = function() {
+            var $localhref = window.location.href.toLowerCase();
+            $('.merchant-nav>ul>li').each(function(i) {
+                var $href = $(this).find('a').attr('href');
+                $href = $href.substring(0, $href.indexOf('.')).toLowerCase();
+                if ($href && $localhref.indexOf($href) >= 0) {
+                    $(this).addClass('curre');
+                }
+            });
+        }();
+    });
+</script>

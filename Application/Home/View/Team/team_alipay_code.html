@@ -1,0 +1,32 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css" rel="stylesheet" type="text/css" />
+<include file="Common:nav" />
+
+<!--支付宝扫码-->
+<div id="bdw">
+    <div id="bd" style="background-color:#fff">
+        <h2 class="f-tac pay mt20 mb40">支付宝扫码支付</h2>
+
+        <div class="y-pay">
+            <iframe style="width:600px; height:300px; border:0 none;" src="{$html}"></iframe>
+        </div>
+
+        <div class="y-item1 f-fs2">
+            <ul>
+                <li class="first">
+                    还需支付金额:<span class="cl-f7 f-fwb ml10">￥{$money}</span>
+                </li>
+
+                <li>
+                    订单号：{$order_id}
+                </li>
+
+                <li class="last">
+                    支付方式:
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<include file="Common:footer" />

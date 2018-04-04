@@ -1,0 +1,58 @@
+<div class="pb15 f-pr m-form">
+    <div class="pt10 coupon-verify-content">
+        <label class="title-label f-db f-fwb mb5">请输入兑换券密码</label>
+    </div>
+    <div class="pg-coupon-content">
+        <input type="text" class="u-ipt ui-cardnum-show" id='voucher' value="" name="id" maxLength="12" placeholder="请输入正确的兑换券以免出错" style="height:38px;"/>
+        <if condition="$res = auth_check_access(array('Coupon/indexCheckCoupon'))">
+            <input class="u-btn u-btn-c2" name="select-voucher" type="button" value="点击查询"/>
+        </if>
+    </div>
+</div>
+
+<div class="latest-content m20" id="display-voucher" style="display: none">
+    <table width="100%" class="m-table f-tac mt10">
+            <tr>
+                <td width="150" class="name">
+                </td>
+                <td width="150" class="time">
+                </td>
+                <td width="100" class="confirm_num">
+                </td>
+                <td width="150" class="total_score">
+                </td>
+                <td class="status_name">
+                </td>
+            </tr>
+    </table>
+</div>
+
+<div class="latest-content m20">
+    <h3 class="latest mt30 f-pr" >
+        <span>积分项目列表</span>
+    </h3>
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+        <tr>
+            <th width="300">积分项目名称</th>
+            <th width="200">起止日期</th>
+            <th width="100" >兑换数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist  name="voucher_data" id="vo">
+            <tr>
+                <td class="f-tal">
+                       {$vo['name']}
+                </td>
+                <td>
+                    {$vo['begin_time']|date='Y-m-d',###}-{$vo['end_time']|date='Y-m-d',###}
+                </td>
+                <td>
+                    {$vo['consume_num']} / <eq name="vo.limit_num" value="0">不限量<else />{$vo.limit_num}</eq>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>

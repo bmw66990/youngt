@@ -1,0 +1,44 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css" rel="stylesheet" type="text/css" />
+<include file="Common:nav" />
+<div id="container">
+    <article>
+        <h1 hidden="">经营信息公示</h1>
+        <table class="table">
+            <tbody><tr><th colspan="4">基本信息
+            </th></tr><tr>
+                <th>注册号</th><td>91610403570658330B</td><th>名称</th><td>陕西罗文网络科技有限公司
+            </td></tr><tr>
+                <th>企业类型</th><td>有限责任公司(自然人投资或控股)</td><th>法定代表人</th><td>郑红勇
+            </td></tr><tr>
+                <th>注册资本</th><td>100 万元</td><th>成立日期</th><td>2011年03月14日
+            </td></tr><tr>
+                <th>住所</th><td colspan="3">陕西省杨凌示范区水运东路8号楼创业工场608室、613室
+            </td></tr><tr>
+                <th>经营范围</th><td colspan="3">网络科技推广服务：设计、制作、代理、发布广告服务；电子商务项目；互联网信息服务不含新闻，出版，教育，医疗保健，药品和
+                医疗器械，文化，广播电视节目，电子公告内容。（依法续经批准的项目，经相关部门批准后方可开展经营活动）</td>
+            </tr><tr>
+                <th>登记机关</th><td>杨凌示范区工商行政管理局</td><th></th><td>
+            </td></tr><tr>
+                <th>客服电话</th><td>4000998433</td><th></th><td>
+
+            </td></tr></tbody></table>
+    </article>
+</div>
+<input id='otherLinks' type='hidden' value='{$otherLinks}'/>
+<script type="text/javascript">
+    $(function () {
+        //js切换副标题内容
+        $("#tabs").tabs({active: $('#otherLinks').val()}).addClass("ui-tabs-vertical ui-helper-clearfix");
+        $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+        //按钮添加样式
+        $(".btn").button();
+        $('a, button').focus(function () {
+            this.blur();
+        });
+    });
+</script>
+
+</body>
+</html>
+<include file="Common:footer"/>

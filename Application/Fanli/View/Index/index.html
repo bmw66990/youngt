@@ -1,0 +1,235 @@
+<include file="Common:header" />
+
+<style type="text/css">
+    ul,li{list-style: none;}
+    .switch a{color:#333;}
+    .switch a img{margin:0 auto;max-width:60%;}
+    .more{ margin-top:23px;}
+     [class*="am-u-"]{padding-right:0;}
+</style>
+<!-- 顶部 -->
+<header class="am-header am-header-default am-no-layout" data-am-widget="header">
+    <div class="am-g-collapse am-container">
+        <div class="am-dropdown am-fl am-u-sm-2" data-am-dropdown>
+            <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;" id="city">
+              西安 <span class="am-icon-caret-down"></span>
+            </a>
+            <ul class="am-dropdown-content">
+                <li class="am-dropdown-header">城市</li>
+                <li><a href="#">北京</a></li>
+                <li class="am-active"><a href="#">西安</a></li>
+                <li><a href="#">天津</a></li>      
+            </ul>
+        </div>
+        <div class="am-fr am-u-setoff-1 am-u-sm-9">        
+            <div class="am-form-icon">
+                <i class="am-icon-search" style="left:30%;"></i>
+                <input type="text" class="am-form-field am-round" style="font-size:1.2rem;margin-top:12px;padding-left:40%!important;outline:none;border:none;" placeholder="搜索关键字" onclick="window.location.href='searchContent.html'"/> 
+            </div>
+        </div>
+    </div>
+</header> 
+
+<!-- 主体 -->
+  <!-- 广告 -->
+
+ <!-- 广告 -->
+<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}' style="height:160px;">
+    <ul class="am-slides">
+        <li><img src="__IMAGE_PATH__/banner.jpg" class="am-img-responsive" style="height:160px;"></li>
+        <li><img src="__IMAGE_PATH__/banner2.jpg" class="am-img-responsive" style="height:160px;"></li>
+        <li><img src="__IMAGE_PATH__/banner3.jpg" class="am-img-responsive" style="height:160px;"></li>
+    </ul>
+</div>
+
+<!-- 功能 -->
+
+<div class="switch am-slider am-slider-a1 am-avg-sm-12" data-am-slider='{}' style="margin:0 auto;">
+    <ul class="am-slides" style="padding:10px 0;">
+      <li>
+        <ul class="am-g am-text-center am-container" style="width:100%;transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
+          <li class="am-text-sm">
+            <a href="#" class="am-u-sm-3 am-vertical-align-middle">
+              <img class="am-circle" src="__IMAGE_PATH__/icon-move.png" alt="">
+              <span class="gallery-title am-text-left">电影</span>
+            </a>
+            <a href="#" class="am-u-sm-3">
+              <img class="am-circle" src="__IMAGE_PATH__/icon-meishi.png" alt="">
+              <span class="gallery-title">美食</span>
+            </a>
+            <a href="#" class="am-u-sm-3 am-center">
+              <img class="am-circle" src="__IMAGE_PATH__/icon-trip.png" alt="">
+              <span class="gallery-title">旅游</span>
+            </a>
+             <a href="#" class="am-u-sm-3 am-center">
+              <img class="am-circle" src="__IMAGE_PATH__/icon-fun.png" alt="">
+              <span class="gallery-title">娱乐</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="am-g am-text-center am-container" style="width:100%;transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
+          <li class="am-text-sm">
+            <a href="#" class="am-u-sm-3">
+              <img class="am-circle" src="__IMAGE_PATH__/icon-hotel.png" alt="">
+              <span class="gallery-title">酒店</span>
+            </a>
+             <a href="#" class="am-u-sm-3">
+              <img class="am-circle" src="__IMAGE_PATH__/icon-ktv.png" alt=""/>
+              <span class="gallery-title">KTV</span>
+            </a>
+             <a href="#" class="am-u-sm-3">
+              <img class="am-circle" src="__IMAGE_PATH__/icon-jiazhuang.png" alt="" >
+              <span class="gallery-title">家装</span>
+            </a>
+            <a href="{:U('Index/allkindsPage')}" class="am-u-sm-3">
+                <img class="am-circle" src="__IMAGE_PATH__/icon-other.png" alt="" >
+                <span class="other">其他</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+
+
+
+<!-- 新店入驻 -->
+<div data-am-widget="list_news" class="am-list-news am-list-news-default am-no-layout">
+    <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title">新店入驻</h2>
+        <nav class="am-titlebar-nav"><a href="{:U('Index/more')}" class="am-text-sm">更多 »</a></nav>
+    </div>
+    <ul class="am-avg-sm-3 am-thumbnails am-text-center">
+        <volist  name="data" id="vo">   
+            <li>
+                <a href="{:U('Index/PartDetail', array('id' => $vo['id']))}"><img src="{$vo['img']}" class="am-img-responsive" style="width:123px;height:85px;"></a>
+                <i class="am-icon-tag am-text-danger"></i>
+                <span class="am-text-danger">返{$vo['dis']}%</span>
+            </li> 
+        </volist>
+    </ul>
+</div>
+
+
+<!-- 推荐商家 -->
+<div data-am-widget="list_news" class="am-list-news am-list-news-default am-no-layout">
+    <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
+        <h2 class="am-titlebar-title">推荐商家</h2>
+        <nav class="am-titlebar-nav"><a href="{:U('Index/more')}" class="am-text-sm">更多 »</a></nav>
+    </div>
+    <div class="am-list-news-bd">
+        <ul class="am-list">
+            <volist  name="tuijian" id="vo">            
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                <div class="am-u-sm-4 am-list-thumb am-list-main">
+                    <div class="am-u-sm-12 am-padding-left-sm">
+                        <a href="{:U('Index/PartDetail', array('id' => $vo['id']))}"><img src="{$vo['img']}" style="min-height:90px"></a>
+                    </div>
+                </div>
+                <div class="am-u-sm-6 am-list-main">
+                    <div class="am-u-sm-12 am-padding-left-sm">     
+                        <a hredf="{:U('Index/PartDetail', array('id' => $vo['id']))}">
+                        <h5 class="am-list-item-hd"><a href="PartDetail.html?id={$vo['id']}">{$vo['title']}</a></h5>
+                        <div class="am-list-item-text">
+                            <p>
+                                <i class="am-icon-paper-plane"></i>
+                                <span class="am-text-xs">{$vo['address']}</span>
+                            </p>
+                        </div>
+                        <div class="am-u-sm-12 am-padding-left-sm">   
+                            <span class="am-text-danger">
+                                <strong class="am-text-lg am-text-danger">返{$vo['dis']}%</strong>
+                            </span>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="am-u-sm-2 am-list-main" style="padding-right:0;">
+                <a hredf="{:U('Index/PartDetail', array('id' => $vo['id']))}">
+                    <span class="am-list-item-text am-text-right">300m</span>
+                    <sapn class="am-list-item-text am-text-right" style="margin-top:50px;">
+                    <i class="am-icon-fire am-text-danger"></i>人气200</apsn>    
+                </a>   
+                </div>            
+            </li>            
+            </volist>
+        </ul>
+    </div>
+</div>
+
+<!-- 更多 -->
+<div class="am-list-news-ft am-cf"><h3><a class="am-list-news-more" href="{:U('Index/more')}" style="color:#333;">更多></a></h3></div>
+
+<!-- <script type="text/javascript">
+var city="";
+if(!city){
+    startgps();
+}
+function startgps(){
+    var gps = navigator.geolocation;
+    if (gps){
+        gps.getCurrentPosition(showgps,
+        function(error){
+            alert("获取地理位置出错：请检查GPS...");
+            //alert("Got an error, code: " + error.code + " message: "+ error.message);
+        },
+        {maximumAge: 10000}
+        );
+    }else{
+        showgps();
+    }
+}
+             
+function showgps(position){
+    if(position){
+        var latitude = position.coords.latitude;//纬度值
+        var longitude = position.coords.longitude;//经度值
+        $.get('{:U("Index/locationCity")}',{lng:longitude,lat:latitude},function(data){
+            if(data.status==1 && data.city_name && data.city_id){
+                if(confirm('当前城市为:' + data.city_name)){
+                    location.href=data.url;
+                }
+            }else{
+                alert('城市暂未开通');
+            }
+        });
+    }else{
+        alert("定位失败");
+    }
+}
+</script> -->
+ <!--底部 -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-no-layout" >
+    <ul class="am-navbar-nav am-cf am-avg-sm-4">
+        <li>
+            <a href="{:U('Index/index')}" style="color:#e60827">
+            <span class="am-icon-home"></span>
+            <span class="am-navbar-label">首页</span>
+            </a>
+        </li>
+     
+        <li>
+            <a href="###">
+                <span class="am-icon-compass"></span>
+                <span class="am-navbar-label">附近</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/index')}">
+                <span class="am-icon-user"></span>
+                <span class="am-navbar-label">个人中心</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/bus_recommend')}">
+                <span class="am-icon-bookmark"></span>
+                <span class="am-navbar-label">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script src="__JS_PATH__/amazeui.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!--div data-role="footer" class="nav">
+    <ul>
+        <li><a href="{:U('Index/index')}" class="nav-index  curret" data-transition="slide">首页</a></li>
+        <li><a href="{:U('Goods/index')}" class="nav-supermarket" data-transition="slide">超市</a></li>
+        <li><a href="{:U('Goods/GetCart')}" class="nav-cart" data-transition="slide">购物车<label style="display:none;" class="cart-nubmer"></label></a></li>
+        <li><a href="{:U('User/index')}" class="nav-home" data-transition="slide">我</a></li>
+    </ul>
+</div>
+<script src="__LIBS_PATH__/jQuery/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__LIBS_PATH__/jQueryMoblie/jquery.mobile.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS_PATH__/common.js?v={:C('JS_VER')}" type="text/javascript" charset="utf-8"></script>
+-->
+
+<div data-role="footer" class="nav">
+    <ul id='foot-menu'>
+        <li><a href="{:U('Index/index')}" class="nav-index  " data-transition="slide">首页</a></li>
+        <li><a href="{:U('Goods/index')}" class="nav-supermarket" data-transition="slide">超市</a></li>
+        <li><a href="{:U('Goods/GetCart')}" class="nav-cart" data-transition="slide">购物车<label style="display:none;"  class="cart-nubmer"></label></a></li>
+        <li><a href="{:U('User/index')}" class="nav-home" data-transition="slide">我</a></li>
+    </ul>
+</div>
+
+</div>
+<script src="__LIBS_PATH__/jQuery/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).bind("mobileinit", function() {
+        // disable ajax nav
+        $.mobile.ajaxEnabled=false
+    });
+</script>
+<script src="__JS_PATH__/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="__LIBS_PATH__/jQueryMoblie/jquery.mobile.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function(){
+         var setMenu = function() {
+        if($('#foot-menu >li a').length<=0){
+            return false;
+        }
+        var $localhref = window.location.href.toLowerCase();
+        $('#foot-menu >li a').each(function(i) {
+            var $href = $(this).attr('href');
+            if ($localhref.indexOf($href.toLowerCase()) >= 0) {
+                 $(this).addClass('curret');
+                return false
+            }
+        });
+    }();
+    })
+</script>

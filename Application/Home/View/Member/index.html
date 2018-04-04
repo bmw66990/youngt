@@ -1,0 +1,109 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+
+	<include file="left" />
+
+<!--右侧内容开始-->
+    <div id="pcontent" class="coupons-box fl">
+        <div class="pmainbox mine">
+            <form id="order-type" action="{:U('Member/index')}" method="get" class="mb20">
+                <select class="J-orders-filter orders-filter" id="order-state" name="state">
+					<option value="">全部状态</option>
+					<option value="unuse" <if condition="unuse eq $state">selected="selected"</if>>未使用</option>
+					<option value="expiring"<if condition="expiring eq $state">selected="selected"</if>>即将到期</option>
+					<option value="unpay" <if condition="unpay eq $state">selected="selected"</if>>待付款</option>
+					<option value="used" <if condition="used eq $state">selected="selected"</if>>已使用</option>
+					<option value="expired" <if condition="expired eq $state">selected="selected"</if>>已过期</option>
+					<option value="refund" <if condition="refund eq $state">selected="selected"</if>>已退款</option>
+				</select>
+			</form>
+            <div class="filter-short">
+				快捷提示：您有 <a class="em" href="{:U('Member/index', array('state' => 'unuse'))}">未使用（{$unuseNum}）</a>
+				  <a class="em" href="{:U('Member/index', array('state' => 'expiring'))}">即将过期（{$expireNum}）</a>
+				 <a class="em" href="{:U('Member/index', array('state' => 'unpay'))}">待付款（{$unpayNum}）</a>
+            </div>
+            <div id="error-con">
+            	<?php 
+            		$error =  base64_decode(str_replace(array('%2b', ' '), '+', urldecode(cookie('error'))));
+            		cookie('error', null, -1);
+            	 ?>
+			    <if condition="$error neq ''">
+			        <div class="alert alert-danger alert-dismissable">
+			            {$error}
+			        </div>
+			    </if>
+			</div>
+            <div id="order-list" class="orders-wrapper" >
+				<div class="orders-head">
+				    <div class="order-cell order-info">团购信息</div>
+					<div class="order-cell order-quantity">数量</div>
+					<div class="order-cell order-money">总价</div>
+					<div class="order-cell order-status">订单状态</div>
+					<div class="order-cell order-op">操作</div>
+				</div>
+				<volist name="list" id="vo">
+					<div class="J-order-w">
+						<div class="order-title">
+							订单编号：{$vo.id} <span class="time">{$vo.create_time|date='Y-m-d H:i',###}</span>
+						</div>
+						<div class="order-row">
+							<div class="order-cell order-info">
+								<div class="deal-info cf">
+									<a class="img-w" title="{$vo.product}" target="_blank" href="__APP__/team-{$vo.team_id}.html">
+										<img width="100" height="61" src="{$vo.image}">
+									</a>
+									<div class="info-detail">
+										<a class="deal-title-1" target="_blank" title="{$vo.product}"
+											href="/team-{$vo.team_id}.html">{$vo.product}</a>
+										<div class="g-icon-w">
+										</div>
+										<p>
+											<notempty name="vo.pro_sdate">
+											游玩日期：{$vo.pro_sdate}
+											<else />
+												<if condition="$vo.express eq 'N'">
+													<if condition="$vo.state eq 'pay'">
+													有效期至：{$vo.expire_time|date='Y-m-d',###}
+													<else/>
+													团购结束至：{$vo.end_time|date='Y-m-d',###}
+													</if>
+												</if>
+											</notempty>
+                                        </p>
+									</div>
+								</div>
+							</div>
+							<div class="order-cell order-quantity">{$vo.quantity}</div>
+							<div class="order-cell order-money">
+								<span class="money">¥</span> {$vo.origin}
+							</div>
+							<div class="order-cell order-status">
+								{$vo.info}
+								<div>
+									<a href="{:U('Member/orderDetail', array('id' => $vo['id']))}" class="order-detail">订单详情</a>
+								</div>
+							</div>
+							<div class="order-cell order-op">{:getUserOrderBtn($vo)}</div>
+						</div>
+					</div>
+				</volist>
+<!--分页-->                      
+                <div class="pagination">{$pages}</div>
+            </div>
+        </div>
+    </div>
+<!--右侧内容结束-->
+</div></section>
+<script type="text/javascript">
+   window["_BFD"] = window["_BFD"] || {};
+    _BFD.BFD_INFO = {     
+        "user_id" : "{$member.id}", //网站当前用户id，如果未登录就为0或空字符串
+        "page_type" : "account" //当前页面全称，请勿修改
+    };
+    if (dfb_common) {
+        dfb_common();
+    }
+</script>
+<script type="text/javascript" src="__JS_PATH__/member.js"></script>
+<include file="Common:footer" />

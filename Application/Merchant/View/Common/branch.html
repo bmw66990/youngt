@@ -1,0 +1,21 @@
+<!--分店-->
+<if condition="$partners['is_branch'] eq 'Y'">
+    <div class="m-form mt20">
+        <div class="row">
+            <div class="col-xs-12" style="padding-left:50px;">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label" style="margin-left:-52px; width:200px; font-size:25px;" >请选择店名:</label>
+                    <div class="col-sm-9"  style="margin-left:-50px; width:300px">
+                        <select id="partner_select_id" name="newpartner_id" class="form-control f-fs1">
+                            <option value="0">请选择店名</option>
+                            <foreach name="partner_breach" item="vo" >
+                                <option value="{$vo['id']}" <if condition="$partner_id && $partner_id ==$vo['id']"> selected='selected' </if>>{$vo.username}</option>
+                            </foreach>
+                           
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</if>

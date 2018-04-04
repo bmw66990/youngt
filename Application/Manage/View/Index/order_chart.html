@@ -1,0 +1,50 @@
+<!-- ECharts单文件引入 -->
+<script src="__PLUGINS_PATH__/echarts/echarts.js"></script>
+<script type="text/javascript">
+    require.config({
+        paths: {
+            echarts: '__PLUGINS_PATH__/echarts/'
+        }
+    });
+    require(
+        [
+            'echarts',
+            'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('morris-chart-area'));
+            $.get('{:U("Index/getOrderCount")}',function(res){
+                var option = {
+                    color:['#009999', '#C3750D', '#da70d6', '#32cd32'],
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: res.dateList,
+                        selected:{
+                            '7天前':false,
+                            '1月前':false
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],                    
+                    series :res.dataList
+                };
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+            });   
+        }
+    );
+</script>

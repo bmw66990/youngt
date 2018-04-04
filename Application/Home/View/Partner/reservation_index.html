@@ -1,0 +1,100 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/ticket.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+<link href="__CSS_PATH__/search.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+<!--详情页内容-->
+<section class="clearfix">
+    <div class="demo-pic fl">
+        <div class="ticket-banner">
+            <img src="__IMAGE_PATH__/20151226105629.png"/>
+            <div class="ticket-form">
+                <form action="{:U('Partner/reservation_index')}" method="get">
+                    <ul>
+                        <li><select name="" class="w_120">
+                                <option value="">2015-12-12</option>
+                            </select>
+                            <select name="time">
+                                <option value="">9:00</option>
+                                <option value="">9:30</option>
+                                <option value="">10:00</option>
+                                <option value="">10:30</option>
+                                <option value="">11:00</option>
+                                <option value="">11:30</option>
+                                <option value="">12:00</option>
+                                <option value="">12:30</option>
+                                <option value="">13:00</option>
+                                <option value="">13:30</option>
+                                <option value="">14:00</option>
+                                <option value="">14:30</option>
+                                <option value="">15:00</option>
+                                <option value="">15:30</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select name="zone_id" class="w_120">
+                                <option value="all">全部</option>
+                                <volist name="district" id="vo_d">
+                                    <option value="{$vo_d.id}" <if condition="$vo_d['id'] eq $zone_id"> selected='selected' </if>  >{$vo_d.name}</option>
+                                </volist>
+                                <option>雁塔区</option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" name="username"  value="{$username}" style="border-left:1px solid #ccc ;" placeholder="商户名称"/></li>
+                        <li><input type="submit" class="btn-success" id="" name="" value="立刻订座" /></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="demo-pic fl">
+        <if condition='$is_index eq 2'>
+            <div class="term">
+                <div class="term-price fl">
+                    <dl>
+                        <dt style="width: 90px;background: url(__IMAGE_PATH__/icon.png) no-repeat 15px -35px;">全部区域</dt>
+                        <dd <if condition="$zone_id eq 'all'"> class="selected" </if> ><a href="{:U('Partner/reservation_index',array('zone_id'=>'all'))}">不限</a></dd>
+                        <volist name="district" id="vo_d">
+                            <dd <if condition="$vo_d['id'] eq $zone_id"> class="selected" </if>  ><a href="{:U('Partner/reservation_index',array('zone_id'=>$vo_d['id'] ))}">{$vo_d.name}</a></dd>
+                        </volist>
+                    </dl>
+                </div>
+            </div>
+            <else/>
+            <div class="demo-title fl title-text"><img src="__IMAGE_PATH__/enle.png " class="fl" />&nbsp;&nbsp;热门餐厅推荐</div>
+        </if>
+
+
+        <div class="hotel-list fl">
+            <ul>
+                <volist name="list" id="vo">
+                    <li>
+                        <span><a href="{:U('Partner/online_reservation',array('partner_id'=>$vo['partner_id']))}"><img src="{$vo.image}"/></a></span>
+                        <span><h4 title="{$vo.title}">{$vo.title|msubstr=0,15}</h4></span>
+                        <span><label title="{$vo.address}">{$vo.address|msubstr=0,15}</label></span>
+                        <span class="ticket-score">
+                            <span style='width: 103px' class=" rating-16x16 common-rating"> <span class="rate-stars" style="width:{$vo['avg_comment_num']/5*100}%"></span> </span>
+                            <i>{$vo.avg_comment_num}</i>
+                        </span>
+                        <span>
+                            <if condition="$vo.is_hall_status eq 1">
+                                <label class="b_green">大厅(有空位)</label>
+                                <else/>
+                                <label class="b-red">大厅(已满)</label>
+                            </if>
+                            <if condition="$vo.is_box_status eq 1">
+                                <label class="b_green">包厢(有空位)</label>
+                                <else/>
+                                <label class="b-red">包厢(已满)</label>
+                            </if>
+                        </span>
+                   </li>
+                </volist>
+            </ul>
+        </div>
+
+    </div>
+</section>
+<!--内容结束-->
+<include file="Common:footer" />

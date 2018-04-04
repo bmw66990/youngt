@@ -1,0 +1,61 @@
+<include file="Common:header" />
+<!-- 头部 -->
+  <header class="am-header" data-am-widget="header">
+    <div class="am-container">
+      <div class="am-u-sm-4 am-margin-top-xs">
+        <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xxl am-fl" style="color:#333;">
+        </a>
+      </div>
+      <div class="am-u-sm-8 am-center am-margin-top-xs">
+        <span class="am-text-lg am-padding-left-sm">返利订单</span>
+      </div>
+    </div> 
+  </header>
+<!-- 表单 -->
+  <div class="am-g pay-table">
+    <table class="am-table am-table-hover am-text-center am-text-sm">
+      <colgroup>
+        <!-- <col width="15%"> -->
+        <col width="33%">
+        <col width="33%">
+        <col width="33%">
+      </colgroup>
+      <thead style="background-color:#f7f7f7;">
+        <tr><i class="cut-line"></i>
+          <!-- <th class="am-text-center">序号</th>
+          <th class="am-text-center">用户</th>
+          <th class="am-text-center">返利金额</th>-->
+          <th class="am-text-center">id</th> 
+          <th class="am-text-center">买单宝id<i></i></th>
+          <th class="am-text-center">返利金额<i></i></th> 
+          <th class="am-text-center">时间</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <volist  name="order" id="vo">
+          <tr>
+              <td>{$vo['id']}</td>
+              <td>{$vo['cardid']}</td>
+              <td>￥{$vo['fan_money']}</td>
+              <td> 
+                <span>{$vo['create_time']|date='Y-m-d h:i', ###}</span>
+              </td>
+          </tr>
+          </volist>
+
+        <!-- <tr>
+          <td>1</td>
+          <td>汪槑槑</td>
+          <td class="am-text-warning">
+            <i class="am-fl">+</i>
+            <i class="am-icon-rmb am-fl am-margin-left-sm"></i>
+            <span >3.13</span>
+          </td>
+          <td>2012-10-01 05:45</td>
+        </tr> -->
+        
+      </tbody>
+    </table>
+  </div>
+<include file="Common:foot" />

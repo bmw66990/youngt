@@ -1,0 +1,127 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">基本设置</a>
+            </li>
+            <li class="active">店员管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                店员管理
+            </h1>
+        </div>
+        <!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <include file="Common:message_tip" />
+                <!-- PAGE CONTENT BEGINS -->
+                <p>
+                    <a href="javascript:void(0)" data-url="{:U('User/accessManagerAdd')}" title="添加店员" class="btn btn-success openifram">+添加店员</a>
+                </p>
+                <div id="shopList" class="grid-view">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th width="100">帐号</th>
+                                <th width="100">状态</th>
+                                <th width="100">最后登录ip</th>
+                                <th width="100">最后登录时间</th>
+                                <th width="80" class="button-column">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist id="vo" name="list">
+                            <tr class="even">
+                                <td>{$vo.username}</td>
+                                <td>
+                                 <if condition="$vo['status'] neq 0">
+                                    <span class="label label-success">正常</span>
+                                    <else/>
+                                    <span class="label label-danger">禁用</span>
+                                </if>
+                                </td>
+                                <td>{$vo.login_ip|default='-.-.-.-'}</td>
+                                <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                                <td class=" ">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                                      <if condition="$res = auth_check_access(array('User/accessManagerEdit'))">
+                                        <a href="javascript:void(0)" data-url="{:U('User/accessManagerEdit',array('id'=>$vo['id']))}" title="编辑店员"  class="green openifram">
+                                            <i class="icon-pencil bigger-130"></i>
+                                        </a>
+                                      </if>
+                                     
+                                        <if condition="$res = auth_check_access(array('User/accessManagerDelete'))">
+                                        <a title="删除" onclick='return ajax_operation(this);' class="red" confirm_tip='你确定要删除该账号？' href="{:U('User/accessManagerDelete',array('id'=>$vo['id']))}">
+                                            <i class="icon-trash bigger-130"></i>
+                                        </a>
+                                        </if>
+                                        <if condition="$res = auth_check_access(array('User/accessManagerdoAuth'))">
+                                        <a title="授权" class="green openifram" href="javascript:void(0)" data-url="{:U('User/accessManagerdoAuth',array('id'=>$vo['id']))}">
+                                            <i class="icon-user-md bigger-130"></i>
+                                        </a>
+                                        </if>
+                                        
+                                        <if condition="$vo['status'] neq 0">
+                                        <if condition="$res = auth_check_access(array('User/accessManagerdoDisabled'))">
+                                            <a title="禁用" onclick='return ajax_operation(this);' class="red" confirm_tip='你确定要禁用该账号？' href="{:U('User/accessManagerdoDisabled',array('id'=>$vo['id']))}">
+                                                <i class="icon-eye-close bigger-130"></i>
+                                            </a>
+                                        </if>
+                                        <else/>
+                                        <if condition="$res = auth_check_access(array('User/accessManagerdoRecovery'))">
+                                            <a title="恢复" onclick='return ajax_operation(this);' class="green" confirm_tip='你确定要恢复该账号？' href="{:U('User/accessManagerdoRecovery',array('id'=>$vo['id']))}">
+                                                <i class="icon-eye-open bigger-130"></i>
+                                            </a>
+                                        </if>
+                                    </if>
+                                    </div>
+                               </td>
+                            </tr>
+                            </volist>
+                        </tbody>
+                    </table>								
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_info" id="sample-table-2_info"> 全部{$count}条</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="dataTables_paginate paging_bootstrap">
+                               {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div>
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+
+    });
+</script>

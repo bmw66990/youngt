@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>{$city_info.name}_代理管理系统_青团生活_青团网</title>
+    <meta name="keywords" content="青团网站团购网站_县城本地生活服务,青团网_团购_县城本地生活服务_青团网站 - 县城本地生活服务！为您汇集最全面最优惠的大学城美食娱乐团购打折促销信息！青团网为您精选内的自助餐、电影票、KTV、美发、足浴特色商家，享尽无敌折扣">
+    <meta name="description" content="青团网站_团购网站_大学生校园团购网站,青团网_团购_县城本地生活服务_青团网,青团网站,团购,打折,杨凌打折,优惠券,优惠券,校园团购">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <link rel="shortcut icon" href="__IMAGE_PATH__/favicon.ico">
+    <link href="__PLUGINS_PATH__/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PLUGINS_PATH__/Font-Awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="__CSS_PATH__/animate.min.css" rel="stylesheet">
+    <link href="__CSS_PATH__/style.min.css?v=4.0.0" rel="stylesheet">
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-circle" src="__IMAGE_PATH__/Icon.png" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                               <span class="block m-t-xs"><strong class="font-bold">{$user_info.username}</strong></span>
+                                <span class="text-muted text-xs block">{$city_info.name}代理<b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <!--<li><a class="J_menuItem" href="form_avatar.html">修改头像</a>
+                                </li>-->
+                                <li><a target="_blank" href="http://youngt.com/Member/account.html">个人资料</a>
+                                </li>
+                                <li><a target="_blank" href="http://youngt.com/Help/otherLinks/tab/6">联系我们</a>
+                                </li>
+                                <li>
+                                    <a href="{:C('OLD_MANAGE_URL')}">
+                                        切换到旧版代理后台
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="{:U('Public/logout')}">安全退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo-element"><img src="__IMAGE_PATH__/logo-small.png"/>
+                        </div>
+                    </li>
+                    <if condition="$res = auth_check_access(array('Index/index'))">
+                    <!--主页-->
+                    <li>
+                        <a class="J_menuItem" href="{:U('Index/defalut')}"  data-index="0"><i class="fa fa-home"></i> 
+                        <span class="nav-label">主页</span></a>
+                    </li>
+                    </if>
+                    
+                    <if condition="$res = auth_check_access(array('Finance/index','Finance/withdrawals','Finance/withdrawals_record'))">
+                    <!--财务-->
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-yen"></i>
+                            <span class="nav-label">财务</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <if condition="$res = auth_check_access(array('Finance/index'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('Finance/index')}">报表</a>
+                            </li>
+                            </if>
+                            <if condition="$res = auth_check_access(array('Finance/withdrawals'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('Finance/withdrawalsNews')}">提现</a>
+                            </li>
+                            </if>
+                            <if condition="$res = auth_check_access(array('Finance/withdrawals_record'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('Finance/withdrawals_record')}">提现记录</a>
+                            </li>
+                            </if>
+                        </ul>
+                    </li>
+                    </if>
+                    
+                    <!--统计-->
+                    <if condition="$res = auth_check_access(array('Chart/index'))">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span class="nav-label">统计</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<li>
+                                <a class="J_menuItem" href="{:U('Chart/index')}">周数据概览</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="{:U('Chart/stats_list')}">订单/验证统计</a>
+                            </li>
+                        </ul>
+                    </li>
+                    </if>
+                    <if condition="$res = auth_check_access(array('Team/index','Team/add','Team/closeTeam'))">
+                    <!--团单-->
+	                    <li>
+	                        <a href="#">
+	                            <i class="fa fa-files-o"></i>
+	                            <span class="nav-label">团单</span>
+	                            <span class="fa arrow"></span>
+	                        </a>
+	                        <ul class="nav nav-second-level">
+	                        	<if condition="$res = auth_check_access(array('Team/index'))">
+	                            <li>
+	                                <a class="J_menuItem" href="{:U('Team/index')}">团单列表</a>
+	                            </li>
+	                           </if>
+	                            <if condition="$res = auth_check_access(array('Team/add'))">
+	                            <li>
+	                                <a  href="{:U('Team/add')}" target="_blank">新建团单</a>
+	                            </li>
+	                            </if>
+	                            
+	                            <li>
+	                                <a  href="{:U('Team/dateOverTeam')}" class="J_menuItem"  >过期团单</a>
+	                            </li>
+	                            
+	                            <if condition="$res = auth_check_access(array('Team/closeTeam'))">
+	                            <li>
+	                                <a class="J_menuItem" href="{:U('Team/closeTeam')}">下线团单</a>
+	                            </li>
+	                            </if>
+	                        </ul>
+	                    </li>
+                    </if>
+                    
+                    <if condition="$res = auth_check_access(array('Order/index','Order/refund'))">
+                    <!--订单-->
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-file-text-o"></i>
+                            <span class="nav-label">订单</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<if condition="$res = auth_check_access(array('Order/index'))">
+	                            <li>
+	                                <a class="J_menuItem" href="{:U('Order/index')}">订单列表</a>
+	                            </li>
+	                        </if>
+                            <if condition="$res = auth_check_access(array('Order/refund'))">
+	                            <li>
+	                                <a class="J_menuItem" href="{:U('Order/refund')}">退款列表</a>
+	                            </li>
+                            </if>
+                        </ul>
+                    </li>
+                    </if>
+                    
+                    <if condition="$res = auth_check_access(array('User/index','User/getUserBuy','User/newUser'))">
+                    <!--用户-->
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="nav-label">用户</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<if condition="$res = auth_check_access(array('User/index'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('User/index')}">用户列表</a>
+                            </li>
+                            </if>
+                            <if condition="$res = auth_check_access(array('User/getUserBuy'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('User/getUserBuy')}">消费列表</a>
+                            </li>
+                            </if>
+                            <if condition="$res = auth_check_access(array('User/newUser'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('User/newUser')}">新用户列表</a>
+                            </li>
+                            </if>
+                        </ul>
+                    </li>
+                    </if>
+                    <if condition="$res = auth_check_access(array('BdUser/index'))">
+                    <!--业务-->
+                    <li>
+                        <a href="{:U('BdUser/index')}" class="J_menuItem">
+                            <i class="fa fa-black-tie"></i>
+                            <span class="nav-label">业务</span>
+                        </a>
+                    </li>
+                    </if>
+                    <if condition="$res = auth_check_access(array('Partner/index','Partner/reception','Partner/dzOrder'))">
+                    <!--商家-->
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="nav-label">商家</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<if condition="$res = auth_check_access(array('Partner/index'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('Partner/index')}">商家列表</a>
+                            </li>
+                           </if>
+                            <if condition="$res = auth_check_access(array('Partner/reception'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('Partner/reception')}">接待量</a>
+                            </li>
+                            </if>
+                            <if condition="$res = auth_check_access(array('Partner/dzOrder'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('Partner/dzOrder')}">订座预约</a>
+                            </li>
+                            </if>
+                        </ul>
+                    </li>
+                    </if>
+                    
+                    <if condition="$res = auth_check_access(array('PointsTeam/index', 'PointsTeam/record', 'PointsTeam/credit'))">
+                    <!--积分-->
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-diamond"></i>
+                            <span class="nav-label">积分</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<if condition="$res = auth_check_access(array('PointsTeam/index'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('PointsTeam/index')}">积分商城</a>
+                            </li>
+                           </if>
+                            <if condition="$res = auth_check_access(array('PointsTeam/record'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('PointsTeam/record')}">兑换记录</a>
+                            </li>
+                            </if>
+                            <if condition="$res = auth_check_access(array('PointsTeam/credit'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('PointsTeam/credit')}">积分记录</a>
+                            </li>
+                            </if>
+                        </ul>
+                    </li>
+                    </if>
+                    
+                    <if condition="$res = auth_check_access(array('Comment/index'))">
+	                    <!--点评-->
+	                    <li>
+	                        <a href="{:U('Comment/index')}"  class="J_menuItem">
+	                            <i class="fa fa-thumbs-o-up"></i>
+	                            <span class="nav-label">点评</span>
+	                        </a>
+	                    </li>
+                    </if>
+                    <if condition="$res = auth_check_access(array('News/index'))">
+                    <!--新闻-->
+                    <li>
+                        <a href="{:U('News/index')}"  class="J_menuItem">
+                            <i class="fa fa-newspaper-o"></i>
+                            <span class="nav-label">新闻</span>
+                        </a>
+                    </li>
+                    </if>
+                   
+                    <if condition="$res = auth_check_access(array('Encyclopedias/qingtuanEncyclopedias'))">
+                      <!--青团百科-->
+                    <li>
+                    	<a href="{:U('Encyclopedias/qingtuanEncyclopedias')}" class="J_menuItem">
+                    			<i class="fa fa-edit"></i>
+                            	<span class="nav-label">青团百科</span>
+                    	</a>
+                    </li>
+                    </if>
+                    
+                    <if condition="$res = auth_check_access(array('FeedbackQuestion/index', 'FeedbackQuestion/myFeedback'))">
+                    <!--反馈-->
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-comment"></i>
+                            <span class="nav-label">反馈</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<if condition="$res = auth_check_access(array('FeedbackQuestion/index'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('FeedbackQuestion/index')}">反馈列表</a>
+                            </li>
+                           </if>
+                            <if condition="$res = auth_check_access(array('FeedbackQuestion/myFeedback'))">
+                            <li>
+                                <a class="J_menuItem" href="{:U('FeedbackQuestion/myFeedback')}">我的反馈</a>
+                            </li>
+                            </if>
+                        </ul>
+                    </li>
+                   	</if>
+                   <!--设置-->
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-gear"></i>
+                            <span class="nav-label">设置</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <if condition="$res = auth_check_access(array('Index/ticketShow'))">
+	                            <li>
+	                                <a href="javascript:ticketShow('{$ticket_show}')"> APP订座</a>
+	                            </li>
+                        	</if>
+                            <if condition="$res = auth_check_access(array('Index/appPush'))">
+	                            <li>
+	                                <a class="J_menuItem" href="{:U('Index/appPush')}" >APP消息推送</a>
+	                            </li>
+	                        </if>
+                            <if condition="$res = auth_check_access(array('Index/bindCategory'))">
+	                            <li>
+	                                <a class="J_menuItem" href="{:U('Index/bindCategory')}">APP分类绑定</a>
+	                            </li>
+	                        </if>
+                            <if condition="$res = auth_check_access(array('Admanage/index'))">
+		                        <li>
+		                            <a class="J_menuItem" href="{:U('Admanage/index')}">广告</a>
+		                        </li>
+                            </if>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                    	<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown hidden-xs">
+                            <a class="right-sidebar-toggle" aria-expanded="false">
+                                <i class="fa fa-tasks"></i> 主题
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="row content-tabs">
+                <button class="roll-nav roll-left J_tabLeft" title="上一页"><i class="fa fa-backward"></i>
+                </button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="{:U('Index/defalut')}">首页</a>
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right refresh" title="刷新"><i class="fa fa-refresh"></i>
+                </button>
+                <button class="roll-nav roll-right J_tabRight" title="下一页"><i class="fa fa-forward"></i>
+                </button>
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="{:U('Public/logout')}" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="{:U('Index/defalut')}" frameborder="0" data-id="{:U('Index/defalut')}" seamless></iframe>
+            </div>
+            <div class="footer">
+                <div class="pull-right">&copy; 2016-2017 <a href="http://youngt.com/" target="_blank">青团生活</a>
+                </div>
+            </div>
+        </div>
+        <!--右侧部分结束-->
+        <!--右侧边栏开始-->
+        <div id="right-sidebar">
+            <div class="sidebar-container">
+                <ul class="nav nav-tabs navs-3">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab-1">
+                            <i class="fa fa-gear"></i> 主题
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="sidebar-title">
+                            <h3> <i class="fa fa-comments-o"></i> 主题设置</h3>
+                            <small><i class="fa fa-tim"></i> 你可以从这里选择和预览主题的布局和样式，这些设置会被保存在本地，下次打开的时候会直接应用这些设置。</small>
+                        </div>
+                        <div class="skin-setttings">
+                            <div class="title">主题设置</div>
+                            <div class="setings-item">
+                                <span>收起左侧菜单</span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                        <label class="onoffswitch-label" for="collapsemenu">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                <span>固定顶部</span>
+
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                        <label class="onoffswitch-label" for="fixednavbar">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                <span>
+                        固定宽度
+                    </span>
+
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                        <label class="onoffswitch-label" for="boxedlayout">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="title">皮肤选择</div>
+                            <div class="setings-item default-skin nb">
+                                <span class="skin-name ">
+			                         <a href="#" class="s-skin-0">
+			                             默认皮肤
+			                         </a>
+			                    </span>
+			                            </div>
+			                            <div class="setings-item blue-skin nb">
+			                                <span class="skin-name ">
+			                        <a href="#" class="s-skin-1">
+			                            蓝色主题
+			                        </a>
+			                    </span>
+			                            </div>
+			                            <div class="setings-item yellow-skin nb">
+			                                <span class="skin-name ">
+			                        <a href="#" class="s-skin-3">
+			                            黄色/紫色主题
+			                        </a>
+			                    </span>
+                            </div>-->
+                        </div>
+                    </div>
+	            </div>
+
+            </div>
+        </div>
+        <!--右侧边栏结束-->
+    </div>
+    <script src="__PLUGINS_PATH__/jQuery-2.1.4/jquery-2.1.4.min.js"></script>
+    <script src="__PLUGINS_PATH__/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script src="__PLUGINS_PATH__/metisMenu/metisMenu.min.js"></script>
+    <script src="__PLUGINS_PATH__/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+	<script src="__JS_PATH__/youngt.js" charset="utf-8"></script>
+    <script src="__JS_PATH__/contabs.min.js"></script>
+    <script src="__JS_PATH__/pace.min.js"></script>
+    <script type="text/javascript">
+    	function ticketShow(is_show) {
+                    var content = '你确定要开启APP订座功能吗？';
+                    var act = 'Y';
+                    if (is_show == 'Y') {
+                        act = 'N'
+                        content = '你确定要关闭APP订座功能吗？'
+                    }
+                    var tmp = confirm(content);
+                    if (tmp) {
+                        if (act == 'Y') {
+                            location.href = "{:U('Index/ticketShow',array('is_show'=>'Y'))}"
+                        } else {
+                            location.href = "{:U('Index/ticketShow',array('is_show'=>'N'))}"
+                        }
+                    }
+                }
+    </script>
+</body>
+</html>

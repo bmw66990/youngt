@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>青团客户端下载</title>
+    <meta charset="utf-8" />
+    <!-- Mobile Devices Support @begin -->
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script type="text/javascript" src="http://libs.useso.com/js/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://libs.useso.com/js/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="http://libs.useso.com/js/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<style type="text/css">
+    *{margin:0; padding:0;}
+    a{text-decoration: none;}
+    img{max-width: 100%; height: auto;}
+    .weixin-tip{display: none; position: fixed; left:0; top:0; bottom:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80); height: 100%; width: 100%; z-index: 100;}
+    .weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%;}
+</style>
+
+<body>
+<div class="weixin-tip">
+    <div class="container-fluid">
+        <!-- top -->
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-sm-12">
+                <label class="label label-primary" style="font-size: 16px;">应用介绍</label>
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">青团网手机客户端，是方便用户用手机定位购买附近团购产品的移动产品。青团网站出品，是面向全国大学生的综合性三四线团购网站。</li>
+                    </ul>
+                </div>
+                <p></p>
+            </div>
+
+            <div class="col-sm-12">
+                <label class="label label-primary" style="font-size: 16px;">基本信息</label>
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">作者：杨凌罗文网络科技有限公司</li>
+                        <li class="list-group-item">语言：中文</li>
+                        <li class="list-group-item"> Android版本：3.3.4 </li>
+                        <li class="list-group-item">ios版本：5.6.6 </li>
+                        <li class="list-group-item">更新时间：2015-02-12 </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <label class="label label-primary" style="font-size: 16px;">更新内容</label>
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">细化耗电</li>
+                        <li class="list-group-item">优化内存占用</li>
+                        <li class="list-group-item">图片缓存优化</li>
+                        <li class="list-group-item">开通微信支付功能</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <a onclick="document.getElementById('sharemcover').style.display='block';"><button type="button" class="btn btn-info btn-block">下载</button></a>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<style type="text/css">
+    *{margin:0; padding:0;}
+    img{max-width: 100%; height: auto;}
+    .test{height: 600px; max-width: 600px; font-size: 40px;}
+</style>
+<div class="test"><a href="http://mp.weixin.qq.com/mp/redirect?url=http://mobile.xinlianwang.com/android/distributor/DistributorApp.apk#weixin.qq.com#wechat_redirect ">有效跳转</a></div>
+<script type="text/javascript" src="http://libs.useso.com/js/jquery/1.9.0/jquery.min.js"></script>
+<script type="text/javascript">
+    function is_weixin() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    var isWeixin = true;
+    var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement.clientHeight;
+    var weixinTip = $('<div id="weixinTip"><p><img src="http://admin.youngt.com/Public/Image/weixin-tip.jpg" alt="微信打开"/></p></div>');
+    if(isWeixin){
+        $("body").append(weixinTip);
+    }
+    $("#weixinTip").css({
+        "position":"fixed",
+        "left":"0",
+        "top":"0",
+        "height":winHeight,
+        "width":"100%",
+        "z-index":"1000",
+        "background-color":"rgba(0,0,0,0.8)",
+        "filter":"alpha(opacity=80)",
+    });
+    $("#weixinTip p").css({
+        "text-align":"center",
+        "margin-top":"10%",
+        "padding-left":"5%",
+        "padding-right":"5%"
+    });
+</script>

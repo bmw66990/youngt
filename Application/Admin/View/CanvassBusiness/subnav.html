@@ -1,0 +1,22 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('CanvassBusiness/index'))">
+            <li ><a href="{:U('CanvassBusiness/index')}">首页</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('CanvassBusiness/target'))">
+            <li ><a href="{:U('CanvassBusiness/target')}">意向客户</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('CanvassBusiness/visited'))">
+            <li ><a href="{:U('CanvassBusiness/visited')}">已回访用户</a><label>&nbsp;</label></li>
+        </if>  
+         <if condition="$res = auth_check_access(array('CanvassBusiness/unvisit'))">
+            <li ><a href="{:U('CanvassBusiness/unvisit')}">未回访用户</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('CanvassBusiness/userDistribution'))">
+            <li ><a href="{:U('CanvassBusiness/userDistribution')}">分配用户</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

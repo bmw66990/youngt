@@ -1,0 +1,24 @@
+<form action="__APP__/__APP_NAME__/Coupon/couponDetail" method="get" id='couponDetailSearch' style="padding-top:20px;"> 
+    <label>项目名称：</label>
+    <select name='tid' style='max-width:200px'>
+        <option value="0">请选择项目名称</option>
+        <volist name="team" id="vo">
+            <option value="{$vo['id']}" <if condition="$tid eq $vo['id']">selected='selected'</if> >{$vo['product']}</option>
+        </volist>
+    </select>
+    <label class="pl10">消费类别：</label>
+    <select name='consume'>
+        <option value=''>所有</option>
+        <option value='Y' <if condition="$consume eq 'Y'">selected='selected'</if> >已消费</option>
+        <option value='N'  <if condition="$consume eq 'N'">selected='selected'</if> >未消费</option>
+        <option value='G'  <if condition="$consume eq 'G'">selected='selected'</if> >已过期</option>
+    </select>
+    <label class="pl10">券编号：</label>
+    <input type="text" name="coupon" value="{$coupon_id}" style="height:20px;" /><br/>
+    <label for="beginTime">起止日期：</label>
+    <input type="text" class="" id="beginTime" name="start_time" value="{$start_time}"size="10" style="padding:4px;"> --
+    <input type="text" class="" id="endTime" name="end_time" value="{$end_time}"  size="10" style="padding:4px;">
+    <input type="hidden" id='order' name="order" value="{$order}"/><br/>
+    <input type="hidden" id='partner_id' name="partner_id" value="{$partner_id}"/><br/>
+    <input type="submit" class="u-btn u-btn-c2 u-btn-sm" style="vertical-align:top;" value="筛选">
+</form>

@@ -1,0 +1,81 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css" rel="stylesheet" type="text/css" />
+<include file="Common:nav" />
+
+<!--支付宝扫码-->
+<div id="bdw">
+    <div id="bd" style="background-color:#fff">
+        <h2 class="f-tac pay mt20 mb40">微信扫码支付</h2>
+
+        <include file="Common:error" />
+        <div class="y-pay" style="  width: 950px;min-height:420px;">
+            <div class="p-w-bd" style="  padding-left: 130px; margin-bottom: 30px;">
+                <div class="p-w-box" style="width:300px;float:left">
+                    <div class="pw-box-hd">
+                        <img src="{$code_url}" width="298" style="width:298px;height:298px;">
+                    </div>
+                    <div class="pw-box-ft">
+                        <p>请使用微信扫一扫</p>
+                        <p>扫描二维码支付</p>  
+                    </div>
+                    <p style="text-align: center; margin-bottom: 7px;color: red;font-size: 16px;">(请于两小时之内扫描付款)</p>
+                </div>
+                <div class="p-w-sidebar"></div>
+            </div>
+        </div>
+
+        <div id="pc-wx-pay-code-info" load_href="{:U('Team/getOrderPayState',array('oid'=>$order_id))}" success_load_href="{$success_url}" class="y-item1 f-fs2">
+            <ul>
+                <li class="first">
+                    还需支付金额:<span class="cl-f7 f-fwb ml10">￥{$money}</span>
+                </li>
+
+                <li>
+                    订单号：{$order_id}
+                </li>
+
+                <li class="pc-wx-last">
+                    支付方式:
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(function() {
+        var getOrderPayState = function() {
+            var href = $('div#pc-wx-pay-code-info').attr('load_href');
+            var success_load_href = $('div#pc-wx-pay-code-info').attr('success_load_href');
+            $.post(href, {}, function(res) {
+                if (res.code && res.code == 1) {
+                    $('#error-con').html($("#success-top-tmpl").tmpl({success: '支付成功！正在处理中，请稍后...'}));
+                    window.setTimeout(function() {
+                        window.location.href = success_load_href;
+                    }, 1500);
+                    return false;
+                }
+                window.setTimeout(function() {
+                    if (getOrderPayState) {
+                        getOrderPayState();
+                    }
+                }, 1500);
+                return false;
+            }, 'json');
+            return false;
+        }
+
+        var init = function() {
+
+            // 执行获取团单支付状态！
+            window.setTimeout(function() {
+                if (getOrderPayState) {
+                    getOrderPayState();
+                }
+            }
+            , 3000);
+        }();
+
+    })
+</script>
+<include file="Common:footer" />

@@ -1,0 +1,245 @@
+<include file="Common:header" />
+    	<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/webuploader.css">
+		<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/css/style.css">
+    	<link href="__CSS_PATH__/webuploader.css" rel="stylesheet" >
+
+<body class="gray-bg">
+<include file="Common:message_tip" />
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+    		<div class="col-sm-12">
+    			 <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+    					<h3><a href="{:U('Partner/index')}" class="J_menuItem">商家</a> / <small><a href="{:U('Partner/add')}">新建商家</a></small></h3>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form  class="form-horizontal" id="partner-form" action="{:U('Partner/insert')}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商圈  / 分类</label>
+                                <div class="col-sm-6">
+                                	<div class="row">
+	                                	<div class="col-sm-4">
+	                                		<select name="zone_id" class="form-control" required link="{:U('partner/getStationList')}" onchange="getStation(this,'station')">
+	                                			<option>选择商圈</option>
+	                                			<volist name="district" id="cate">
+							                        <option value="{$cate.id}">{$cate.name}</option>
+							                    </volist>
+	                                		</select>
+	                                	</div>
+	                                	<div class="col-sm-4">
+	                                		<select name="station_id" class="form-control" id="station">
+						                      <option value="">选择二级商圈</option>
+						                    </select>
+	                                	</div>
+	                                	<div class="col-sm-4">
+	                                		<select name="group_id" class="form-control" required>
+						                      <option value="">选择分类</option>
+						                      <volist name="partner" id="cate">
+						                        <option value="{$cate.id}">{$cate.name}</option>
+						                      </volist>
+						                    </select>
+	                                	</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">登录名</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="username" autocomplete="off"  required class="form-control" placeholder="商户登录后台系统的账户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">密码</label>
+                                <div class="col-sm-4">
+                                	<input type="password" name="password" autocomplete="off"  required class="form-control" placeholder="首次登陆默认密码">
+                                	<span class="help-block m-b-none"> 至少8位数字加字母</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商户名称</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="title" required class="form-control" placeholder="商户品牌或者店名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">预约电话</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="phone" required class="form-control" placeholder="商户客服电话">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">验证电话</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="mobile" class="form-control" placeholder="电话验证团购券的电话号码">								
+                                	<span class="help-block m-b-none">选填，需要开通电话验证的商户必填</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">打印开启</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="enable" required class="form-control" placeholder="是否开启打印">
+                                    <span class="help-block m-b-none">开通打印填写N不开通填写Y注意是大写字母，开通打印为验证后券号打印留根，需商家有打印机设备。</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商户门头</label>
+                                <div class="col-sm-4">
+                                	<include file="upload" />
+                					<input type="hidden" name="image" id="uploadimage" value="{$vo.images}">
+		                        	<span class="help-block m-b-none text-danger">图片尺寸380*280</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">详细地址</label>
+                                <div class="col-sm-3">
+                                	<input type="text" name="address" required class="form-control" value="" id="address" class="form-control" placeholder="XX区XX路XX街道XX号">
+                                </div>
+                                <div class="col-sm-2">
+                                	<div class="input-group">
+                                        <input type="text" name="longlat" value="{$vo.longlat}" id="mappoint" required  style="width:250px;" class="form-control" placeholder="地图坐标" readonly="">
+                                        <span class="input-group-btn"> 
+                                   			<button class="btn btn-default layer-iframe" data-toggle="modal" href="#myModal" type="button" id="getmap"><i class="fa fa-map-marker"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">开户信息</label>
+                                <div class="col-sm-6">
+                                	<div class="row">
+                                		<div class="col-sm-4">
+	                                		<select id="s_bank" class="form-control" name="sbank" required>
+							                  <option>开户银行</option>
+							                </select>
+	                                	</div>
+	                                	<div class="col-sm-4">
+	                                		<select id="s_city" class="form-control" name="banks" required>
+							                  <option>所在省</option>
+							                </select>
+	                                	</div>
+	                                	<div class="col-sm-4">
+							                <select id="s_xian" class="form-control" name="bankx" required>
+							                  <option>所在市/县</option>
+							                </select>
+	                                	</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">开户行</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="bank_name" class="form-control" required placeholder="开户行名称 例如：工商银行新城区支行">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">大额行号</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="bank_large_no" class="form-control" placeholder="大额行号(注：非农行需要填写此字段)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">开户户名</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="bank_user" class="form-control" required placeholder="银行账号户主名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">银行账号</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="bank_no" class="form-control" required placeholder="输入卡号">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input class="btn btn-primary" type="button" onclick="return ajax_check_submit_from(this);" check_url="{:U('Partner/check_team_data')}" value="提交">
+                                    <input class="btn btn-white" type="reset" value="取消">
+                                     </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal" id="myModal"  tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+            	<div class="modal-header">
+            		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+            	</div>
+                <div class="modal-body">
+                    <div id="baidumap" style="height:350px;border:1px solid #ccc">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script type="text/javascript" src="__PLUGINS_PATH__/webuploader/upload.js"></script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/webuploader/webuploader.js"></script>
+	<script type="text/javascript" src="__PLUGINS_PATH__/newcity.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/common.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript" src="__JS_PATH__/jquery.tmpl.min.js?v={:C('JS_VER')}"></script>
+	<script type="text/javascript">
+    	var UPLOAD_URL = "{:U('Team/uploadImg',array('type'=>'Admanage'))}";
+    	var ssbank="";
+		var bankss="";
+		var bankxs="";
+    </script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+              <script type="text/javascript">
+              	
+              $(function(){
+                $("#getmap").click(function(){
+                  var val=$("#address").val();
+                  if(val==''){
+
+                  }
+                  var myGeo = new BMap.Geocoder();          
+                  // 将地址解析结果显示在地图上,并调整地图视野
+                  myGeo.getPoint(val, function(point){
+                    if (point) {
+                      map.clearOverlays();
+                      map.centerAndZoom(point, 13);
+                      $("#mappoint").val(point.lat + "," + point.lng);
+                      var marker=new BMap.Marker(point)
+                      map.addOverlay(marker);
+                      marker.enableDragging();     
+                      marker.addEventListener("dragend", function(e){    
+                       $("#mappoint").val(e.point.lat + "," + e.point.lng);
+                      })
+                    }else{
+                      alert("没搜索到地址坐标!");
+                    }
+                  }, "中国");
+                });
+              })
+
+              var map = new BMap.Map("baidumap");
+              var point=new BMap.Point(116.404, 39.905259);
+              map.centerAndZoom(point, 11);
+              map.addControl(new BMap.NavigationControl());
+              map.enableScrollWheelZoom(true);           
+              map.addEventListener("click",function(e){
+                map.clearOverlays();
+                var p=new BMap.Point(e.point.lng,e.point.lat);
+                var marker = new BMap.Marker(p);// 创建标注
+                map.addOverlay(marker);             // 将标注添加到地图中
+                marker.enableDragging();           // 可拖拽
+                $("#mappoint").val(e.point.lat + "," + e.point.lng); 
+                marker.addEventListener("dragend", function(e){    
+                 $("#mappoint").val(e.point.lat + "," + e.point.lng);
+                })
+              });
+              </script>
+
+            </div>
+</body>
+
+</html>

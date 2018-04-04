@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>添加成员</title>
+<link rel="stylesheet" href="__CSS_PATH__/widget.css" />
+<link rel="stylesheet" href="__CSS_PATH__/pop.css" />
+<script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+<style>
+	.add-person img.selected{border: 1px solid red;}
+	.add-person img{border:1px solid #fff;}
+</style>
+</head>
+<body>
+	<div class="fancycreate">
+		<form name="myform">
+
+			<li>
+				<label>邀请成员</label>
+				<label class="add-person">
+					<span>
+						<volist name="data" id="row">
+							<notempty name="row.avatar">
+								<img src="{$row.avatar|getImagePath}" id="user{$row.id}" uid="{$row.id}" title="{$row.realname}">
+							<else />
+								<img src="__IMAGE_PATH__/nophoto.jpg" id="user{$row.id}" uid="{$row.id}" title="{$row.realname}">
+							</notempty>
+						</volist>
+					</span>
+				</label>
+			</li>
+			<li><input type="button" id="user-btn" value="确定" class="btn-teal"></li>
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	var userList = [];
+	$(".add-person img").click(function(){
+		var uid=$(this).attr('uid');
+		if($(this).hasClass('selected')) {
+			for(i=0;i<userList.length;i++){
+				if(userList[i] == uid){
+					userList.splice(i,1);
+					break;
+				}
+			}
+			$(this).removeClass('selected');
+		}else{
+			$(this).addClass('selected');
+			userList.push(uid);
+		}
+	});
+
+	$("#user-btn").click(function() {
+		if(userList.length==0){
+			alert('请选择用户');
+			return false;
+		}
+		// 拼接html
+		var str='';
+
+		for(i=0;i<userList.length;i++){
+			var name=$("#user"+userList[i]).attr('title');
+			str += '<img src="__IMAGE_PATH__/nophoto.jpg" title="'+name+'"><input type="hidden" name="user[]" value="'+userList[i]+'" />';
+		}
+
+		window.parent.document.getElementById('user-id').innerHTML=str;
+		window.parent.jQuery.fancybox.close();
+	});
+})
+</script>
+</html>

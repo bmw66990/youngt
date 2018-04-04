@@ -1,0 +1,157 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link rel="stylesheet" href="__CSS_PATH__/member.css?v={:C('CSS_VER')}" type="text/css" />
+<section><div id='section'>
+	<div id="bdw">
+            <div id="bd"  class="cf">
+                <div id="ytcontent" class="fl">
+                    <div  class="mainbox">
+                        <h2>
+                            提现
+                            <span style="float:right;font-size:15px;">
+                                <a href="{:U('Member/balance')}" class="fac">返回交易记录</a>
+                            </span>
+                        </h2>
+                            <include file="Common:error" />
+                            <div class="field-group f-fs2">
+                                <label class="text">青团余额：</label>
+                                <span class="balance">¥{$member['money']}</span>
+                            </div>
+                            <p class="info-section mt30 dp" style="margin:10px 0; color:red;">温馨提示：充值金额、签到金额或中奖金额不能提现</p>
+                            <if condition="$member['money'] eq 0">
+                                <p class="info-section mt30 dp">温馨提示   ：您的账户没有可提现金额，如有疑问请联系客服。 </p>
+                            <else />
+                                <button style="background:#2db3a6;width:150px;height:40px;line-height:40px; font-size:15px; border-radius:5px" id="alipay">提现至支付宝账户</button>
+                                <button id="tenpay" style="width:150px;height:40px;line-height:40px; font-size:15px; border-radius:5px">提现至银行卡</button>
+                                 <div style="background:#eee;color:red; width:450px;height:50px; line-height:50px; font-size:20px; margin-top:10px;">请正确填写以下内容！以免导致打款出错。</div>
+                                 <div class="field-group-1">
+                                 <label>提现金额</label >
+                                            <input class="f-text" type="text" name="money" id="money" />
+                                 </div>
+                                 <div id="alipays">
+                                    <!--帐户登录开始-->
+                                        
+                                        <div class="field-group-1">
+                                            <label>支付宝账户</label >
+                                            <input class="f-text" type="text" value="" name="account" />
+                                        </div>
+                                        <div class="field-group-1">
+                                            <label>真实姓名</label >
+                                            <input class="f-text" type="text" value="" name="uname" />
+                                        </div>
+                                                           
+                                        <div class="field-group-1 ml85">
+                                            <input type="hidden" name="action" value="alipay">
+                                            <button type="submit" class="btn-hot" name="alipay">申请提现</button>
+                                        </div>
+                                        <!--帐户登录结束-->
+                                </div>
+                                <div style="display:none" id="tenpays">
+                                        <!--邮箱注册开始-->
+                                        <div class="field-group-1">
+                                            <label>银行卡号</label >
+                                            <input class="f-text" type="text" value="" name="account" />
+                                        </div>
+                                        <div class="field-group-1">
+                                            <label>所属银行</label>
+                                            <input class="f-text" type="text"  value=""  name="bank" />
+                                        </div>
+                                        <div class="field-group-1">
+                                            <label>真实姓名</label >
+                                            <input class="f-text" type="text" value="" name="uname" />
+                                        </div> 
+                                        <div class="field-group-1 ml85">
+                                            <input type="hidden" name="action" value="tenpay">
+                                            <button type="submit" id="regbtn" class="btn-hot" name="tenpay">申请提现</button>
+                                        </div>
+                                        <!--邮箱注册结束-->                   
+                                </div>
+                            </if>   
+                      </div>                                        
+                </div>
+               <script type="text/javascript">
+                $(function(){
+                    $('#alipay').click(function(){
+                        $(this).css('background','#2db3a6');
+                        $('#tenpay').css('background','');
+                        $('#alipays').show();
+                        $('#tenpays').hide();
+                    })
+                    $('#tenpay').click(function(){
+                        $(this).css('background','#2db3a6');
+                        $('#alipay').css('background','');
+                        $('#alipays').hide();
+                        $('#tenpays').show();
+                    })
+                     $('button[type=submit]').click(function(){
+                    var money=$('#money').val() - 0;
+                    var umoney="{$member['money']}" - 0;
+                        if(isNaN(money)){
+                             $('#error-con').html($('#error-top-tmpl').tmpl({error:'请求不合法！输入金额必须为数值型'}));
+                        }else if(money>umoney){
+                            $('#error-con').html($('#error-top-tmpl').tmpl({error:'请输入小于可提现金额的数值！'}));
+                        }else if(money<10){
+                            $('#error-con').html($('#error-top-tmpl').tmpl({error:'提现金额不能小于10元！'}));
+                        }else{
+                            var action=$(this).attr('name');
+                            var account=$(this).parent().parent().find('input[name=account]').val();
+                            var uname=$(this).parent().parent().find('input[name=uname]').val();
+                            var bank=$(this).parent().parent().find('input[name=bank]').val();
+                            if(account==''){
+                                $('#error-con').html($('#error-top-tmpl').tmpl({error:'请输入账户！'}));
+                                return false;
+                            }
+                            if(uname==''){
+                                $('#error-con').html($('#error-top-tmpl').tmpl({error:'请输入真实姓名！'}));
+                                return false;
+                            }
+                            if(action=='tenpay'){
+                                if(bank==''){
+                                    $('#error-con').html($('#error-top-tmpl').tmpl({error:'请输入所属银行！'}));
+                                    return false;
+                                }
+                            }else if(action=='alipay'){
+                                bank='支付宝'
+                            }
+                            $("button[type=submit]").text('提交中...').attr('disabled',true);
+                            $.post("{:U('Member/withdraw')}",{account:account,uname:uname,bank:bank,money:money},function(data){
+                                if(data.status==1){
+                                    location.href="__URL__/withdrawok/money/"+money;
+                                }else if(data.status==0){
+                                    $("button[type=submit]").text('申请提现').removeAttr('disabled');
+                                    $('#error-con').html($('#error-top-tmpl').tmpl({error:'提现失败'}));
+                                }
+                            })
+                            
+                        }
+
+                    })
+                })
+               
+                </script>
+                <div id="sidebar" class="fr">
+                    <div class="side-single">
+                        <div class="inner-blk side-tips last">
+                            <h3>需要帮助？</h3>
+                            <div class="uix-collapse uix-collapse--open">
+                                <h4 class="uix-collapse__trigger">到账账户</h4>
+                                <p class="uix-collapse__content">将提现至您支付/充值时所选择的支付方，选择支付宝/财付通则退回对应的余额，选择银行支付则退回对应的银行。由于余额可能会有多个支付来源，提现时也会对应分多笔到账。</p>
+                            </div>
+                            <div class="uix-collapse uix-collapse--open">
+                                <h4 class="uix-collapse__trigger">到账时间</h4>
+                                <p class="uix-collapse__content">3-10个工作日内可退回您的支付账户。由于银行处理可能有延迟，具体以账户的到账时间为准。</p>
+                            </div>
+                            <div class="uix-collapse uix-collapse--open">
+                                <h4 class="uix-collapse__trigger">申请提现后是否可以取消？</h4>
+                                <p class="uix-collapse__content">由于申请后，青团会立即向第三方提出申请，所以提现无法取消，请您谅解。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <div class="clear"></div>
+            </div>
+            
+        </div>
+</div></section>
+<!--底部开始-->
+<include file="Common:footer" />

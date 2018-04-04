@@ -1,0 +1,119 @@
+<include file="Common:header" />
+<!--本页面样式-->
+   <link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+             	<form role="form" name="form1" class="form-inline" action="{:U('BdUser/bindPartner', array('id'=>$id))}" method="get">
+                    <div class="form-group">
+                        <label for="teamid" class="sr-only">关键字</label>
+                        <input type="text" placeholder="商家名称" name="title" value="{$title}" id="teamid" class="form-control">
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="筛选" />
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <form  name="form2" action="{:U('BdUser/bindPartner')}" id="user-do-auth-form" method="post" class="form-horizontal">
+                    <table class="table table-striped table-bordered table-hover " id="editable">
+                        <thead>
+                            <tr>
+                                <th>选项</th>
+                                <th>名称</th>
+                                <th>电话</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="partner" id="row">
+                                <tr>
+                                  <td>
+                                      <input type="checkbox" name="pids[]" value="{$row.id}">
+                                  </td>
+                                  <td>{$row.title}</td>
+                                  <td>{$row.mobile}</td>
+                                  <td>
+                                    <if condition="$res = auth_check_access(array('BdUser/bindPartner'))">
+                                        <button class="btn btn-info btn-sm J_menuItem bind-btn"><i class="fa fa-chain"></i> 绑定</button>
+                                    </if>
+                                  </td>
+                                </tr>
+                              </volist>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                共 {$count} 项
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                {$pages}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="id" value="{$id}">
+                            <button id="user-do-auth-btn" class="btn btn-info" type="button" >批量绑定</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="__PLUGINS_PATH__/jQuery-2.1.4/jquery-2.1.4.min.js"></script>
+    <script src="__PLUGINS_PATH__/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            // 单个绑定
+            $('.bind-btn').on('click', function(){
+                $(this).closest('tr').siblings().find('input[name="pids[]"]:checked').prop('checked',false);
+                $(this).closest('tr').find('input[name="pids[]"]').prop('checked',true);
+                $('#user-do-auth-btn').trigger('click');
+                return false;
+            });
+            // 批量绑定
+            $('#user-do-auth-btn').on('click', function() {
+                var $this = $(this);
+                var $form = $this.parents('form#user-do-auth-form');
+                // 验证
+                if (!$form.find("input[type='checkbox']:checked").length > 0) {
+                    parent.layer.msg('请勾选需绑定的商家', {shade: 0.3})
+                    return false;
+                }
+                var href = $form.attr('action');
+                if ($this.hasClass('disabled')) {
+                    parent.layer.msg('正在处理，请稍等！', {shade: 0.3})
+                    return false;
+                }
+                var data = $form.serialize();
+                $this.addClass('disabled').html('<i class="fa fa-spinner fa-spin"></i>');
+                $.post(href, data, function(res) {
+                    $this.removeClass('disabled');
+                    if (res.code && res.code != 0 && res.error) {
+                        parent.layer.msg(res.error, {shade: 0.3})
+                        return false;
+                    }
+                    parent.layer.msg('操作成功！', {shade: 0.3});
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    var $pnum = parent.$('.cur-row').find('.pnum');
+                    $pnum.text(parseInt($pnum.text()) + parseInt(res.num));
+                    parent.layer.tips('新增绑定: ' + res.num, '.cur-row', {time: 5000});
+                    parent.layer.close(index);
+                }, 'json');
+                return false;
+            });
+        })
+    </script>
+</body>
+
+
+</html>

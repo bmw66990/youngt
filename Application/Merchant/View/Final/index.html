@@ -1,0 +1,186 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">财务账单</a>
+            </li>
+            <li class="active">青团券明细</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                青团券明细
+            </h1>
+        </div>
+        <!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="table-responsive">
+                    <div class="row">
+                        <form action="{:U('Coupon/couponDetail')}" method="get">
+                        <div class="col-sm-7">
+                            <div id="sample-table-2_length" class="form-group">													
+                                <label>筛选项目名称
+                                    <select size="1" name='tid' aria-controls="sample-table-2">
+                                        <option value="" selected="selected">全部</option>
+                                        <volist name="team" id="vo">
+                                            <option value="{$vo['id']}" <if condition="$tid eq $vo['id']">selected='selected'</if> >{$vo['product']}</option>
+                                        </volist>
+                                    </select>
+                                </label>													
+                                <label>青团券状态
+                                    <select size="1" name='consume' aria-controls="sample-table-2">
+                                        <option value="" selected="selected">全部</option>
+                                        <option value='Y' <if condition="$consume eq 'Y'">selected='selected'</if> >已消费</option>
+                                        <option value='N'  <if condition="$consume eq 'N'">selected='selected'</if> >未消费</option>
+                                        <option value='G'  <if condition="$consume eq 'G'">selected='selected'</if> >已过期</option>
+                                    </select>
+                                </label>
+                                <label>青团券号:
+                                    <input type="text" name="coupon" value="{$coupon_id}" aria-controls="sample-table-2">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="hidden" id='order' name="order" value="{$order}"/>
+                            <input type="hidden" id='partner_id' name="partner_id" value="{$partner_id}"/>
+                            <button class="btn btn-sm btn-success">
+                                <i class="icon-ok"></i>
+                                筛选
+                            </button>
+                        </div>
+                     </form>
+                    </div>
+                    <div class="dataTables_wrapper" role="grid">
+
+                        <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable" aria-describedby="sample-table-2_info">
+                            <thead>
+                                <tr>
+                                    <th>项目ID/名称</th>
+                                    <th>青团券号</th>
+                                    <th>购买者用户名</th>
+                                    <th>团购价</th>
+                                    <th>结算价</th>
+                                    <th>
+                                        <i class="icon-time bigger-110 hidden-480"></i> 消费日期
+                                    </th>
+                                    <th class="hidden-480">状态</th>
+                                </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                 <volist id="vo" name="list">
+                                        <tr class="odd">
+                                            <td class=" ">
+                                                 {$vo.team_id}/<a target="_blank" href="http://{$Think.server.http_host}/team-{$vo.team_id}.html" class="fac">{$vo['product']}</a>
+                                           </td>
+                                            <td class=" ">
+                                                <if condition="$vo.consume eq 'Y'">
+                                                {$vo['id']}
+                                                <elseif condition="$vo['expire_time'] lt time()"/>
+                                                {$vo.id|substr=0,4}****{$vo.id|substr=-4,4}
+                                                <else/>
+                                                {$vo.id|substr=0,4}****{$vo.id|substr=-4,4}
+                                                </if>
+                                            </td>
+                                            <td class="hidden-480 ">
+                                                <if condition="is_numeric($vo['username'])">
+                                                {$vo.username|substr_replace='****',3,4}
+                                                <else />
+                                                {$vo.username|substr_replace=' *** ',3,3}
+                                                </if>
+                                            </td>
+                                            <td class=" ">{$vo['team_price']}</td>
+                                            <td class=" ">{$vo['ucaii_price']}</td>
+                                            <td class=" ">
+                                            <if condition="$vo.consume_time neq 0">
+                                                {$vo.consume_time|date="Y-m-d H:i",###}
+                                                <else/>
+                                                该用户暂未消费
+                                            </if>
+                                            </td>
+                                            <td class="hidden-480 ">
+                                                <if condition="$vo.consume eq 'Y'">
+                                                    <span class="label label-sm label-warning">已消费</span>
+                                                    <elseif condition="$vo['expire_time'] lt time()"/>
+                                                   <span class="label label-sm label-inverse arrowed-in">已过期</span>
+                                                    <else/>
+                                                    <span class="label label-sm label-success">未消费</span>
+                                                </if>       
+                                            </td>
+                                        </tr>
+                                 </volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="sample-table-2_info">全部{$count}条</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_bootstrap">
+                                   {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <if condition="!empty($partner_income)" >
+                     <div class="dataTables_wrapper" role="grid">
+
+                        <table id="sample-table-2" class="table table-striped table-bordered table-hover dataTable" aria-describedby="sample-table-2_info">
+                            <thead>
+                                <tr>
+                                        <th>项目编号/名称</th>
+                                        <th>购买总数</th>
+                                        <th>购买总金额</th>
+                                </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                  <volist id="vo" name="partner_income">
+                                        <tr>
+                                            <td class="f-tal">
+                                                <a target="blank" href="http://{$Think.server.http_host}/team-{$vo.team_id}.html" class="fac">{$vo.team_id}&nbsp;&nbsp;({$vo['product']})</a>
+                                            </td>
+                                            <td>{$vo['num']}</td>
+                                            <td>{$vo['totalmoney']}</td>
+                                        </tr> 
+                                    </volist>     
+                            </tbody>
+                        </table>
+                     </div>
+                    </if>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+
+    });
+</script>

@@ -1,0 +1,135 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">团单管理</a>
+            </li>
+            <li class="active">团单青团券列表</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                团单青团券列表
+            </h1>
+        </div>
+        <!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <include file="Common:message_tip" /> 
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="tab-content">
+                    <div id="basicinfo" class="tab-pane active">
+                        <table id="team-manage-list" class="table table-bordered table-striped">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>
+                                        <i class="icon-tag blue"></i> 项目编号/名称
+                                    </th>
+                                   
+                                    <th>
+                                        <i class="icon-time blue"></i> 结束时间
+                                    </th>
+                                  
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 青团券总数
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 已消费总数
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 未消费总数
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="list" id="vo">
+                                <tr>
+                                    <td>
+                                        {$vo['id']} / 
+                                         <a class="fac"  tid="{$one['id']}" href="http://{$Think.server.http_host}/team-{$vo.id}.html" title="{$vo['title']}" target="_blank">{$vo['product']}</a>
+                                        </a>
+                                    </td>
+                                    
+                                     <td>{$vo.expire_time|date="Y-m-d",###}</td>
+                                     
+                                     <td>
+                                    <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                                        <a class="fac" href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id))}" target="_black">{$vo.sumconpon}</a>
+                                    <else/>
+                                    {$vo.sumconpon}
+                                    </if>
+                                    </td>
+                                    <td>
+                                    <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                                        <a class="fac" href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id,'act'=>'Y'))}" target="_black">{$vo.sumconsume}</a>
+                                    <else/>
+                                    {$vo.sumconsume}
+                                    </if>
+                                    </td>
+                                    <td>
+                                    <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                                        <a class="fac" href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id,'act'=>'N'))}" target="_black">{$vo.sumrconsume}</a>
+                                    <else/>
+                                    {$vo.sumrconsume}
+                                    </if>
+                                    </td>
+                                </tr>
+                        </volist>
+                            </tbody>
+
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="sample-table-2_info"> 全部{$count}条</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_bootstrap">
+                                    {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+         // 申请上线提示
+        $('.main-container-inner').on('click','#team-manage-list button.online',function(){
+        //$("#team-manage-list a.online").die().live('click', function() {
+            var $dbUser = $('#team-manage-list').attr('lang').split('|');
+            var $phone = $dbUser.pop();
+            var $username = $dbUser.pop();
+            var $confire = "请联系业务员：" + $username + "，联系电话：" + $phone;
+            window.confirm($confire);
+            return false;
+        });
+    });
+</script>

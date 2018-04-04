@@ -1,0 +1,37 @@
+<include file="Common:header" />
+<section>
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">积分规则<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<div class="con-edit-form">
+			  <span class="form-title">基本规则</span>
+			  <ul>
+			  <form name="form1" action="{:U('PointsTeam/rule')}" method="post">
+			  	<li><label>用户注册</label><input class="w100" type="text" name="reg_user" value="{$rule.reg_user|default=10}" /><label>,</label></li>
+			  	<li><label>用户登陆</label><input class="w100" type="text" name="login_user" value="{$rule.login_user|default=5}" /><label>,</label></li>
+			  	<li><label>邀请好友</label><input class="w100" type="text" name="invite_user" value="{$rule.invite_user|default=5}" /><label>,</label></li>
+			  	<li><label>购买商品</label><input class="w100" type="text" name="buy_team" value="{$rule.buy_team|default=1}" /><label>,</label></li>
+			  	<li><label>支付返积分</label><input class="w100" type="text" name="pay_team" value="{$rule.pay_team|default=1}" /><label>,</label></li>
+			  	
+			  	<li><label>充值返积分</label><input class="w100" type="text" name="charge" value="{$rule.charge|default=1}" /><label>,</label></li>
+			  	<li><div class="form-remark tx-grey h40 fl">购买商品/在线充值时，按付款金额的比例返还积分</div></li>
+			  	<li><label>评论返积分</label><input class="w100" type="text" name="review" value="{$rule.review|default=10}" /><label>,</label></li>
+			  	<li><div class="form-remark tx-grey h40 fl">消费后点评商品返积分</div></li>
+			  	<li><input class="w100 bc-teal small-btn" type="submit" value="保存"></li>
+			  </form>
+			  </ul>
+			  <span class="form-title">用户积分充值 (“用户id”和“用户名/手机号”输入一个即可)</span>
+			  <form name="form2" method="post" action="{:U('PointsTeam/charge')}">
+				  <ul>
+				  	<li><label>用户id</label><input type="text" name="user_id" /><label>,</label></li>
+				  	<li><label>用户名/手机号</label><input type="text" name="username" /><label>,</label></li>
+					<li><label>充值积分</label><input class="w60" type="text" name="score"  value="0" /><label>,</label></li>
+					<li><input class="w100 bc-teal small-btn" type="submit" value="充值"></li>
+				  </ul>
+			  </form>
+			</div>
+		</div> 
+	</div>
+</section>
+<include file="Common:footer" />

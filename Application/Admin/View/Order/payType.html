@@ -1,0 +1,8 @@
+<li><label>支付类型</label>
+<select name='pay_type'>
+    <option value="">--请选择支付类型--</option>
+    <volist  name="service_type" id="st">
+        <option value="{$key}"  <if condition="$key == $searchValue['pay_type']"> selected </if>>{$st}</option>
+    </volist>
+</select>
+</li>

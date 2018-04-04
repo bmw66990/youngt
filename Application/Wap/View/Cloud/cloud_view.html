@@ -1,0 +1,96 @@
+<include file="Common:header" />
+<div class="cloud-index" style="background: #f0f0f0;">
+	<div class="banner">
+		<div class="banner-img">
+			<img src="{$team.image}" />
+		</div>
+	</div> 
+	<div class="cloud-main">
+		<!--两种状态-->
+		<!--进行中-->
+                <if condition="$team.status neq 0">
+                    <!--已结束-->
+                    <span class="cloud-title"><label class="tags-green">已揭晓</label>(第{$team.periods_number}期){$team.title}</span>
+		<div class="cloud-reslut">
+			<img src="__IMAGE_PATH__/iocnfont-huojiangzhe.png" class="tags"/>
+			<dl>
+				<dd>获奖者：{$team.username_hide}</dd>
+				<dd>用户ID：{$team.winning_user_id}</dd>
+				<dd>期号：第{$team.periods_number}期</dd>
+				<dd>本次参与：{$team.pay_count}人次</dd>
+				<dd>揭晓时间：{$team['begin_time']|date="Y-m-d H:i:s",###}</dd>
+				<dd>幸运号码：<i class="red">{$team.winning_cloud_code}</i></dd>
+			</dl>
+		</div>
+                <else/>
+                <span class="cloud-title"><label class="tags-o-red">进行中</label>(第{$team.periods_number}期){$team.title}</span>
+		<div class="cloud-paying">
+			<span class="progress-bar"><label style="width: {$team.progress|default='0'}%;"></label></span>
+			<span class="pt5"><label class="fl">总需:{$team.max_number}</label><label class="fr">剩余:<i>{$team['max_number']-$team['now_number']}</i></label></span>
+		</div>
+                </if>
+		
+		
+		
+	</div>
+	<div class="cloud-infor">
+		<!--众筹产品详情-->
+		<span>商品介绍</span>
+			<p>{$team.summary}</p>
+		<span><a href="{:U('Cloud/moreDetail', array('id' => $team['id']))}">图文详情</a></span>
+	</div>
+	<div class="cloud-pay-record">
+		<!--购买记录-->
+		<span>所有参与记录</span>
+			<div class="record-list">
+                                                            <volist name='team.order_record' id='tor'>
+                                                                <dl>
+                                                                <dt><label>{$key}</label></dt>
+                                                                <volist name='tor' id='tr'>
+                                                                    <dd>
+                                                                            <img src="__IMAGE_PATH__/huiyuan.png" />
+                                                                            <span>
+                                                                                    <label><i class="blue">{$tr.user_username_hide}</i>({$tr.user_buy_city_name} IP：{$tr.user_buy_ip})</label>
+                                                                                    <label>参与<i class="red">{$tr.quantity}</i>人次  {$tr.time}</label>
+                                                                            </span>
+                                                                    </dd>
+                                                                </volist>
+                                                                </dl>
+                                                            </volist>
+			</div>
+	</div>
+	<div class="btn-list">
+		<!--底部 两种状态  购买||查看正在销售的最新一期-->
+                <if condition="$team.status neq 0">
+                    <span><i class="fl pl10">新的一期正在火热进行中…</i><a href="{:U('Cloud/cloud_view',array('tid'=>$team['id'],'pn'=>$team['now_periods_number']))}" class="small">立即前往</a></span>
+                    <else/>
+                    <span><a href="javascript:void(0);" onclick="return gotoAppPay('{$team.id}');">立即参与</a></span>
+                </if>
+	</div>
+</div>
+<script type="text/javascript">
+    function gotoAppPay(tid) {
+        
+        // 团单id为空  则不允许跳转
+        if(!tid){
+            return false;
+        }
+        
+        //  调取android 团单详情
+        try {
+            window.android.startPay(tid);
+            return false;
+        } catch (e) {
+
+        }
+        //  调取ios 团单详情
+        try {
+            window.iosStartPay(tid);
+            return false;
+        } catch (e) {
+
+        }
+
+        return false;
+    }
+</script>

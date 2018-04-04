@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8" />
+        <title>青团网管理后台</title>
+        <link rel="icon" href="__IMAGE_PATH__/favicon.ico" size="16x16" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <link href="__CSS_PATH__/widget.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <link href="__CSS_PATH__/base.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <link href="__PLUGINS_PATH__/fancybox/Css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/common.js?v={:C('JS_VER')}"></script>
+        <script type="text/javascript" src="__JS_PATH__/jquery.tmpl.min.js"></script>
+        <!--[if ie 8]>
+            <script src="__JS_PATH__/custom.modernizr.js"></script>
+        <![endif]-->
+        <script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="__PLUGINS_PATH__/laydate/laydate.js"></script>
+        <script type="text/javascript" src="__PLUGINS_PATH__/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="__JS_PATH__/index.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="top-bar">
+                <div class="top-menu">
+                    <ul>
+                        <if condition="$isDaySign eq 1">
+                            <li class="signend">已签到</li>
+                            <else />
+                            <li class="sign">
+	                            <!--<a href="{:U('Index/daySign')}">-->
+	                            <a href="javascript:daySign();">签到</a>
+                            </li>
+                        </if>
+                        <li>管理员-</li>
+                        <li><label class="tx-green">{$user_info['realname']?$user_info['realname']:$user_info['username']}</label></li>
+                        <li><a href="#">设置</a></li>
+                        <li class="left-border w60"><a href="{:U('Public/logout')}">>>退出</a></li>			
+                    </ul>
+                </div>
+            </div>
+            <div class="logo">
+                <div class="logo-img fl">
+                    <a href="{:U('Index/index')}"><img src="__IMAGE_PATH__/logo.png" /></a>
+                </div>
+                <div class="logo-center fl bc-grey">后台</div>
+            </div>
+        </header>
+        <script type="text/javascript">
+            
+            <if condition="strpos(strtolower($_SERVER['REQUEST_URI']),'admin') neq false">
+                var $base_url = '__APP__/Admin';
+                window.$base_url = '__APP__/Admin';
+                <else/>
+                var $base_url = '__APP__';
+               window.$base_url = '__APP__';
+            </if>
+             var $base_image_url = '__IMAGE_PATH__';
+            window.$base_image_url = '__IMAGE_PATH__';
+        </script>
+    <include file="Common:nav" />
+    <!--头部公共部分结束-->

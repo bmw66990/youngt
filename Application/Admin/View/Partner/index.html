@@ -1,0 +1,96 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">
+            <if condition="$fid gt 0">
+                分店列表<span >
+                     <if condition="$res = auth_check_access(array('Partner/add'))">
+                         <a style="float:right;font-size: 16px;" class="tx-green" href="{:U('Partner/add',array('fid'=>$fid))}">添加分店</a></span>
+                    </if>
+                <else />
+                商户列表<span class="tx-green">+</span>
+            </if></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Partner/index')}" method="get">
+                <li><label>商户编号</label><input class="w60" type="text" name="id" value="{$displayWhere['id']}"/><label>,</label></li>
+                <li><label>商户名称</label><input type="text" name="title" value="{$displayWhere['title']}" /><label>,</label></li>
+                <if condition="$fid eq 0">
+                <li>  <select name="display">
+                    <option value="">全部显示</option>
+                    <option value="Y" <if condition="$displayWhere['display'] eq 'Y'">selected</if>>开放展示</option>
+                    <option value="N" <if condition="$displayWhere['display'] eq 'N'">selected</if>>关闭展示</option>
+                </select><label>,</label></li>
+                <li>  <select name="city_id">
+                    <option value="0">所有城市</option>
+                    <volist name="all_city" id="vo">
+                        <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['city_id']">selected</if>>{$vo.letter}{$vo.name}</option>
+                    </volist>
+                </select><label>,</label></li>
+                <li>  <select name="group_id">
+                    <option value="0">所有分类</option>
+                    <volist name="partner_group" id="vo">
+                        <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['group_id']">selected</if>>{$vo.name}</option>
+                    </volist>
+                </select></li>
+                </if>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w60">ID</th>
+                        <th class="w200">商户名称</th>
+                        <th class="w150">分类</th>
+                        <th class="w70">联系人</th>
+                        <th class="w150">联系电话</th>
+                        <th class="w60">展示</th>
+                        <th class="w80">排序</th>
+                        <th class="w80"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th></tr>
+                    <volist name="data" id="row">
+                    <tr>
+                        <td class="w60"><label class="tx-teal">{$row['id']}</a></label></td>
+                        <td class="w200">
+                            <label class="tx-teal">
+                                <a href="{:U('Partner/partnerTeamList',array('city_id'=>$row['city_id'],'partner_id'=>$row['id']))}">{$row['title']}</a>
+                            </label>
+                        </td>
+                        <td class="w150"><label class="td-title">{$partner_group[$row['group_id']]['name']}</label><br />[<label class="tx-teal">{$all_city[$row['city_id']]['name']|default="全国"}</label>]
+                        </td>
+                        <td class="w70 lh-26"><label>{$row['contact']}</label></td>
+                        <td class="w150 f-12"><label>{$row['phone']}</label><br/><label>{$row['mobile']}</label></td>
+                        <td class="w60 f-12"><label class="tx-red"><if condition="$row['display'] eq 'Y'">开放展示<else />关闭展示</if></label></td>
+                        <td class="w80"><label class="f-12">{$row['head']}</label></td>
+                        <td class="w80 f-12 man">
+                            <if condition="$res = auth_check_access(array('Partner/edit'))">
+                                <label  class="bc-teal">
+                                    <a href="{:U('Partner/edit',array('id'=>$row['id']))}">编辑</a>
+                                </label>
+                            </if>
+                            <if condition="$res = auth_check_access(array('Partner/delete'))">
+                                <label  class="bc-teal">
+                                    <a href="javascript:delPartner({$row['id']});">删除</a>
+                                </label>
+                            </if>
+                            <if condition="$res = auth_check_access(array('Partner/Index'))">
+                                <label  class="bc-teal">
+                                    <a href="{:U('Partner/index',array('fid'=>$row['id']))}">分店管理</a>
+                                </label>
+                            </if>
+                        </td>
+                    </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/partner.js?v=C('JS_VER')" ></script>

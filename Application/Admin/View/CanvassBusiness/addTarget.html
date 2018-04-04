@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>添加客户</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <div class="box">
+            <form name="viewDetails" id="target-form" action="{:U('CanvassBusiness/addTarget')}" method="post">
+                <div class="details">
+                    <li><label>名称：</label><input type="text" name="username"></li>
+                    <li><label>城市：</label><select name="city_id">
+		                    <volist name="cityList" id="vo">
+		                        <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['city_id']">selected</if>>{$vo.letter}{$vo.name}</option>
+		                    </volist>
+	                    </select>
+                    </li>
+                    <li><label>联系电话：</label><input type="text" name="mobile"></li>
+                    <li><label>备注：</label><textarea name="remark" id="" cols="30" rows="10"></textarea></li>
+                    <li><label>&nbsp;</label><input type="button"  id="target-btn" class="btn-teal class-btn" value="添加" /></li>
+                </div>    
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+               $("#target-btn").click(function(event) {
+               		$(this).attr('disabled',true);
+               		var $this=$(this);
+               		$.post("{:U('CanvassBusiness/addTarget')}",$("#target-form").serialize(),function(data){
+               			alert(data.info);
+               			if(data.status==1){
+               				window.parent.jQuery.fancybox.close();
+               				window.parent.parent.document.location.reload();
+               			}
+               			$this.attr('disabled', false);
+               		})
+               });
+            })
+        </script>
+    </body>
+</html>

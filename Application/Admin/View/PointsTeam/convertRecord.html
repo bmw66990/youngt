@@ -1,0 +1,96 @@
+<include file="Common:header" />
+<section>
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">积分兑换记录<span class="tx-green">+</span></div>        
+        <div class="con-form">
+            <form class="myform" action="{:U('PointsTeam/convertRecord')}" method="get">
+                <li><label>兑换码</label><input type="text" name='code' value="{$searchValue.code|default=''}" class="w120" /></li>
+                
+                <li><label>用户名</label><input class="w120" name="username" value="{$searchValue.username|default=''}" type="text"/></li>
+                <li><label>用户手机</label><input class="w120" name="mobile" value="{$searchValue.mobile|default=''}" type="text"/></li>
+                <li>
+                    <input type="submit" class="btn-teal small-btn" value="筛选" />
+                </li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w80">ID</th>
+                        <th class="w200">商品名称</th>
+                        <th class="w150">兑换码</th>
+                        <th class="w100">数量</th>
+                        <th class="w100">花费积分</th>
+                        <th class="w150">用户</th>
+                        <th class="w200">兑换时间</th>
+                        <th class="w150">验证时间</th>
+                        <th class="w150"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="list" id="row">
+                        <tr>
+                            <td class="w80"><label>{$row.id}</label></td>
+                            <td class="w200"><label class="tx-teal">{$row.team_id}/{$teamList[$row['team_id']]}</label></td>
+                            <td class="w150"><label>{$row.code}</label></td>
+                            <td class="w100"><label>{$row.num}</label></td>
+                            <td class="w100"><label>{$row.total_score}</label></td>
+                            <td class="w150">
+                                <label>
+                                    <a class="tx-teal" title='查看积分记录' href="{:U('PointsTeam/scoreList',array('user_id'=>$row['user_id']))}" target="_blank">{$row.username}</a>
+                                </label>
+                            </td>
+                            <td class="w200"><label>{$row.add_time|date='Y-m-d H:i',###}</label></td>
+                            <td class="w150"><label><gt name="row.consume_time" value="0">{$row.consume_time|date='Y-m-d H:i',###}<else/>----</gt></td>
+                            <td class="w150 f-12 man">
+                                 <if condition="$res = auth_check_access(array('PointsTeam/pointsOrderRefund'))">
+                                     <label  class="bc-teal">
+                                        <a class="examine" href="{:U('PointsTeam/pointsOrderRefund',array('points_order_id'=>$row['id']))}" confirm_tip="确定给用户[{$row.username}]退还{$row.total_score}积分，并且删除该兑换记录？(友情提示：该操作用于用户误兑换，并会自动退还用户积分，请谨慎操作！)">撤销兑换</a>
+                                     </label>
+                                 </if>
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        {$pages}
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<script>
+    $(function(){
+        // 审核结款提交
+    $('.examine').die().live('click', function() {
+        var $this = $(this);
+        var href = $this.attr('href');
+        var confirm_tip = $this.attr('confirm_tip');
+
+        if ($this.hasClass('disabled')) {
+            return false;
+        }
+
+        var tip_res = window.confirm(confirm_tip);
+        if (!tip_res) {
+            return false;
+        }
+        var btn_html = $this.html();
+        $this.addClass('disabled');
+        $this.html('正在处理...');
+        $.get(href, {}, function(res) {
+            $this.removeClass('disabled');
+            $this.html(btn_html);
+            if (res.error && res.code && res.code != 0) {
+                $('#message-con').html($('#message-top-tmpl').tmpl(res));
+                return false;
+            }
+            window.alert('操作成功！');
+            window.location.reload();
+        }, 'json')
+
+        return false;
+    });
+    });
+</script>
+<include file="Common:footer" />

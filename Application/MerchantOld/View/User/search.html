@@ -1,0 +1,17 @@
+<div class="m-form">
+    <div class="mt10 pl20">
+        <form class="form-inline" role="form" action="{:U('User/accessManager')}" method="get">
+            <div class="form-group">
+                <label class="control-label" for="beginTime">账号</label>
+                <input type="text" class="form-control"  name="username" value="{$username}">
+            </div>
+            <button type="submit" class="btn btn-warning">
+                筛选
+            </button>
+            <if condition="$res = auth_check_access(array('User/accessManagerAdd'))">
+                    <a href="{:U('User/accessManagerAdd')}" id='access-manager-add-a' class="btn btn-warning">添加账号</a>
+            </if>
+            
+        </form>
+    </div>
+</div>

@@ -1,0 +1,334 @@
+<include file="Common:header" />
+		<div class="container-fluid">
+			<div class="row">
+
+				<!-- 头部开始 -->
+				<div class="col-xs-12">
+					<nav class="navbar navbar-default" role="navigation">
+						<div class="f-tac">
+							<a class="navbar-brand" href="javascript:history.go(-1);"><span class="glyphicon glyphicon-chevron-left"></span>返回</a>
+
+							<div class="f-ib">
+								<h4 class="f-ib f-ff1">提交订单</h4>
+							</div>
+
+							<!--<a class="navbar-brand pull-right" href="#"> <span class="glyphicon glyphicon-search"></span></a>-->
+						</div>
+					</nav>
+                                                                <if condition="$error neq ''">
+                                                                  <script>window.alert('{$error}');</script>
+                                                                 </if>
+				</div>
+				<!-- 头部结束 -->
+
+				<!-- 提交订单开始 -->
+				<form action="{:U('Team/order')}" method="post" id='team-buy-form' team_max_number="{$team['max_number']|default='0'}">
+				<div class="container-fluid" id="suborder">
+					<!-- 订单信息开始 -->
+					<div class="col-xs-12">
+					
+						<ul class="list-unstyled">
+							<li>
+								<span class="f-ib">{$team['product']|msubstr=0,13}</span>
+
+								<span class="f-ib pull-right f-fwb f-c2f"><span class="f-fa">{$team['team_price']}</span>元</span>
+							</li>
+                                                        <if condition="$team.team_type eq 'goods' && $team.is_optional_model eq 'Y' && !empty($team_attribute)">
+                                                            <volist name="team_attribute" id="ta">
+                                                                <li class="pt10">
+                                                                <span class="f-ib">{$ta.name}</span>
+
+                                                                <span class="f-ib pull-right f-db team-attribute-con">
+                                                                        <a  onclick="opera_goods(this,'team-attribute-count', false)" class="f-vat" style="display:inline-table;width:30px;height:30px;border-radius:15px;background:#1BB3A4;color:#FFFFFF;text-align:center">-</a>
+
+                                                                        <div class="input-group f-ib f-vat">
+                                                                                <input type="text"  name="team_attribute[{$ta.id}]" surplus_num='{$ta.surplus_num}' class="team-attribute-count form-control f-tac" value="0">
+                                                                        </div> 
+
+                                                                        <a onclick="opera_goods(this,'team-attribute-count', true)"; class="f-vat" style="display:inline-table;width:30px;height:30px;border-radius:15px;background:#cc6753;color:#FFFFFF;text-align:center">+</a>
+                                                                </span>
+                                                        </li>
+                                                            </volist>
+                                                            <input type="hidden" id='all_quantity'  name="quantity" class="form-control f-tac" value="{$quantity}">
+                                                            <else/>
+                                                                                                               <li class="pt10">
+								<span class="f-ib">数量</span>
+
+								<span class="f-ib pull-right f-db team-attribute-con">
+									<a  onclick="opera_goods(this,'team-attribute-count', false)" class="f-vat" style="display:inline-table;width:30px;height:30px;border-radius:15px;background:#1BB3A4;color:#FFFFFF;text-align:center">-</a>
+									
+									<div class="input-group f-ib f-vat">
+										<input type="text" name="quantity" surplus_num='{$team.max_number}' class="team-attribute-count form-control f-tac" value="{$quantity}">
+									</div> 
+									
+									<a onclick="opera_goods(this,'team-attribute-count', true)" class="f-vat" style="display:inline-table;width:30px;height:30px;border-radius:15px;background:#cc6753;color:#FFFFFF;text-align:center">+</a> </span>
+							</li>
+                                                        </if>
+							
+                                                                                                            <if condition='$team.fare && $team.fare gt 0'>
+                                                                                                                        <li class="pt10">
+                                                                                                                            <span class="f-ib">邮费</span>
+
+                                                                                                                            <span class="f-ib pull-right f-fwb"><span id='fare' class="f-fa fare">{:sprintf('%.2f',$team['fare'] )}</span>元</span>
+                                                                                                                    </li>
+                                                                                                            </if>
+							<li class="pt10">
+								<span class="f-ib">总价</span>
+
+								<span class="f-ib pull-right f-fwb"><span id='all' class="f-fa all">{:sprintf('%.2f',($team['team_price'] * $quantity)+$team['fare'])}</span>元</span>
+							</li>
+							<li class="pt10">
+									<div class="form-group">
+										<span  class="col-xs-3 control-label">手机:</span>
+										<div class="col-xs-9">
+											<input type="hidden" name="tid" value="{$team['id']}">
+											<input type="tel" class="form-control" name="mobile" value="{$mobile}" placeholder="请输入您的手机号" required pattern="{0-9}[11]">
+										</div>
+									</div>
+							</li>
+                                                                                                             
+						</ul>
+						
+					</div> 
+					<!-- 订单信息结束 -->
+                                                                                 <if condition="$team.team_type eq 'goods'">
+					<div class="col-xs-12 pt10">
+						<span  class="col-xs-3 control-label goods-ti">  收货地址</span>
+						<div id="address-list-content" class="OrdergoodsAdd">
+                                                                                                                <dl <if condition="empty($address_list)"> style="display:none" </if>>
+							 <if condition="!empty($address_list)">
+                                                                                                                        <volist name="address_list" id="address">
+                                                                                                                              <dd class="selected">
+                                                                                                                              <input id="address_{$address.id}" style='vertical-align:top;'  type="radio"  <if condition="$address.default eq 'Y'"> checked="checked" </if> value='{$address.id}' name="address_id">
+                                                                                                                                  <label for="address_{$address.id}" style='font-weight: 100;max-width:90%;' class="detail" >{$address.name} {$address.province} {$address.area} {$address.city} {$address.street} {$address.mobile} 
+                                                                                                                                     <if condition="$address.default eq 'Y'">
+                                                                                                                                      <label class="t_lgrey">[默认地址]</label>
+                                                                                                                                     </if>
+                                                                                                                                  </label>
+                                                                                                                              </dd>
+                                                                                                                        </volist>
+                                                                                                                         <dd class="selected">
+                                                                                                                            <input  type="radio" id="address_newaddress" name="address_id" value="newaddress">
+                                                                                                                            <label class="detail" for="address_newaddress" style='font-weight: 100;max-width:90%;'  for="newaddr">使用新地址</label>
+                                                                                                                        </dd>
+                                                                                                                </if>
+                                                                                                          </dl>
+                                                                                                        <div class="address-field-list" id="pro_city"   <if condition="!empty($address_list)"> style="display:none" </if>>
+                                                                                                        <div id="city_2" class="field-group field-group--small">
+                                                                                                            <label>
+                                                                                                                <span class="required">*</span>
+                                                                                                                省市区：
+                                                                                                            </label>
+                                                                                                            <br/>
+                                                                                                            <span>
+                                                                                                                <select id="address-prov" class="prov address-province" autocomplete="off" name="address[province]"></select>
+                                                                                                                <select id="address-city" class="city address-city" autocomplete="off" name="address[area]"></select>
+                                                                                                                <select id="address-dist" class="dist address-district" autocomplete="off" name="address[city]"></select>
+                                                                                                            </span>
+                                                                                                            <div class="dist-select error_color"></div>
+                                                                                                        </div>
+                                                                                                        <div class="field-group field-group--small">
+                                                                                                            <label><span class="required">*</span>街道地址：</label>
+                                                                                                            <input id="address-street" class="f-text address-detail" type="text" value="" name="address[street]" size="40" maxlength="60">
+                                                                                                            <div class="street-input error_color"></div>
+                                                                                                        </div>
+                                                                                                        <div class="field-group field-group--small">
+                                                                                                            <label><span class="required">*</span>邮政编码：</label>
+                                                                                                            <input id="address-zipcode" class="f-text address-zipcode" type="text" value="" name="address[zipcode]" size="10" maxlength="20">
+                                                                                                            <div class="zipcode-input error_color "></div>
+                                                                                                        </div>
+                                                                                                        <div class="field-group field-group--small">
+                                                                                                            <label><span class="required">*</span>收货人姓名：</label>
+                                                                                                            <input id="address-name" class="f-text address-name" type="text" value="" name="address[name]" size="15" maxlength="15">
+                                                                                                            <div class="name-input error_color"></div>
+                                                                                                        </div>
+                                                                                                        <div class="field-group field-group--small">
+                                                                                                            <label><span class="required">*</span>电话号码：</label>
+                                                                                                            <input id="address-mobile" class="f-text address-mobile" type="text" value="{$member['mobile']}" name="address[mobile]" size="15" maxlength="15">
+                                                                                                            <div class="mobile-input error_color"></div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                               </div>
+					</div>
+                                                                                     <div class="col-xs-12 pt10">
+						<div class="OrdergoodsAdd">
+                                                                                               <span>  收货时间</span>
+                                                                                                <select name='dt_time'>
+                                                                                                     <volist name="delivery_time" id="dt">
+                                                                                                         <option value="{$dt.id}">{$dt.name}</option>
+                                                                                                         </volist>
+                                                                                                </select>
+                                                                                               </div>
+					</div>
+                                                                                 </if>
+					
+				</div>
+				
+				 <div class="pl10 pr10 mt5">
+						<button type="button" class="btn btn-danger btn-lg btn-block">提交订单</button>
+				</div>
+				</form>
+				<!-- 提交订单结束-->
+
+			
+				<!-- 底部开始-->
+				<include file="Common:footer" />
+				
+			<script type="text/javascript">
+				var price="{$team['team_price']}";
+				var origin;
+				function opera(x, y) {
+					var rs = new Number(document.getElementById(x).value);
+					if (isNaN(rs)) {
+						alert('number is required');
+						document.getElementById(x).focus();
+					}
+					if (y) {
+						document.getElementById(x).value = rs + 1;
+						var number = document.getElementById(x).value;
+						origin=(number*price).toFixed(2);
+						$('.all').text(origin);
+						if(number > 500)
+						{
+							alert('购买数量最多不能超过500个');
+
+							document.getElementById(x).value = 500;
+							origin=parseInt(500*price).toFixed(2);
+							$('.all').text(origin);
+						}	
+					} else {
+						document.getElementById(x).value = rs - 1;
+						var number = document.getElementById(x).value;
+						origin=(number*price).toFixed(2);
+						$('.all').text(origin);
+						if(number < 1)
+						{
+							document.getElementById(x).value = 1;
+							$('.all').text(price);
+						}	
+					}
+				}
+                                function opera_goods(self,x,y){
+                                    var $this = $(self);
+                                    var $num_obj = $this.parents('span.team-attribute-con').find('input.'+x);
+                                    var team_max_num = Number($('form#team-buy-form').attr('team_max_number'));
+                                    var num = Number($num_obj.val());
+                                    var surplus_num = Number($num_obj.attr('surplus_num'));
+                                   
+                                    if(y){
+                                        num = num+1;
+                                        if(team_max_num>0 && num>surplus_num){
+                                            alert('最多可购买'+surplus_num+"份");
+                                            num = surplus_num;
+                                        }else if(num>500){
+                                            alert('最多可购买500份');
+                                            num = 500;
+                                        }
+                                    }else{
+                                        num = num-1;
+                                        if(num<=0){
+                                            num = 0;
+                                        }
+                                        
+                                    }
+                                    $num_obj.val(num);
+                                    set_all_price(self);
+                                }
+                                
+                                function set_all_price(self){
+                                    var $all_num_obj = $(self).parents('ul.list-unstyled').find('span.team-attribute-con').find('input.team-attribute-count');
+                                    var all_num = 0;
+                                    
+                                    for(var i=0;i<$all_num_obj.length;i++){
+                                        var one_num = Number($($all_num_obj[i]).val());
+                                        all_num = all_num + one_num;
+                                    }
+                                    $('#all_quantity').val(all_num);
+                                    var fare = Number($('#fare').html());
+                                    if(!fare){
+                                        fare = 0;
+                                    }
+                                    origin=((all_num*price)+fare).toFixed(2);
+                                    
+                                    $('#all').text(origin);
+                                }
+                                
+                                $('input.team-attribute-count').keyup(function(){
+					var num = Number($(this).val());
+                                        var surplus_num = Number($(this).attr('surplus_num'));                                      
+                                        var team_max_num = Number($('form#team-buy-form').attr('team_max_number'));
+                                                                                
+                                        if(!num || num<=0){
+                                            num=0;
+                                        }else if(team_max_num>0 && num>surplus_num){
+                                            alert('最多购买'+surplus_num+"份");
+                                            num = surplus_num;
+                                        }else if (num > 500){
+                                            alert('最多购买500份');
+                                            num = 500;
+                                        }
+                                        $(this).val(num);
+                                        set_all_price(this);
+				});
+                                
+				function isPhone($no) {
+					reg=/^1[34578][\d]{9}$/;
+					return reg.test($no);
+				}
+				$('#val').keyup(function(){
+					var num = $('#val').val();
+					if(!$.isNumeric(num)){
+						$('#val').val(1);
+						$('.all').text(price);
+					}else if(num < 1){
+						alert('数量不能小于1');
+						$('#val').val(1);
+						$('.all').text(price);
+					}else if(num>500){
+						alert('购买数量最多不能超过500个');
+						$('#val').val(500);
+						origin=parseInt(500*price).toFixed(2);
+						$('.all').text(origin);
+					}else{
+						origin=parseInt(num*price).toFixed(2);
+						$('.all').text(origin);
+					}
+				});	
+				$('input[type=tel]').blur(function(){
+					var tel=$(this).val();
+					if(!isPhone(tel)){
+						alert('手机号码格式不正确');
+					}
+				});
+				$('button').click(function(){
+					var mobile=$('input[type=tel]').val();
+					if(!isPhone(mobile)){
+						alert('手机号码格式不正确');
+					}else{
+						$(this).parents('form').submit();
+					}
+				});
+                                $(function(){
+                                     $("#address-list-content input:radio[name='address_id']").change(function(){
+       
+                                        var $selectValue = $("input[name='address_id']:checked").val();
+                                        if($selectValue=="newaddress"){
+                                          $('#pro_city').show();
+                                        }
+                                        else{
+                                          $('#pro_city').hide();
+                                        }
+                                      });
+                                    
+                                     // 如果没有选择地址  则默认选第一个
+                                    if(!$("#address-list-content input[name='address_id']:checked").val()){
+                                        $("#address-list-content input:radio[name='address_id']:first").click();
+                                    }
+                                    
+                                    var prov = "{$city['czone']}";
+                                    var city = "{$city['name']}";
+                                    $('#city_2').citySelect({prov:prov, city:city, required:false,url:"__PLUGINS_PATH__/selectCity/city.min.js"});
+                                });
+
+
+			</script> 

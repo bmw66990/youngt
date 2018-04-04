@@ -1,0 +1,68 @@
+<span class="pj-remind fl">*团购评价是用户对本团购的消费点评 </span>
+<div class="pj-score fl">
+    <dl>
+        <h2 class="t_red">{$comments.avgNum}</h2>
+        <label>
+            <span class=" rating-16x16 common-rating"> <span class="rate-stars" style="width:{$comments['avgNum']/5*100}%"></span> </span>
+        </label>
+        <label>共有{$comments.userCount}人评价</label>
+    </dl>
+    <dl class="no-right-border">
+        <label>5分<span class=" jdt-out-con"><span class="jdt-in-con" style="width:{$comments['userCount'] !=0 ? $comments['commentNum']['five']/$comments['userCount']*100:0}%"></span> </span><span class='comment-num'>{$comments.commentNum.five}人</span></label>
+        <label>4分<span class=" jdt-out-con"><span class="jdt-in-con" style="width:{$comments['userCount'] !=0 ? $comments['commentNum']['four']/$comments['userCount']*100:0}%"></span> </span><span class='comment-num'>{$comments.commentNum.four}人</span></label>
+        <label>3分<span class=" jdt-out-con"><span class="jdt-in-con" style="width:{$comments['userCount'] !=0 ? $comments['commentNum']['three']/$comments['userCount']*100:0}%"></span> </span><span class='comment-num'>{$comments.commentNum.three}人</span></label>
+        <label>2分<span class=" jdt-out-con"><span class="jdt-in-con" style="width:{$comments['userCount'] !=0 ? $comments['commentNum']['two']/$comments['userCount']*100:0}%"></span> </span><span class='comment-num'>{$comments.commentNum.two}人</span></label>
+        <label>1分<span class=" jdt-out-con"><span class="jdt-in-con" style="width:{$comments['userCount'] !=0 ? $comments['commentNum']['one']/$comments['userCount']*100:0}%"></span> </span><span class='comment-num'>{$comments.commentNum.one}人</span></label>
+    </dl>
+</div>
+<div class="pj-content fl ">
+    <volist name="comments.list" id='vo'>
+        <dl>
+            <span>
+                <span class=" rating-16x16 common-rating"> <span class="rate-stars" style="width:{$vo['comment_num']/5*100}%"></span> </span>
+                <if condition="$vo.username_hide neq ''">
+                    {$vo.username_hide}
+                    <else/>
+                    --匿名用户--
+                </if>
+
+            </span>
+            <date>{$vo.create_time|date="Y-m-d",###}</date>
+            <p>{$vo.content} </p>                                                                                       
+            <if condition="$vo.is_pic eq 'Y'">
+                <div class="showpic">
+                    <volist name="vo.images" id="pic">
+                        <img src="{$pic}" class="m-xf-box-img" />
+                    </volist>
+                    <ul class="showselect fl"></ul>
+                </div>
+            </if>
+        </dl>
+    </volist>
+</div>
+<script type="text/javascript">
+     if(!window["_BFD"]){
+        window["_BFD"] = {};
+     }
+     try{
+        window["_BFD"]['BFD_INFO']['rating_count']='{$comments.userCount}';
+        window["_BFD"]['BFD_INFO']['rating']='{$comments.avgNum}';
+        if(!window["_BFD"]['BFD_INFO']['rating_count']){
+            window["_BFD"]['BFD_INFO']['rating_count'] = 0;
+        }
+        if(!window["_BFD"]['BFD_INFO']['rating']){
+            window["_BFD"]['BFD_INFO']['rating'] = 0;
+        }
+        if(dfb_common){
+            dfb_common();
+        }
+     }catch(e){
+
+     }
+    
+</script>
+<div class="selectpage fl">
+    <div class="pagenumber">
+        {$comments['page']}
+    </div>
+</div>

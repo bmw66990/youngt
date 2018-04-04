@@ -1,0 +1,112 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<style type="text/css">
+.img-box{
+	width:100px;
+	height:60px;
+	float:left;
+	margin-right:10px;
+	border:1px solid #eee;
+	padding:5px;
+}
+.img-box img,
+.img-box a{
+	display:block;
+	width:100px;
+	height:60px;
+}
+</style>
+<section><div id='section'>
+	<include file="left" />
+	<div id="pcontent" class="coupons-box fl">
+		<div class="pmainbox mine">
+			<div id="error-con">
+            	<?php 
+            		$error =  base64_decode(str_replace(array('%2b', ' '), '+', urldecode(cookie('error'))));
+            		cookie('error', null, -1);
+            	 ?>
+			    <if condition="$error neq ''">
+			        <div class="alert alert-danger alert-dismissable">
+			            {$error}
+			        </div>
+			    </if>
+			</div>
+			<div class="pbanner">
+				<a href="{:U('Member/creditList')}" target="_blank" title="积分换大奖"> <img src="__IMAGE_PATH__/__46593862__3065690.png" alt="积分换大奖"> </a>
+			</div>
+			<volist name="list" id="vo">
+			<div class="rate-item">
+				<div class="pd10 fl">
+					<a title="{$vo.title}" target="_blank" href="/team-{$vo.team_id}.html"> <img width="81" height="50" src="{$vo.image}"> </a>
+				</div>
+
+				<div class="rate-item__content cl-66">
+					<h3 class="J-deal-title f-fs2"><a target="_blank" title="{$vo.title}" href="/team-{$vo.team_id}.html" class="c6">{$vo.title}</a></h3>
+                    <p class="reminding">
+						获得<span class="cl-f7 f-fwb"> {$vo.score} </span>积分
+					</p>
+					<div class="feedback field-group J-feedback" style="padding-left:0">
+						<label class="c6">我的总体评价：</label>
+
+						<span class="common-rating rating-20x20 f-tal"> <span class="rate-stars" style="width:{$vo.comment_sum}"></span> </span>
+
+						<ul class="star_ul f-ib cl-f7">
+							<li>
+								<if condition="$vo.comment_num eq 1">
+								很不满意
+								<elseif condition="$vo.comment_num eq 2" />
+								不满意
+								<elseif condition="$vo.comment_num eq 3" />
+								一般
+								<elseif condition="$vo.comment_num eq 4" />
+								满意
+								<elseif condition="$vo.comment_num eq 5" />
+								很满意
+								</if>
+							</li>
+						</ul>
+					</div>
+
+					<!-- 评价 -->
+					<div>
+						<p>{$member['username']}: <span style="margin-left:50px;">{$vo.content}</span></p>
+						<if condition="$vo.partner_content neq ''">
+							<p>商家回复: <span style="margin-left:50px;">{$vo.partner_content}</span></p>
+						</if>
+					</div>
+					<!-- 评价结束 -->
+					<if condition="$vo.is_pic eq 'Y'">
+						<div class="m-xf-box load-url" data-url="{:U('Member/getReviewPic', array('id' => $vo['id']))}" data-src="#pic{$vo.id}" id="pic{$vo.id}"></div>
+						<div  class="m-img-s show_img">
+							<img src="" class="m-img-s1" />
+						</div>		
+						<!-- 新增展示图片-->
+					</if>
+
+				</div>
+			</div>
+			</volist>
+			<div class="pagination" style="margin-top:10px;">{$pages}</div>
+		</div>
+</div></section>
+<script type="text/javascript">
+$(function(){
+	$(".load-url").each(function(){
+		var url=$(this).attr('data-url');
+		var src=$(this).attr('data-src');
+		$.get(url,function(data){
+			$(src).html(data.html);
+		});
+	});
+
+	$("a[rel=img-box-list]").die().live('mouseover',function(){
+		$(this).fancybox({
+			'transitionIn':'none',
+			'transitionOut':'none',
+			'titlePosition':'over'
+		});
+		return false;
+	});
+})
+</script>
+<include file="Common:footer" />

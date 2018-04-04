@@ -1,0 +1,56 @@
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/normalize.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/style.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/review.css"/>
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/bootstrap.min.css"/>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/bootstrap.min.js"></script>
+
+<style>
+    .blind {position: absolute;width: 400px; z-index: 102;}
+    .mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+    .mt-dialog .body {overflow: hidden;padding: 30px;}
+    .m-form .u-ipt:focus {border-color: #2BB8AA;box-shadow: 0 0 3px #2BB8AA;}
+    .mt-dialog .formitm-1{padding-left:150px;}
+</style>
+<div class="mt-overlay-container">
+    <div class="blind">     			        				
+        <div class="mt-dialog">
+            <div class="body">
+                <div class="m-form">
+                    <form action="__APP__/__APP_NAME__/Partner/editPwd" method="post"> 
+                        <fieldset>	
+                            <div class="formitm f-fs2">
+                                <div class="ipt">
+                                    <div class="tipContent" style="margin-top: -20px;margin-left: -14px;"></div>
+                                </div>
+                            </div>
+                            <div class="formitm f-fs2">
+                                <label class="lab">原密码：</label>
+                                <div class="ipt">
+                                    <input type="password" name="oldpassword" class="u-ipt"/>  
+                                </div>
+                            </div>
+                            <div class="formitm f-fs2">
+                                <label class="lab">新密码：</label>
+                                <div class="ipt">
+                                    <input type="password" name="newpassword" class="u-ipt"/>					                                            
+                                </div>
+                            </div>
+                            <div class="formitm f-fs2">
+                                <label class="lab">确认密码：</label>
+                                <div class="ipt">
+                                    <input type="password" name="cnewpassword" class="u-ipt"/>					                                                           
+                                </div>
+                            </div>						            
+                            <div class="formitm formitm-1">
+                                <input id="edit-pwd-form" class="u-btn u-btn-c2" type="button" value="确定" />
+                            </div>
+                        </fieldset>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__JS_PATH__/Partner.js"></script>

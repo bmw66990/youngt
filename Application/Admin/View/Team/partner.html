@@ -1,0 +1,46 @@
+<include file="Common:popup_header" />
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/widget.css?v={:C('CSS_VER')}">
+<div class="box">
+  <h2>选择商家</h2>
+      <form name="form1" class="form-inline" action="{:U('Team/partner')}" method="get">
+          <input name="id" value="{$searchValue.id}" type="text" class="form-control" placeholder="商家ID">
+          <input name="title" value="{$searchValue.title}" type="text" class="form-control" placeholder="商家名称">
+          <input type="hidden" name="city_id" value="{$cityId}">
+          <input type="submit" style="width:100px;cursor:pointer" value="筛选">
+      </form>
+
+     <table style="text-align:center;line-height:24px;width:90%;margin:20px auto 10px;;background:#999" border="0" cellpadding="0" cellspacing="1" >
+      <tr style="background:#fff">
+        <th>ID</th>
+        <th>名称</th>
+      </tr>
+      <volist name="list" id="row">
+        <tr class="tlist"  style="background:#fff">
+          <td class="pid">
+              {$row.id}
+          </td>
+          <td class="ptitle">{$row.title}</td>
+        </tr>
+      </volist>
+    </table> 
+    <div class="selectpage">
+        <div class="pagenumber">
+            {$pages}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+  $(".tlist").click(function(){
+    if( window.parent.parent.document.getElementById('partner-title')){
+       window.parent.parent.document.getElementById('partner-title').value=$(this).children('.ptitle').text();
+    }
+    window.parent.parent.document.getElementById('partner-name').value=$(this).children('.ptitle').text();
+    window.parent.parent.document.getElementById('partner-id').value=$(this).children('.pid').text();
+    window.parent.parent.document.getElementById('team-product').value=$(this).children('.ptitle').text();
+    window.parent.jQuery.fancybox.close();
+  });
+})
+</script>
+</body>
+</html>

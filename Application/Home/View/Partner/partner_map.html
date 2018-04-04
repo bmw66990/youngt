@@ -1,0 +1,79 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/partner.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css"  />
+
+<include file="Partner:common"/>
+<section class="clearfix">
+    <div id="section">
+        <!--内容部分-->
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nptwZ9ZVtPncNHGZUs0arrN3"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+        <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+        <div class="model">
+            <div class="model-title">
+                <span class="tit">商家地图</span>
+            </div>
+            <div class="allmap">
+                <div id="map">
+                </div>
+
+                <div class="map-address">
+                    <div class="fr t_lgrey">*地图位置仅供参考</div>
+                    <ul>
+                        <li>
+                            <h4><a href="#">{$partner_info.username}</a></h4>
+                            <span>地址：{$partner_info.address}</span>
+                            <span>
+                                <a href="javascript:;" class="mapa" title="{$partner_info.username}" data-lng="{$partner_info.long}" data-lat="{$partner_info.lat}" data-cons="地址：{$partner_info.address}<br/>电话：{$partner_info.phone} ({$partner_info.mobile})" >查看地图</a>
+                                <a href="http://map.baidu.com/m?word={$partner_info.address}" target="_blank">公交/驾车去这里</a></span>
+                            <span>电话：<tel>{$partner_info.phone}&nbsp;&nbsp;&nbsp;{$partner_info.mobile}</tel></span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    $(function() {
+        var $Clicka = $(".mapa");
+        for (i = 0; i < $Clicka.length; i++) {
+            $Clicka[i].onclick = function() {
+                var $ipname = $(this).attr("title");
+                var $lng = $(this).attr("data-lng");
+                var $lat = $(this).attr("data-lat");
+                var $cons = $(this).attr("data-cons");
+                SetAdd($lng, $lat, $ipname, $cons);
+            };
+
+        }
+
+    })
+
+
+    // 百度地图API功能
+    var SetAdd = function(lng, lat, ipname, cons) {
+        var map = new BMap.Map("map");
+        var point = new BMap.Point(lng, lat);
+        map.centerAndZoom(point, 16);
+
+        map.addControl(new BMap.NavigationControl());
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        var searchInfoWindow = new BMapLib.SearchInfoWindow(map, cons, {
+            title: ipname, //标题
+            width: 290, //宽度
+            height: 40, //高度
+            panel: "panel", //检索结果面板
+            enableAutoPan: true, //自动平移
+            searchTypes: [
+            ]
+        });
+        searchInfoWindow.open(new BMap.Point(lng, lat));
+    }
+    SetAdd("{$partner_info.long}", "{$partner_info.lat}", "{$partner_info.username}", "地址：{$partner_info.address}<br/>电话：{$partner_info.phone}  {$partner_info.mobile}");//默认地址
+
+</script>
+
+<include file="Common:footer" />

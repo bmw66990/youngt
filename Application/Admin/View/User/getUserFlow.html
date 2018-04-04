@@ -1,0 +1,54 @@
+<include file="Common:popup_header" />
+<style type="text/css">
+    #down a,#down a:hover{
+        color: #ffffff;
+    }
+</style>
+<if condition="$error neq ''">
+    <p class="error">{$error}</p>
+    <else />
+<div class="box">
+    <div id="down">
+        <div style="float: left"><h2>用户资金明细</h2></div>
+        <div style="float: right;margin-right: 100px;margin-top: 20px; width: 100px; background-color:#009988;text-align: center;line-height: 30px;color:#ffffff">
+            <a href="{:U('User/getUserFlow',array('user_id'=>$user_id,'down'=>1))}">下载</a>
+        </div>
+    </div>
+
+    <!--商品添加与编辑相同，请后台判断添加代码-->
+    <table style="text-align:center;line-height:24px;width:90%;margin: auto;background:#999" border="0" cellpadding="0" cellspacing="1" >
+        <tr style="background:#fff">
+            <th width="30%">时间</th>
+            <th width="40%">详情</th>
+            <th width="15%">收支</th>
+            <th width="15%">金额</th>
+        </tr>
+        <volist name="data" id="vo">
+            <tr style="background:#fff">
+                <td>{$vo['create_time']|date="Y-m-d H:i:s",###}</td>
+                <td>
+                    {$vo['action']|flow_info=""}
+                    <if condition="($vo['action'] eq 'buy') OR ($vo['action'] eq 'refund')">
+                        -{$vo['product']}
+                        <elseif condition="$vo['action'] eq 'paycharge'" />
+                        -{$vo['detail_id']}
+                        <else />
+                        <notempty name="vo.marks">
+                            -{$vo['marks']}
+                        </notempty>
+                    </if>
+                </td>
+                <td>{$vo['direction']|flow_direction=""}</td>
+                <td>{$vo['money']}</td>
+            </tr>
+        </volist>
+    </table>
+    <div class="selectpage">
+        <div class="pagenumber">
+            {$pages}
+        </div>
+    </div>
+</div>
+</if>
+</body>
+</html>

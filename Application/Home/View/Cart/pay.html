@@ -1,0 +1,206 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<link href="__CSS_PATH__/tenpay.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+ <link href="__PLUGINS_PATH__/libs/css/jquery-ui.min.css" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+<!--支付页-->
+<div id="bdw">
+    <div id="bd" class="cf">
+        <div id="ytcontent" class="fl">
+            <div  class="mainbox">
+                <h2>购买仅需3步！</h2>
+                <include file="Common:error" />
+                <ol class="buy-process-bar steps-bar">
+                    <li class="step step--first" style="z-index:2">
+                        <span class="step__num">1.</span>
+                        提交订单
+                        <span class="arrow__background"></span>
+                        <span class="arrow__foreground"></span>
+                    </li>
+                    <li class="step step--current" style="z-index:1">
+                        <span class="step__num">2.</span>
+                        选择支付方式
+                        <span class="arrow__background"></span>
+                        <span class="arrow__foreground"></span>
+                    </li>
+                    <li class="step step--last ">
+                        <span class="step__num">3.</span>
+                        购买成功
+                    </li>
+                </ol>
+                <div class="table-section summary-table">
+                    <table cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <th class="desc">项目</th>
+                                <th width="160">数量</th>
+                                <th class="total" width="90">总价</th>
+                            </tr>
+                        <volist name="team" id="t">
+                            <tr>
+                                <td class="desc">
+                                    <a target="_blank" href="__APP__/team-{$t['id']}.html">{$t['product']}</a>
+                                </td>
+                                <td class="quantity">
+                                    {$t['quantity']}份
+                                </td>
+
+                                <td class="money total">
+                                    ¥<span class="money">{$t['origin']}</span>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+                <form id="pay-form" class="common-form" target="_blank" action="{:U('Cart/doPay')}" method="post">
+
+                    <if condition = "$credit gt 0">
+                        <if condition = "$money eq 0">
+                            <div class="pay-choice f-fs2 f-fwb">
+                                <input id="radio-credit" class="radio" type="radio" value="credit" name="paytype" checked="checked" />
+                                <label>青团余额<span class="money">¥{$member['money']}</span>, 使用青团余额支付<span class="money">¥{$credit}</span></label>
+                            </div>
+                            <else />
+                            <div class="pay-choice f-fs2">
+
+                                <input id="check-credit" class="radio" type="checkbox" value="credit" name="credittype" />
+                                <label>使用青团余额支付<span class="money">¥</span><span id="user-money">{$credit}</span>, 剩余<span class="money">¥</span><span id="need-money">{$money}</span>用其他方式支付</label>
+                            </div>
+                        </if>
+                    </if>
+
+                    <!--分类支付开始-->
+                    <if condition = "$money eq 0">
+                        <if condition = "$credit gt 0">
+                            <div class="pay-choice f-fs2 f-fwb">
+                                <input id="paytype-choice" class="radio" type="radio" value="thirdparty" name="paytype" />
+                                <label>使用其他支付方式</label>
+                            </div>
+                            <else />
+                            <input class="radio" type="hidden" checked="checked" value="freepay" name="paytype" />
+                            <label>免支付</label>
+                        </if>
+                        <else />
+                        <input class="radio" type="hidden" checked="checked" value="thirdparty" name="paytype" />
+                    </if>
+                    <script type="text/javascript">
+                        function checkValue(value) {
+                            $("#bank_type_value").val(value.value);
+                        }
+                    </script>
+                    <div id="paytype-list" class="blk-item paytype mb15" <if condition = "$money eq '0.00'">style="display:none;"</if>>
+                        <div class="paytype-list">
+                            <!-- <div class="bank-area bank-area--open cf"> -->
+
+                            <h5>网上银行支付（支持储蓄卡和信用卡）</h5>
+                            <div id="tenpayBankList">
+                                <div class='long-logo'>
+                                    <ul class='ui-list-icons ui-four-icons fn-clear cashier-bank'id='J-chooseBankList' style="width: 880px;">
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-1' value='1002' /><label class='icon-box1' for='J-b2c_ebank-icbc105-1' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-2' value='1001' /><label class='icon-box2' for='J-b2c_ebank-icbc105-2' ></label></<li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-3' value='1003' /><label class='icon-box3' for='J-b2c_ebank-icbc105-3' ></label></<li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-4' value='1005' /><label class='icon-box4' for='J-b2c_ebank-icbc105-4' ></label></<li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-5' value='1052' /><label class='icon-box5' for='J-b2c_ebank-icbc105-5' ></label></<li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-6' value='1028' /><label class='icon-box6' for='J-b2c_ebank-icbc105-6' ></label></<li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-7' value='1004' /><label class='icon-box7' for='J-b2c_ebank-icbc105-7' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-8' value='1027' /><label class='icon-box8' for='J-b2c_ebank-icbc105-8' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-9' value='1022' /><label class='icon-box9' for='J-b2c_ebank-icbc105-9' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-10' value='1006' /><label class='icon-box10' for='J-b2c_ebank-icbc105-10' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-11' value='1021' /><label class='icon-box11' for='J-b2c_ebank-icbc105-11' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-12' value='1009' /><label class='icon-box12' for='J-b2c_ebank-icbc105-12' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-13' value='1010' /><label class='icon-box13' for='J-b2c_ebank-icbc105-13' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-14' value='1008' /><label class='icon-box14' for='J-b2c_ebank-icbc105-14' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-15' value='1020' /><label class='icon-box15' for='J-b2c_ebank-icbc105-15' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-16' value='1032' /><label class='icon-box16' for='J-b2c_ebank-icbc105-16' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-17' value='1054' /><label class='icon-box17' for='J-b2c_ebank-icbc105-17' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-18' value='1056' /><label class='icon-box18' for='J-b2c_ebank-icbc105-18' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-19' value='1082' /><label class='icon-box19' for='J-b2c_ebank-icbc105-19' ></label></li>
+                                        <li><input type='radio' onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-20' value='1076' /><label class='icon-box20' for='J-b2c_ebank-icbc105-20' ></label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <h5 class="clear">平台支付（支付宝/财付通/微信支付）</h5>
+                            <div class="item" style="margin-top: 0; padding: 10px;">
+                                <input type="hidden" name="bank_type_value" id="bank_type_value" value="0" />
+                                <!-- <script>$.getScript("http://union.tenpay.com/bankList/bank.js")</script> -->
+                                <div class="fl ml10">
+                                    <input id="check-alipay" class="fl" style="margin-top: 10px; margin-right: 5px;" type="radio" value="alipay" name="bank_type">
+                                    <label class="bank bank--alipay" for="check-alipay">支付宝</label>
+                                </div>
+                                <div class="fl ml10">
+                                    <input type='radio'style="margin-top:10px; margin-right: 5px;" onClick='checkValue(this)' name='bank_type' id='J-b2c_ebank-icbc105-21' value='0' />
+                                    <label class='icon-box21' for='J-b2c_ebank-icbc105-21' ></label>
+                                </div>
+                                <div class="fl ml10">
+                                    <input id="check-pcwxcode" class="fl" style="margin-top: 10px; margin-right: 5px;" type="radio" value="pcwxcode" name="bank_type">
+                                    <label class="bank-pcwxCode" for="check-alipay">微信</label>
+                                </div>
+                            </div>
+<!--                            <h5 class="clear">手机扫码支付</h5>
+                            <div>
+                                <div class="fl ml10">
+                                    <input id="check-alipay" class="fl" style="margin-top: 10px; margin-right: 5px;" type="radio" value="alipaycode" name="bank_type">
+                                    <label class="bank-alipayCode" for="check-alipay">支付宝</label>
+                                </div>
+                                <div class="fl ml10">
+                                    <input id="check-pcwxcode" class="fl" style="margin-top: 10px; margin-right: 5px;" type="radio" value="pcwxcode" name="bank_type">
+                                    <label class="bank-pcwxCode" for="check-alipay">微信</label>
+                                </div>
+                            </div>-->
+                            <!-- </div> -->
+                            <!-- <div class="bank-area bank-area--open"></div> -->
+                        </div>
+                    </div>
+                    <!--分类支付结束-->
+
+                    <p id="J-pay-total" class="pay-total" style="display:none">
+                        支付<span class="money">¥<span id="totle-money">{$credit+$money}</span></span>
+                    </p>
+
+                    <div class="form-submit">
+                        <input type="hidden" name="credit" value="{$credit}" />
+                        <input type="hidden" name="money" value="{$money}" />
+                        <input type="hidden" name="oid" value="{$order_ids}" />
+                        <input class="btn-1 btn-large btn-pay" id="btn-pay" type="submit" value="去付款" name="commit" /><br>
+                        <!--                        <a href="__APP__/Team/buy/id/{$team['id']}" class="f-fs2 xgdd" >返回修改订单</a>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+<div style="display:none">
+    <div id="wait-pay" style="width:325px;">
+        <p class="info">请您在新打开的页面上<br />完成付款。</p>
+        <p class="notice">
+            付款完成前请不要关闭此窗口。<br />
+            完成付款后请根据您的情况点击下面的按钮：
+        </p>
+        <p class="act">
+            <a class="btn-1 success" href="__APP__/Cart/pay/id/{$order_ids}">已完成付款</a>
+            <a class="btn-1" href="__APP__/Cart/pay/id/{$order_ids}">付款遇到问题</a>
+        </p>
+        <p class="retry">
+            <a id="close-win" class="fac" href="#">返回选择其他支付方式</a>
+        </p>
+    </div>
+</div>
+<!--百分点代码：购物车页-->
+<script type="text/javascript">
+    window["_BFD"] = window["_BFD"] || {};
+    _BFD.BFD_INFO = {
+        "order_id": "{$order_ids}", //当前订单号，如果有拆单等特殊情况现象（一次购买中出现多个订单号）此页面代码不可用，请联系我修改；
+        "order_items": {$order_items} || [], //同购物车页(分别是商品id,商品单价，商品数量)
+        "total": "{$all_origin}" || '0.00', //用户实际支付的价格
+        "user_id": "{$member.id}", //网站当前用户id，如果未登录就为0或空字符串
+        "page_type": "order" //当前页面全称，请勿修改
+    };
+    if (dfb_common) {
+        dfb_common();
+    }
+</script>
+<script type="text/javascript" src="__JS_PATH__/teamPay.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

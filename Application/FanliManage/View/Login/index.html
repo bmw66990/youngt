@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>  
+<head>
+    <title>
+      登录页面1_大气漂亮的Bootstrap后台管理系统模板Se7en - JS代码网
+    </title>
+    <!--<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700" media="all" rel="stylesheet" type="text/css" />-->
+	<link href="__CSS_PATH__/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="__CSS_PATH__/font-awesome.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="__CSS_PATH__/se7en-font.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="__CSS_PATH__/style.css" media="all" rel="stylesheet" type="text/css" />
+	<script src="__JS_PATH__/jquery.min.js" type="text/javascript"></script>
+	<script src="__JS_PATH__/jquery-ui.js" type="text/javascript"></script>
+	<script src="__JS_PATH__/bootstrap.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/raphael.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.mousewheel.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.vmap.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.vmap.sampledata.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.vmap.world.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/fullcalendar.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/gcal.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.dataTables.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/datatable-editable.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.easy-pie-chart.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/excanvas.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.isotope.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/masonry.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/modernizr.custom.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/select2.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/styleswitcher.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/wysiwyg.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.inputmask.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.validate.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/bootstrap-fileupload.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/bootstrap-datepicker.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/bootstrap-timepicker.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/bootstrap-colorpicker.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/bootstrap-switch.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/daterange-picker.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/date.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/morris.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/skycons.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/jquery.sparkline.min.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/fitvids.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/main.js" type="text/javascript"></script>
+  <script src="__JS_PATH__/respond.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  </head>
+  <body class="login1">
+    <!-- Login Screen -->
+
+    <div class="login-wrapper">
+
+      <div class="login-container">
+        <a href="index.html" class="h2 text-info">买单返</a>
+        <form action="Login/login" method="post" id="login_form">
+          <div class="form-group">
+            <input class="form-control" placeholder="用户名/邮箱" type="text" name="username" id="username" value="{$Think.cookie.uname}" required="">
+          </div>
+          <div class="form-group">
+         <!-- <input type="botton"  value="&#xf054;">-->
+            <input class="form-control" placeholder="密码" type="text" name="password"  id="password" >
+          </div>
+           <div class="form-group">
+            <input class="form-control" placeholder="验证码" type="text" name="code" id="code" maxlength="4" style=" width:120px;float:left" required="" onclick="aa()">
+            <img src="__URL__/verify/" id="verifyImg" width="115" height="34" onclick="fleshVerify()" style="">
+            <p class="text-center text-danger" id="prompt" style="position:absolute; left:100px;"></p>
+               </div>  
+      
+
+          <div class="form-options clearfix">
+            <a class="pull-right" href="#">忘记密码?</a>
+            <div class="text-left">
+              <label class="checkbox"><input type="checkbox" value="1" id="checkbox" name="checkbox " ><span>记住我</span></label>
+
+            </div>
+          </div>
+     
+        <div class="social-login clearfix">
+          <!--<a class="btn btn-primary pull-left facebook" href="index-2.html"><i></i>登录</a>style="position:relative; left:80px"-->
+            <p class="text-center text-danger" id="prompt"></p>
+          <input  class="btn btn-primary pull-left facebook"  type="submit" id="loginbtn" value="登录"  style="position:relative; left:0px"/>
+        </div>
+         </form>
+      
+      </div>
+    </div>
+    <!-- End Login Screen -->
+  </body>
+
+</html>
+
+
+ 
+    <script type="text/javascript">
+        function fleshVerify() {
+            //重载验证码
+            $('#verifyImg').attr('src', '__URL__/verify/' + Math.random());
+        }
+        function show_err_msg(error) {
+            $('#prompt').html(error);
+        }
+        $(function(){
+          $('#loginbtn').click(function(){
+          
+              //var checkbox=$('#checkbox').val();
+              var username = $('#username').val();
+               // var password = $('#password').val();
+             var code = $('#code').val();
+                show_err_msg('');
+                $("#loginbtn").html("<i class='fa fa-spinner fa-spin'></i>");
+                if (!username) {
+                    show_err_msg('请输入用户名！！！');
+                    $('#username').focus();
+                    $("#loginbtn").html("登录");
+                    return false;
+                }
+                
+                if (!code) {
+                    show_err_msg('请输入验证码！！！');
+                    $('#code').focus();
+                    $("#loginbtn").html("登录");
+                    return false;
+                }
+                   $.post("__URL__/login", $('#login_form').serialize(), function(data) {
+                    if (data.status == 1) {
+                        window.location.href = "{:U('Index/index')}";
+                    } else {
+                        $("#loginbtn").html("登录");
+                        show_err_msg(data['info']);
+                        fleshVerify();
+                    }
+                })
+                return false
+          })
+
+        })
+        
+       
+    </script>

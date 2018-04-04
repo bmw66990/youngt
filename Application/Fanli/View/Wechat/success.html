@@ -1,0 +1,48 @@
+<include file="Common:header" />
+<link rel="stylesheet" href="__CSS_PATH__/withdrawal.css"/>
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-4">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;">
+          </a>
+        </div>
+        <div class="am-u-sm-6">
+            <span class="am-text-lg am-padding-horizontal-sm">支付详情</span>
+        </div>
+        <div class="am-u-sm-2 am-text-default am-text-xl">
+            <span class="am-icon-share-square-o am-fr" style="color:#ccc;"></span>
+        </div>
+    </div> 
+</header>
+
+<!--内容-->
+<div class="am-g am-padding-vertical-lg am-text-center">
+    <i class="am-icon-check-circle am-text-xl am-text-success"></i>
+    <span class="am-text-lg am-padding-sm">支付成功！</span><br>
+    <span class="am-text-sm am-text-danger">返现<i class="am-icon-rmb"></i>{$return_data['rebate']}</span>
+</div>
+<div class="am-g am-margin-top-sm">
+    <div class="am-container am-padding-sm">
+        <span class="am-padding-sm">订单编号:</span><span class="">{$return_data['order']}</span><br>
+        <span class="am-padding-sm">手机号码:</span><span class="">{$return_data['mobile']}</span>
+    </div>
+</div>
+
+<div class="am-g am-margin-top-sm">
+    <div class="am-container am-padding-sm">
+        <span class="am-padding-sm">商户名称:</span><span class="am-padding-lg">{$return_data['merchant']}</span><br>
+        <span class="am-padding-sm">消费金额:</span><span class="am-padding-lg"><i class="am-icon-rmb"></i>{$return_data['prices']}</span><br>
+        <span class="am-padding-sm">不参与返现:</span><span class="am-padding-sm"><i class="am-icon-rmb"></i>{$return_data['no_prices']}</span><br>
+        <span class="am-padding-sm">支付金额:</span><span class="am-padding-lg"><i class="am-icon-rmb"></i>{$return_data['prices']}</span><br>
+        <span class="am-padding-sm">获得返现:</span><span class="am-padding-lg"><i class="am-icon-rmb"></i>{$return_data['rebate']}</span><br>
+        <span class="am-padding-sm">下单时间:</span><span class="am-padding-lg">{$return_data['time']|date='Y-m-d h:i', ###}</span>
+    </div>
+</div>
+
+<!-- btn -->
+<div class="am-container am-margin-top-lg">
+    <a class="am-btn am-btn-danger am-btn-block am-radius" href="">去评价</a>
+</div> 
+</body>
+</html>

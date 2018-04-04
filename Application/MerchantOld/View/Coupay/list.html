@@ -1,0 +1,33 @@
+<div class="mt30">
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="220">项目编号/名称</th>
+                <th width="80">开始时间</th>
+                <th width="80" >结束时间</th>
+                <th width="80" >券有效期</th>
+                <th width="80">验证日期</th>
+                <th width="70" >验证个数</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="list">
+            <tr>
+                <td class="f-tal"><a class="fac" href="http://{$Think.server.http_host}/team-{$vo['id']}.html"  target="_blank">{$vo.id}&nbsp;&nbsp;({$vo['product']})</a></td>
+                <td>{$vo.begin_time|date='Y-m-d',###}</td>
+                <td>{$vo.end_time|date='Y-m-d',###}</td>
+                <td>{$vo.expire_time|date='Y-m-d',###}</td>
+                <td>{$vo.create_time|default='--'|date='Y-m-d',###}</td>
+                <td>
+                    <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                        <a href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'consume'=>'Y','create_time'=>date('Y-m-d',$vo['create_time']),'action'=>'coupay'))}" class="fac">{$vo.num}</a>
+                    </if>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<nav class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</nav>

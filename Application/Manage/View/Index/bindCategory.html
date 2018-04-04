@@ -1,0 +1,81 @@
+<include file="Common:header"/>
+<!--本页面样式-->
+	<link href="__PLUGINS_PATH__/iCheck/custom.css" rel="stylesheet">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+<!--app分类绑定弹出层-->
+		<div class="col-sm-12">
+		    <div class="row">
+		        <div class="col-sm-12">
+		        	<h2>APP分类绑定</h2>
+		        	<div class="alert alert-danger">
+		        		必须选择8个或者16个
+		        	</div>
+		            <form id="cate-form" class="form-horizontal" method="post" action="{:U('Index/bindCategory')}">
+		            	<volist name="list" id="row">
+                                                      <div class="form-group">
+		            		<volist name="row" id="li">
+		                		<div class="col-sm-2">
+		                			<label  class="item">
+		                        		<div class="col-sm-12 text-center">
+		                        			<img style="width:50px;" src="{$li.url}" />
+		                        		</div>
+		                        		<div class="col-sm-12">
+		                        			<div class=" m-b">
+		                        				<div class="checkbox i-checks">
+		                                        	<label>
+		                                            <input type="checkbox" name="catelist[]" id="cate{$li.id}" value="{$li.id}" <if condition="in_array($li['id'],$useCate)">checked</if> > {$li.name}
+		                                        	</label>
+		                                		</div>
+		                        			</div>
+		                        		</div>
+		                        		<div class="col-sm-12">
+		                        			<input type="text" name="sort[]" value="{$sort[$li['id']]}" class="form-control" placeholder="排序" <if condition="!in_array($li['id'],$useCate)">disabled</if>  />
+		                        		</div>
+		                        	</label>
+		                		</div>
+		            		</volist>
+		            	</div>
+                                    </volist>
+		            	<div class="hr-line-dashed"></div>
+		                <div class="col-sm-12">
+		                    <button class="btn  btn-primary" type="submit"><strong>保存</strong>
+		                    </button>
+		                </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>
+    </div>
+   <include file="Common:footer"/>
+    <script src="__JS_PATH__/content.min.js?v=1.0.0"></script>
+    <script src="__PLUGINS_PATH__/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+    <script type="text/javascript">
+		$(function(){
+		    $("#cate-form").submit(function(){
+		        var ch=$("input[type=checkbox]:checked").length - 0;
+		        if(ch==8 || ch==16){
+		            $(".alert").hide();
+		        }else{
+		            $(".alert").text('您选择了'+ch+'个，和 8,16不匹配').show();
+		            return false;
+		        }
+		    });
+		
+		    $(".item").click(function(){
+		        if($(this).find('.citem')[0].checked){
+		            $(this).find('.form-control').attr('disabled',false);
+		        }else{
+		            $(this).find('.form-control').attr('disabled',true);
+		        }
+		    });
+		})
+	</script>
+    
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/css/style.css">
+<script src="__PLUGINS_PATH__/jQuery-2.1.4/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="__PLUGINS_PATH__/webuploader/webuploader.js"></script>
+<script type="text/javascript" src="__PLUGINS_PATH__/webuploader/upload.js"></script>
+<div id="uploader">
+
+    <empty name="image">
+
+        <div class="queueList">
+            <div id="dndArea">
+                <div id="filePicker"></div>
+            </div>
+        </div>
+        <div class="statusBar" style="display:none;">
+            <div class="progress">
+                <span class="text">0%</span>
+                <span class="percentage"></span>
+            </div><div class="info"></div>
+            <div class="btns">
+                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+            </div>
+        </div>
+        <else />
+        <div class="queueList">
+            <div id="dndArea" style="display:none;">
+                <div id="filePicker"></div>
+            </div>
+            <ul class="filelist">
+                    <li><img src="{$image}" /></li>
+                <a href="javascript:void(0)" id="delimage" class="btn btn-success">删除</a>
+            </ul>
+        </div>
+        <div class="statusBar" style="display:none;">
+            <div class="progress">
+                <span class="text">0%</span>
+                <span class="percentage"></span>
+            </div><div class="info"></div>
+            <div class="btns">
+                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function(){
+                $("#delimage").click(function(){
+                    $(this).parents('.filelist').remove();
+                    $("#dndArea").show();
+                });
+            })
+        </script>
+    </empty>
+</div>

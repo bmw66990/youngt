@@ -1,0 +1,32 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <div class="tab-menu">
+        <ul>
+            <li class="current" ><a href="{:U('Feedback/index')}">反馈列表</a><label>&nbsp;</label></li>
+        </ul>
+    </div>
+    <div class="nav-dis-menu">
+        <label>&nbsp;</label>
+    </div>
+    <div class="content">
+        <div class="con-title">反馈内容<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-edit-form">
+                <form id='news-notice-operation-form' action="{:U('Feedback/reply')}" method='post'>
+                    <ul class="li-onlyline">
+                        <li><label>反馈问题</label>{$feedback_info['content']}</li>
+                        <li><label>回复内容</label>
+                            <textarea  name='answer'>{$feedback_info['answer']}</textarea>
+                        </li>
+                        <li>
+                            <input type="hidden" name="id" value="{$feedback_info['id']}" />
+                            <input id='news-notice-operation-btn' class="small-btn btn-teal" type="submit" value="提交">
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />

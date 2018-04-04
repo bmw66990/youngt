@@ -1,0 +1,41 @@
+.qtqyzok {
+    background: url('../images/yzok.png');
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 124px;
+    right: 60px;
+}
+.qtqyzerr{
+    background:url('../images/yzerr.png'); 
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 124px;
+    right: 60px
+}
+.qtqyzgq{
+    background:url('../images/yzgq.png'); 
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 124px;
+    right: 60px
+}
+.qtqyzxf{
+    background:url('../images/yzxf.png'); 
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 124px;
+    right: 60px
+}
+.qtqyzwxf{
+    background:url('../images/yzwxf.png'); 
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 124px;
+    right: 60px
+}
+

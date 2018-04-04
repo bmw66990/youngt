@@ -1,0 +1,88 @@
+<include file="Common:header" />
+
+<section>
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">商户列表<span class="tx-green">》</span><span>团单</span></div>
+        <div class="con-form">
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w60">ID</th>
+                        <th class="w300">项目名称</th>
+                        <th class="w150">类别</th>
+                        <th class="w120">日期</th>
+                        <th class="w100">成交</th>
+                        <th class="w70">价格</th>
+                        <th class="w70">状态</th>
+                        <th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+
+                    <volist name="list" id="row">
+                        <tr>
+                            <td class="w60">
+                                <label class="bc-teal"><a href="{:U('Order/payList', array('team_id' => $row['id']))}" title="点击查付款订单" target="_blank">{$row.id}</a></label><br />
+                                <label class="tx-red f-12">{$row.sort_order}</label>
+                            </td>
+                            <td class="w300">
+                                <empty name="row.image">
+                                    <img src="__IMAGE_PATH__/ico/nopic.png" alt="无图片" title="无图片" />
+                                    <else />
+                                    <img src="__IMAGE_PATH__/ico/havepic.png" alt="有图片" title="有图片" />
+                                </empty>
+                                <label class="td-title"><a href="{$row.id|getTeamUrl}" target="_blank">{$row.product}</a></label><br/>
+                                <label class="f-12 tx-grey">今日浏览<label class="tx-red">{$row.view_count_day}</label>次(共{$row.view_count})</label>
+                                <a target=blank href=N></a><br/>
+                                <label class="f-12 tx-grey">{$partnerList[$row['partner_id']]}</label>
+                            </td>
+                            <td class="w150 lh-26">
+                                <img src="__IMAGE_PATH__/ico/td_add.png"/> {$city[$row['city_id']]['name']}<br/>
+                                <img src="__IMAGE_PATH__/ico/ribbon.png"/> {$group[$row['group_id']]['name']}<br/>
+                                <img src="__IMAGE_PATH__/ico/td_by.png" /> {$userList[$row['user_id']]}
+                            </td>
+                            <td class="w120 f-12">
+                                <label>{$row.begin_time|date='Y-m-d', ###}</label><br/>
+                                <label>{$row.end_time|date='Y-m-d', ###}</label><br/>
+                                <label>{$row.expire_time|date='Y-m-d', ###}</label>
+                            </td>
+                            <td class="w100 f-12">
+                                <label class="tx-teal">{$row['now_number']-$row['pre_number']}</label>/<label>{$row.now_number}</label><br/>
+                                <label class="f-12"><?php echo (100-round($row['ucaii_price']/$row['team_price']*100))?>%</label>
+                            </td>
+                            <td class="w70">
+                                <label>{$row.team_price}</label><br/>
+                                <label>{$row.ucaii_price}</label><br/>
+                                <label>{$row['team_price']-$row['ucaii_price']}</label>
+                            </td>
+                            <td class="w70">
+                                <label>{$row['team_state']}</label>
+                            </td>
+                            <td class="w120 f-12 man">
+                                <label class="bc-teal"><a href="{:U('Team/detail', array('id' => $row['id']))}" onclick="popup(this.href,600,500);return false;">详情</a></label>
+                                <label class="bc-teal"><a href="{:U('Team/edit', array('id' => $row['id']))}">编辑</a></label>
+                                <label class="bc-teal">
+                                    <a href="javascript:toAjax('{:U('Team/downloadXls', array('id' => $row['id']))}','确定下载券号')">下载</a>
+                                </label>
+                                <label class="bc-teal"><a href="javascript:toAjax('{:U('Team/del', array('id' => $row['id']))}','确定删除团单')">删除</a></label>
+                                <eq name="row.conduser" value="Y">
+                                    <label class="bc-teal tx-yellow">
+                                        <a href="javascript:toAjax('{:U('Team/unMain', array('id' => $row['id']))}','确定取消主推')">取消主推</a>
+                                    </label>
+                                    <else />
+                                    <label class="bc-teal">
+                                        <a href="javascript:toAjax('{:U('Team/toMain', array('id' => $row['id']))}','确定设为主推')">设为主推</a>
+                                    </label>
+                                </eq>
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">{$pages}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<include file="Common:footer" />

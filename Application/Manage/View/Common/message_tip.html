@@ -1,0 +1,95 @@
+<div id='message-con'>	
+    <if condition="$error neq ''">
+        <div class="alert-con">
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" 
+                        aria-hidden="true">
+                    &times;
+                </button>
+                {$error}
+            </div>
+        </div>
+    </if>
+    <if condition="$success neq ''">
+        <div class="alert-con">
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" 
+                        aria-hidden="true">
+                    &times;
+                </button>
+                {$success}
+            </div>
+        </div>
+    </if>
+    <if condition="$warning neq ''">
+        <div class="alert-con">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" 
+                        aria-hidden="true">
+                    &times;
+                </button>
+                {$warning}
+            </div>
+        </div>
+    </if>
+    <if condition="$info neq ''">
+        <div class="alert-con">
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" 
+                        aria-hidden="true">
+                    &times;
+                </button>
+                {$info}
+            </div>
+        </div>
+    </if>
+</div>
+<script id="message-top-tmpl" type="text/x-jquery-tmpl">
+    <div class="alert-con">
+            {{if success}}
+             <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    ${success}
+                </div>
+            {{/if}}
+            {{if info}}
+            <div class="alert alert-info alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    ${info}
+                </div>
+            {{/if}}
+            {{if warning}}
+            <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    ${warning}
+                </div>
+            {{/if}}
+             {{if error}}
+             <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    ${error}
+                </div>
+            {{/if}}
+      </div>
+</script>
+<script>
+// js 显示错误信息
+function show_message_tip($obj){
+    $('div#message-con').html('');
+    $('div#message-con').html($('#message-top-tmpl').tmpl($obj));
+    return false;
+}
+</script>
+

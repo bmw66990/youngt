@@ -1,0 +1,195 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/login.css" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+
+<!--注册开始-->
+<div id="bdw">
+    <div id="bd" style="width: 1200px">
+        <div class="regbox">
+            <div style="font-size: 14px; padding-bottom: 1em; ">
+                <strong>{$name}</strong>，您好！您已经用腾讯账户成功登录青团，现在您只需要绑定一个青团账号。</p>
+            </div>
+            <empty name="error">
+                <div id="message" class="alert alert-danger alert-dismissable" style="display:none;"><!--错误提示:程序添加后删除 此行style="display:none;"-->
+                    {$error}
+                </div>
+                <else />
+                <div id="message" class="alert alert-danger alert-dismissable" ><!--错误提示:程序添加后删除 此行style="display:none;"-->
+                    {$error}
+                </div>
+            </empty>
+            <div id="accordion">
+                <h3>绑定现有青团账号</h3>
+                <div style="border: none; ">
+                    <form style="background-color: #eee; " id="login_form" class="signup-form mb20 common-form" method="post" action="{:U('Public/doUserBind')}">
+                        <!--帐户登录开始-->
+
+                        <div class="field-group-1">
+                            <label for="account">青团账号</label>
+                            <input id="account" class="f-text" id='account' type="text" name="account" title="请输入用户名/手机号码" />
+                        </div>
+                        <div class="field-group-1">
+                            <label for="password">密码</label>
+                            <input id="password" class="f-text" type="password" name="password" title="请输入密码" />
+                        </div>
+                        <div class="field-group-1 ml85">
+                            <input type="hidden" name="action" value="login_bind" />
+                            <input type="hidden" name="sns" value="{$sns}" />
+                            <input type="hidden" name="username" value="{$name}" />
+                            <input type="submit" class="btn-hot" value="绑定">
+                        </div>
+                        <!--帐户登录结束-->
+                    </form>
+                </div>
+                <h3>还没有注册过青团？快速注册</h3>
+                <div style="border: none; "><form style="background-color: #eee; " id="reg_form" class="signup-form mb20 ajax" method="post" action="{:U('Public/doUserBind')}">
+                        <div class="field-group-1">
+                            <label for="password">手机号</label>
+                            <input class="f-text" type="text" id="mobile" value=""  name="mobile" title="请输入手机号码" />
+                            <span id="password-tip" class="tip"></span>
+                        </div>
+                    <div class="field-group-1 captcha">
+                        <label for="vcode">手机动态码</label>
+                        <input class="f-text" type="text" id='code' value=""  style="width:68px" name="code" title="请输入手机动态码" />
+                        <button class="btn-hot" style="margin-left:5px; font-size:12px;line-height:2" onClick="getCodes($(this));" type="button">免费获取手机动态码</button>
+                        <span id="vcode-tip" class="tip"></span>
+                    </div>
+                        <div class="field-group-1">
+                            <label for="password">密码</label>
+                            <input class="f-text" type="password" value="" id='password' name="password" title="密码必须6-20位字符" />
+                            <span id="password-tip" class="tip"></span>
+                        </div>
+                        <div class="field-group-1">
+                            <label for="repassword">确认密码</label>
+                            <input class="f-text" type="password" value="" id='repassword' name="repassword" title="重复上面输入的密码">
+                            <span id="repassword-tip" class="tip"></span>
+                        </div>
+                        <div class="field-group-1 ml85">
+                            <input type="hidden" name="action" value="reg_bind" />
+                            <input type="hidden" name="sns" value="{$sns}" />
+                            <input type="hidden" name="username" value="{$name}" />
+                            <input type="submit" id="regbtn" class="btn-hot" value="创建">
+                            <span id="submit-tip" class="tip"></span>
+                        </div>
+                        <!--邮箱注册结束-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--注册结束-->
+<!--底部开始-->
+<include file="Common:footer" />
+<script language="JavaScript">
+    function showMsg(msg){
+        $('#message').empty().append(msg);
+        $('#message').show();
+    }
+    var check = true;
+    $(function() {
+        // 消息显示
+        $( "#accordion" ).accordion({
+            heightStyle: "content"
+        });
+        $("#login_form").submit(function(){
+            if(check === true) {
+                if ($('#login_form #account').val() == '') {
+                    showMsg('请输入用户名/手机号码');
+                    return false;
+                }
+                if ($('#login_form #password').val() == '') {
+                    showMsg('请输入密码');
+                    return false;
+                }
+                $.post("{:U('Public/checkUser/act/userLoginBind')}", $('#login_form').serialize(), function (data) {
+                    if (data.status == '-1') {
+                        showMsg(data.error);
+                    }else {
+                        check = false;
+                        $('#login_form').submit();
+                    }
+                }, 'json');
+                return false;
+            }else{
+                $('#login-form :submit').click();
+            }
+        });
+        $('#reg_form').submit(function(){
+            if(check === true) {
+                if ($('#reg_form #mobile').val() == '') {
+                    showMsg('请输入手机号码');
+                    return false;
+                }
+                if ($('#reg_form #code').val() == '') {
+                    showMsg('请输入验证码');
+                    return false;
+                }
+                if ($('#reg_form #password').val() == '') {
+                    showMsg('请输入密码');
+                    return false;
+                }
+                if ($('#reg_form #repassword').val() == '') {
+                    showMsg('请输入确认密码');
+                    return false;
+                }
+                $.post("{:U('Public/checkUser/act/userRegBind')}", $('#reg_form').serialize(), function (data) {
+                    if (data.status == '-1') {
+                        showMsg(data.error);
+                    }else {
+                        check = false;
+                        $('#reg_form').submit();
+                    }
+                }, 'json');
+                return false;
+            }else{
+                $('#reg_form :submit').click();
+            }
+        });
+    });
+    function getCodes(obj) {
+        var mobile = $('#reg_form #mobile').val();
+        getCheckUser(mobile,obj);
+    }
+    function getCheckUser(mobile,obj){
+        var url = $base_url + "/Public/checkUser/act/user";
+        $.post(url, {mobile:mobile}, function (data) {
+            if (data.status == 1) {
+                obj.attr('disabled', 'disabled');
+                obj.css('background', '#666666');
+                sendCode(mobile);
+                var InterValObj;  //timer变量，控制时间
+                var curCount = 90; //当前剩余秒数
+                var SetRemainTime = function () {
+                    curCount--;
+                    obj.html(curCount + "秒后重新获取验证码");
+                    if (curCount == 0) {
+                        obj.removeAttr('disabled');	//jqueryui设置button可用样式
+                        obj.css('background', '#2ec3b4');
+                        window.clearInterval(InterValObj);//停止计时器
+                        obj.html("重新获取验证码");
+                    }
+                }
+                //设置button效果，开始计时
+                InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次*/
+            }else{
+                showMsg(data.error);
+            }
+        });
+    }
+    /**
+     * 发送验证码
+     * @param mobile
+     */
+    function sendCode(mobile){
+        var url = $base_url+"/Public/smsCode";
+        $.post(url, {mobile: mobile}, function (sms) {
+            if (sms.status == -1) {
+                showMsg(sms.error);
+                return false;
+            }else{
+                showMsg(sms.success);
+            }
+        });
+    }
+</script>

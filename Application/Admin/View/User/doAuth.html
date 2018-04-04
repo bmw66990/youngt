@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>权限管理</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <style>
+        .box li.auth-group-list-li{
+            float: left;
+            width: 180px;
+        }
+        .box div.auth-group-list{
+            margin-left: 50px;
+        }
+        .box li.auth-group-list-li span.label{
+            text-align: left;
+        }
+        .box li.auth-group-list-li input.checked-auth-group-one{
+            float: left;
+        }
+
+    </style>
+    <body>
+        <div class="box">
+            <form id="user-do-auth-form" action="{:U('User/'.$operation_type)}" method="post">
+                <li><span class="label">权限管理</span></li>
+                <div class='auth-group-list'>
+                    <volist  name="auth_group_list" id="agl">
+                        <li class='auth-group-list-li'><input class='checked-auth-group-one' type="checkbox" name='user[group_id][]' value='{$agl.id}' <if condition="$agl.checked eq '1'"> checked='checked'</if> /><span class="label">{$agl.title}</span></li>
+                    </volist>
+                </div>
+                <li>
+                    <input  type="hidden" name='operation_type' value="{$operation_type}">
+                    <input  type="hidden" name='user[id]' value="{$id}">
+                    <input  type="hidden" name='user[module_name]' value="{$module_name}">
+                    <input id="user-do-auth-btn" class="class-btn" type="button" value="确定">
+                </li>
+            </form>
+        </div>
+    </body>
+    <script type="text/javascript" src="__JS_PATH__/user.js"></script>
+</html>

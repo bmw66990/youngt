@@ -1,0 +1,75 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content">
+        <div class="con-title">退款记录<span class="tx-green">+</span></div>
+
+        <div class="con-form">
+            <span class="f-16 tx-grey fl wall">总金额：<label class="tx-orange">&#165;{$all_money|default='0.00'}</label></span>
+            <form class="myform" action="{:U('Financial/refundRecord')}" method="get">
+                <li><label>项目ID</label><input type="text" class="w120" name="team_id" value="{$team_id}" /><label>,</label></li>
+                <li><label>操作员</label><input type="text" class="w120" name="admin_name" value="{$admin_name}" /><label>,</label></li>
+                <li><label>用户名</label><input type="text" class="w120" name="user_name" value="{$user_name}" /><label>,</label></li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w200">项目名称</th>
+                        <th class="w200">用户名/邮箱</th>
+                        <th class="w120">动作</th>
+                        <th class="w120">金额</th>
+                        <th class="w120">操作员</th>
+                        <th class="w120">退款日期</th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr>
+                            <td class="w200">
+                                <label><a target="_blank" href="{:C('YOUNGT_URL')}/team-{$vo.team_id}.html" >{$vo.team_product}</a></label>
+                            </td>
+                            <td  class="w200">
+                        <if condition="$vo.user_username neq ''">
+                            <label>{$vo.user_username}</label><br/>
+                        </if>
+                        <if condition="$vo.user_email neq ''">
+                            <label>{$vo.user_email}</label><br/>
+                        </if>
+                        <if condition="$res = auth_check_access(array('User/getUserFlow'))">
+                        <if condition="$vo.user_id neq ''">
+                            <label class="tx-teal">[<a href="javascript:popup('{:U('User/getUserFlow',array('user_id'=>$vo['user_id']))}',800,520);">流水</a>]</label>
+                        </if>
+                        </if>
+                        </td>
+                        <td class="w120">
+                        <if condition="$vo.flow_action eq 'refund'">
+                            <label>退款</label>
+                            <else/>
+                            <label>其他</label>
+                        </if>
+                        </td>
+                        <td class="w120"><label class="tx-orange">{$vo.flow_money|default='0.00'}</label></td>
+                        <td class="w120">
+                        <if condition="$vo.admin_user_username neq ''">
+                            <label>{$vo.admin_user_username}</label><br/>
+                        </if>
+                        <if condition="$vo.admin_user_email neq ''">
+                            <label>{$vo.admin_user_email}</label><br/>
+                        </if>
+                        </td>
+                        <td class="w120"><label>{$vo.flow_create_time|date="Y-m-d H:i",###}</label>
+                        </td>
+                        </tr>
+                    </volist>
+
+                </table>
+                <div class="selectpage">
+                    <include file="Financial:page" />
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/financial.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

@@ -1,0 +1,122 @@
+<include file="Common:header"/>
+	<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/webuploader.css">
+	<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/css/style.css">
+    <link href="__PLUGINS_PATH__/datapicker/datepicker3.css" rel="stylesheet">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+    		<div class="col-sm-12">
+    			 <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+    					<h3><a href="__URL__/index">广告</a> / <small><a href="#">广告编辑</a></small></h3>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal" id="admange-form" action="{:U('Admanage/edit')}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">广告标题</label>
+                                <div class="col-sm-10">
+                                	<div class="row">
+                                		<div class="col-md-4">
+                                			<input type="text" name="textarr" value="{$team['textarr']}" class="form-control" placeholder="例如:十一特惠">
+                                		</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">广告链接</label>
+                                <div class="col-sm-10">
+                                	<div class="row">
+                                		<div class="col-md-4">
+                                			<input type="text" name="linkarr" value="{$team['linkarr']}" class="form-control" placeholder="例如：http://www.youngt.com">
+                                		</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-sm-2 control-label">广告类型</label>
+                            	<div class="col-sm-2">
+                            		<select name="type" onchange="changeTime($(this).val())" id="typey" class="form-control">
+                            			<option value="0">请选择广告类型</option>
+			                            <volist name="admanageType" id="vo">
+			                                <option value="{$vo.val}" <eq name="vo.val" value="$team.type">selected</eq> >{$vo.name}</option>
+			                            </volist>
+                            		</select>
+                            	</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">结束时间</label>
+                                <div class="col-sm-6">
+                                	<div class="row">
+                                		<div class="col-md-3">
+                                			<div class="input-group">
+                                				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                				<input type="text" class="form-control"  id="datepicker" name="end_time" value="{$team['end_time']|date='Y-m-d',###}">
+                                			</div>
+                                		</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序(降序)</label>
+                                <div class="col-sm-10">
+                                	<div class="row">
+                                		<div class="col-md-1">
+                                			<input type="text" class="form-control" name="sort_order" value="{$team['sort_order']}" >
+                                		</div>
+                                	</div>
+                                	
+                                </div>
+                            </div>
+                            <div class="form-group" id="adPic">
+                                <label class="col-sm-2 control-label">广告图片</label>
+                                <div class="col-sm-5">
+                                    <if condition="$res = auth_check_access(array('Team/uploadImg'))">
+			                            <include file="Common:upload" />
+			                            <input type="hidden" name="picarr" id="uploadimage" value="{$team['picarr']}">
+			                        </if>
+		                        	<span class="help-block m-b-none text-danger">电脑首页轮播图尺寸：460*120 APP广告图片尺寸：460*120 APP秒杀、限量、特卖尺寸：460*120</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                	<input type="hidden" name="id" value="{$team['id']}">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" type="reset">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__JS_PATH__/content.min.js?v=1.0.0"></script>
+    <script type="text/javascript">
+        var UPLOAD_URL = "{:U('Team/uploadImg',array('type'=>'Admanage'))}";
+    </script>
+    <script src="__PLUGINS_PATH__/datapicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+        	$("#datepicker").datepicker();
+            var zhi=$("#typey").val();
+            changeTime(zhi);
+        	});
+        function changeTime(val){
+        	if(val === "toutiao"){
+        		$("#adPic").hide();
+        	}else{
+        		$("#adPic").show();
+        	}
+        	
+        }
+    </script>
+</body>
+</html>

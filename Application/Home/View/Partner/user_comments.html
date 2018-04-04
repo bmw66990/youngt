@@ -1,0 +1,73 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/partner.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css"  />
+
+<include file="Partner:common"/>
+<section class="clearfix">
+    <div id="section">
+        <!--内容部分-->
+        <div class="model">
+            <div class="model-title">
+                <span class="tit">网友点评</span>
+            </div>
+            <div class="comment-bcon">
+                <div class="comment-bcon-tit">
+                    <li><label class="t_red"><label style="font-size:26px;padding: 0 8px;">{$partner_comment_list['avgNum']}</label>分 <span style='width: 103px;float:right;margin-top: 40px;' class=" rating-16x16 common-rating"> <span class="rate-stars" style="width:{$partner_comment_list['avgNum']/5*100}%"></span> </span></label></li>
+                    <li>共<label class="t_red">{$partner_comment_list['userCount']}</label>次评价</li>
+                    <!--                    <li><a href="#"><img src="img/subcomment.png"/></a></li>-->
+                </div>
+                <div class="comment no-border">
+                    <div class="comment-menu">
+                        <li <if condition="!$c_status || $c_status eq 0"> class="curre" </if> ><a href="{:U('Partner/user_comments',array('partner_id'=>$partner_info['id']))}">全部</a></li>
+                        <li <if condition="$c_status eq 1"> class="curre" </if> ><a href="{:U('Partner/user_comments',array('partner_id'=>$partner_info['id'],'c_status'=>1))}">好评</a></li>
+                        <li <if condition="$c_status eq 2"> class="curre" </if>><a href="{:U('Partner/user_comments',array('partner_id'=>$partner_info['id'],'c_status'=>2))}">中评</a></li>
+                        <li <if condition="$c_status eq 3"> class="curre" </if>><a href="{:U('Partner/user_comments',array('partner_id'=>$partner_info['id'],'c_status'=>3))}">差评</a></li>
+                        <li <if condition="$c_status eq 4"> class="curre" </if>><a href="{:U('Partner/user_comments',array('partner_id'=>$partner_info['id'],'c_status'=>4))}">有图</a></li>
+
+                        <div class="fr">
+                            <!--                            排序选择 
+                                                        <select>
+                                                            <option>默认排序</option>
+                                                            <option>时间排序</option>
+                                                            <option>好评排序</option>
+                                                        </select>-->
+                        </div>
+                    </div>
+
+                    <div class="comment-list">
+                        <ul>
+                            <volist name="partner_comment_list.list" id="pcll">
+                                <li>
+                                    <span>
+                                        <img style='width:60px;height:60px;' <if condition="$pcll.user_image neq '' " >  src="{$pcll.user_image}"  <else/>  src="__IMAGE_PATH__/partner/hz.png" </if>  />
+                                        {$pcll.username_hide}</span>
+                                    <span>
+                                        <label>
+                                            <span style='width: 103px' class=" rating-16x16 common-rating"> <span class="rate-stars" style="width:{$pcll['comment_num']/5*100}%"></span> </span>
+                                        </label>
+                                        <label class="times">{$pcll.create_time|date="Y-m-d",###}</label>
+                                    </span>
+
+                                    <span class="comment-con">{$pcll.content}</span>
+                                <if condition="$pcll.is_pic eq 'Y'">
+                                    <div class="showpic">
+                                        <volist name="pcll.images" id="pic">
+                                            <a href="javascript:;" rel="{$pic}" class="preview"><img src="{$pic}" class="m-xf-box-img" /></a>
+                                        </volist>
+                                        <ul class="showselect fl"></ul>
+                                    </div>
+                                </if>
+                                </li>
+                            </volist>
+                        </ul>
+                    </div>
+                     <div class="selectpage fl" style="margin-top: 30px;">
+                            <div class="pagination mt10">
+                                {$partner_comment_list['page']}
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />

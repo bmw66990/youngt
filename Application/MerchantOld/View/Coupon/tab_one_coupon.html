@@ -1,0 +1,92 @@
+<div class="pb15 f-pr m-form">
+
+    <form method="post" action="__APP__/__APP_NAME__/Coupon/indexCheckCoupon"  checkHref="__APP__/__APP_NAME__/Coupon/checkCouponExist">
+
+        <div class="pt10 coupon-verify-content">
+            <label class="title-label f-db f-fwb mb5">请输入青团券密码</label>
+        </div>
+
+        <div class="pg-coupon-content">
+
+            <input type="text" class="u-ipt" id='ticket' value="" name="id" maxLength="14" placeholder="请输入正确的券号以免出错" style="height:38px;"/>
+
+            <input type="hidden" id="action" name="action" value="">
+            <if condition="$res = auth_check_access(array('Coupon/indexCheckCoupon'))">
+                <input class="u-btn u-btn-c2 coupon-check-info" name="consume" type="button" value="点击验证"/> 
+                <input class="u-btn u-btn-c2 coupon-check-info" name="number" type="button" value="查询编号"/>
+            </if>
+        </div>
+    </form>
+
+</div>
+
+<present name="cxcoupon">
+    <div class="latest-content m20">
+        <table width="100%" class="m-table f-tac mt10">
+            <volist  name="cxcoupon" id="vo">
+                <tr>
+                    <td width="160">
+                        验证时间：{$vo['consume_time']|date='Y-m-d',###}
+                        <br/>
+                        {$vo.id}&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        项目：{$vo.title}
+                    </td>
+                    <td width="80">
+                        <a href="__URL__/cxCoupon/id/{$vo['id']}" class="cx_coupon">撤销</a>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+    </div>
+</present>
+<div class="latest-content m20">
+    <h3 class="latest mt30 f-pr" >
+        <span>项目列表</span>
+    </h3>
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="300">项目编号/名称</th>
+                <th width="83">起止日期</th>
+                <th width="50" >成交</th>
+                <th width="103" >团购价/供货价</th>
+                <th width="55" >操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist  name="list" id="vo">
+            <tr>
+                <td class="f-tal">
+                    <a target="blank" tid="{$one['id']}" href="http://{$Think.server.http_host}/team-{$vo['id']}.html" class="fac"  title="{$vo['title']}">
+                        {$vo.id}&nbsp;&nbsp;({$vo['product']})
+                    </a>
+                </td>
+                <td>
+                    {$vo['begin_time']|date='Y-m-d',###} <br/>{$vo['end_time']|date='Y-m-d',###}
+                </td>
+                <td>
+            <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                <a href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id))}" class="fac">
+                    {$vo['now_number']}
+                </a>
+                <else/>
+                {$vo['now_number']}
+            </if>
+            </td>
+            <td>
+                {$vo['team_price']} / {$vo['ucaii_price']}  
+            </td>
+            <td>
+            <if condition="$res = auth_check_access(array('Coupon/team'))">
+                <a class="fac team" href="{:U('Coupon/team',array('id'=>$vo['id']))}">详情</a>
+            </if>
+            </tr> 
+        </volist>                                 
+        </tbody>
+    </table>
+</div>
+<nav class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</nav>

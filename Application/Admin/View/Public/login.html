@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <title>管理登录</title>
+        <link rel="stylesheet" href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" />
+        <link rel="stylesheet" href="__CSS_PATH__/widget.css?v={:C('CSS_VER')}" />
+        <link rel="stylesheet" href="__CSS_PATH__/base.css?v={:C('CSS_VER')}" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <body>
+        <div class="login">
+            <div class="login-left fl">
+            </div>
+            <div class="login-right fr">
+                <div class="login-form">
+                    <h2>youngt<label class="f-18">.com</label></h2>
+                    <span>青团网管理后台登录</span>
+                    <if condition="$error neq ''">
+                        <div class="alert alert-danger alert-dismissable" style="color: red">
+                            {$error}
+                        </div>
+                    </if>
+                    <form id="login-form" action="{:U('Public/login')}" method="post">
+                        <li><input type="text" id="username" name="username" class="w300 h30" placeholder="用户名" /></li>
+                        <li><input type="password" id="password" name="password" class="w300 h30" placeholder="密码"/></li>
+                        <li><input id="login-form-btn" type="button" value="登录" class="btn-green" /></li>
+                        <li><input type="checkbox" class="fl" /><label class="fl lh-26 m-left-5">下次自动登录</label></li>
+                    </form>
+                </div>
+                <div class="canv">
+                    <div class="left-canv"></div>
+                    <div class="right-canv"></div>
+                    <div class="bottom-canv"></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="__JS_PATH__/public.js?v={:C('JS_VER')}"></script>
+        <script type="text/javascript">
+        	$(function(){
+        		$(document).keypress(function(e) {
+				if (e.keyCode == 13||(e.ctrlKey && e.which == 13))
+				$("#login-form").submit();
+				})
+        	})
+        </script>
+    </body>
+</html>

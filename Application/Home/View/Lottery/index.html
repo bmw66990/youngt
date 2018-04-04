@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>青团网-团车抽大奖</title>
+    <link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/Lottery/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/Lottery/styles.css">
+    <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/Lottery/alert.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <h2>青团网-抽大奖</h2>
+
+    <div class="qxj">
+        青团购车报名，赢取大奖去团购
+    </div>
+
+    <div class="row">
+
+        <div class="col-xs-12 qxjj">
+
+            <div class="kscj">
+                <ul id="content" class="list-unstyled">
+                    <li style="left:0;top:0;">
+                        1元
+                    </li>
+                    <li style="left:92px;top:0;">
+                        100元
+                    </li>
+                    <li style="left:184px;top:0;">
+                        3元
+                    </li>
+
+                    <li style="left:184px;top:93px;">
+                        10元
+                    </li>
+                    <li style="left:184px;top:186px;">
+                        50元
+                    </li>
+                    <li style="left:92px;top:186px;">
+                        2元
+                    </li>
+                    <li style="left:0px;top:186px;">
+                        20元
+                    </li>
+                    <li style="left:0;top:93px;">
+                        加油
+                    </li>
+                </ul>
+                <a href="javascript:void(0);" id="begin"> <span><strong>我要</strong></span> <span class="qxcj"><strong>抽奖</strong></span> </a>
+            </div>
+
+            <div class="qxj spc mt20" name="cjgz" id="cjgz" >
+                活动规则
+            </div>
+
+            <ol id="state">
+
+                <li>
+                    抽中奖相将会充值到青团帐户，不能提现；
+                </li>
+
+                <li>
+                    每个青团账户仅限抽奖一次；
+                </li>
+
+                <li>
+                    活动最终解释权归青团网所有！活动过程中如有任何疑问，可在青团网公众平台进行咨询(支持语音功能)。
+                </li>
+
+            </ol>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    javascript:window.history.forward(1);
+    $(function(){
+        $('#begin').click(function() {
+            $('this').attr('disabled',true);
+            $.post("{:U('Lottery/ajaxGetBonus')}", function (data) {
+                lottery(data);
+            });
+            return false;
+        });
+    });
+
+    function lottery(data){
+        var list = $('#content li');
+        var len = list.length;
+        var index = 0;
+        var interval = null;
+        var sum=0;
+        interval = setInterval(function(){
+            if( sum == data.msg ){
+                alert( '恭喜您抽中: '+data.money+'元！');
+                clearInterval(interval);
+                setTimeout(getMoney,3000);
+            }else{
+                list[index].className = "";
+                list[(index+1) % len].className = "current";
+                index = ++index % len;
+                sum+=1;
+            }
+        },100);
+    }
+    function getMoney(){
+        location.href = "{:U('Lottery/getMoney')}";
+    }
+</script>

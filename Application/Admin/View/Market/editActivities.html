@@ -1,0 +1,90 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">编辑活动<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('Market/doEditActivities')}" method="post">
+                <ul class="li-onlyline">
+                    <li><label>显示城市</label>
+                        <select name="cityid">
+                            <volist name="all_city" id="vo">
+                                <option value="{$vo['id']}" <if condition="$vo['id'] eq $ad_info['cityid']">selected</if>>{$vo.letter}{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>显示类型</label>
+                    <select name="show_type" id="typePic">
+                        <option value="">所有类型</option>
+                        <volist name="activities_show_type" id="vo">
+                            <option value="{$vo['val']}" <if condition="$vo['val'] eq $ad_info['show_type']">selected="selected"</if>>{$vo['name']}</option>
+                        </volist>
+                    </select>
+                </li>
+                 <li><label>是否自愿报名</label>
+                        <select name="is_voluntary_in">          
+                                <option value="N" <if condition="$ad_info['is_voluntary_in'] eq 'N'">selected="selected"</if>>否</option>
+                                <option value="Y" <if condition="$ad_info['is_voluntary_in'] eq 'Y'">selected="selected"</if>>是</option>
+                        </select>
+                    </li>
+                    <li><label>活动标题</label><input class="w300" type="text" name="textarr" value="{$ad_info['textarr']}"></li>
+                    <li><label>活动链接</label><input class="w300" type="text" name="linkarr" value="{$ad_info['linkarr']}"></li>
+                    <link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/css/style.css">
+<script type="text/javascript" src="__PUBLIC__/plugins/webuploader/webuploader.js"></script>
+                    <li><label>上传图片</label><span style="width:700px;display:inline-block;">
+						<include file="upload" />
+						<input type="hidden" name="picarr" id="uploadimage" value="{$ad_info['picarr']}">
+					</span></li>
+					<li id="picup" <if condition="$ad_info['show_type'] neq 'square'"> style="display:none" </if>>
+						<label>上传图片</label><span style="width:700px;display:inline-block;">
+						<include file="upload2" />
+						<input type="hidden" name="pic" id="uploadimage2" value="{$ad_info['pic']}">
+					</span>
+					</li>
+                   <li><label>开始时间</label><input class="w100" type="text" id='begin_time' name="begin_time"  value="{$ad_info['begin_time']|date='Y-m-d',###}"></li>
+                   <li><label>结束时间</label><input class="w100" type="text" id='end_time' name="end_time" value="{$ad_info['end_time']|date='Y-m-d',###}"></li>
+                    <li><label>排序</label><input class="w70" type="text" name="sort_order" value="{$ad_info['sort_order']}"></li>
+                    <input type="hidden" name="id" value="{$ad_info['id']}" />
+                    <li><input class="small-btn btn-teal w100 h40" type="submit" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Partner/uploadImg',array('type'=>'activities'))}";
+    var begin_time = {
+        elem: '#begin_time',
+        format: $('#begin_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+            end_time.min = datas; //开始日选好后，重置结束日的最小日期
+        }
+    };
+    var end_time = {
+        elem: '#end_time',
+        format: $('#end_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {  
+        }
+    };
+    laydate(begin_time);
+    laydate(end_time);
+    $(function(){
+    	$("#typePic").on("change",function(){
+    		var $_val = $(this).val();
+    		if($_val =="square"){
+    			$("#picup").show();
+    		}else{
+    			$("#picup").hide();	
+    		}
+    	})
+    })
+</script>

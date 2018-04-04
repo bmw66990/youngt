@@ -1,0 +1,102 @@
+<div class="panel panel-info mt10">
+
+    <div class="panel-heading">
+        <b>{$team['product']}</b>
+    </div>
+
+    <div class="panel-body f-fs2 shyz">
+
+        <ul class="list-group">
+
+            <li class="list-group-item f-toe">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">详情:</label>
+                    <div class="col-sm-10 f-toe">
+                        {$team['title']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item fac">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">价格:</label>
+                    <div class="col-sm-10 f-fwb">
+                        {$team['team_price']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">有效时间:</label>
+                    <div class="col-sm-10">
+                        {$team['expire_time']|date="Y-m-d H:i:s",###}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">商户电话:</label>
+                    <div class="col-sm-10">
+                        {$partner['mobile']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">商户名称:</label>
+                    <div class="col-sm-10">
+                        {$partner['username']}
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+
+<div class="panel panel-success">
+
+    <div class="panel-heading f-fs3 text-center">
+        此单共包含{$count}张团购券
+    </div>
+
+    <div class="panel-body f-fs4 shyz">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <button type="button"  class="btn btn-primary btn-sm" id="checkall">
+                    全选
+                </button>
+
+                <button type="button" class="btn btn-success btn-sm" id="checkno">
+                    全不选
+                </button>
+            </li>
+
+        </ul>
+        <form class="form-inline pl20 mb10" role="form"  action="{:U('Coupon/indexExecuteCheckCoupon')}" method="post">			
+            <volist name="coupon" id="vo">
+                <div class="checkbox mr10 ">
+                    <label style="font-size:16px">
+                        <input type="checkbox" value="{$vo.id}" name="coupon_id[]" />
+                        {$vo.id}
+                    </label>
+                </div>
+            </volist>
+            <div class="mt40 f-tac">
+                <input id="action" type="hidden" name="action" value="checked">
+                <button id="btn-check-coupon"  class="btn btn-success btn-lg" lang="multi" type="button">
+                    验 证
+                </button>
+                <button class="btn btn-warning" type="button" onclick="javascript:history.back(-1);">
+                    返回
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

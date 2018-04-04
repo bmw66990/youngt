@@ -1,0 +1,83 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">活动管理<span class="tx-green">+</span></div>
+
+        <div class="con-form">
+            <div class="con-s-title tx-teal">
+                <if condition="$res = auth_check_access(array('Market/addActivities'))">
+                    <a href="{:U('Market/addActivities')}">新建活动</a>
+                </if>
+
+            </div>
+            <form class="myform" action="{:U('Market/activities')}" method="get">
+                <!--<li><label>活动编号</label><input type="text" class="w70" name="id" value="{$displayWhere['id']}"/></li>-->
+                <li><label>活动关键字</label><input type="text" class="w80" name="textarr" value="{$displayWhere['textarr']}"/></li>
+                 <li><label>显示类型</label>
+                    <select name="show_type">
+                        <option value="">所有类型</option>
+                        <volist name="activities_show_type" id="vo">
+                            <option value="{$vo['val']}" <if condition="$vo['val'] eq $displayWhere['show_type']">selected="selected"</if>>{$vo['name']}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><label>活动地区</label>
+                    <select name="cityid">
+                        <option value="0">所有城市</option>
+                        <volist name="all_city" id="vo">
+                            <option value="{$vo['id']}" <if condition="$vo['id'] eq $displayWhere['cityid']">selected</if>>{$vo.letter}{$vo.name}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w100">序号</th>
+                        <th class="w200">活动名称</th>
+                        <th class="w60">城市</th>
+                        <th class="w300">活动时间</th>
+                        <th class="w100">类型</th>
+
+                        <th class="w150"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="data" id="row">
+                    <tr>
+                        <td class="w100"><label class="tx-teal">{$row['id']}</td>
+                        <td class="w200"><label class="tx-orange">{$row['textarr']}</label></td>
+                        <td class="w60">{$all_city[$row['cityid']]['name']|default='全国'}</td>
+                        <td class="w300"><label>{$row['begin_time']|date='Y-m-d',###}至{$row['end_time']|date='Y-m-d',###}</label></td>
+                        <td class="w100">{$row['show_type']}</td>
+
+                        <td class="w150 man">
+                        	<label class="bc-teal">
+                        		<a href="javascript:;">置顶</a>
+                        	</label>
+                            <label class="bc-teal">
+                                <if condition="$res = auth_check_access(array('Market/editActivities'))">
+                                    <a href="{:U('Market/editActivities',array('id'=>$row['id']))}">编辑</a>
+                                </if>
+                            </label>
+                            <label class="bc-teal">
+                                <if condition="$res = auth_check_access(array('Market/delActivities'))">
+                                    <a href="javascript:delActivities({$row['id']});">删除</a>
+                                </if>
+                            </label>
+                        </td>
+                    </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                       {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/market.js?v=C('JS_VER')"></script>

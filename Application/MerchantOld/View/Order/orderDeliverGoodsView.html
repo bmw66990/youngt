@@ -1,0 +1,87 @@
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/normalize.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/style.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/review.css"/>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery-ui.min.js"></script>
+<!--<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.fancybox-1.3.4.pack.min.js"></script>-->
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/bootstrap.min.js"></script>
+<style>
+    div.m-form div.formitm{
+       padding-top: 5px;
+    }
+    div.m-form div.formitm span.goods_title{
+        display: inline-block;
+        width: 80px;
+        vertical-align: top;
+    }
+    div.m-form div.formitm span.goods_con{
+     display: inline-block;
+    }
+</style>
+<div class="body">
+    <div class="m-form">
+        <form id='do-order-deliver-goods-form'  action="{:U('Order/doOrderDeliverGoods')}" method="post" >
+            <fieldset>
+                <div class="formitm">
+                    <span class="goods_title">商品名称：</span><span class="goods_con">{$order.team_product}</span>                   
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">用户名称：</span><span class="goods_con">{$order.user_username}</span>       
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">购买信息：</span><span class="goods_con">{$order.pay_detail}</span>       
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">送货地址：</span><span class="goods_con">{$order.order_address}</span>       
+                </div>
+                <if condition="$order.order_remark && $order.order_remark neq ''">
+                     <div class="formitm">
+                        <span class="goods_title">用户备注：</span><span class="goods_con">{$order.order_remark}</span>       
+                    </div>
+                </if>
+                <div class="formitm">
+                    <span class="goods_title">送货时间：</span><span class="goods_con">{$order.order_delivery_time}</span>       
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">支付时间：</span><span class="goods_con">{$order.order_pay_time}</span>       
+                </div>
+                <if condition="$action eq 'delivergoods'">
+                <div class="formitm">
+                    <span class="goods_title">快递类型：</span><span class="goods_con">
+                        <select id="express_id" name="express_id">
+                            <option value="">请选择快递</option>
+                            <volist id="er" name="express_res">
+                                <option value="{$er.id}">{$er.name}</option>
+                            </volist>
+                        </select>
+                    </span>       
+                </div>
+                <div class="formitm">
+                    <span class="goods_title">快递单号：</span><span class="goods_con"><input name="express_no" id='express_no' style='width: 220px;height: 30px;line-height: 25px;' type="text" value=''></span>        
+                </div>						            
+                <div class="formitm formitm-1">
+                    <input class="id" id='order_id' name='order_id'  type="hidden" value='{$order.order_id}'>  
+                    <input class="u-btn u-btn-c2" id='do-order-deliver-goods-btn' type="button" value='确认发货'>  
+                </div>
+                    <elseif condition="$action eq 'viewgoods'"/>
+                    <if condition="$order.order_express_name neq ''">
+                     <div class="formitm">
+                        <span class="goods_title">快递类型：</span><span class="goods_con">
+                            {$order.order_express_name}
+                        </span>       
+                    </div>
+                    </if>
+                    <if condition="$order.order_express_no neq ''">
+                        <div class="formitm">
+                            <span class="goods_title">快递单号：</span><span class="goods_con">{$order.order_express_no}</span>        
+                        </div>	
+                    </if>
+                     <div class="formitm formitm-1">
+                     <input class="u-btn u-btn-c2" onclick="parent.document.getElementById('fancybox-close').click();" type="button" value='关闭'>  
+                </div>
+                </if>
+            </fieldset>
+        </form> 
+    </div>
+</div>
+<script type="text/javascript" src="__JS_PATH__/Order.js"></script>

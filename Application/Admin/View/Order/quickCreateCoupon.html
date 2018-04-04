@@ -1,0 +1,102 @@
+<include file="Common:header" />
+
+<section>
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">快捷生成券号<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" method="get" action="{:U('Order/quickCreateCoupon')}">
+                <li><label>订单编号</label><input name="order_id" value="{$order_id}" class="w100" type="text" /></li>
+                <li><input type="submit" class="btn-teal small-btn" value="确定生成" style="width:100px;" /></li>
+            </form>
+               <div class="form-list"/>
+               <div><br/><h3>订单信息</h3><br/></div>
+                   <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w100">订单id</th>
+                        <th class="w200">商品名称</th>
+                        <th class="w100">购买份数</th>
+                        <th class="w150">下单时间</th>
+                        <th class="w150">购买时间</th>
+                        <th class="w100">总价</th>
+                    </tr>
+                        <tr>
+                            <td class="w100"><label>{$order_info.id}</label></td>
+                            <td  class="w200">
+                                <label>
+                                 {$team_info.product}
+                                </label>
+                            </td>
+                             <td class="w100"><label>{$order_info.quantity}</label></td>
+                              <td class="w150"><label>
+                                      <if condition="$order_info.create_time gt '0'">
+                                      {$order_info.create_time|date='Y-m-d H:i:s',###}
+                                      <else/>
+                                      ----
+                                      </if>
+                                  </label>
+                              </td>
+                               <td class="w150"><label>
+                                      <if condition="$order_info.pay_time gt '0'">
+                                      {$order_info.pay_time|date='Y-m-d H:i:s',###}
+                                      <else/>
+                                      ----
+                                      </if>
+                                  </label>
+                              </td>
+                              <td class="w100"><label>{$order_info.origin}</label></td>
+                        </tr>
+                    </volist>
+                </table>
+               <div><br/><h3>券号信息</h3><br></div>
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w150">券号</th>
+                        <th class="w100">状态</th>
+                        <th class="w150">过期时间</th>
+                        <th class="w150">验证时间</th>
+                        <th class="w80">团购价</th>
+                        <th class="w80">供货价</th>
+                        <th class="w150">生成时间</th>
+                    </tr>
+                    <volist name="coupon_list" id="row">
+                        <tr>
+                            <td class="w150"><label>{$row.id}</label></td>
+                            <td  class="w100">
+                                <label>
+                                 <if condition="$row.consume eq 'Y'">
+                                     已消费
+                                     <elseif condition="$row.consume eq 'N'"/>
+                                     未消费
+                                     <else/>
+                                     已过期
+                                 </if>
+                                </label>
+                            </td>
+                             <td class="w150"><label>
+                                     <if condition="$row.expire_time gt '0'">
+                                      {$row.expire_time|date='Y-m-d',###}
+                                      <else/>
+                                      ----
+                                      </if>
+                                 </label></td>
+                              <td class="w150"><label>
+                                      <if condition="$row.consume_time gt '0'">
+                                      {$row.consume_time|date='Y-m-d H:i:s',###}
+                                      <else/>
+                                      ----
+                                      </if>
+                                  </label>
+                              </td>
+                              <td class="w80"><label>{$row.team_price}</label></td>
+                              <td class="w80"><label>{$row.ucaii_price}</label></td>
+                              <td class="w150"><label>{$row.create_time|date='Y-m-d H:i:s',###}</label></td>
+                        </tr>
+                    </volist>
+                </table>
+            </div>
+        </div> 
+    </div>
+</section>
+
+<include file="Common:footer" />

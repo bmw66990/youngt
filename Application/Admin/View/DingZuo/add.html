@@ -1,0 +1,95 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">新建订座<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('DingZuo/doAdd')}" method="post">
+                <div class="form-title">标注信息</div>
+                <ul class="li-onlyline">
+                    <li><label>订座城市</label>
+                        <select class="w150" name="city_id" id="city">
+                            <option value="0">--请选择城市--</option>
+                            <volist name="all_city" id="c">
+                                <option value="{$c.id}">{$c.letter}-{$c.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>订座商家</label>
+                        <input type="text" id="partner-name" readonly="">
+                        <input type="hidden" name="partner_id" id="partner-id">
+                        <input class="small-btn bc-teal w100 h40" type="button" url="{:U('Team/partner')}" onclick="partner(this,$('#city').val())" value="选择商户">
+                    </li>
+                    <li><label>订座分类</label>
+                        <select class="w150px" name="class_id">
+                            <option value="0">-选择分类-</option>
+                            <volist name="dingZuo_class" id="groupInfo">
+                                <option value="{$groupInfo['id']}">{$groupInfo['name']}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>订座状态</label>
+                        <select name="status">
+                            <option value="Y">开启</option><option value="N">关闭</option>
+                        </select>
+                    </li>
+                    <li><label>排序字段</label>
+                        <input type="text" class="w60" name="sort_order" value="0" /><label>,</label><div class="form-s-remark tx-grey fl">数值越大排位越前</div>
+                    </li>
+                    <li><label>商家图片</label>
+                        <span style="width:700px;display:inline-block;">
+						<include file="Common:upload" />
+						<input type="hidden" name="image" id="uploadimage" value="">
+					</span></li>
+                    <div class="form-remark tx-grey">至少上传一张商家照片</div>
+                    <li><label>地图坐标</label>
+                        <input type="text" class="w200" id="mappoint" name="longlat"  onclick="getMap('{$point}');" readonly/><label>,</label>
+                        <div class="form-s-remark tx-grey fl"><label class="tx-teal"><a onclick="getMap('{$point}');">取地图坐标信息</a></label><label class="tx-teal"><a onclick="clearMap();">清空地图坐标</a></label></div>
+                    </li>
+                    <div class="form-remark tx-red">如果你是用“如果确定不了坐标请用单击搜索准确坐标” 获取的坐标请把获取的坐标顺序颠倒 如直接复制的坐标是：108.09429,34.280441 正确应该是:34.280441,108.09429(也就是签名的那个带小数点只一定要小于后面的值)</div>
+                </ul>
+                <div class="form-title">基本信息</div>
+                <ul class="li-onlyline">
+                    <li><label>商户名称</label>
+                        <input type="text" class="w300" id="partner-title" name="title"/><label>,</label>
+                    </li>
+                    <li><label>预约电话</label>
+                        <input type="text" class="w150" name="mobile"/><label>,</label>
+                    </li>
+                    <li><label>联系电话</label>
+                        <input type="text" class="w200" name="telphone"/><label>,</label>
+                    </li>
+                    <li><label>最低人数</label>
+                        <input type="text" class="w200" name="min_num"/><label>,</label>
+                    </li>
+                    <li><label>最高人数</label>
+                        <input type="text" class="w200" name="max_num"/><label>,</label>
+                    </li>
+                    <li><label>开始时间</label>
+                        <input type="text" class="w200" name="begin_time" /><label>,</label>
+                    </li>
+                    <li><label>结束时间</label>
+                        <input type="text" class="w200" name="end_time" /><label>,</label>
+                    </li>
+                    <li><label>支持星期</label>
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="1" checked />星期一
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="2"checked />星期二
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="3" checked />星期三
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="4"checked />星期四
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="5" checked />星期五
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="6" checked />星期六
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="7" checked />星期天
+                    </li>
+                    <li><input class="small-btn bc-teal w100 h40" type="submit" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/partner.js?v=C('JS_VER')" ></script>
+<script type="text/javascript">
+    //上传图片
+    var UPLOAD_URL = '{:U("Partner/uploadImg/",array("type"=>"dingZuo"))}';
+</script>

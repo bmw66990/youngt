@@ -1,0 +1,52 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">订单列表<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Market/shareOrder')}" method="get">
+                <li><label>订单编号</label><input type="text" name="id" value="{$where_id}" class="w120"/><label>,</label></li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w150">订单编号</th>
+                        <th class="w150">团单</th>
+                        <th class="w120">用户名</th>
+                        <th class="w50">数量</th>
+                        <th class="w70">总款</th>
+                        <th class="w60">支付</th>
+                        <th class="w80">订单来源</th>
+                        <th class="w80">分销来源</th>
+                        <th class="w50"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="data" id="vo">
+                    <tr>
+                        <td class="w150 tx-teal">{$vo.id}</td>
+                        <td class="w150">{$vo.product}</td>
+                        <td class="w120">{$vo.username}</td>
+                        <td class="w50">{$vo.quantity}</td>
+                        <td class="w70">{$vo.origin}</td>
+                        <td class="w60">{$vo.money}</td>
+                        <td class="w80">{$vo.yuming|getOrderFrom}</td>
+                        <td class="w80 tx-orange">{$vo.weixinname}</td>
+                        <td class="w50">
+                            <if condition="$res = auth_check_access(array('Order/detail'))">
+                                <label class="bc-teal"><a href="{:U('Order/detail', array('id' => $vo['id']))}" onclick="popup(this.href,500,500);return false;">详情</a></label>
+                            </if>
+                        </td>
+                    </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />

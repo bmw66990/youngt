@@ -1,0 +1,501 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">消费验证</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <!-- /.page-header -->
+        <div class="page-header">
+                <h1>
+                    首页  
+                </h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <include file="Common:tip" />
+                <include file="Common:message_tip" />
+                <div class="row">
+                    <div class="space-6"></div>
+
+<!--                    <div class="col-sm-12 infobox-container">
+                        <div class="infobox infobox-green  ">
+                            <div class="infobox-icon">
+                                <i class="icon-comments"></i>
+                            </div>
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">32</span>
+                                <div class="infobox-content">2个评论</div>
+                            </div>
+                            <div class="stat stat-success">8%</div>
+                        </div>
+
+                        <div class="infobox infobox-blue  ">
+                            <div class="infobox-icon">
+                                <i class="icon-user"></i>
+                            </div>
+
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">11</span>
+                                <div class="infobox-content">新粉丝</div>
+                            </div>
+
+                            <div class="badge badge-success">
+                                +32%
+                                <i class="icon-arrow-up"></i>
+                            </div>
+                        </div>
+
+                        <div class="infobox infobox-pink  ">
+                            <div class="infobox-icon">
+                                <i class="icon-shopping-cart"></i>
+                            </div>
+
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">8</span>
+                                <div class="infobox-content">新订单</div>
+                            </div>
+                            <div class="stat stat-important">4%</div>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class="vspace-sm"></div>
+
+
+                <div class="hr hr32 hr-dotted"></div>
+                <div class="col-sm-12">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs" id="myTab">
+                            <li class="active">
+                                <a data-toggle="tab" href="#home">
+                                    <i class="green icon-tag bigger-110"></i>
+                                    团购券号验证
+                                </a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#profile">
+                                    <i class="green icon-credit-card bigger-110"></i>														
+                                    积分券验证
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane in active">
+                                <h4 class="lighter">
+                                    <i class="icon-tags"></i>
+                                    请输入青团券密码
+                                </h4>
+                                <form method="post" action="{:U('Coupon/indexCheckCoupon')}"  checkHref="{:U('Coupon/checkCouponExist')}">
+                                    <input onfocus="return true;"  class="col-sm-4"  name="id"  maxLength="14"  id='ticket'  placeholder="请输入正确的青团券密码" type="text" style="margin-right:10px;font-size:18px;height:42px;">
+                                    <if condition="$res = auth_check_access(array('Coupon/indexCheckCoupon'))">
+                                        &nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-success coupon-check-info" name="consume" type="button">
+                                            <i class="icon-ok bigger-110"></i>
+                                            点击验证
+                                        </button>&nbsp;&nbsp;&nbsp;
+                                        <button class="btn coupon-check-info" type="button" name="number">
+                                            <i class="icon- icon-eye-open bigger-110"></i>
+                                            查询编号
+                                        </button>
+                                    </if>
+                                </form>
+                                <div class="hr hr32 hr-dotted"></div>
+                                <!-- 项目列表 -->
+                                <div class="widget-box transparent">
+                                    <present name="cxcoupon">
+                                        <div class="widget-body">
+                                            <div class="widget-main no-padding">
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                    <volist name="cxcoupon" id="vo">
+                                                        <tr>
+                                                            <td width="160">
+                                                                验证时间：{$vo['consume_time']|date='Y-m-d',###}
+                                                                <br/>
+                                                                {$vo.id}&nbsp;&nbsp;
+                                                            </td>
+                                                            <td>
+                                                                项目：{$vo.title}
+                                                            </td>
+                                                            <td width="80">
+                                                                <if condition="$res = auth_check_access(array('Coupon/cxCoupon'))">
+                                                                <!--a href="{:U('Coupon/cxCoupon',array('id'=>$vo['id']))}" class="cx_coupon">撤销</a-->
+                                                                    <button title='撤销' data-url="{:U('Coupon/cxCoupon',array('id'=>$vo['id']))}" class="btn btn-link openifram" data-w='600' data-h='500'>撤销</button>
+                                                                </if>
+                                                            </td>
+                                                        </tr>
+                                                    </volist>
+                                                    </tbody>
+                                                </table>
+                                            </div><!-- /widget-main -->
+                                        </div><!-- /widget-body -->
+                                    </present>
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="lighter">
+                                            <i class="icon-tags"></i>
+                                            团购项目列表
+                                        </h4>
+
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="thin-border-bottom">
+                                                    <tr>
+                                                        <th> <i class="icon-caret-right blue"></i> 项目编号/名称</th>
+                                                        <th><i class="icon-caret-right blue"></i>起止日期</th>
+                                                        <th><i class="icon-caret-right blue"></i>成交</th>
+                                                        <th> <i class="icon-caret-right blue"></i>团购价</th>
+                                                        <th> <i class="icon-caret-right blue"></i> 结算价</th>
+                                                        <th><i class="icon-caret-right blue"></i>状态</th>
+                                                        <th><i class="icon-caret-right blue"></i>操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <volist name="list" id="vo">
+                                                    <tr>
+                                                        <td>
+                                                            <a target="blank" tid="{$one['id']}" href="http://{$Think.server.http_host}/team-{$vo['id']}.html" class="fac"  title="{$vo['title']}">
+                                                                {$vo.id}/{$vo['product']}
+                                                            </a>
+                                                        </td>
+
+                                                        <td>
+                                                            {$vo['begin_time']|date='Y-m-d',###} <b class="red">-</b> {$vo['end_time']|date='Y-m-d',###}
+                                                        </td>
+
+                                                        <td>
+                                                    <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                                                        <a href="{:U('Coupon/couponDetail',array('tid'=>$vo['id'],'partner_id'=>$partner_id))}" class="fac">
+                                                            {$vo['now_number']}
+                                                        </a>
+                                                        <else/>
+                                                        {$vo['now_number']}
+                                                    </if>
+                                                    </td>
+
+                                                    <td>
+                                                        {$vo['team_price']}
+                                                    </td>
+
+                                                    <td>
+                                                        {$vo['ucaii_price']}
+                                                    </td>
+
+                                                    <td class="hidden-480">
+                                                    <if condition="$vo.status eq 1">
+                                                        <span class="label label-info arrowed-right arrowed-in">销售中</span>
+                                                    <elseif condition="$vo.status eq 2" />
+                                                        <span class="label label-danger arrowed">未开始</span>
+                                                    <elseif condition="$vo.status eq 3" />
+                                                        <span class="label label-danger arrowed">已结束</span>
+                                                    <elseif condition="$vo.status eq 4" />
+                                                        <span class="label label-success arrowed-in arrowed-in-right">已卖完</span>
+                                                    <elseif condition="$vo.status eq 5" />
+                                                        <span class="label label-warning arrowed arrowed-right">审核中</span>
+                                                    <else/>
+                                                        <span class="label label-success arrowed-in arrowed-in-right">未知状态</span>
+                                                    </if>
+                                                   </td>
+
+                                                    <td class="hidden-480">
+                                                         <if condition="$res = auth_check_access(array('Coupon/team'))">
+                                                        <button title='详情' data-url="{:U('Coupon/team',array('id'=>$vo['id']))}" class="btn btn-link openifram" data-w='600' data-h='500'>详情</button>
+                                                         </if>
+                                                     </td>
+                                                    </tr>
+                                                </volist>
+                                                </tbody>
+                                            </table>
+                                            <div class="hr hr8"></div>
+                                             <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="dataTables_info" id="sample-table-2_info"> 全部{$count}条</div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="dataTables_paginate paging_bootstrap">
+                                                        {$page}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /widget-main -->
+                                    </div><!-- /widget-body -->
+                                </div><!-- /widget-box -->
+
+                            </div>
+
+                            <div id="profile" class="tab-pane">
+                                <h4 class="lighter">
+                                    <i class="icon-credit-card"></i>
+                                    请输入兑换券密码
+                                </h4>
+                                <input type="text" class="col-sm-4" id='voucher' value="" name="id" maxLength="12" placeholder="请输入正确的兑换券密码" style="margin-right:10px;font-size:18px;height:42px;">&nbsp;&nbsp;&nbsp;
+
+                                <if condition="$res = auth_check_access(array('Coupon/checkPointsVoucher'))">
+                                    <button load_href="{:U('Coupon/checkPointsVoucher')}" class="btn btn-info"  name="select-voucher" type="button">
+                                        <i class="icon-ok bigger-110"></i>
+                                        点击查询
+                                    </button>&nbsp;&nbsp;&nbsp;
+                                </if>                   
+                                <div class="hr hr32 hr-dotted"></div>
+                                <!-- 项目列表 -->
+                                <div class="widget-box transparent">
+
+                                    <div class="widget-body" id="display-voucher" style="display: none">
+
+                                    </div>
+
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="lighter">
+                                            <i class="icon-credit-card"></i>
+                                            积分项目列表
+                                        </h4>
+
+                                    </div>
+
+                                    <div class="widget-body">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="thin-border-bottom">
+                                                    <tr>
+                                                        <th>
+                                                            <i class="icon-caret-right blue"></i>
+                                                            项目编号/名称
+                                                        </th>
+
+                                                        <th>
+                                                            <i class="icon-caret-right blue"></i>
+                                                            起止日期
+                                                        </th>
+                                                        <th>
+                                                            <i class="icon-caret-right blue"></i>
+                                                            已兑换
+                                                        </th>
+
+                                                        <th>
+                                                            <i class="icon-caret-right blue"></i>
+                                                            状态
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                <volist  name="voucher_data" id="vo">
+                                                    <tr>
+                                                        <td>{$vo.id} / {$vo.name}</td>
+
+                                                        <td>
+                                                            {$vo['begin_time']|date='Y-m-d',###} <b class="red">-</b> {$vo['end_time']|date='Y-m-d',###}
+                                                        </td>
+
+                                                        <td>
+                                                            {$vo['consume_num']} / <eq name="vo.limit_num" value="0">不限量<else />{$vo.limit_num}</eq>
+                                                    </td>
+
+                                                    <td class="hidden-480">
+                                                       <if condition="$vo.status eq 1">
+                                                        <span class="label label-info arrowed-right arrowed-in">兑换中</span>
+                                                    <elseif condition="$vo.status eq 2" />
+                                                        <span class="label label-danger arrowed">未开始</span>
+                                                    <elseif condition="$vo.status eq 3" />
+                                                        <span class="label label-danger arrowed">已结束</span>
+                                                    <elseif condition="$vo.status eq 4" />
+                                                        <span class="label label-success arrowed-in arrowed-in-right">已换完</span>
+                                                    <else/>
+                                                        <span class="label label-success arrowed-in arrowed-in-right">未知状态</span>
+                                                    </if>
+                                                    </td>
+                                                    </tr>
+                                                </volist>
+                                                </tbody>
+                                            </table>
+                                            <div class="hr hr8"></div>
+                                             <div class="center">
+                                                <i class="icon-tags icon-2x green"></i>
+                                                &nbsp;
+                                                 <if condition="$res = auth_check_access(array('TeamManage/sore_goods_list'))">
+                                                <a href="{:U('TeamManage/sore_goods_list')}">
+                                                    查看更多 &nbsp;
+                                                    <i class="icon-arrow-right"></i>
+                                                </a>
+                                                 </if>
+                                            </div>
+
+                                        </div><!-- /widget-main -->
+                                    </div><!-- /widget-body -->
+                                </div><!-- /widget-box -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /span -->
+
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+<script id="display-voucher-tmpl" type="text/x-jquery-tmpl">
+    <div class="widget-main no-padding table-responsive">
+        <table class="table table-bordered" style='border: 1px solid #e5e5e5;'>
+            <tbody>
+             <tr>
+                <td  class="name">
+                商品名称：<span style="color: red">${name}</span>
+                </td>
+                <td  class="time">
+                {{if status=='Y'}}
+                兑换时间：<span style="color: red">${consume_time}</span>
+                {{else}}
+                过期时间：<span style="color: red">${expire_time}</span>
+                {{/if}}
+                </td>
+                <td  class="confirm_num">
+                兑换数量：<span style="color: red">${num}份</span>
+                </td>
+                <td  class="total_score">
+                使用积分：<span style="color: red">${total_score}</span>
+                </td>
+                <td class="status_name">
+                当前状态：<span style="color: red">${status_name}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        {{if status=='N'}}
+        <div style="text-align: center; padding-top: 20px;"><button load_href="{:U('Coupon/consumePointsVoucher')}" type="button" class="btn btn-success" code="${code}" id="confirm-voucher">确定兑换</button></div>
+        {{/if}}
+        <div class="hr hr8"></div>
+
+    </div>
+</script>
+<script>
+    $(function() {
+        
+        // 输入券号框获取焦点
+        $('#ticket').focus();
+
+        // 单个团卷验证
+        $(".main-container-inner").on('keydown', '#ticket', function(e) {
+            if (e.keyCode != 8) {
+                if ($(this).val().length == 4 || $(this).val().length == 9) {
+                    $(this).val($(this).val() + " ");
+                }
+            }
+            return true;
+        });
+
+        // 青团卷密码 校验查询
+        $(".main-container-inner").on('click', '.coupon-check-info', function() {
+            var $this = $(this);
+            var ticket = $('#ticket').val();
+            var $from = $(this).parents('form');
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+
+            if (!$.trim(ticket)) {
+                show_message_tip({error: '青团券密码不能为空！'});
+                return false;
+            }
+
+            // 校验团券是否存在
+            var checkCoupon = function(cb) {
+                var href = $from.attr('checkHref');
+                var data = {id: ticket};
+                $this.addClass('disabled');
+                $.post(href, data, function(res) {
+                    $this.removeClass('disabled');
+                    if (res.code != 0 && res.error) {
+                        show_message_tip(res);
+                        return false;
+                    }
+                    cb();
+                    return false;
+                }, 'json')
+            }
+            // 校验团卷后提交表单
+            checkCoupon(function() {
+                $from.find('#action').val($(this).attr('name'));
+                $from.submit();
+                return false;
+            });
+            return false;
+        });
+
+        //积分商品查询
+        $(".main-container-inner").on('click', ':button[name=select-voucher]', function() {
+            var $this = $(this);
+            var voucher = $('#voucher[name=id]').val();
+
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+
+            if (!$.trim(voucher)) {
+                show_message_tip({error: '积分商品兑换券不能为空！'});
+                return false;
+            }
+
+            var url = $(this).attr('load_href');//$base_url+'/Coupon/checkPointsVoucher';
+            $this.addClass('disabled');
+            $.post(url, {voucher: voucher}, function(data) {
+                $this.removeClass('disabled')
+                if (data.status == -1) {
+                    show_message_tip(data);
+                } else {
+                    $('div#display-voucher').html($('#display-voucher-tmpl').tmpl(data.success));
+                    $('div#display-voucher').show();
+                }
+            }, 'json');
+            return false;
+        });
+        $(".main-container-inner").on('click', '#confirm-voucher', function() {
+            var $this = $(this);
+            var voucher = $(this).attr('code');
+            var url = $(this).attr('load_href'); //$base_url+'/Coupon/consumePointsVoucher';
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+
+            $this.addClass('disabled')
+            $.post(url, {voucher: voucher}, function(data) {
+                $this.removeClass('disabled')
+                if (data.status == -1) {
+                    show_message_tip(data);
+                } else {
+                    show_message_tip({success: '兑换成功'});
+                    $('div#display-voucher').html($('#display-voucher-tmpl').tmpl(data.success));
+                    $('div#display-voucher').show();
+                }
+                return false;
+            }, 'json')
+        });
+    });
+</script>

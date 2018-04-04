@@ -1,0 +1,83 @@
+<include file="Common:header" />
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- 头部开始 -->
+        <div class="col-xs-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="f-tac">
+                    <a class="navbar-brand" href="javascript:history.go(-1);">返回</a>
+
+                    <div class="f-ib">
+                        <h4 class="f-ib f-ff1">搜索</h4>
+                    </div>
+                    <!--<if condition="$_COOKIE[C('SAVE_USER_KEY')] neq ''">
+                        <a class="navbar-brand pull-right" href="{:U('User/index')}"> <span class="glyphicon glyphicon-user"></span>我的</a>
+                        <else />
+                        <a class="navbar-brand pull-right" href="{:U('Public/login')}"> <span class="glyphicon glyphicon-user"></span>登录</a>
+                    </if>-->
+                </div>
+            </nav>
+        </div>
+        <!-- 头部结束 -->
+
+        <!-- 搜索开始 -->
+        <div class="col-xs-12">
+            <div class="pt10">
+                <div class="container-fluid sch">
+                    <form  class="form-horizontal" role="form" action="{:U('Index/teamSearchList')}" method="get">
+                        <div class="form-group f-pr y-icon mb10 col-xs-10">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <input type="text" name="query" class="form-control" placeholder="请输入商品名称，地址等" autofocus />
+                        </div>
+
+                        <div class="col-xs-2">
+                            <button type="submit" class="btn btn-info">
+                                搜索
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- 搜索结束 -->
+
+        <div class="container-fluid">
+            <div class="col-xs-12">
+
+                <div class="hotsearch pt20">
+                    搜索热词
+
+                    <table class="table table-bordered mt10 f-tac">
+                        <tr>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'255@418'))}" title="">火锅</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'12@420'))}" title="">电影</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'12@256'))}" title="">KTV</a></td>
+
+                        </tr>
+
+                        <tr>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'255@431'))}" title="">蛋糕</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'255@519'))}" title="">烤肉</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'419@425'))}" title="">足疗</a></td>
+
+                        </tr>
+
+                        <tr>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'16@126'))}" title="">化妆品</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'255@417'))}" title="">西餐</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'404@413'))}" title="">酒店</a></td>
+                        </tr>
+
+                        <tr>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'255@587'))}" title="">自助餐</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'14@422'))}" title="">美发</a></td>
+                            <td><a href="{:U('Index/teamSearchList',array('type'=>'419@426'))}" title="">眼镜</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <include file="Common:footer" />

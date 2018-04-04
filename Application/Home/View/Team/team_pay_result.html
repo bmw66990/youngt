@@ -1,0 +1,140 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<link href="__CSS_PATH__/detail.css?v={:C('CSS_VER')}" rel="stylesheet" type="text/css" />
+<include file="Common:nav" />
+<!--购买成功页-->
+<div id="bdw">
+
+    <div id="bd"class="cf" >
+
+        <div id="ytcontent">
+
+            <div  class="mainbox">
+
+                <h2>购买仅需3步！</h2>
+
+                <ol class="buy-process-bar steps-bar">
+
+                    <li class="step step--first" style="z-index:2">
+
+                        <span class="step__num">1.</span>提交订单
+
+                        <span class="arrow__background"></span>
+
+                        <span class="arrow__foreground"></span>
+
+                    </li>
+
+                    <li class="step " style="z-index:1">
+
+                        <span class="step__num">2.</span>选择支付方式
+
+                        <span class="arrow__background"></span>
+
+                        <span class="arrow__foreground"></span>
+
+                    </li>
+
+                    <li class="step step--last step--current">
+
+                        <span class="step__num">3.</span>购买成功
+
+                    </li>
+
+                </ol>
+
+                <div class="result-box-wrapper f-tac">
+                    <if condition="$order['state'] eq 'pay'">
+                        <div>
+                            <div class="result-box f-tal ml55 mr50 mb30 f-fl" style="float:left;margin-left:75px;margin-top:-8px;">
+
+
+                                 <h3 class="mt30">恭喜你，购买成功</h3>
+                                <div class="cart-alert-right">
+                                    <li><a id="continue-cart" href="javascript:;">继续浏览</a></li>
+                                    <if condition="$team.team_type eq 'cloud_shopping'">
+                                         <li><a href="{:U('Member/cloud_shopping_order')}">查看我的夺宝</a></li>
+                                        <else/>
+                                         <li><a href="{:U('Member/index')}">查看订单</a></li>
+                                    </if>
+                                   
+                                </div>     
+
+                            </div>
+                            <div class="smewm f-fl mt20" style="float:right;margin-right:45px;margin-top:-2px;">
+                                <img src="{$imgurl}" width="120">
+                                <p class="">扫描二维码，获取青团密码</p>
+                            </div>
+                        </div> 	
+                        <div class="f-cb"></div>	
+                          <table class="table f-fs2" id="coupons">
+                                <tbody>
+                        <if condition="$team.team_type eq 'goods'">
+                                   <tr>
+                                        <td class="col1">
+                                          项目:  <a class="coupons__title" target="_blank" href="__APP__/team-{$team['id']}.html">{$team['product']}</a>
+                                        </td>
+                                        <td class="coupons__codes">
+                                          {$order.pay_detail}
+                                        </td>
+                                        <td>
+                                          收货地址： {$order.pay_address}
+                                        </td>
+                                    </tr>
+                            
+                            <elseif condition="!empty($coupons)"/>
+                          
+
+                                <volist name="coupons" id="coupon">
+                                    <tr>
+                                        <td class="col1">
+                                          项目:  <a class="coupons__title" target="_blank" href="__APP__/team-{$team['id']}.html">{$team['product']}</a>
+                                        </td>
+                                        <td class="coupons__codes">
+                                          券号：<span class="t_orange f-fs3"> {$coupon['id']|chunkCoupon}</span>
+                                        </td>
+                                        <td>
+                                          有效期： {$team['expire_time']|date='Y-m-d',###}
+                                        </td>
+                                    </tr>
+                                </volist>
+                        </if>
+                                   </tbody>
+
+                            </table>
+                        <p class="goto-orders"></p>
+                        <else />
+                        <h3 class="lower">购买成功</h3>
+                        <em class="shoot-tip">处理中，请稍后...</em>
+                        <script type="text/javascript">window.setInterval("location.reload()", 5000);</script>
+                    </if>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- 购买成功页结束 -->
+
+<!--百分点代码：购买成功页-->
+<script type="text/javascript">
+            window["_BFD"] = window["_BFD"] || {};
+            _BFD.BFD_INFO = {
+                    "order_id" : "{$order['id']}", //当前订单号，如果有拆单等特殊情况现象（一次购买中出现多个订单号）此页面代码不可用，请联系我修改；
+
+                    "order_items" : [["{$order['team_id']}", {$order['price']}, {$order['quantity']}]], //同购物车页
+
+                    "total" : "{$order['origin']}", //用户实际支付的价格
+
+                    "user_id" : "{$member['id']}", //网站当前用户id，如果未登录就为0或空字符串
+
+                    "page_type" : "payment" //当前页面全称，请勿修改
+            };
+            if (dfb_common){
+                 dfb_common();
+            }
+</script>
+<include file="Common:footer" />

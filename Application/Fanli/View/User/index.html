@@ -1,0 +1,246 @@
+<?php    
+    setcookie('uid',$uid,time()+3600);
+?>
+<include file="Common:header" />
+<style type="text/css">
+    body{background-color:#f7f7f7;}
+   .icon-rmb{
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      box-sizing: border-box;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      font-size: 18px;
+      line-height: 30px;
+      border-radius: 50%;
+      background-color: #e6e3d7;
+      color: #ec9a23;
+      border: 1px solid #ec9a23;
+      text-align: center;
+   }
+   .am-list > li > a{padding:0;}
+   #mask{
+      position: absolute;
+      z-index: 1111;
+      background-color: #000;
+      top: 0;
+      opacity: .75;
+   }
+   #maskContet{
+      position: absolute;
+      z-index: 9999;
+      top: 0;
+      left:0;
+   }
+   .personal-code{
+    background-color: #fff;
+    padding:10%;
+    border-radius:8px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+   }
+   .personal-code-title{
+    color:#333;
+    text-align: center;
+   }
+    </style>
+<!-- 顶部 -->
+<div class="am-g am-padding-sm" style="background-color:#f7f7f7;">
+    <div class="am-u-sm-12" style="padding-right:0;">
+        <div class="am-u-sm-5 am-fl">
+            <img src="__IMAGE_PATH__/logo.png" class="am-img-responsive am-fl" style="width:80%;">
+        </div>        
+        <div class="am-u-sm-7" style="padding-right:0;">
+            <span class="am-text-danger am-text-lg am-text-middle am-fr" style="color:#333;">&nbsp;4000-998-433</span>
+            <img src="__IMAGE_PATH__/icon-tel.png" class="am-img-responsive am-fr" style="width:15%;">
+        </div>
+    </div>
+</div>
+
+<!--个人信息 -->
+<div class="am-g" style="padding:5% 2%;">
+    <div class="am-u-sm-4">        
+        <img class="am-img-responsive am-circle am-margin-left-sm" src="{$data['my_info']['headimgurl']}" style="width:80px;height:80px;"/>
+    </div>
+    <div class="am-u-sm-6 am-margin-top-sm">
+        <span class="am-text-default">{$data['my_info']['nickname']}</span><br>
+        <span class="am-text-xs">{$data['my_info']['cardid']}</span>  
+        <?php if($data['usercount'] < 1 || $data['order_count'] < 1){?>
+        <i class="am-text-xs am-margin-horizontal-xs" style="border-right:1px solid #333;"></i>
+        <span class="am-text-sm am-text-danger">(未激活)</span>
+        <?php }?>
+
+    </div>
+    <div class="am-u-sm-2 am-margin-top-sm">
+        <span class="am-icon-qrcode am-text-xxl" id="scanCode"></span>
+    </div>        
+</div>
+
+<!--账户余额-->
+<div class="am-g am-margin-top-sm am-padding-vertical-sm">
+    <div class="am-container">
+        <div class="am-u-sm-8 fl">
+            <span class="icon-rmb am-icon-rmb"></span>
+            <span class="am-text-sm am-margin-sm">账户余额</span>
+            <span class="am-icon-rmb am-text-warning"></span>
+            <span class="am-text-sm am-text-warning">{$payment_money}</span>
+        </div>
+        <div class="am-u-sm-4 am-fr am-text-right">
+            <?php if($payment_money <= 0){?>                
+                <a class="am-btn am-btn-sm am-padding-horizontal-lg am-text-warning" style="border:1px solid #F37B1D;border-radius:6px;">暂时不能提现</a>     
+            <?php }else{?> 
+                <?php if(!$data['my_info']['mobile']){?>            
+                <a href="bindPhone.html" class="am-btn am-btn-sm am-padding-horizontal-lg am-text-warning" style="border:1px solid #F37B1D;border-radius:6px;">绑定手机号</a> 
+                <?php }else{?>
+                    <form id="business-information-form" method='get' action="__URL__/withdrawalPage" >   
+                        <input  type="hidden" name="pay" value="<?php echo $payment_money?>"/>
+                        <button class="am-text-warning" style="border:1px solid #F37B1D;border-radius:6px;">提 现</button>
+                    </form>
+            <?php } }?> 
+            
+        </div>
+    </div>
+</div>
+
+<!-- 推广赚钱 粉丝 -->
+<div class="am-list-news am-margin-top-sm">
+    <ul class="am-list am-list-static">
+        <a href="{:U('User/promoteMakemonery', array('uid' => $uid))}">
+            <li>
+                <div class="am-container am-text-sm">
+                  <div class="am-u-sm-8">
+                    <img src="__IMAGE_PATH__/icon-tuiguang.png" style="max-width:38px;">
+                    <span class="am-margin-left-sm" style="color:#333333;">推广赚钱</span>
+                  </div>
+                  <div class="am-u-sm-4" style="height:38px">
+                    <a href="{:U('User/promoteMakemonery', array('uid' => $uid))}" class="am-icon-angle-right am-text-xl am-fr am-vertical-align-middle"></a>   
+                    <span class="am-fr am-padding-top-sm am-margin-right-sm">推广码：ID</span>  
+                  </div>
+                </div>
+            </li>
+        </a>
+        <li>
+            <div class="am-container am-text-sm">
+               <a href="{:U('User/myRecommend', array('uid' => $uid))}">
+                <div class="am-u-sm-9">
+                    <img src="__IMAGE_PATH__/icon-user1.png" style="max-width:38px;">
+                   <span class="am-margin-left-sm" style="color:#333">粉丝</span>
+                </div>
+                              
+                <div class="am-u-sm-3" style="height:38px"> 
+                    <a href="{:U('User/myRecommend', array('uid' => $uid))}" class="am-icon-angle-right am-text-xl am-fr am-vertical-align-middle"></a>                    
+                    <span class="am-fr am-padding-top-sm am-fl am-margin-right-sm">{$data['usercount']}</span>  
+                </div>
+                </a>  
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!--返利订单 财务记录-->
+<div class="am-list-news">
+    <ul class="am-list am-list-static">
+        <li> 
+            <a href="{:U('User/order', array('uid' => $uid))}">
+                <div class="am-container am-text-sm">
+                    <div class="am-u-sm-9">
+                        <img src="__IMAGE_PATH__/icon-dingdna.png" style="max-width:38px;">
+                        <span class="am-margin-left-sm" style="color:#333;">返利订单</span>
+                    </div>
+                    <div class="am-u-sm-3" style="height:38px">
+                        <a href="{:U('User/order', array('uid' => $uid))}" class="am-icon-angle-right am-text-xl am-fr am-vertical-align-middle"></a>
+                        <span class="am-badge am-badge-danger am-round am-fr am-margin-sm">{$data['order_count']}</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+        <li>
+            <a href="{:U('User/financialRecords', array('uid' => $uid))}">
+                <div class="am-container am-text-sm">
+                    <div class="am-u-sm-10">
+                        <img src="__IMAGE_PATH__/icon-jilu.png" style="max-width:38px;">
+                        <span class="am-margin-left-sm" style="color:#333;">财务记录</span>
+                    </div>
+                    <div class="am-u-sm-2" style="height:38px">
+                        <a href="{:U('User/financialRecords', array('uid' => $uid))}" class="am-icon-angle-right am-text-xl am-fr"></a>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<script>
+  window.onload=function(){
+   // var oscanCode = document.getElementById("scanCode");
+      $("#scanCode").click(function(){
+        popMask();
+    });
+    }
+  function popMask(){ console.log(123)
+    var cHeight=document.documentElement.clientHeight;
+    var cWidth=document.documentElement.clientWidth;
+
+    var oMask = document.createElement("div");
+      oMask.id = "mask";
+      oMask.style.width = cWidth+"px";
+      oMask.style.height = cHeight+"px";
+      document.body.appendChild(oMask);
+
+    var omaskContet = document.createElement("div");
+      omaskContet.id = "maskContet";
+      omaskContet.style.width = cWidth+"px";
+      omaskContet.style.height = cHeight+"px";
+      omaskContet.innerHTML = "<div class='personal-code'><h1 class=''>请扫描二维码</h1><img src='assets/images/personal-code.png' class='img-responsive'></div>";
+      omaskContet.innerHTML = "<div class='personal-code'><h2 class='personal-code-title'>请扫描二维码</h2><img src='http://qr.topscan.com/api.php?text=http://fanli.ree9.com/user/shareQrcode?uid={$uid}' class='img-responsive' style='width:150px;'></div>";
+      document.body.appendChild(omaskContet);
+
+       omaskContet.onclick=function(){
+        document.body.removeChild(oMask);
+        document.body.removeChild(omaskContet);
+      }
+  }
+</script>
+ <!--底部 -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-no-layout" >
+    <ul class="am-navbar-nav am-cf am-avg-sm-4">
+        <li>
+            <a href="{:U('Index/index')}" >
+            <span class="am-icon-home"></span>
+            <span class="am-navbar-label">首页</span>
+            </a>
+        </li>
+     
+        <li>
+            <a href="###">
+                <span class="am-icon-compass"></span>
+                <span class="am-navbar-label">附近</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/index')}" style="color:#e60827">
+                <span class="am-icon-user"></span>
+                <span class="am-navbar-label">个人中心</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/bus_recommend')}">
+                <span class="am-icon-bookmark"></span>
+                <span class="am-navbar-label">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script src="__JS_PATH__/amazeui.min.js"></script>
+</body>
+</html>

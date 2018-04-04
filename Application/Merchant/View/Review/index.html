@@ -1,0 +1,172 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">用户评分管理</a>
+            </li>
+            <li class="active">用户评分列表</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                用户评分列表
+            </h1>
+        </div>
+        <!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <include file="Common:message_tip" /> 
+                <style>
+                    table#order-manage-list td{
+                        vertical-align: middle;
+                    }
+                </style>
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="tab-content">
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        共组织<b> {$team_num} </b>次团购, 购买<b>
+                            <if condition = "$buy_count eq ''">
+                                0
+                                <else />
+                                {$buy_count}
+                            </if> </b> 人. <b>
+                            <if condition = "$count eq ''">
+                                0
+                                <else />
+                                {$count}
+                            </if> </b> 人点评,满意度 <b>
+                            {$grade_comment|substr=0,4}%
+                            </if> </b>
+                    </div>
+
+                    <div class="row">
+                           <form action="{:U('Review/index')}" method="get">
+                                <div class="col-sm-5">
+                                    <label>项目:
+                                              <select name="team_id">
+                                                <option value="0" >所有项目</option>
+                                                <volist name="team" id="vo">
+                                                    <option value="{$vo['id']}" <if condition="$team_id eq $vo['id']">selected</if>>{$vo.product}</option>
+                                                </volist>
+                                            </select>
+                                    </label>
+                                     <label>
+                                         <select name='num'>
+                                            <option value=''>所有</option>
+                                            <volist name="good" id="vo">
+                                                <option value="{$key}" <if condition="$num eq $key">selected</if>>{$vo}</option>
+                                            </volist>
+                                        </select>
+                                    </label>
+                                </div>
+                                 <div class="col-sm-7">
+                                      <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="icon-ok"></i>
+                                            筛选
+                                        </button>
+                                </div>
+                            </form>
+                    </div>
+
+                    <div id="basicinfo" class="tab-pane active">
+                        <table id="order-manage-list" class="table table-bordered table-striped">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>
+                                        <i class="icon-tag blue"></i> 顾客ID/用户名称
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 项目编号/名称
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 评论内容
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 评论时间
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 满意度
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i> 操作
+                                    </th>                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr>
+                                    <td>
+                                        {$vo.user_id}/{$vo['username']|substr=0,3}*** 
+                                    </td>
+                                    <td>{$vo.team_id}/<a class="fac" href="http://{$Think.server.http_host}/team-{$vo.team_id}.html">({$vo['product']})</a></td>
+                                    <td>{$vo['content']}</td>
+                                    <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                    <td>{$vo['comment_num']}</td>
+                                    <td class="f-tac">
+                                <if condition="$vo['partner_content'] eq ''">
+                                    <if condition="$res = auth_check_access(array('Review/review'))">
+                                        <a title='回复评论'  href='javascript:void(0);' data-url="{:U('Review/review',array('id'=>$vo['order_id']))}" mask="true" class="fac reply openifram" data-w='450'> 回复 </a>
+                                    </if>
+                                    <else/>
+                                    已回复
+                                </if>
+                                </td>
+
+
+
+                                </tr>
+                            </volist>
+                            </tbody>
+
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="sample-table-2_info"> 全部{$count}条</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_bootstrap">
+                                    {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+        // 申请上线提示
+
+    });
+</script>

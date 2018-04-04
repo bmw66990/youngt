@@ -1,0 +1,134 @@
+<include file="Common:header" />
+<section>
+	<!--左侧导航-->
+	<div class="tab-menu">
+		<ul>
+			<li class="current"><a href="index.html">圈子管理</a><label>&nbsp;</label></li>
+			<li ><a href="adCircle.html">广告设置</a><label>&nbsp;</label></li>
+			<li  ><a href="report.html">举报内容</a><label>&nbsp;</label></li>
+			<li ><a href="black_user.html">黑名单</a><label>&nbsp;</label></li>
+		</ul>
+	</div>
+	<div class="nav-dis-menu">
+			<label>&nbsp;</label>
+	</div>
+	<div class="content">
+		<div class="con-title">圈子设置<span class="tx-green">+</span></div>
+		<div class="con-edit-form">
+			<form action="{:U('Circle/update')}" method="post" id="team-form" enctype="multipart/form-data">
+			<ul class="li-onlyline">
+				<li><label>圈子名称</label>				
+					<input class="w300" type="text" name="catname" value="{$vo.catname}">
+					<input type="hidden" name="catid" value="{$vo.catid}">					
+									
+				</li>				
+				<li><label>所在城市</label>
+					<select class="w150" name="city_id" id="city">
+						<option>--请选择城市--</option>
+						<volist name="city" id="c">
+							<option value="{$c.id}" <eq name="c.id" value="$vo.city_id">selected</eq> >{$c.letter}-{$c.name}</option>
+						</volist>
+					</select>
+				</li>
+				<li><label>位置坐标</label>					
+					<input class="w300" type="text" id="circle-address" name="address" value="{$vo.address}">
+					<input type="text" name="mappoint" id="mappoint" value="{$vo.lng},{$vo.lat}" />
+					<a class="btn-teal" id="getmap">地图定位</a>
+				</li>
+				<li><label>圈子图片</label>
+					<input class="w400" type="file" name="cat_picture" value="{$vo.cat_picture}">
+				</li>
+				<li><label>状态</label>		
+					<if condition="($vo['status'] eq 1)">							
+						<label><input type="radio" name="status" value="1" checked='checked'><span class="m-left-5">开启</span></label>
+						<label><input type="radio" name="status" value="0"><span class="m-left-5">关闭</span></label>
+					<else />
+						<label><input type="radio" name="status" value="1"><span class="m-left-5">开启</span></label>
+						<label><input type="radio" name="status" value="0" checked='checked'><span class="m-left-5">关闭</span></label>							
+					</if>	
+				</li>
+				<li>
+					<input class="small-btn bc-teal w100 h40" type="submit" value="提交">					
+				</li>
+			</ul>
+			</form>
+		</div> 
+	</div>
+	<div id="map-view">
+		<span class="close-pop">x</span>
+		<div id="baidumap" style="width: 100%; height: 500px;">
+			
+		</div>
+	</div>
+</section>
+<include file="Common:footer" />
+<!--挂件部分-->
+<div class="scrollTop"><img src="/Public/Admin/images/scrolltop.png" /></div>
+<!--js list-->
+<!--jQuery-->
+<script type="text/javascript" src="../libs/jquery/jquery-1.11.3.min.js"></script>
+
+
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+<script type="text/javascript">
+	$(function(){
+				$(".close-pop").on("click",function(){
+					$("#map-view").css("display","none");
+				});
+                $("#getmap").on("click",function(){
+                	$("#map-view").css("display","block")
+                  var val=$("#circle-address").val();
+                  if(val==''){
+						
+                  }
+                  var myGeo = new BMap.Geocoder();          
+                  // 将地址解析结果显示在地图上,并调整地图视野
+                  myGeo.getPoint(val, function(point){
+                    if (point) {
+                      map.clearOverlays();
+                      map.centerAndZoom(point, 13);
+                      $("#mappoint").val(point.lat + "," + point.lng);
+                      var marker=new BMap.Marker(point)
+                      map.addOverlay(marker);
+                      marker.enableDragging();     
+                      marker.addEventListener("dragend", function(e){    
+                       $("#mappoint").val(e.point.lat + "," + e.point.lng);
+                      })
+                    }else{
+                      alert("没搜索到地址坐标!");
+                    }
+                  }, "中国");
+                });
+              })
+
+              var map = new BMap.Map("baidumap");
+              var point=new BMap.Point(108.785107,34.412631);
+              map.centerAndZoom(point, 12);
+              map.addControl(new BMap.NavigationControl());
+              map.enableScrollWheelZoom(true); 
+              var myGeo = new BMap.Geocoder();  
+              map.addEventListener("click",function(e){
+                map.clearOverlays();
+                var p=new BMap.Point(e.point.lng,e.point.lat);
+                var marker = new BMap.Marker(p);// 创建标注
+                map.addOverlay(marker);             // 将标注添加到地图中
+                marker.enableDragging();           // 可拖拽
+                $("#mappoint").val(e.point.lat + "," + e.point.lng);
+                var p=e.point;
+                myGeo.getLocation(p, function(rs){
+					var addComp = rs.addressComponents;
+					$("#circle-address").val(addComp.province +  addComp.city +  addComp.district + addComp.street  + addComp.streetNumber+"");
+					});  
+                marker.addEventListener("dragend", function(e){    
+                 $("#mappoint").val(e.point.lat + "," + e.point.lng);
+                 var p=e.point;
+                myGeo.getLocation(p, function(rs){
+					var addComp = rs.addressComponents;
+					$("#circle-address").val(addComp.province +  addComp.city +  addComp.district + addComp.street  + addComp.streetNumber+"");
+					}); 
+                })
+              });
+        </script>
+</body>
+</html>

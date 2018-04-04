@@ -1,0 +1,23 @@
+<div class="m-form">
+    <div class="mt10 pl20">
+        <form class="form-inline" role="form" action="__URL__" method="post">
+            <div class="form-group">
+                <label class="control-label" for="beginTime">验证日期开始</label>
+                <input type="text" class="form-control" id="beginTime" name="st" value="{$st}">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="endTime">验证日期结束</label>
+                <input type="text" class="form-control" id="endTime" name="et" value="{$et}">
+            </div>
+
+            <button type="submit" class="btn btn-warning">
+                筛选
+            </button>
+             <if condition="$res = auth_check_access(array('Coupay/download'))">
+                 <a id="down" href="{:U('Coupay/download')}" class="btn btn-warning" target="_blank">下载</a>
+             </if>
+            
+        </form>
+    </div>
+</div>

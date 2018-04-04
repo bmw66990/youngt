@@ -1,0 +1,78 @@
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/common/normalize.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/style.css"/>
+<link rel="stylesheet" href="__CSS_PATH__/common/review.css"/>
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/jquery.fancybox-1.3.4.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="http://jscss.youngt.com/Public/Css/bootstrap.min.css"/>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jscss.youngt.com/Public/Js/bootstrap.min.js"></script>
+<style>
+    .blind {position: absolute;width: 630px; z-index: 102;}
+    .mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+    .mt-dialog .body {overflow: hidden;padding: 30px;}
+    .cl{color:#F00;}
+    .btn {background-color: #2DB3A6;background-image: -moz-linear-gradient(center top , #2EC3B4, #2DB3A6);border-color: #0D7B71;color: #FFFFFF;-moz-user-select: none;background-repeat: repeat-x;border-radius: 2px;border-style: solid;border-width: 0 0 1px;cursor: pointer;display: inline-block;font-family: 'SimSun',Arial;font-size: 14px;font-weight: bold;letter-spacing: 0.1em;line-height: 1.5;padding: 7px 20px 6px;text-align: center;text-decoration: none;vertical-align: middle; margin-right:15px;}
+    .btn:hover, .btn.hover, .btn:focus {background-color: #2EB7AA;background-image: -moz-linear-gradient(center top , #38D0C3, #2EB7AA);border-color: #0E8177;color: #FFFFFF;}
+    .btn:active, .btn.active {background-color: #32C2B5;background-image: -moz-linear-gradient(center top , #2EB6A9, #32C2B5);border-color: #109085;color: #FFFFFF;}
+</style>
+<div class="mt-overlay-container">
+    <div class="blind">     			        				
+        <div class="mt-dialog">
+            <div class="body">
+                <div class="mobile-rebind-dialog">
+                    <form id="team-manage-form">
+                        <table width="100%" class="m-table f-tac mt10">                                
+                            <tbody>
+                                <tr>
+                                    <td class="f-fwb" style="width:120px;">
+                                        项目名称
+                                    </td>
+                                    <td class="f-tal">
+                                        {$team.title}
+                                    </td>                                 
+                                </tr> 
+                                <tr>
+                                    <td class="f-fwb">
+                                        开始时间
+                                    </td>
+                                    <td class="f-tal">
+                                        {$team.begin_time|date="Y-m-d",###}
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td class="f-fwb">
+                                        结束时间
+                                    </td>
+                                    <td class="f-tal">
+                                        {$team.end_time|date="Y-m-d",###} 延期到  <input type="text" id="endTime" name="end_time"  size="15" style="padding:4px;" />
+                                    </td>                               
+                                </tr>
+                                <tr>
+                                    <td class="f-fwb">
+                                        团券有效期
+                                    </td>
+                                    <td class="f-tal">
+                                        {$team.expire_time|date="Y-m-d",###} 延期到 
+                                        <input type="text" id="expireTime" name="expire_time" size="15" style="padding:4px;" />
+                                    </td>                                
+                                </tr> 
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="hidden" name="id" value="{$team.id}">
+                                        <a class="btn" id='affirm' href='__APP__/__APP_NAME__/TeamManage/delay'>确认</a>
+                                        <a class="btn" id="out">取消</a>
+                                    </td>                                                                
+                                </tr>                                                                                  
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>       		
+<script type="text/javascript" src="__JS_PATH__/TeamManage.js"></script>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="买单返，maidanfan">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>微信扫码支付</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="__CSS_PATH__/amazeui.css">
+    <link rel="stylesheet" href="__CSS_PATH__/withdrawal.css"/>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+  
+</head>
+<body>
+
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-5">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;">
+            </a>
+        </div>
+        <div class="am-u-sm-7 am-center">
+            <span class="am-text-lg am-margin-left-xxl">支付详情</span>
+        </div>
+    </div> 
+</header>
+
+
+<div class="am-g am-margin-top-sm am-radius" style="width:95%;">
+    <div class="am-container am-text-center">
+        <span class="am-text-lg am-text-danger am-margin-top-xs"> 
+        <?php           
+          $partner = M('fanli_partner')->where('id='.$_GET['mid'])->find();
+          echo $partner['title'];
+        ?>
+        </span>
+    </div>
+</div>
+<!--支付详情1 -->
+<!--支付金额 -->
+<form method='get' action="http://fanli.ree9.com/Wechat/wechatPay" >
+<div class="am-g am-margin-top-sm am-radius" style="width:95%;">
+    <div class="am-container" style="position:relative;">
+        <span class="am-text-default am-margin-top-xs" style="position:absolute;z-index:111;">支付金额</span>        
+        <input class="am-text-right am-text-sm inputCount" type="text" id="pay-count" placeholder="输入支付金额" name="origin" value="" style="height:40px;width:100%;border:none;outline:none;padding-left:50%;"/>
+    </div>
+</div>
+
+<!--不参与打折-->
+<div class="am-margin-sm">
+    <i class="am-icon-check-circle am-text-lg" id="isJoin"></i>
+    <label for="isJoin"><span class="am-margin-left-sm am-text-sm" id="isJoin-txt">不参与打折</span></label>
+</div>
+
+<!--不参与优惠金额-->
+<div class="am-g am-margin-top-sm am-radius" style="width:95%; display:none;" id="noJoin">
+    <div class="am-container" style="position:relative;">
+      <span class="am-text-default am-margin-top-xs" style="position:absolute;z-index:111;">不参与优惠金额</span>
+      <input type="text" placeholder="输入不参与优惠金额" class="am-text-right am-text-sm" style="height:40px;width:100%;border:none;outline:none;"/>
+    </div>
+</div>
+
+<!--返现-->
+<div class="am-list-news am-margin-top-sm" style="background-color:#ffffff">
+    <div class="am-list am-list-static am-text-default">
+   
+        <div class="am-container am-padding-sm">
+            <div class="am-u-sm-6">
+                <span class="am-margin-left-sm">本店返现</span>
+            </div>
+            <div class="am-u-sm-6">            
+                <span class="am-fr discount">{$pdis}%</span>  
+            </div>
+        </div>
+  
+        <div class="am-container am-padding-sm">
+            <div class="am-u-sm-6">
+                <span class="am-margin-left-sm">返现金额</span>
+            </div>
+            <div class="am-u-sm-6 am-text-danger">
+                <span class="am-fr am-padding-left-xs returnCount">0</span>
+                <i class="am-icon-rmb am-fr"></i>   
+            </div>
+        </div>    
+    </div>
+</div>
+
+<!--邀请码-->
+<div class="am-g am-margin-top-sm am-radius" style="width:95%;">
+    <div class="am-container" style="position:relative;">
+      <span class="am-text-default am-margin-top-xs" style="position:absolute;z-index:111;">邀请码</span>
+      <input type="text" placeholder="没有可不输入" class="am-text-right am-text-sm" style="height:40px;width:100%;border:none;outline:none;padding-left:50%;"/>
+    </div>
+</div>            
+<input type="hidden" name='uid' value="<?php echo $_GET['uid'];?>">                
+<input type="hidden" name='mid' value="<?php echo $_GET['mid'];?>">
+<div class="am-container am-margin-top-lg">
+    <button type="submit" class="am-btn am-radius am-btn-block am-btn-danger" >确认付款</button>   
+    <!-- <botton class="am-btn am-radius am-btn-block am-btn-danger" type="submit">完成</botton> -->
+</div>
+
+
+</form>
+
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#isJoin").click(function(){
+    $(this).css("color","#5eb95e");
+    $("#noJoin").show();
+  });
+  $("#isJoin-txt").click(function(){
+    $("#isJoin").css("color","#5eb95e");
+    $("#noJoin").show();
+  });
+});
+/*返现金额*/
+function toPoint(percent){
+    var str=percent.replace("%","");
+    str= str/100;
+    return str;
+}
+  
+$(".inputCount").blur(function(){
+  var discount =$(".discount").text();
+  var number = toPoint(discount);
+    count = $(".inputCount").val()*number;
+    $(".returnCount").text(count.toFixed(2));
+});
+</script>
+
+<include file="Common:foot" />

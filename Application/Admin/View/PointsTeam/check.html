@@ -1,0 +1,30 @@
+<include file="Common:header" />
+<section>
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">积分商城<span class="tx-green">+</span></div>
+		<div class="con-edit-form">
+			<form>
+
+			<ul class="li-onlyline">
+			<li><label>名称</label>{$vo.name}</li>
+			<li><label>排序</label>{$vo.sorts}</li>
+			<li><label>兑换积分</label>{$vo.score}</li>
+			<li><label>开始时间</label>{$vo.begin_time|date='Y-m-d H:i', ###}</li>
+			<li><label>结束时间</label>{$vo.end_time|date='Y-m-d H:i', ###}</li>
+			<li><label>过期时间</label>{$vo.expire_time|date='Y-m-d H:i', ###}</li>
+			<li><label>每人限购</label><eq name="vo.convert_num" value="0">不限兑<else />{$vo.convert_num}</eq></li>
+			<li><label>数量</label><eq name="vo.limit_num" value="0">不限量<else />{$vo.limit_num}</eq></li>
+			<li><label>商品说明</label>{$vo.remark}</li>
+			<span class="btn-link">
+				<if condition="$res = auth_check_access(array('PointsTeam/toCheck'))">
+					<label class="bc-red w100 h40"><a href="{:U('PointsTeam/toCheck', array('id' => $vo['id'], 'state' => 'forbidden'))}">拒绝</a></label>
+					<label class="bc-teal w100 h40"><a href="{:U('PointsTeam/toCheck', array('id' => $vo['id'], 'state' => 'display'))}">通过</a></label>
+				</if>
+			</span>
+			</ul>
+			</form>
+		</div> 
+	</div>
+</section>
+<include file="Common:footer" />

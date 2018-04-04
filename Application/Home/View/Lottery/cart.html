@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>青团汽车</title>
+    <link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/Lottery/common.css">
+    <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/Lottery/alert.js"></script>
+</head>
+<body>
+<header>
+    <h2>汽车订制团购，我报名，免费抽奖</h2>
+    <h5>报名车辆定制团，得抽奖机会，100%中奖。</h5>
+</header>
+<empty name="error">
+<section>
+    <form>
+        <div class="pic">
+            <img src="__PLUGINS_PATH__/Lottery/cart.png" />
+            <p>
+                与国内顶级汽车贸易商开展战略合作，掌握优势资源，为青团客户提供独享特惠车型，真正打破行业坚冰，一团到底，价格绝无仅有。和4S磨嘴皮，一次又一次的舟车劳顿？无止境的反复报价？一不小心就进入消费陷阱，便宜了车价，强迫消费了装潢？青团承诺，团购车辆，全程无隐形销售，一口低价。
+            </p>
+        </div>
+        <div class="form">
+            <ul>
+                <li class="bc-green"><span>姓名*</span><input type="text" name="username"/></li>
+                <li><span>手机*</span><input type="text" name="mobile"/></li>
+                <li><span>购买预算*</span>
+                    <select name="money">
+                        <option value="5-8万" selected>5-8万</option>
+                        <option value="8-10万">8-10万</option>
+                        <option value="10-12万">10-12万</option>
+                        <option value="12-15万">12-15万</option>
+                        <option value="15万以上">15万以上</option>
+                    </select>
+                </li>
+                <li><span>偏爱车型*</span>
+                    <div class="radio-list">
+                        <ul>
+                            <li>
+                                <input type="radio" value="1" name="type" checked/><label>国产系列</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="2" name="type" /><label>韩系</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="3" name="type" /><label>日系</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="4" name="type" /><label>美系</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="5" name="type" /><label>欧系</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="6" name="type" /><label>德系</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bc-green"><span>备注*</span>
+                    <textarea id="suggest" class="f-text"  style="width: 80%;min-height: 100px;" name="bz"></textarea>
+                    </li>
+            </ul>
+        </div>
+        <div class="pic">
+            <img src="__PLUGINS_PATH__/Lottery/buy-cart.png" />
+            <p>
+                购买须知：</p>
+            <p>1、购买本单后，客户需前往青团杨凌办公室，线下正式签署《车辆预购协议》。</p>
+            <p>2、车辆由于实际发生运输、保险等费用，客户需补足5000元订金。</p>
+            <p>3、车辆到达现场，验车后，若因非质量原因，客户拒绝购买，只退还3000元；若因质量原因，可换车或全额退还订金。
+            </p>
+        </div>
+        <div class="btn">
+            <input type="submit" class="btn-sub" value="提交" />
+        </div>
+    </form>
+</section>
+    <else />
+    <div>
+        <h3 style="text-align: center">{$error}</h3>
+    </div>
+</empty>
+<footer>
+    <a href="youngt.com" target="_blank">@青团网</a> 提供技术支持
+</footer>
+<script type="text/javascript">
+    $(function(){
+        $(':submit').click(function(){
+            var username = $('input[name=username]').val();
+            var mobile   = $('input[name=mobile]').val();
+            if (username == ''){
+                alert('请输入姓名');
+                return false;
+            }
+            if(mobile.length != 11){
+                alert('手机号码格式不正确');
+                return false;
+            }
+            $.post("{:U('Lottery/doCart')}",$('form').serialize(),function(data){
+                if(data.status == -1){
+                    alert(data.error);
+                }else{
+                    location.href = "{:U('Lottery/index')}";
+                }
+                return false;
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

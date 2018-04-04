@@ -1,0 +1,195 @@
+<include file="Common:header" />
+
+<section style="width: 1060px;">
+    <!--左侧导航-->
+    <include file="Financial:menu" />
+    <div class="content" style="width: 1020px;">
+        <div class="con-title">已审核消费结算<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Financial/auditConsumptionSet')}" method="get">
+                <li><label>商户编号</label><input type="text" name='partner_id' value="{$partner_id|default=''}" class="w120" /></li>
+                <li><label>商户名称</label><input type="text" name="title" value="{$title|default=''}" /><label>,</label></li>
+                <li><label>地区</label>
+                    <select name="city_id">
+                        <option value="">--请选择地区--</option>
+                        <volist  name="citys" id="city">
+                            <option value="{$city.id}"  <if condition="$city.id == $city_id"> selected </if>>{$city.letter}-{$city.name}</option>
+                        </volist>
+                    </select>
+                </li>
+               <li><label>银行卡类型</label>
+                    <select name="bank_type">      
+                           <option value="" >全部</option>
+                           <option value="Y"  <if condition="$bank_type eq 'Y'"> selected </if>>农行</option>
+                           <option value="N"  <if condition="$bank_type eq 'N'"> selected </if>>非农行</option>
+                    </select>
+                </li>
+                <li><label>提现金额</label><input type="text" name="money" value="{$money}" /><label></label></li>
+                <li><label>申请日期</label><input class="laydate-icon w70" name="apply_date" value="{$apply_date|default=''}" format="YYYY-MM-DD"  id="start" type="text" ><label>,</label></li>
+                <li><label>结算日期</label><input class="laydate-icon w70" id="end" name="pay_date" value="{$pay_date|default=''}" format="YYYY-MM-DD"  type="text"><label>,</label></li>
+                <li><label>青团银行卡</label>
+                    <select id="refund-type" name="bank_id" class="form-control" >
+                        <option value="" <eq name="$bank_id" value="选择">selected</eq> >选择</option>
+                        <option value="0" <eq name="$bank_id" value="未知卡号">selected</eq> >未知卡号</option>
+                        <option value="1" <eq name="$bank_id" value="青团平安账号">selected</eq> >青团平安账号</option>
+                        <option value="2" <eq name="$bank_id" value="农行账号尾号686">selected</eq> >农行账号尾号686</option>
+                        <option value="3" <eq name="$bank_id" value="农行账号尾号769">selected</eq> >农行账号尾号769</option>
+                        <option value="4" <eq name="$bank_id" value="光大账号尾号5613">selected</eq> >光大账号尾号5613</option>
+                        <option value="5" <eq name="$bank_id" value="光大账号尾号4038">selected</eq> >光大账号尾号4038</option>
+                        <option value="6" <eq name="$bank_id" value="恒丰银行卡号">selected</eq> >恒丰银行卡号</option>
+                    </select>
+                </li>
+                <li>
+                    <input type="submit" class="btn-teal small-btn" value="筛选" />
+                <if condition="$res = auth_check_access(array('Financial/partnerBankDownload'))">
+                    <label class="btn-teal m-left-5 m-top-5">
+                        <a target="_blank" href="{:U('Financial/partnerBankDownload')}">下载</a>
+                    </label>
+                </if>
+                    <if condition="$res = auth_check_access(array('Financial/partnerBankDownload'))">
+                        <label class="btn-teal m-left-5 m-top-5">
+                            <a target="_blank" href="{:U('Financial/hfpartnerBankDownload')}">恒丰下载</a>
+                        </label>
+                    </if>
+                </li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w50"><input type="checkbox" class="checkall" ></th>
+                        <th class="w100">商户ID</th>
+                        <th class="w120">商户名</th>
+                        <th class="w120">提现金额</th>
+                        <th class="w100">结算</th>
+                        <th class="w100">明细</th>
+                        <th class="w100">类型</th>
+                        <th class="w100">下载</th>
+                        <th class="w120">申请日期</th>
+                        <th class="w200">账户</th>
+                        <th class="w200">青团账户</th>
+                        <th class="w100">审核</th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr class='list'>
+                            <td class="w50"><input type="checkbox" class="checkone" name="id[]" value="{$vo.partner_pay_id}"></td>
+                            <td class="w100"><label class="bx-teal">{$vo.partner_id}</label></td>
+                            <td  class="w120"><label class="td-title">{$vo.partner_title}</label><br/><img src="__IMAGE_PATH__/ico/td_add.png"/> {$vo.partner_city_name}</td>
+                            <td class="w120"><label>{$vo.partner_pay_money}</label></td>
+                            <td class="w100">
+                        <if condition="$res = auth_check_access(array('Financial/settlement'))">
+                            <label>
+                                <if condition="$vo.partner_pay_paymark neq 1">
+                                    <a class="settlement tx-red" href="{:U('Financial/settlement',array('id'=>$vo['partner_pay_id'],'partner_id'=>$vo['partner_id'],'money'=>$vo['partner_pay_money']))}" confirm_tip="确定已给商家({$vo.partner_title})结款{$vo.partner_pay_money}元吗？" class="tx-red">结算</a>
+                                    <else/>
+                                    已结算
+                                </if>
+                            </label>
+                        </if>
+                        </td>
+                            <td class="w100">
+                                <if condition="$res = auth_check_access(array('Financial/couponDetail'))">
+                                    <label>
+                                        <eq name="vo.partner_pay_is_express" value="Y">
+                                            <a style='color: red;'  href="{:U('Financial/orderDetail',array('pay_id'=>$vo['partner_pay_id'],'partner_id'=>$vo['partner_id']))}">订单明细</a>
+                                            <else />
+                                            <a style='color: #626061;'  href="{:U('Financial/couponDetail',array('pay_id'=>$vo['partner_pay_id'],'partner_id'=>$vo['partner_id']))}">券号明细</a>
+                                        </eq>
+                                    </label>
+                                </if>
+                            </td>
+                            <td class="w100">
+                                <label>
+                                    <eq name="vo.partner_pay_is_express" value="Y">
+                                        邮购
+                                        <else />
+                                        券号
+                                    </eq>
+                                </label>
+                            </td>
+                        <td class="w100">
+                        <if condition="$vo.partner_status eq '1'">
+                            <label>
+                                支持
+                            </label>
+                            <else/>
+                            <label>
+                                不支持
+                            </label>
+                        </if>
+                        </td>
+                        <td class="w120"><label>{$vo.partner_pay_create_time|date="Y-m-d",###}</label></td>
+                        <td class="w200">
+                            <label class="tx-teal">{$vo.partner_bank_no}</label><br/>
+                            <label>{$vo.partner_bank_user}</label><br/>
+                            <label>{$vo.partner_bank_name}</label><br/>
+                            <label>{$vo.partner_bank_large_no}</label><br/>
+                            <label>{$vo.partner_mobile}</label>
+                        </td>
+                        <td class="w200">
+                            <label class="tx-teal">{$vo.bank_id}</label><br/>
+                            <label class="bc-teal">
+                                <a  href="javascript:popup('{:U('Financial/youngtbank',array('id'=>$vo['partner_pay_id']))}',500,650);">修改</a>
+                            </label>
+                        </td>
+                        <td class="w120 f-12 man">
+                            <label  class="bc-teal">
+                                <if condition="$vo.partner_pay_verify_state == 'N'">
+                                    <if condition="$res = auth_check_access(array('Financial/examine'))">
+                                        <a class="examine" href="{:U('Financial/examine',array('id'=>$vo['partner_pay_id'],'partner_id'=>$vo['partner_id'],'money'=>$vo['partner_pay_money']))}" confirm_tip="确定审核该商家({$vo.partner_title})结款{$vo.partner_pay_money}元吗？">审核</a>
+                                    </if>
+                                    <else/>
+                                    <if condition="$res = auth_check_access(array('Financial/cancelExamine'))">
+                                        <a class="examine" href="{:U('Financial/cancelExamine',array('id'=>$vo['partner_pay_id'],'partner_id'=>$vo['partner_id'],'money'=>$vo['partner_pay_money']))}" confirm_tip="确定取消审核该商家({$vo.partner_title})结款{$vo.partner_pay_money}元吗？">取消审核</a> 
+                                    </if>
+                                </if>
+                            </label>
+
+                        </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <include file="Financial:page" />
+                </div>
+                <div style="text-align: center;margin-bottom: 10px;">
+                    <label class="tx-red">合计总金额：</label><label class="tx-red"> {$all_price|default='0.00'}</label>;
+                    <label class="tx-red">已结算总金额：</label><label class="tx-red">{$settlement_all_price|default='0.00'}</label>;
+                    <label class="tx-red">未结算总金额：</label><label class="tx-red">{$un_settlement_all_price|default='0.00'}</label>;
+                </div>
+                <div>
+                    选择支付银行卡：
+                    <select id="refund" name="bank_type" class="form-control" >
+                        <option value="" <eq name="$bank_id" value="选择">selected</eq> >选择</option>
+                        <option value="0" <eq name="$bank_id" value="未知卡号">selected</eq> >未知卡号</option>
+                        <option value="1" <eq name="$bank_id" value="青团平安账号">selected</eq> >青团平安账号</option>
+                        <option value="2" <eq name="$bank_id" value="农行账号尾号686">selected</eq> >农行账号尾号686</option>
+                        <option value="3" <eq name="$bank_id" value="农行账号尾号769">selected</eq> >农行账号尾号769</option>
+                        <option value="4" <eq name="$bank_id" value="光大账号尾号5613">selected</eq> >光大账号尾号5613</option>
+                        <option value="5" <eq name="$bank_id" value="光大账号尾号4038">selected</eq> >光大账号尾号4038</option>
+                        <option value="6" <eq name="$bank_id" value="恒丰银行卡号">selected</eq> >恒丰银行卡号</option>
+                    </select>
+                </div>
+                <div style='text-align: center;'>
+                    <if condition="$res = auth_check_access(array('Financial/batchSettlement'))">
+                        <label  class="bc-teal">
+                            <a id="batchSettlement" href="{:U('Financial/batchSettlement')}" confirm_tip="确定给选中商家结款吗？">批量结算</a>                   
+                        </label >
+                    </if>
+
+
+                    <if condition="$res = auth_check_access(array('Financial/batchSettlementTodayAllPartner'))">
+                        <label  class="bc-teal" style="margin-left: 100px;">
+                            <a id="batchSettlementTodayAllPartner" href="{:U('Financial/batchSettlementTodayAllPartner')}" confirm_tip="确定要结算所有已审核商家的款项吗？[注：每次点击最多结算100条，可多次点击，直到提示'没有要结算的商家'为止。]">批量结算所有审核商家</a>                   
+                        </label >
+                    </if>
+                    <label  class="bc-teal">
+                        <a id="smsSettlement" href="{:U('Financial/smsSettlement')}" confirm_tip="确定下载短信吗？">下载短信</a>
+                    </label >
+                </div>
+
+            </div>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/financial.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

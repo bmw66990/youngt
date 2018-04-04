@@ -1,0 +1,39 @@
+<include file="Common:header" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight article">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="text-center article-title">
+                            <h1>{$data.title}</h1>
+                        </div>
+                        <p>{$data.content|htmlspecialchars_decode}</p>
+                        <hr>
+                        <div class="row">
+	                        <div class="col-sm-1"></div>
+	                        <div class="col-sm-10">
+	                        	
+	                        	<div class="col-sm-6 text-center">
+	                        		<if condition="!empty($prev)">
+	                        		<i class="fa fa-hand-o-left"></i>上一篇：<a href="{:U('Encyclopedias/encyclopediasDetail',array('encyclopedias_id'=>$prev['id']))}">{$prev.title}</a>
+	                        		</if>
+	                        	</div>
+	                        	<div class="col-sm-6 text-center">
+	                        		<if condition="!empty($next)">
+	                        		<i class="fa fa-hand-o-right"></i>下一篇： <a href="{:U('Encyclopedias/encyclopediasDetail',array('encyclopedias_id'=>$next['id']))}">{$next.title}</a>
+	                        		</if>
+	                        	</div>
+	                        </div>
+	                        <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<include file="Common:footer"/>
+</body>
+
+</html>

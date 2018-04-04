@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>推荐商家</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="__CSS_PATH__/bootstrap.css" >
+    <link rel="stylesheet" href="__CSS_PATH__/productorComment.css"/>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+  
+</head>
+<body>
+
+<!-- 顶部 -->
+<div class="header-top">
+    <span class="header-top-title">推荐商家</span>
+</div>
+
+
+<!-- 中间内容 -->
+<div class="main">
+    <div class="steps">
+        <span class="step1">1</span>
+        <span class="step2">2</span>
+        <span class="step3">3</span>
+        <span class="cut-line1"></span>
+        <span class="cut-line2"></span>
+    </div>
+
+    <!-- 商家扫描二维码 -->   
+    <div class="scan-code">
+        <div class="h3 text-cente scan-code-title">商家扫描二维码</div>
+        <div class="scan-code-img">
+            <img src="http://qr.topscan.com/api.php?text=http://fanli.ree9.com/user/shareQrcode?uid=<?php echo $_COOKIE['uid']?>" class="img-responsive scan-code-productor" style="width:143px;height:136px">
+            <p class="scan-code-txt text-center">
+            确认让商家扫描你的二维码，成为你的粉丝后该商家通过平台的营业额，你将能得到返利</p>
+        </div> 
+        <div class="next-step">
+            <a class="btn next-step-btn1" href="#">下一步</a>
+        </div>
+    </div>
+
+    <!-- 商家资料 -->
+    <div class="business-information">
+        <div class="h3 text-center">商家填写资料</div>
+        <form id="business-information-form" method='post' action="__URL__/do_recommend" >
+        <div class="business-information-content">
+            <div class="container">                                         
+                <div class="form-group">
+                    <label for="shop-name">商家店名</label>
+                    <input class="form-control" type="text" name="partner[title]" id="shop-name" placeholder="请输入商家店名" value=""/>
+                </div>
+
+                <div class="form-group">
+                    <label for="shop-addres">商家住址</label>
+                    <input class="form-control" type="text" name="partner[address]" id="shop-addres" placeholder="请输入商家住址" value=""/>
+                </div>
+
+                <div class="form-group">
+                    <label for="business-name">商家姓名</label>
+                    <input class="form-control" type="text" name="partner[username]" id="business-name" placeholder="请输入商家姓名" value=""/>
+                </div>
+
+                <div class="form-group">
+                    <label for="shop-phone">商家电话</label>
+                    <input class="form-control" type="text" name="partner[mobile]" id="shop-phone" placeholder="请输入商家电话" value=""/>
+                </div>
+            </div>
+        </div>
+        <div class="next-step">
+            <button type="submit" class="btn next-step-btn2" >提交</button>         
+        </div>
+        </form>
+    </div>
+
+  
+</div>
+
+<!-- 底部导航 -->
+<div class="footer">
+    <ul class="navbar navbar-default navbar-fixed-bottom">
+        <li class="personal-center">
+            <a href="index.html" class="personal-center-ctrl">     
+                <i class="personal-icon">
+                    <img src="__IMAGE_PATH__/img_sm06.png" alt="" class="personal-icon-change2">
+                    <img src="__IMAGE_PATH__/img_sm04.png" alt="" class="personal-icon-change1">
+                </i>
+                <span class="personal-center-txt">个人中心</span>
+            </a>
+        </li>
+        <li class="productor-commend">
+            <a href="bus_recommend.html" class="productor-commend-ctrl">
+                <i class="productor-icon">
+                    <img src="__IMAGE_PATH__/img_sm08.png" alt="" class="productor-icon-change2">
+                    <img src="__IMAGE_PATH__/img_sm02.png" alt="" class="productor-icon-change1">
+                </i>
+                <span class="productor-commend-txt">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="footer"></div>
+<script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="__JS_PATH__/bootstrap.js"></script>
+<script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+</body>
+</html>

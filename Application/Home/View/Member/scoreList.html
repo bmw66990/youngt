@@ -1,0 +1,68 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section>
+    <div id='section'>
+        <include file="left" />
+        <div id="pcontent" class="coupons-box fl">
+
+            <div class="pmainbox mine">
+
+                <div class="tab">
+                    <div class="tab_menu">
+                        <ul >
+                            <li>
+                                <a href="{:U('Member/growthList')}">我的成长值</a>
+                            </li>
+                            <li>
+                                <a href="{:U('Member/creditList')}">我的积分</a>
+                            </li>
+                            <li>
+                                <a href="{:U('Member/scoreGoods')}">积分商城</a>
+                            </li>
+                            <li class="selected">
+                                <a href="{:U('Member/scoreList')}">积分兑换记录</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab_box">
+                        <!-- 积分商城开始 -->
+                        <div id="credit">
+                            <span class="db myjf f-fs3">
+                            <b>积分兑换记录</b>
+                            </span>
+                            <div class="points-goods-record">
+                                <dl>
+                                    <dt class="w_380">商品名称</dt>
+                                    <dt class="w_100">兑换积分</dt>
+                                    <dt class="w_100">兑换时间</dt>
+                                    <dt class="w_100">兑换编号</dt>
+                                    <dt class="w_100">状态</dt>
+                                </dl>
+                                <volist name="list" id="row">
+                                <dl>
+                                    <dd class="w_380"><a href="{:U('Member/scoreDetail',array('id'=>$row['team_id']))}">{$row['name']}</a></dd>
+                                    <dd class="w_100">{$row['total_score']}积分</dd>
+                                    <dd class="w_100">{$row['add_time']|date="Y-m-d",###}</dd>
+                                    <dd class="w_100">{$row['code']}</dd>
+                                    <if condition="$row['state'] eq 'Y'">
+                                        <dd class="w_100 t_green">已领取</dd>
+                                    <elseif condition="$row['state'] eq 'E'" />
+                                        <dd class="w_100 t_grey">已过期</dd>
+                                    <elseif condition="$row['state'] eq 'N'" />
+                                        <dd class="w_100 t_orange">未领取</dd>
+                                    </if>
+                                </dl>
+                                </volist>
+                            </div>
+                            <div class="pagination">
+                               {$pages}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />

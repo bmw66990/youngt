@@ -1,0 +1,165 @@
+<notempty name="regUser.reguser">
+<tr>
+  <th>注册用户</th>
+  <volist name="regUser.reguser" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$regUser.reguser|array_sum}</td>
+</tr>
+</notempty>
+
+<notempty name="payMoney">
+<tr class="alert-danger">
+  <th>实际销售</th>
+  <volist name="payMoney.paytotal" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$payMoney.paytotal|array_sum}</td>
+</tr>
+
+<tr class="alert-success">
+  <th>余额销售</th>
+  <volist name="payMoney.balance" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$payMoney.balance|array_sum}</td>
+</tr>
+
+<tr class="alert-warning">
+  <th>付款销售</th>
+  <volist name="payMoney.online" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$payMoney.online|array_sum}</td>
+</tr>
+</notempty>
+
+<notempty name="sourcePay">
+<tr>
+  <th>PC销售</th>
+  <volist name="sourcePay.pc" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$sourcePay.pc|array_sum}</td>
+</tr>
+<tr>
+  <th>wap销售</th>
+  <volist name="sourcePay.wap" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$sourcePay.wap|array_sum}</td>
+</tr>
+<tr>
+  <th>android销售</th>
+  <volist name="sourcePay.android" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$sourcePay.android|array_sum}</td>
+</tr>
+<tr>
+  <th>IOS销售</th>
+  <volist name="sourcePay.ios" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$sourcePay.ios|array_sum}</td>
+</tr>
+</notempty>
+
+
+<notempty name="sourcePay">
+<tr>
+  <th>PC金额占比</th>
+  <volist name="sourcePay.pc_rate" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+<tr>
+  <th>wap金额占比</th>
+  <volist name="sourcePay.wap_rate" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+<tr>
+  <th>android金额占比</th>
+  <volist name="sourcePay.android_rate" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+<tr>
+  <th>IOS金额占比</th>
+  <volist name="sourcePay.ios_rate" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+</notempty>
+
+
+<notempty name="payType">
+<tr>
+  <th>支付宝订单占比</th>
+  <volist name="payType.alipay" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+<tr>
+  <th>财付通订单占比</th>
+  <volist name="payType.tenpay" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+<tr>
+  <th>微信订单占比</th>
+  <volist name="payType.wechatpay" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+<tr>
+  <th>全民付订单占比</th>
+  <volist name="payType.umspay" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td></td>
+</tr>
+</notempty>
+
+<notempty name="recharge">
+<tr>
+  <th>在线充值</th>
+  <volist name="recharge.charge" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$recharge.charge|array_sum}</td>
+</tr>
+
+<tr>
+  <th>线下充值</th>
+  <volist name="recharge.store" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$recharge.store|array_sum}</td>
+</tr>
+</notempty>
+
+<notempty name="orderNum">
+<tr>
+  <th>付款订单</th>
+  <volist name="orderNum.pay" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$orderNum.pay|array_sum}</td>
+</tr>
+<tr>
+  <th>未付订单</th>
+  <volist name="orderNum.unpay" id="row">
+  <td>{$row}</td>
+  </volist>
+  <td>{$orderNum.unpay|array_sum}</td>
+</tr>
+</notempty>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>售后</title>
+<link rel="stylesheet" href="__CSS_PATH__/pop.css" />
+<style>
+	.custoser{width:650px;margin:0 auto;font-size:16px;font-size: 90%;font-family: "微软雅黑";}
+	.title{line-height: 2em;font-size: 1.4em;border-bottom: 1px solid #ccc;display: block;margin-top: 10px;}
+	tr{line-height: 2.5em;}
+	tr>td:nth-child(3){padding-left: 70px;}
+	tr>td:only-child{text-align: center;border-top:1px solid #ccc;padding-top: 5px;}
+	input,select,textarea{border: 1px solid #ccc;padding:3px;font-size: .8em;}
+	select{min-width: 100px;}
+	input:focus,select:focus,textarea:focus,
+	input:hover,select:hover,textarea:hover
+	{border: 1px solid #009966;}
+</style>
+</head>
+<body>
+	<div class="custoser">
+		<span class="title">售后</span>
+		<form method="post" action="{:U('Order/service')}">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>订单编号：</td>
+				<td>{$info.order_id}</td>
+				<td>商家：</td>
+				<td>{$info.partner_title}</td>
+			</tr>
+			<tr>
+				<td>真实姓名：</td>
+				<td><input type="text" name="realname" value="{$info.realname}" /></td>
+				<td>手机号：</td>
+				<td><input type="text" name="mobile" value="{$info.mobile}" /></td>
+			</tr>
+			<tr>
+				<td>退换快递公司：</td>
+				<td><input type="text" name="user_express" value="{$info.user_express}" /></td>
+				<td>重发快递单号：</td>
+				<td><input type="text" name="partner_express" value="{$info.partner_express}" /></td>
+			</tr>
+			<tr>
+				<td>退换快递单号：</td>
+				<td><input type="text" name="user_express_no" value="{$info.user_express_no}" /></td>
+				<td>商家应退网站金额：</td>
+				<td><input type="text" name="money" value="{$info.money}" /></td>
+			</tr>
+			<tr>
+				<td>退换选项：</td>
+				<td><select name="trade_deduction">
+						<option value="退货" <eq name="info.trade_deduction" value="退货">selected</eq>>退货</option>
+						<option value="换货" <eq name="info.trade_deduction" value="换货">selected</eq>>换货</option>
+					</select>
+				</td>
+				<td>应付快递费用：</td>
+				<td><input type="text"  name="expressmoney" value="{$info.expressmoney}" /></td>
+			</tr>
+			<tr>
+				<td>责任方：</td>
+				<td><select name="duty">
+					    <option value="团购网站" <eq name="info.duty" value="团购网站">selected</eq>>团购网站</option>
+						<option value="买家" <eq name="info.duty" value="买家">selected</eq>>买家</option>
+						<option value="卖家" <eq name="info.duty" value="卖家">selected</eq>>卖家</option>
+					</select>
+				<td>退换审核结果：</td>
+				<td>
+					<textarea cols="17" rows="5" name="results">{$info.results}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>退款原因：</td>
+				<td><textarea cols="17" rows="5" name="reason">{$info.reason}</textarea></td>
+				<td>状态：</td>
+				<td><select name="returninfo" size="1">
+					  <option value="N" <eq name="info.returninfo" value="N">selected</eq>>未完成退换</option>
+					   <option value="Y" <eq name="info.returninfo" value="Y">selected</eq>>已完成退换</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>退款账号：</td>
+				<td><textarea cols="17" rows="5" name="pay_account">{$info.pay_account}</textarea></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>是否支持退换：</td>
+				<td>
+					<select name="is_display">
+					  <option value="N" <eq name="info.is_display" value="N">selected</eq>>不允许退换</option>
+					   <option value="Y" <eq name="info.is_display" value="Y">selected</eq>>允许退换</option>
+					</select>
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<input type="hidden" name="id" value="{$info.order_id}">
+				<td colspan="4"><input type="submit" class="class-btn" value="确定"></td>
+			</tr>
+		</table>
+		</form>
+	</div>
+</body>
+<script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("form").submit(function(){
+			$.post('{:U("Order/service")}',$(this).serialize(),function(data){
+				alert(data.info);
+				if(data.status==1){
+					window.parent.jQuery.fancybox.close();
+				}
+			});
+			return false;
+		});
+	})
+</script>
+</html>

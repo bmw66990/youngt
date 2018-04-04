@@ -1,0 +1,85 @@
+<ul class="nav nav-tabs mt20" role="tablist" id="myTab">
+    <li <eq name="type" value="2">class="active"</eq>><a href="{:U('TeamManage/index',array('type'=>2))}" class="f-fwb">已下线项目</a></li>
+    <li <eq name="type" value="1">class="active"</eq>><a href="{:U('TeamManage/index',array('type'=>1))}" class="f-fwb">已上线项目</a></li>
+     <li <eq name="type" value="3">class="active"</eq>><a href="{:U('TeamManage/index',array('type'=>3))}" class="f-fwb">活动项目</a></li>
+</ul>
+<!--消费明细列表开始-->
+<div class="mt30">
+    <table id="team-manage-list" lang="{$dbUser['db_username']|default=''}|{$dbUser['db_phone']|default=''}" width="100%" class="m-table f-tac mt10">
+        <thead>
+            <tr>
+                <th width="220">项目名称</th>
+                <if condition="$type eq 3">
+                        <th width="80">参与活动</th>
+                </if>
+                <th width="80">开始时间</th>
+                <th width="80" >结束时间</th>
+                 <if condition="$type eq 3">
+                        <th width="80">状态</th>
+                </if>
+                <th width="80" >操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="vo">
+            <tr>
+                <td><a target="blank" href="http://{$Think.server.http_host}/team-{$vo['id']}.html" class="fac"  title="{$vo['title']}">{$vo.title}</a></td>
+                 <if condition="$type eq 3">
+                     <td width="80">
+                          <if condition="$vo.activities_name neq ''">
+                              {$vo.activities_name}
+                              <else/>
+                              未知活动
+                          </if>
+                     </td>
+                </if>
+                <td>{$vo.begin_time|date="Y-m-d",###}</td>
+                <td>{$vo.end_time|date="Y-m-d",###}</td>
+                <if condition="$type eq 3">
+                        <td width="80">
+                         <if condition="$vo.status_name neq ''">
+                             <span <if condition="$vo.status eq 1"> style='color:red'  <elseif condition="$vo.status eq 2" />  style='color:green' </if> >
+                                 {$vo.status_name}
+                                <span>
+                              <else/>
+                              为未状态
+                          </if>
+                        </td>
+                </if>
+                <td>
+                    <eq name="type" value="2">
+                    <a class="online" href="#">申请上线</a>
+                    </eq>
+                    <eq name="type" value="1">
+                      <if condition="$res = auth_check_access(array('TeamManage/delay'))">
+                          <a class="delay"  href="{:U('TeamManage/delay',array('id'=>$vo['id']))}" style="display:block">自动延单</a>
+                      </if>
+                    <if condition="$res = auth_check_access(array('TeamManage/specialSet'))">
+                          <a class="dateset"  href="{:U('TeamManage/specialSet',array('id'=>$vo['id']))}">特殊设置</a>
+                    </if>
+                    <if condition="$res = auth_check_access(array('TeamManage/participate_activities'))">
+                        <if condition="$partners_info['is_exist_activities'] eq 'Y'">
+                        <br/>
+                        <a class="dateset" href="{:U('TeamManage/participate_activities',array('tid'=>$vo['id']))}" >
+                                  <span style='color:red'>参加活动</span>
+                          </a>
+                        </if>
+                    </if>
+                    </eq>
+                     <eq name="type" value="3">
+                      <if condition="$vo['status'] eq 1">
+                        <a class="dateset" href="{:U('TeamManage/edit_activities_team',array('tid'=>$vo['id']))}">编辑</a>
+                        <a class="btn-delete-activities-team" confirm_tip='确定删除该活动团单吗？' href="{:U('TeamManage/delete_activities_team',array('tid'=>$vo['id']))}">删除</a>
+                      </if>
+                    </eq>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <notempty name="count">
+        <nav class="m-page">
+            <a style="color:black;margin-top: 19px;">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+        </nav>
+    </notempty>		
+</div>

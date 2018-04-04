@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>退款详情弹出框</title>
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <link rel="stylesheet" href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" />
+    </head>
+    <body>
+        <div class="box">
+            <div class="details">
+                <li><label>订单id</label>{$order.order_id}</li>
+                <li><label>订单支付id</label>{$order.order_pay_id}</li>
+                <li><label>退款途径</label>{$order.order_tn}</li>
+                <li><label>用户信息</label>{$order.user_username} / {$order.user_email}</li>
+                <if condition="$order.order_express eq 'Y'">
+                    <li><label>订单类型</label>邮购订单</li>
+                    <li><label>选择型号</label>{$order.pay_detail}</li>
+                    <if condition="$order.order_fare gt 0">
+                         <li><label>邮费</label>{$order.order_fare} ，<span class="tx-red">邮费不能退款</span></li>
+                    </if>
+                </if>
+                <li><label>项目名称</label>《{$order.team_product}》×{$order.order_quantity}个,  
+                    <if condition="$order.order_state eq 'pay'">
+                        <span class="tx-green">{$order.order_state_name}</span>
+                    <else/>
+                     <span class="tx-red">{$order.order_state_name}</span>
+                    </if>
+                </li>
+                <li>
+                    <label>付款明细</label>
+                    余额付款{$order.order_credit}
+                <if condition="$order.order_service_name neq ''">
+                    ,{$order.order_service_name}付款{$order.order_money}
+                </if>
+                 <if condition="$order.order_card  && $order.order_card gt 0">
+                    ,代金券：{$order.order_card}
+                </if>
+                </li>
+                <li><label>付款时间</label>{$order.order_pay_time|date="Y-m-d H:i:s",###}</li>
+                <li><label>订单来源</label>{$order.order_yuming_name}</li>
+                <li><label>联系手机</label>{$order.order_mobile}</li>
+                <if condition="$order.order_express eq 'N' OR !empty($order['coupon_list'])">
+                <li>
+                    <label>优惠券</label>
+                    <div id='coupon-list-con' style='  max-width: 210px;float: right;margin-top: -4px;margin-right: 190px;'>
+                        <volist  name="order.coupon_list" id="vo">
+                            <if condition="$vo.consume eq 'Y'">
+                                <span><input class='coupon-one' type='checkbox' disabled="disabled" style='position: relative;top: 3px; margin-right: 5px;' />{$vo.id}  <span class="tx-green">{$vo.consume_name}</span> </span><br/>
+                                <else/>
+                                <span><input class='coupon-one' type='checkbox' value='{$vo.id}' style='position: relative;top: 3px; margin-right: 5px;' />{$vo.id}  <span class="tx-red">{$vo.consume_name}</span> </span><br/>
+                            </if>
+                        </volist>
+                    </div>
+                </li>
+                </if>
+                <li><label>订单备注</label>
+                    <textarea id='order_adminremark'  style='min-width:390px;max-width:390px;min-height:100px;max-height:100px'>
+                            {$order.order_adminremark|default=''}
+                    </textarea>
+                </li>
+                <if condition="$res = auth_check_access(array('CustomerService/doRefund'))">
+                    <li><span id='do-refund-adminremark' load_href="{:U('CustomerService/doRefund',array('order_id'=>$order['order_id'],'action'=>'adminremark'))}" style='padding: 10px;'   class="class-btn">确定</span></li>
+                </if>
+            </div>
+            <div class="details-foot">
+                <li><label>退款原因</label> {$order.order_rereason}</li>
+                <li><label>退款时间</label> {$order.order_retime|date="Y-m-d H:i:s",###}</li>
+                <li><label>退款处理</label>
+                    <select id='refund-type'>
+                        <option value="">--选择退款方式--</option>
+                        <volist  name="refund_type" id="rt">
+                            <option value='{$key}'>{$rt}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li>
+                <if condition="$res = auth_check_access(array('CustomerService/doRefund'))">
+                    <span id='refund-deal'  load_href="{:U('CustomerService/doRefund',array('order_id'=>$order['order_id'],'action'=>'refunddeal'))}"   style='padding: 10px;' class="class-btn">确定</span>
+
+                </if>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="__JS_PATH__/customerService.js?v={:C('JS_VER')}"></script>
+</html>

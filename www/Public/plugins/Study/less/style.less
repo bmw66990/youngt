@@ -1,0 +1,124 @@
+@charset "utf-8";
+.header {
+    width: 1240px;
+    height: 334px;
+    background-image: url(../images/topbg.png);
+    background-size: 1260px;
+    margin: 0 auto;
+    position: relative;
+    .logo {
+        position: absolute;
+        top: 8px;
+        left: 300px;
+         a{width:200px;height:34px;display: inline-block;vertical-align: top;margin-left: 10px;}
+         a:hover{text-decoration: none;}
+        a span:first-child{cursor: pointer;display:inline-block; }
+        a span:last-child{color:#068e8e;display: inline-block;margin-top:5px;font-size: 12px;}
+         #chose{vertical-align:top; border:none; font-weight: 900;background-color:#f3f3f3; }
+    }
+   
+}
+
+.content {
+    width: 1240px;
+    height: 970px;
+    margin: 0 auto;
+    background-color: #f3f3f3;
+    .nav {
+        width: 1240;
+        height: 50px;
+        background-color: #ffffff;
+        ul {
+            width: 940px;
+            height: 50px;
+            margin: 0 auto;
+            li {
+                width: 188px;
+                line-height: 50px;
+                text-align: center;
+                 a{display: block;}
+                 a:hover {
+                    text-decoration: none;
+                    background-color:#068e8e;
+                     color:#fff;
+                   cursor: pointer;
+                }
+               
+            }
+        }
+    }
+    .special,.host,.self,.play,.potos {
+        width: 940px;
+        height: 890px;
+        position:absolute;
+        .m {
+            margin-top: 10px;
+            background-color: #ffffff;
+            width: 940px;
+            height: 272px;
+            position: relative;
+           left: 150px;
+            .pic {
+                float: left;
+            }
+            .detail {
+                width: 446px;
+                float: left;
+                margin-left: 26px;
+            }
+            .line {
+                border-bottom: 1px solid #e5e5e5;
+                margin-top: 5px;
+            }
+            .slogan {
+                display: block;
+                margin-top: 5px;
+                color: #068e8e;
+                font-family: fantasy;
+            }
+            .address {
+                width: 440px;
+                height: 154px;
+                font-size: 13px;
+                line-height: 18px;
+                margin-top: 10px;
+            }
+            .price {
+                width: 446px;
+                height: 36px;
+                position: relative;
+                .current {
+                    width: 50px;
+                    display: inline-block;
+                    vertical-align: super;
+                    margin-left: 10px;
+                }
+                .cost {
+                    width: 40px;
+                    vertical-align: super;
+                    display: inline-block;
+                    margin-left: 20px;
+                }
+                .long {
+                    height: 24px;
+                    border-left: 1px solid #e5e5e5;
+                    display: inline-block;
+                    position: absolute;
+                    top: 10px;
+                    margin-left: 10px;
+                }
+                .btn {
+                    width: 86px;
+                    height: 28px;
+                    background-color: #068e8e;
+                    border-radius: 6px;
+                    float: right;
+                    color: #ffffff;
+                }
+            }
+        }
+        .spe-f {
+            margin-top: 26px;
+        }
+    }
+}

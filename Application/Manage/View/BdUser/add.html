@@ -1,0 +1,64 @@
+<include file="Common:header"/>
+<!--新建BD-->
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+    		<div class="col-sm-12">
+    			 <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+    					<h3><a href="{:U('BdUser/index')}" class="J_menuItem">业务员</a> / <small><a href="{:U('BdUser/add')}">新建BD</a></small></h3>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal" action="{:U('BdUser/insert')}" method="post" id="db">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">用户名</label>
+                                <div class="col-sm-4">
+                                	<input type="text" autocomplete="off"  name="db_username" class="form-control" required placeholder="BD登录后台系统的账户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">密码</label>
+                                <div class="col-sm-4">
+                                	<input type="password" autocomplete="off"  name="db_pwd" class="form-control" required placeholder="首次登陆默认密码">
+                                	<span class="help-block m-b-none"> 8-15位密码</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">姓名</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="db_name" class="form-control" required placeholder="BD姓名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">电话</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="db_phone" class="form-control" required placeholder="BD电话号码">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input class="btn btn-primary" type="submit" value="提交">
+                                    <input class="btn btn-white" type="reset" value="取消">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script>
+        $(document).ready(function(){
+        	$("#db").validate();
+        	});
+    </script>
+</body>
+
+</html>

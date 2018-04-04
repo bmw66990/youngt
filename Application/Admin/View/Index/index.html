@@ -1,0 +1,55 @@
+<include file="Common:header" />
+    <!--左侧导航-->
+<section>
+    <include file="common" />
+    <div class="content">
+        <div class="incite-worlds">顾客后还有顾客，服务的开始才是销售的开始!</div>
+        <div class="sta-table">
+            <li><img src="__IMAGE_PATH__/ico/user_add.png" >
+                <label class="label-text newUserTotal"><img src="__IMAGE_PATH__/loader.gif" style="width:30px;"/></label>
+                <label class="label-remark">今日新增用户</label></li>
+            <li><img src="__IMAGE_PATH__/ico/order_add.png" >
+                <label class="label-text newOrderTotal"><img src="__IMAGE_PATH__/loader.gif" style="width:30px;"/></label>
+                <label class="label-remark">今日新增订单</label></li>
+            <li><img src="__IMAGE_PATH__/ico/rece.png" >
+                <label class="label-text newCouponTotal"><img src="__IMAGE_PATH__/loader.gif" style="width:30px;"/></label>
+                <label class="label-remark">今日接待量</label></li>
+            <li><img src="__IMAGE_PATH__/ico/orderdown.png" >
+                <label class="label-text newCloseTeamTotal"><img src="__IMAGE_PATH__/loader.gif" style="width:30px;"/></label>
+                <label class="label-remark"><a href="{:U('Team/offLine',array('act'=>'today'))}" target="_blank">今日下线团单</a></label></li>
+            <li><img src="__IMAGE_PATH__/ico/backmoney.png" >
+                <label class="label-text newRefundTotal"><img src="__IMAGE_PATH__/loader.gif" style="width:30px;"/></label>
+                <label class="label-remark"><a href="{:U('CustomerService/refund')}" target="_blank">退款待处理</a></label></li>
+        </div>
+    </div>
+    <div class="notice">
+        <div class="notice-left">
+            <div class="h3-title">内部公告</div>
+            <ul>
+                <volist name="data" id="new">
+                       <li><a href="{:C('YOUNGT_URL')}/Help/news/id/{$new['id']}" target="_blank">{$new.begin_time|date="Y-m-d",###}&nbsp;|&nbsp;{$new.title}</a></li>
+                </volist>
+            </ul>
+        </div>
+        <div class="notice-right">
+            <div class="h3-title">客服平台</div>
+            <div class="notice-right-btn btn-teal"><a href="https://hosted.comm100.cn/livechat/AdminPanel/VisitorMonitor.aspx" target="_blank">登入>></a></div>
+        </div>
+    </div>
+</section>
+<!--底部开始-->
+<include file="Common:footer" />
+<script type="text/javascript">
+    $(function(){
+        var init = function(){
+            var url = $base_url+'/Index/ajaxTotal';
+            $.get(url,'',function(data){
+                if(data.status == 1 ){
+                    $.each(data.data,function(key,val){
+                        $('.'+key).empty().append(val);
+                    })
+                }
+            })
+        }();
+    });
+</script>

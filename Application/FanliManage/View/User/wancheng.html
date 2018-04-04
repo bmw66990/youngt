@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="__CSS_PATH__/bootstrap.css">
+  <link rel="stylesheet" href="__CSS_PATH__/withdrawal.css"/>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+</head>
+<body>
+<div class="header container">
+    <p class="text-center  h3">                  
+        <a href="index.html" class="withdrawal-code-lt">
+          <img src="__IMAGE_PATH__/callback.png" width="18px">
+        </a>
+        <span class="withdrawal-code-title">结果详情</span>
+    </p>
+</div>
+
+<!-- 这是提现详情页 2 -->
+<div class="withdrawal-content2" style="display:block">
+    <div class="withdrawal-bg"><img src="__IMAGE_PATH__/img-ok.png" class="img-responsive withdrawal-bg-img"></div>
+    <div class="withdrawal-prompt-success">
+        <p class="h4 text-center">提现申请成功</p>
+        <p class="h6 text-center">24小时内到账</p>
+    </div>
+    <div class="withdrawal-form">
+        <ul class="withdrawal-list">
+            <li class="withdrawal-count withdrawal-list-item">提现金额
+                <span class="withdrawal-count-num">￥<?php echo $_GET['jine']?></span>                
+                <a href="withdrawalhis.html"><button class="withdrawal-history">提现记录</button></a>
+            </li>
+            <li class="withdrawal-method withdrawal-list-item">提现到
+                <span class="withdrawal-method-weixin">微信</span>
+            </li>
+            <li class="withdrawal-allow-count withdrawal-list-item">可提现金额
+                <span class="withdrawal-allow-all">￥<?php echo $_GET['pay']-$_GET['jine']?></span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="withdrawal-finish container">
+        <a href="index.html" class="btn btn-block withdrawal-finish-btn">完成</a>
+    </div> 
+</div>
+
+  
+<script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="__JS_PATH__/bootstrap.js"></script>
+<script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+</body>
+</html>

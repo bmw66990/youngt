@@ -1,0 +1,10 @@
+.blind {position: absolute;width: 400px; z-index: 102;}
+.mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+.mt-dialog .body {overflow: hidden;padding: 30px;}	
+.mt-dialog .formitm-1{padding-left:150px;}
+.m-form .form-control {background:#fff;display: block;width: 95%;height: 80px;padding: 5px;font-size: 14px;vertical-align: middle;border: 1px solid #cccccc;font-size:12px;}
+.form-control:focus {border-color: #2BB8AA;box-shadow: 0 0 3px #2BB8AA;outline: 0;}
+.cf{clear: both;}
+.time {color: #909090;width: 150px;}
+.user-feedback{width:150px;}
+.comment {color: #333333;}

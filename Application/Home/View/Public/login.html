@@ -1,0 +1,104 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/login.css" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+<!--内容部分-->
+<section><div id='section'>
+    <div id="bd">
+        <div class="regbox">
+            <div class="head-section">
+                <empty name="error">
+                    <div id="message" class="alert alert-danger alert-dismissable" style="display:none;"><!--错误提示:程序添加后删除 此行style="display:none;"-->
+                        {$error}
+                    </div>
+                    <else />
+                    <div id="message" class="alert alert-danger alert-dismissable" ><!--错误提示:程序添加后删除 此行style="display:none;"-->
+                        {$error}
+                    </div>
+                </empty>
+
+                <ul class="ml10">
+                    <li class="current">
+                        <a href="#" class="">
+                            <i></i>
+                            <span></span>
+                            帐户登录
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--表单开始-->
+            <div class="login-left fl">
+                <form id="login-form" class="signup-form mb20 common-form" method="post" action="{:U('Public/doLogin')}">
+                    <!--帐户登录开始-->
+                    <div class="field-group-1">
+                        <label for="account">登录名</label>
+                        <input id="account" class="f-text" type="text" name="account" title="请输入正确的邮箱/用户名/手机号" />
+                    </div>
+                    <div class="field-group-1">
+                        <label for="password">密码</label>
+                        <input id="password" class="f-text" type="password" name="password" title="请输入密码" />
+                    </div>
+                    <div class="field-group-1 captcha">
+                        <label for="verify">验证码</label>
+                        <input id="verify" class="f-text vcode" type="text" value="" name="verify" title="请输入验证码" />
+                    </div>
+                    <div class="field-group-1 captcha" style="margin-left:90px;">
+                        <img src="{:U('Public/verify')}" id="verifyImg" width="150" height="40" onclick="fleshVerify()">
+                        <a class="inline-pwd" id="verifyImg" onclick="fleshVerify()">看不清楚？换一张</a>
+                    </div>
+                    <div class="field-group-1 ml85">
+                        <div class="f-ib fl">
+                            <input type="checkbox" name="autologin" id="autologin" value="1"/>
+                            <label for="autologin" class="normal">下次自动登录</label>
+                            <a href="{:U('Public/resetpwd')}" class="inline-pwd">忘记密码</a>
+                        </div>
+                    </div>
+                    <div class="field-group-1 ml85">
+                        <button type="submit" class="btn-hot" name="submit">登录</button>
+                    </div>
+                    <!--帐户登录结束-->
+                </form>
+            </div>
+            <!--表单结束-->
+            <script type="text/javascript">
+                $(function(){
+                    $("#login-form [title]").tooltip({
+                        position : {
+                            my : "left+3 center",
+                            at : "right center"
+                        }
+                    });
+                    $("#verify").tooltip({
+                        position : {
+                            my : "left center",
+                            at : "right center"
+                        }
+                    });
+                });
+            </script>
+            <div class="login-right fr">
+                <div class="side-top">
+                    <p class="tit c6">还不是青团用户？</p>
+                    <a class="btn u-btn-c4 ubg" href='__URL__/register'>注册新用户</a>
+                </div>
+                <div class="side-min">
+                    <p class="tit c6">使用合作网站账号登录青团</p>
+                    <div class="otherlogin mt20">
+                        <ul>
+                            <li>
+                                <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxf94ce5ddc4fbb1e1&redirect_uri=http%3A%2F%2Fyoungt.com%2FPublic%2FweChatLogin&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect"><img src="__IMAGE_PATH__/wxlogin.png"></a>
+                            </li>
+                            <li>
+                                <a href="{:U('Public/qqlogin')}"><img src="__IMAGE_PATH__/qq.png"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div></section>
+<!--内容部分结束-->
+<include file="Common:footer" />
+<script type="application/javascript" src="__JS_PATH__/login.js"></script>

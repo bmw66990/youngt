@@ -1,0 +1,111 @@
+<include file="Common:header" />
+<style type="text/css">
+    .con-form .myform > li {
+        float: none !important;
+    }
+</style>
+
+<section>
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">订单信息下载<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" method="post" action="{:U('Order/orderDetailDown')}">
+                <li><label>用户名/邮箱</label><input name="username" value="" class="w150" type="text" /></li>
+                <li><label>手机</label><input name="mobile" value="" class="w150" type="text" maxlength="11" /></li>
+                <li><label>项目编号</label><input name="team_id" value="" class="w150" type="text" /></li>
+                <li><label>日期</label>
+                    <input name="begin_time" value="{$begin_time}" class="laydate-icon w150" id="start" type="text" >-
+                    <input name="end_time" value="{$end_time}" class="laydate-icon w150" id="end" type="text">
+                </li>
+                <li>
+                    <label>项目类型</label>
+                    <select name="team_type" class="w150">
+                        <option value="">--全部--</option>
+                        <option value="normal" >--正常团单--</option>
+                        <option value="lottery">--活动团单--</option>
+                        <option value="goods">--邮购团单--</option>
+                    </select>
+                </li>
+                <li>
+                    <label>结算状态</label>
+                    <select name="is_consume"  class="w150">
+                        <option value="">--全部--</option>
+                        <option value="Y">--已结算--</option>
+                        <option value="N">--未结算--</option>
+                    </select>
+                </li>
+                <li>
+                    <label>支付状态</label>
+                    <select name="is_state"  class="w150">
+                        <option value="">--全部--</option>
+                        <option value="Y">--已支付--</option>
+                        <option value="N">--未支付--</option>
+                    </select>
+                </li>
+                <li>
+                    <label>发货状态</label>
+                    <select name="is_delivery"  class="w150">
+                        <option value="">--全部--</option>
+                        <option value="Y">--已发货--</option>
+                        <option value="N">--未发货--</option>
+                    </select>
+                </li>
+                <li>
+                    <label>选择城市</label>
+                    <select name="city_id">
+                        <option value="">--请选择地区--</option>
+                        <volist name="city" id="row">
+                            <option value="{$row.id}" <eq name="row.id" value="">selected</eq>>{$row.letter}-{$row.name}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li>
+                    <label>支付渠道</label>
+                    <input type="checkbox" name="pay_type[]" value="alipay" checked><label class="m-left-5" >支付宝</label>
+                    <input type="checkbox" name="pay_type[]" value="tenpay" checked><label class="m-left-5" >财付通</label>
+                    <input type="checkbox" name="pay_type[]" value="wxpay" checked><label class="m-left-5" >微信</label>
+                    <input type="checkbox" name="pay_type[]" value="umspay" checked><label class="m-left-5" >全民付</label>
+                    <input type="checkbox" name="pay_type[]" value="lianlianpay" checked><label class="m-left-5" >连连</label>
+                    <input type="checkbox" name="pay_type[]" value="unionpay" checked><label class="m-left-5" >银联</label>
+                    <input type="checkbox" name="pay_type[]" value="wepay" checked><label class="m-left-5" >京东</label>
+                    <input type="checkbox" name="pay_type[]" value="credit" checked><label class="m-left-5" >余额</label>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="下载" /></li>
+
+            </form>
+
+            <script>
+                $(function(){
+                    laydate.skin('molv');
+                    var start = {
+                        elem: '#start',
+                        format: 'YYYY-MM-DD',
+                        //min: laydate.now(), //设定最小日期为当前日期
+                        max: '2099-06-16 23:59:59', //最大日期
+                        //istime: true,
+                        istoday: false,
+                        choose: function(datas){
+                            end.min = datas; //开始日选好后，重置结束日的最小日期
+                            end.start = datas //将结束日的初始值设定为开始日
+                        }
+                    };
+                    var end = {
+                        elem: '#end',
+                        format: 'YYYY-MM-DD',
+                        //min: laydate.now(),
+                        max: '2099-06-16 23:59:59',
+                        istoday: false,
+                        choose: function(datas){
+                            start.max = datas; //结束日选好后，重置开始日的最大日期
+                        }
+                    };
+                    laydate(start);
+                    laydate(end);
+                })
+            </script>
+        </div>
+    </div>
+</section>
+
+<include file="Common:footer" />

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>快递弹出框</title>
+<link rel="stylesheet" href="__CSS_PATH__/pop_new.css" />
+</head>
+<style type="text/css">
+	.box{height: 150px!important;min-height: 150px;min-width: 100px;overflow: hidden;}
+</style>
+<body>
+<div class="box">
+	<form name="viewDetails">
+		<div class="poptitle">
+			快递信息
+		</div>
+		<div class="team">
+			<li><label>快递单号</label>{$agent_pay_info.express_no}</li>
+			<li><label>快递公司</label>{$agent_pay_info.express_name}</li>
+                        <li><a href="{:U('Financial/expressLogisticsView',array('agent_pay_id'=>$agent_pay_info['id']))}" target='_blank' style="margin-left: 200px;">>>追踪快递</a></li>
+		</div>
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Manage/groupType'))">
+             <li><a href="{:U('Manage/groupType')}">项目分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/cityType'))">
+            <li><a href="{:U('Manage/cityType')}">城市分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/partnerType'))">
+            <li><a href="{:U('Manage/partnerType')}">商户分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/districtType'))">
+            <li><a href="{:U('Manage/districtType')}">商圈分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/stationType'))">
+            <li><a href="{:U('Manage/stationType')}">商圈子分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/classType'))">
+            <li><a href="{:U('Manage/classType')}">订座分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/gradeType'))">
+             <li><a href="{:U('Manage/gradeType')}">用户等级分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/expressType'))">
+           <li><a href="{:U('Manage/expressType')}">快递分类</a><label>&nbsp;</label></li>
+        </if>
+         <if condition="$res = auth_check_access(array('Manage/publicType'))">
+           <li><a href="{:U('Manage/publicType')}">讨论区分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/feedbackType'))">
+            <li><a href="{:U('Manage/feedbackType')}">问题反馈分类</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Manage/adminLog'))">
+            <li><a href="{:U('Manage/adminLog')}">操作日志</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

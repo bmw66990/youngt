@@ -1,0 +1,245 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>任务详情</title>
+    <link rel="stylesheet" href="__CSS_PATH__/widget.css" />
+    <link rel="stylesheet" href="__CSS_PATH__/pop.css" />
+    <link rel="stylesheet" href="__CSS_PATH__/common.css" />
+    <link href="__PLUGINS_PATH__/fancybox/Css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/common.js?v={:C('JS_VER')}"></script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/laydate/laydate.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            laydate.skin('molv');
+            /**
+             * 点击编辑切换
+             */
+            $("#edit").toggle(add_form,del_form);
+            $('#start').live('click',function(){
+                laydate(start);
+            });
+            $(':radio').click(function(){
+                if($(this).val() == 1){
+                    $('#comment').hide();
+                    $('#file').show();
+                }else{
+                    $('#file').hide();
+                    $('#comment').show();
+                }
+            });
+        });
+        var id = "{$task_info['id']}";
+        var group_id = "{$task_info['workbench_group_id']}";
+        /**
+         * 生成修改表单
+         */
+        function add_form(){
+             //表单name名 根据需求修改
+             var $jsti = $.trim($(".jsti").text());
+             $(".jsti").html("标题：<input name='title' type='text'  value='" + $jsti + "'>");
+             var $jstime = $(".jstime").text();
+             $(".jstime").html("时间：<input name='end_time' class='laydate-icon w100' type='text' id='start' value='" + $jstime + "'>");
+             var $jsremark = $(".jsremark").text();
+             $(".jsremark").html("说明：<input name='desc' type='text'   value='" + $jsremark + "'>");
+             if($('#ed').find(':submit').length == 0) {
+                 $("#ed").append("<label><input type='submit' class='btn-teal' onclick='ajaxUpdateTask();return false;' value='提交'></label>");
+             }
+        }
+
+        var start = {
+            event: 'click',
+            elem: '#start',
+            format: $('#start').attr('format') || 'YYYY-MM-DD',
+            max: '2099-06-16 23:59:59', //最大日期
+            istoday: false,
+            istime: true,
+            choose: function(datas) {
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+
+        /**
+         * 生成文本
+         */
+        function del_form(){
+            var task_status = "{$task_info['status']}";
+            var task_title = "{$task_info['title']}";
+            var end_time = "{$task_info['end_time']|date='Y-m-d',###}";
+            var task_desc = "{$task_info['desc']|default='未添加任何描述'}";
+            if(task_status == 1){
+                $(".jsti").html("<input type='checkbox' onClick='ajaxTaskRecycle('{$task_info["id"]}',2)'>"+task_title);
+            }else{
+                $(".jsti").html(task_title);
+            }
+            $(".jstime").html(end_time);
+            $(".jsremark").text(task_desc);
+            if($('#ed').find(':submit').length){
+                $("#ed").find(':submit').remove();
+            }
+        }
+
+        /**
+         * ajax异步修改任务信息
+         */
+        function ajaxUpdateTask(){
+            var url = "{:U('Workbench/ajaxUpdateTask')}";
+            $.post(url,$('form').serialize(),function(data){
+                if(data.status == -1){
+                    alert(data.error);
+                }else{
+                    location.reload();
+                }
+            })
+        }
+
+        /**
+         * ajax 发表评论
+         */
+        function ajaxComment(){
+            var url = "{:U('Workbench/ajaxComment')}";
+            var content = $('textarea').val();
+            if(content == ''){
+                $('textarea').css("border-color",'red');
+            }else{
+                $.post(url,{remark_content:content,id:id,group_id:group_id},function(data){
+                    if(data.status == -1){
+                        alert(data.error);
+                    }else{
+                        location.reload();
+                    }
+                })
+            }
+        }
+
+        /**
+         * 删除日志
+         */
+        function ajaxDelLog(id){
+            var url="{:U('Workbench/ajaxDelLog')}";
+            $.post(url,{id:id},function(data){
+                if(data.status == -1){
+                    alert(data.error);
+                }else{
+                    location.reload();
+                }
+            });
+        }
+
+        /**
+         * 任务状态处理
+         * @param id
+         */
+        function ajaxTaskRecycle(id,status){
+            var url="{:U('Workbench/ajaxTaskRecycle')}";
+            $.post(url,{id:id,status:status},function(data){
+                if(data.status == -1){
+                    alert(data.error);
+                }else{
+                    window.parent.jQuery.fancybox.close();
+                    window.parent.location.reload();
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="fancycreate">
+    <div class="taskview-title">
+        <span class="grounp-name">{$group_name}</span>
+				<span>
+                    <if condition="$task_info['admin_id'] eq $uid">
+					    <label class="ico-eidit"><a id="edit">编辑</a></label>
+                    </if>
+                    <if condition="$task_info['status'] neq 3">
+					    <label class="ico-save"><a onClick="ajaxTaskRecycle('{$task_info["id"]}',3)" >归档</a></label>
+                    </if>
+                   <!-- <label class="ico-del"><a href="#" id="delete">删除</a></label>-->
+				</span>
+    </div>
+    <div class="taskview-con">
+        <ul>
+        <form>
+            <li id="ed">
+                <label class="jsti taskview-ti">
+                    <if condition="$task_info['status'] eq 1">
+                        <input type="checkbox" onclick="ajaxUpdateTask('{$task_info["id"]}',2);">
+                    </if>
+                    {$task_info['title']}
+                </label>
+                <label class="jstime tx-grey f-12 ico-time">{$task_info['end_time']|date='Y-m-d',###}</label>
+                <label class="jsremark">{$task_info['desc']|default="未添加任何描述"}</label>
+                <input type="hidden" name="id" value="{$task_info['id']}" />
+            </li>
+        </form>
+        <li>
+            <label>分配</label>
+            <label class="add-person">
+                <span>
+                    <volist name="task_user_data" id="user">
+                        <notempty name="user.avatar">
+                            <img src="{$user.avatar|getImagePath}" title="{$user.name}">
+                            <else />
+                            <img src="__IMAGE_PATH__/nophoto.jpg" title="{$user.name}">
+                        </notempty>
+                   </volist>
+                </span>
+                <if condition="$task_info['admin_id'] eq $uid"><a  onclick="popup('{:U('Workbench/addPerse',array('id'=>$task_info['id']))}',300,150)"><img src="__IMAGE_PATH__/ico/add.png"></a></if>
+            </label>
+        </li>
+        <volist name="task_log_data" id="log">
+            <li class="taskfocus">
+                <span class="add-person">
+                    <notempty name="log.avatar">
+                        <img src="{$log.avatar|getImagePath}" title="{$log['name']}">
+                        <else />
+                        <img src="__IMAGE_PATH__/nophoto.jpg" title="{$log['name']}">
+                    </notempty>
+                </span>
+                <span>
+                    <label>{$log['name']}</label>
+                    <label class="tx-grey">{$log['remark_content']}</label>
+                </span>
+                <span class="tx-grey f-12">
+                    <label>{$log['create_time']|date="H:i",###}</label>
+                    <label>
+                        <if condition="$log['admin_id'] neq $uid">
+                            <a onclick="popup('{:U('Workbench/replyComment',array('id'=>$log['id']))}',300,300)">回复</a>
+                        <else />
+                            <a onClick="ajaxDelLog('{$log["id"]}');">删除</a>
+                        </if>
+                    </label>
+                </span>
+            </li>
+        </volist>
+        <li>
+            <span class="add-person">
+                 <notempty name="user_info.avatar">
+                     <img src="{$user_info.avatar|getImagePath}" title="{$user_info['realname']}">
+                     <else />
+                     <img src="__IMAGE_PATH__/nophoto.jpg" title="{$user_info['realname']}">
+                 </notempty>
+            </span>
+            <input type="radio" name="status" value="3" checked />发表评论
+            <input type="radio" name="status" value="1" />上传附件
+            <span id="comment">
+                <textarea name="remark_content"></textarea>
+                <input type="submit" class="btn-teal fr" onclick="ajaxComment();return false;" value="发表评论">
+            </span>
+             <span id="file" style="display: none">
+                 <form action="{:U('Workbench/uploadFile')}" method="post" enctype="multipart/form-data" />
+                     <input type="file" name="file" />
+                     <input type="hidden" name="id" value="{$task_info['id']}" />
+                     <input type="hidden" name="group_id" value="{$task_info['workbench_group_id']}" />
+                     <input type="submit" class="btn-teal fr" value="上传附件">
+                 </form>
+            </span>
+        </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

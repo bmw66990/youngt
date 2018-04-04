@@ -1,0 +1,47 @@
+<include file="Common:popup_header" />
+<style type="text/css">
+    #down a,#down a:hover{
+        color: #ffffff;
+    }
+</style>
+<if condition="$error neq ''">
+    <p class="error">{$error}</p>
+    <else />
+<div class="box">
+    <div id="down">
+        <div style="float: left"><h2>查看用户云购码详情</h2></div>
+         <div style="float: left;padding-left: 30px;padding-bottom: 18px;">
+             <h4>用户名：{$username} [{$uid}]</h4>
+             <h4>团单：{$team_product} [{$team_id}]</h4>
+             <h4>期数：{$periods_number}</h4>
+         </div>
+    </div>
+
+    <!--商品添加与编辑相同，请后台判断添加代码-->
+    <table style="text-align:center;line-height:24px;width:90%;margin: auto;background:#999" border="0" cellpadding="0" cellspacing="1" >
+        <tr style="background:#fff">
+            <th width="15%">云购码</th>
+            <th width="15%">用户id</th>
+            <th width="15%">团单id</th>
+            <th width="15%">期数</th>
+            <th width="30%">购买时间</th>
+        </tr>
+        <volist name="list" id="vo">
+            <tr style="background:#fff">
+                <td>{$vo['cloud_code']}</td>
+                <td>{$vo['user_id']}</td>
+                <td>{$vo['team_id']}</td>
+                <td>{$vo['periods_number']}</td>
+                <td>{$vo['create_time']|date="Y-m-d H:i:s",###}</td>
+            </tr>
+        </volist>
+    </table>
+    <div class="selectpage">
+        <div class="pagenumber">
+            {$page}
+        </div>
+    </div>
+</div>
+</if>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<div class="alert alert-warning mt10" role="alert">
+    请注意：批量验证可以是不同订单的券号，如果只需验证两个、三个或四个请保持其他输入框空白！
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <form class="form-horizontal" role="form" id="select" >
+
+                <div class="form-group  has-feedback">
+
+                    <label for="inputEmail3" class="col-sm-2 control-label" style="color:#000;">青团密码:</label>
+
+                    <div class="col-sm-5">
+
+                        <input type="text" class="form-control ui-cardnum-show multi_coupon" id="inputPassword1" placeholder="点击输入券号" maxlength="14" name="coupons[]" value="">
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-group has-feedback">
+
+                    <div class="col-sm-5 col-sm-offset-2">
+
+                        <input type="text" class="form-control ui-cardnum-show multi_coupon" id="inputPassword2" placeholder="点击输入券号"  maxlength="14" name="coupons[]" value="">
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-5 col-sm-offset-2">
+
+                        <input type="text" class="form-control ui-cardnum-show multi_coupon" id="inputPassword3" placeholder="点击输入券号"  maxlength="14" name="coupons[]" value="">
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-5 col-sm-offset-2">
+
+                        <input type="text" class="form-control ui-cardnum-show multi_coupon" id="inputPassword4" placeholder="点击输入券号" maxlength="14" name="coupons[]" value="">
+
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-5 col-sm-offset-2">
+
+                        <input type="text" class="form-control ui-cardnum-show multi_coupon" id="inputPassword5" placeholder="点击输入券号"  maxlength="14" name="coupons[]" value="">
+
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="hidden" name="action" value="select">
+                        <button type="button" class="btn btn-warning" id="selects" style="padding:8px 90px"  name="select">验 证</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

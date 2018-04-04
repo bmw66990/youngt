@@ -1,0 +1,71 @@
+<footer class="bc-ee">
+    <!--<div class="foot-bar bc-teal"></div>-->
+    <div class="foot-menu">
+        <li>
+            <h3>用户帮助</h3>
+            <ul >
+                <li><a href="/help/tour.php">玩转青团</a></li>
+                <li><a href="/help/faqs.php">常见问题</a></li>
+                <li><a href="/help/zuitu.php">青团概念</a></li>
+                <li><a href="/help/api.php">开发API</a></li>
+                <li><a href="/help/widget.php">团购挂件</a></li>
+            </ul>
+        </li>
+        <li>
+            <h3>获取更新</h3>
+            <ul >
+                <li><a href="/subscribe.php?ename=all">邮件订阅</a></li>
+                <li><a href="/feed.php?ename=all">RSS订阅</a></li>
+                <li><a href="http://t.sina.com.cn/zuitu2010" target="_blank">新浪微博</a></li>
+            </ul>
+        </li>
+        <li>
+            <h3>合作与联系</h3>
+            <ul >
+                <li><a href="/feedback/seller.php">商务合作</a></li>
+                <li><a href="/feedback/suggest.php">意见反馈</a></li>
+                <li><a href="/about/contact.php">联系方式</a></li>					
+                <li><a href="/manage/index.php">管理青团</a></li>					
+            </ul>
+        </li>
+        <li>
+            <h3>公司信息</h3>
+            <ul >
+                <li><a href="/about/us.php">关于青团</a></li>
+
+                <li><a href="/about/job.php">工作机会</a></li>
+
+                <li><a href="/about/terms.php">用户协议</a></li>
+
+                <li><a href="/about/privacy.php">隐私声明</a></li>
+            </ul>
+        </li>
+        <li class="no-right-border">
+            <div class="logo-footer">
+                <a href="/"><img src="__IMAGE_PATH__/logo-footer.png" /></a>
+            </div>
+        </li>
+    </div>
+    <div class="foot-copy">
+        <p>&copy;<span>2015</span>&nbsp;青团网（Youngt.com）版权所有&nbsp;<a href="/about/terms.php">使用青团前必读</a>&nbsp;<a href="http://www.miibeian.gov.cn/" target="_blank">陕ICP备12003782号-2</a>&nbsp;Powered by <a href="http://www.youngt.com/" target="_blank">Youngt.com</a> software.</p>
+    </div>
+</footer>
+<!--挂件部分-->
+<div class="scrollTop"><img src="__IMAGE_PATH__/scrolltop.png" /></div>
+<!--js list-->
+<script>
+    $(function() {
+        var set_menu_init = function() {
+            var $localhref = window.location.href.toLowerCase();
+            $('.tab-menu>ul>li').each(function(i) {
+                var $href = $(this).find('a').attr('href');
+                $href = $href.substring(0, $href.indexOf('.')).toLowerCase();
+                 if ($href && $localhref.indexOf($href) >= 0) {
+                    $(this).addClass('current');
+                }
+            });
+        }();
+    });
+</script>
+</body>
+</html>

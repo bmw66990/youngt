@@ -1,0 +1,30 @@
+<!--左侧导航-->
+<script type="text/javascript" src="__JS_PATH__/team.js?v={:C('JS_VER')}"></script>
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Team/index'))">
+            <li><a href="{:U('Team/index')}">在线团单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Team/beOffline'))">
+             <li><a href="{:U('Team/beOffline')}">即将下线</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Team/beCheck'))">
+           <li><a href="{:U('Team/beCheck')}">待审核</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Team/expired'))">
+           <li><a href="{:U('Team/expired')}">过期团单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Team/offLine'))">
+            <li><a href="{:U('Team/offLine')}">下线团单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Team/activity'))">
+            <li><a href="{:U('Team/activity')}">专题活动</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Team/add'))">
+            <li><a target="_blank" href="{:U('Team/add')}">新建团单</a><label>&nbsp;</label></li>
+        </if>    
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

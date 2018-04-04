@@ -1,0 +1,82 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<link href="__CSS_PATH__/search.css" type="text/css" rel="stylesheet" />
+<section class="clearfix"><div id='section'>
+    <!--筛选条件-->
+    <div class="term fl">
+        <div class="term-add fl">
+            <dt>位置</dt>
+            <dl> {$address}{$postaddress}</dl>
+        </div>
+        <div class="term-class fl">
+            <dl>
+                <dt>分类</dt>
+                <dd <if condition="$searchParams['gid'] eq ''">class="noselected" </if>><a href="__APP__/Around/position/{$searchParams|param='gid,sid'}/address/{$postaddress}" >不限</a></dd>
+                <volist name="groups" id="vo">
+                    <dd  <if condition="$vo.id eq $searchParams['gid']">class="noselected" </if>><a href="__APP__/Around/position/{$searchParams|param='gid,sid'}gid/{$vo.id}/address/{$postaddress}">{$vo.name}</a></dd>
+                </volist>
+            </dl>
+        </div>
+        <notempty name="subs">
+            <div class="term-class fl">
+                <dl>
+                    <dt>子类</dt>
+                    <dd <if condition="$searchParams['sid'] eq ''">class="noselected" </if>><a href="__APP__/Around/position/{$searchParams|param='gid'}/address/{$postaddress}" >不限</a></dd>
+                    <volist name="subs" id="vo">
+                        <dd <if condition="$vo.id eq $searchParams['sid']">class="noselected"</if>><a href="__APP__/Around/position/{$searchParams|param='sid'}sid/{$vo.id}/address/{$postaddress}">{$vo.name}</a></dd>
+                    </volist>
+                </dl>
+            </div>
+        </notempty>
+    </div>
+    <!--筛选条件结束-->
+    <div>
+        <volist name="teams" id="team">
+        <if condition="$key%4 eq 0">
+        <div class="demo-pic fl" >
+            <div class="pro-show-pic fl">
+                <div class="index-pro-min">
+                    <ul>
+         </if>
+                        <a href="__APP__/team-{$team.id}.html" title="{$team.title}">
+                            <li>
+                                <img src="{$team.image}" alt="{$team.title}"/><br/>
+                                <span class="pro-title">{$team.product}</span>
+                                <span class="pro-remarks">{$team.title}</span>
+                                <span class="pro-price">
+                                    <label class="now-price t_orange">&#165;{$team.team_price}</label>
+                                    <label class="last-price">&#165;{$team.market_price}</label>
+                                    <label class="pro-sold">距离新位置
+                                        <em class="f-fwb" style="color:#fd6b44;"><{$team.range}米</em>
+                                    </label>
+                                </span>
+                                 <span class="pro-is-mapp">
+                                    <if condition="$team['not_time'] eq 1">
+                                        <label class="notime">免预约</label>
+                                    </if>
+                                    <if condition="$team['today'] eq 1">
+                                        <label class="payfor">今日新单</label>
+                                    </if>
+                                     <if condition="$team['all_type'] eq 1">
+                                         <label class="orders">多套餐</label>
+                                     </if>
+                                </span>
+                            </li>
+                        </a>
+            <if condition="$key%4 eq 3">
+                    </ul>
+                </div>
+             </div>
+        </div>
+        </if>
+        </volist>
+    </div>
+    <!--搜索结果-->
+    <div class="selectpage fl">
+        <div class="pagination mt10">
+            {$page}
+        </div>
+    </div>
+    <!--搜索结果结束-->
+</div></section>
+<include file="Common:footer" />

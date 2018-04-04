@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>支付返现</title>
+    <link rel="stylesheet" type="text/css" href="__LIBS_PATH__/jQueryMoblie/jquery.mobile.custom.structure.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__LIBS_PATH__/jQueryMoblie/jquery.mobile.custom.theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS_PATH__/reset-jqmobile.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS_PATH__/fastshop.css"/>
+    <link rel="stylesheet" href="__CSS_PATH__/bootstrap.css" >
+    <link rel="stylesheet" href="__CSS_PATH__/paySuccess.css"/>
+</head>
+<body>
+    <div class="header container">
+        <p class="text-center  h3">            
+            <a href="javascript:" onclick="history.back(-1);" class="pay-code-lt">
+                <img src="__IMAGE_PATH__/callback.png" width="18px">
+            </a>
+            <span class="pay-code-title">支付详情</span>
+        </p>
+    </div>
+
+    <div class="success-back-txt text-center h3">恭喜您，本单返现！</div>
+
+    <div class="minus">
+        <div class="minus-box">
+            <span class="minus-txt">立减</span>
+        </div>
+        <div class="minus-count">
+            <span class="minus-num">
+                <strong>50元</strong>
+            </span>
+        </div>
+        <div class="back-his">
+            <a href="http://fanli.ree9.com/User/index.html?openid={$openid}" class="back-his-txt">查看返现记录</a>
+        </div>
+    </div>
+
+    <div class="share-btn">
+        <a id="cirle-btn" class="get-hongbao-btn">分享得红包</a>
+    </div>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#cirle-btn').click(function () {
+                var is_user = "{$is_user}";
+                var is_focus = "{$is_focus}";
+                if (!is_user) {
+                    window.location.href = "{:U('Public/login')}";
+                    return false;
+                }
+                if (!is_focus) {
+                    alert('请先关注青团生活公众账号后再分销！');
+                    window.location.href = "{$auth_url}";
+                    return false;
+                }
+                wx.config({
+                    debug: false,
+                    appId: '{$data["appId"]}',
+                    timestamp: '{$data["timestamp"]}',
+                    nonceStr: '{$data["nonceStr"]}',
+                    signature: '{$data["signature"]}',
+                    jsApiList: [
+                        // 所有要调用的 API 都要加到这个列表中
+                        'checkJsApi',
+                        'openLocation',
+                        'getLocation',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage'
+                    ]
+                });
+                wx.checkJsApi({
+                    jsApiList: [
+                        'getLocation',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage'
+                    ],
+                });
+                wx.ready(function () {
+                    wx.onMenuShareAppMessage({
+                        title: "{$team['product']}",
+                        desc: "{$team['product']}",
+                        link: "{$data['wx_url']}",
+                        imgUrl: "{$team['image']}",
+                    });
+                    wx.onMenuShareTimeline({
+                        title: "{$team['product']}",
+                        link: "{$data['wx_url']}",
+                        imgUrl: "{$team['image']}",
+                    });
+                });
+                $("#invokeMask").css("display", "block");
+            });
+            $("#invokeMask").on("click", function () {
+                $("#invokeMask").css("display", "none");
+            });
+        });
+    </script>
+    <script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/bootstrap.js"></script>
+    <script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+</body>
+</html>

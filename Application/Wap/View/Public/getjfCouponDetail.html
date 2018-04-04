@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>商家验证</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+    <script src="__PLUGINS_PATH__/alert.js"></script>
+    <style>
+        #index .Htitle {
+            text-align: center;
+            color: #AB4D33;
+        }
+        #index .ui-listview > .ui-li-static {
+            white-space: normal;
+        }
+        #index.ui-page-theme-a .ui-btn.ui-btn-active {
+            background-color: #3BA94A;
+            text-shadow: none;
+            line-height: 1.5;
+            font-size: 1.2em;
+        }
+        .ui-grid-a > .ui-block-a {
+            width: 25%;
+        }
+        .ui-grid-a > .ui-block-b {
+            width: 75%
+        }
+
+    </style>
+    <script type="text/javascript">
+        function onBridgeReady() {
+            WeixinJSBridge.call('hideOptionMenu');
+        }
+        if ( typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    </script>
+</head>
+<body>
+<form action="{:U('Public/doVerifyCoupon')}" method="post" data-ajax="false">
+    <div data-role="page" id="index">
+        <div role="main" class="ui-content">
+            <ul data-role="listview">
+                <li>
+                    <div class="ui-grid-a">
+                        <span style=" text-align: center; color: #AB4D33;">{$list['team']['title']}</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            价格:
+                        </div>
+                        <div class="ui-block-b">
+                            ￥{$list['team']['team_price']}元
+                        </div>
+                    </div>
+                </li>
+
+                <li class="pl4em">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            过期时间:
+                        </div>
+
+                        <div class="ui-block-b">
+                            {$list['team']['expire_time']|date="Y-m-d",###}
+                        </div>
+                    </div>
+                </li>
+
+                <li class="pl4em">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a" style="width:25%">
+                            商家电话:
+                        </div>
+
+                        <div class="ui-block-b" style="width:75px;">
+                            {$list['partner']['mobile']}
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a" style="width:25%">
+                            券号:
+                        </div>
+                        <div class="ui-block-b" style="width:75%">
+                            <fieldset data-role="controlgroup">
+                                <if condition="$list['count'] eq 1" >
+                                    <input name="coupon_id[]" id="checkbox-{$k}a" value="{$list['coupons'][0]['id']}" checked="checked"  type="checkbox">
+                                    <label for="checkbox-{$k}a">{$list['coupons'][0]['id']}</label>
+                                    <else />
+                                    <volist name="list['coupons']" id="vo" key="k">
+                                        <input name="coupon_id[]" id="checkbox-{$k}a" value="{$vo.id}"  type="checkbox">
+                                        <label for="checkbox-{$k}a">{$vo.id}</label>
+                                    </volist>
+                                </if>
+
+                            </fieldset>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            商家地址:
+                        </div>
+
+                        <div class="ui-block-b">
+                            {$list['partner']['address']}
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <button class="ui-btn-active" type="submit">验证</button>
+                </li>
+            </ul>
+        </div>
+</form>
+
+<script type="text/javascript">
+    $(function(){
+        var num;
+        $(':submit').click(function(){
+            num=$('[type=checkbox]:checked').length;
+            if(num>0){
+                $('form').submit();
+            }else{
+                alert('请选择您要验证的券号');
+            }
+            return false;
+        });
+    })
+</script>
+</div>
+
+</body>
+</html>
+

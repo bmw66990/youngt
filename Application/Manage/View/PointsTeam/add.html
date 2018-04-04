@@ -1,0 +1,157 @@
+<include file="Common:header"/>
+<!--本页面样式-->
+    <link href="__PLUGINS_PATH__/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="__PLUGINS_PATH__/iCheck/custom.css" rel="stylesheet">
+    <link href="__PLUGINS_PATH__/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/webuploader.css">
+	<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/webuploader/css/style.css">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+    		<div class="col-sm-12">
+    			 <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+    					<h3><a href="{:U('PointsTeam/index')}" class="J_menuItem">积分</a> / <small><a href="{:U('PointsTeam/add')}">新建积分兑换商品</a></small></h3>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form action="{:U('PointsTeam/insert')}" method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商家列表</label>
+                                <div class="col-sm-3">
+                                	<div class="input-group">
+	                                		<input type="text" id="partner-name" class="form-control" readonly="" >
+                        					<input type="hidden" name="partner_id" id="partner-id" class="required">
+                                		<span class="input-group-btn">
+                                			<button type="button" class="btn btn-info layer-iframe" data-href="{:U('PointsTeam/partnerList')}" data-title="选择商家">选择商家</button>
+                                		</span>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品名称</label>
+                                <div class="col-sm-4">
+                                	<input type="text" name="name" class="form-control" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品图片</label>
+                                <div class="col-sm-4">
+                                	<include file="upload" />
+              						<input type="hidden" name="image" id="uploadimage" value="">
+		                        	<span class="help-block m-b-none text-danger">商品图片尺寸：460*120，大小100KB</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序</label>
+                                <div class="col-sm-1">
+                                	<input type="text"  name="sorts" class="form-control" value="0" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">时间</label>
+                                <div class="col-sm-3">
+                                	<div class="input-daterange input-group" id="datepicker">
+                                		<div class="input-group date">
+		                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                               		<input type="text" class="form-control" name="begin_time" value="2014-11-11" />
+                                		</div>
+		                                <span class="input-group-addon">到</span>
+		                                <div class="input-group date">
+			                                <input type="text" class="form-control" name="end_time" value="2014-11-17" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                </div>
+		                            </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">兑换积分</label>
+                                <div class="col-sm-1">
+                                	<input type="text" name="score" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">每人限购</label>
+                                <div class="col-sm-4">
+                                	<div class="row">
+                                		<div class="col-sm-3">
+                                			<input type="text" name="is_convert" class="form-control" />
+                                		</div>
+                                		<div class="col-sm-4">
+                                			 <div class="checkbox checkbox-info checkbox-inline">
+	                                			<input type="checkbox" id="inlineRadio1"  name="is_convert">
+	                                    		<label for="inlineRadio1"> 不限购 </label>
+	                                    	</div>
+                                		</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品总量</label>
+                                <div class="col-sm-4">
+                                	<div class="row">
+                                		<div class="col-sm-3">
+                                			<input type="text" name="limit_num" class="form-control" />
+                                		</div>
+                                		<div class="col-sm-4">
+                                			 <div class="checkbox checkbox-info checkbox-inline">
+	                                			<input type="checkbox" id="inlineRadio2"  name="is_limit">
+	                                    		<label for="inlineRadio2"> 不限量 </label>
+	                                    	</div>
+                                		</div>
+                                	</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">有效期</label>
+                                <div class="col-sm-2">
+                                	<div class="input-group date">
+		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                <input type="text" name="expire_time" class="form-control" id="usertime"/>
+		                            </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品说明</label>
+                                <div class="col-sm-4">
+                                	<textarea name="remark" rows="" cols="" class="form-control">
+                                		
+                                	</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input class="btn btn-primary" type="submit" value="提交">
+                                    <input class="btn btn-white" type="reset" value="取消">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/datapicker/bootstrap-datepicker.js"></script>
+    <script src="__PLUGINS_PATH__/iCheck/icheck.min.js"></script>
+    <script type="text/javascript">
+    	var UPLOAD_URL = "{:U('PointsTeam/uploadImg')}";
+    </script>
+    <script type="text/javascript" src="__PLUGINS_PATH__/webuploader/webuploader.js"></script>
+	<script type="text/javascript" src="__PLUGINS_PATH__/webuploader/upload.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.config.js"></script>
+    <script>
+        $(document).ready(function(){
+        	$("#datepicker").datepicker();
+        	$("#usertime").datepicker();
+        });
+    </script>
+</body>
+
+</html>

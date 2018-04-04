@@ -1,0 +1,30 @@
+<include file="Common:header" />
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-5">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;"></a>
+        </div>
+        <div class="am-u-sm-7 am-center">
+            <span class="am-text-lg am-margin-left-xxl">推广赚钱</span>
+        </div>
+    </div> 
+</header>
+
+<div class="am-container am-text-center am-padding-vertical-sm">
+    <span class="am-text-sm">一次邀请，永久收益！</span>
+</div> 
+
+<div class="am-g am-padding-lg" style="width:90%;">
+    <div class="am-container am-text-center">    
+        <img src="http://qr.topscan.com/api.php?text=http://fanli.ree9.com/user/shareQrcode?uid={$uid}" style="width:150px">
+    </div>
+    <div class="am-container am-text-center am-margin-vertical-xl">        
+         <button class="am-btn am-btn-default am-padding-horizontal-xl am-radius am-btn-danger" data-am-modal="{target: '#promoteMakemonery-alert'}">立刻邀请好友</button>
+          <div class="am-modal am-modal-alert" tabindex="-1" id="promoteMakemonery-alert">
+            <img src="__IMAGE_PATH__/share.png" class="am-img-preponsive" style="position: absolute;right: 20px;">
+          </div>
+    </div>
+</div>
+
+<include file="Common:foot" />

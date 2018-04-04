@@ -1,0 +1,53 @@
+<include file="Common:popup_header" />
+<style type="text/css">
+    body, .box{
+        margin: 20px;
+        overflow: visible;
+    }
+    .massage-error{
+        color:red;
+        font-size: 16px;
+        text-align: center;
+    }
+    .massage-success{
+        color: #40a35c;
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
+<p class="massage-success"></p>
+<p class="massage-error"></p>
+<if condition="$error neq ''">
+    <p class="error">{$error}</p>
+    <else />
+<div class="box">
+    <h2>发送短信</h2>
+    <form name="sendPhoneForm" action="{:U('User/smsSend')}" method="post">
+        <li><span class="label">发送号码</span>{$mobile}</li>
+        <li><textarea cols="30" rows="8"style="margin-left: 50px;" name="content"></textarea></li>
+        <li><input class="class-btn" style="margin-left: 50px;" type="submit" value="发送"></li>
+        <input type="hidden" name="mobile" value="{$mobile}">
+    </form>
+</div>
+</if>
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $(':submit').click(function(){
+            $.post("{:U('User/smsSend')}",$('form').serialize(),function(data){
+                if(data.status == 1){
+                    setTimeout(success_after,3000);
+                    $('.massage-success').text(data.success);
+                }else{
+                    $('.massage-error').text(data.error);
+                }
+            });
+            return false;
+        });
+        function success_after(){
+            window.parent.jQuery.fancybox.close();
+        }
+    });
+
+</script>

@@ -1,0 +1,63 @@
+<include file="Common:active_header" />
+<!--<link href="__CSS_PATH__/active_double11.css?v={:C('CSS_VER')}" rel="stylesheet"/>-->
+<link href="__CSS_PATH__/greenTheme.css?v={:C('CSS_VER')}" rel="stylesheet"/>
+<div class="banner">
+    <img src="__IMAGE_PATH__/active/2016spring/PCbanner.jpg">
+</div>
+
+<if condition="!empty($data)">
+    <center>
+        <volist name='data' id='d_vo'>
+            <div class="mode" id="jpfx_{$d_vo.id}">
+                <span class="mode-title">{$d_vo.name}</span>
+                <div class="pro-list">
+                    <volist name="d_vo['list']" id='vo'>
+                        <li>
+                            <a href="/team-{$vo.id}.html">
+                                <img src="__IMAGE_PATH__/active/christmas/2016tehui.png" class="pro-ico">
+                                <img src="{$vo.image}"  />
+                                <span class="pro-title">{$vo.product}</span>
+                                <span class="pro-remarks">{$vo.title}</span>
+                                <span class="pro-price">
+                                    <label class="price-now">&#165;{$vo.team_price}</label>
+                                    <label class="price-befor">门店价:{$vo.market_price}元</label>
+                                    <label class="price-sale">已售 {$vo.now_number}</label>
+                                </span>
+                            </a>
+                        </li>
+                    </volist>
+                </div>
+            </div>
+        </volist>
+		
+        <div id="nav">
+            <span class="nav-tit">专题分类</span>
+            <if condition="!empty($data)">
+                <volist name='data' id='d_vo'>
+                    <li><a href="#jpfx_{$d_vo.id}">{$d_vo.name}</a></li>
+                </volist>
+            </if>
+
+            <li><a href="javascript:;"><img class="backTopBtn" src="__IMAGE_PATH__/active/backTop.png"></a></li>
+        </div>
+    </center>
+    <else/>
+    <center>
+        <div class="txt">
+            <span>距离活动开始:</span>
+            <div id="counter"></div>
+            <div class="desc">
+                <div>天</div>
+                <div>时</div>
+                <div>分</div>
+                <div>秒</div>
+            </div>
+        </div>
+    </center>
+    <script>
+        active_time_Countdown('{$activities_now_time}', '{$activities_begin_time}', function() {
+               window.location.reload();
+        });
+    </script>
+</if>
+<include file="Common:footer" />

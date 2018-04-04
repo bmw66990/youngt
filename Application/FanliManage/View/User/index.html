@@ -1,0 +1,257 @@
+<?php    
+    setcookie('uid',$uid,time()+3600);
+?>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  <title>个人中心</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="__CSS_PATH__/bootstrap.css">
+  <link rel="stylesheet" href="__CSS_PATH__/personalPage.css"/>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+</head>
+<body>
+<!--头部-->
+  <!-- <div class="header-top"></div> -->
+  <div class="personal-info"  style="background:url({$data['my_info']['headimgurl']});background-size: cover;">
+    <div class="mask-bg">
+      <div class="personal-info-img">
+        <img src="__IMAGE_PATH__/logo.png" class="logo-img">
+        <img src="__IMAGE_PATH__/icon-tel.png" class="tel-img">
+        <span class="tel-number"><strong>4000-998-433</strong></span>
+      </div>  
+      <div class="personal-info-photo"><img src="{$data['my_info']['headimgurl']}" class="img-circle"></div>
+      <div class="h4 text-center personal-info-title">{$data['my_info']['nickname']}</div>
+      <div class="personal-switch">      
+        <div class="bind-num h5 text-center">
+        <?php if($data['my_info']['mobile']){
+              echo  $data['my_info']['mobile'];
+         }else{?>
+         <a href="bindPhone.html"><span class="bind-phone-num">绑定手机号</span></a>
+        <?php }?>
+        </div>
+        <div class="my-maidanbao personal-id h5 text-center"><span class="my-order">{$data['my_info']['cardid']}</span></div>
+      </div>
+    </div>
+  </div>
+<!-- 中间 -->
+
+<!-- 中间 -->
+<div class="middle">
+    <ul class="personal-account">
+        <li class="account-incon"><img src="__IMAGE_PATH__/img_sm11.png" alt=""></li>
+        <li class="account-balance"><strong>账户余额</strong></strong>
+        <li class="balance-count"><strong>￥{$payment_money}</strong></li>        
+        <li class="draw-out">
+            <form id="business-information-form" method='get' action="__URL__/withdrawalPage" >
+                <input  type="hidden" name="pay" value="{$payment_money}"/>
+                <button class="draw-out-btn">提 现</button>          
+            </form>
+        </li>
+    </ul>
+ 
+    <!-- 内容切换 -->
+    <div class="content-switch">
+        <ul class="content-info">
+            <li class="make-monery">
+                <i class="make-monery-incon"><img src="__IMAGE_PATH__/img_sm12.png" class="img-responsive"></i>
+                <span>推广赚钱</span>
+                <div class="arrow-up1"></div>
+            </li>
+            <li class="my-comment">
+                <b class="comment-count">{$data['usercount']}</b>
+                <span>我的粉丝</span>
+                <div class="arrow-up2"></div>
+            </li>
+            <li class="rebate-order">
+                <b class="rebate-count">{$data['order_count']}</b>
+                <span>返利订单</span>
+                <div class="arrow-up3"></div>
+            </li>
+            <li class="property-records">
+                <i class="property-incon"><img src="__IMAGE_PATH__/img_sm13.png"></i>
+                <span>财务记录</span>
+                <div class="arrow-up4"></div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 推广赚钱 -->
+    <div class="share-make-monery">
+        <div class="share-make-monery-btn">
+            <button class="share-btn h4">分享赚钱</button>
+        </div>
+        <div class="share-img">
+            <img src="http://qr.topscan.com/api.php?text=http://fanli.ree9.com/user/shareQrcode?uid={$uid}" class="img-responsive shareImg" style="width:143px;height:136px">
+        </div>
+    </div>
+
+  <!-- 我推荐的 -->
+    <div class="my-comment-content">
+        <ul class="user-leve">
+            <li class="user-leve1 h4 active">直接<i class="user-leve1-line"></i></li>
+            <li class="user-leve2 h4">间接<i class="user-leve2-line"></i></li>
+        </ul>
+
+        <!--一级用户 -->
+        <table class="table table-striped user-info1">
+            <colgroup>
+                <col width="">
+                <col width="20%">
+                <col width="30%">
+                <col width="30%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>序号<i></i></th>
+                    <th>卡号<i></i></th>
+                    <th>微信名称<i></i></th> 
+                    <th>时间</th>
+                </tr>
+            </thead>
+            <tbody>
+            <volist  name="user_first" id="vo">
+                <tr>
+                    <td>{$vo['id']}</td>
+                    <td>{$vo['cardid']}</td>
+                    <td>{$vo['nickname']}</td>
+                    <td>
+                        <span>{$vo['subscribe_time']|date='Y-m-d h:i', ###}
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+
+        <!--二级用户 -->
+        <table class="table table-striped user-info2">
+            <colgroup>
+                <col width="">
+                <col width="20%">
+                <col width="30%">
+                <col width="30%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>序号<i></i></th>
+                    <th>卡号<i></i></th>
+                    <th>微信名称<i></i></th> 
+                    <th>时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist  name="user_second" id="vo">
+                    <tr>
+                        <td>{$vo['id']}</td>
+                        <td>{$vo['cardid']}</td>
+                        <td>{$vo['nickname']}</td>
+                        <td>
+                            <span>{$vo['subscribe_time']|date='Y-m-d h:i', ###}
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 返利订单 -->
+    <div class="rebate-order-content">
+    <table class="table table-striped">
+        <colgroup>
+            <!-- '<col width="">' -->
+            <col width="33%">
+            <col width="33%">
+            <col width="33%">
+        </colgroup>
+        <thead>
+        <tr>
+            <!-- <th>序号<i></i></th> -->
+            <th>用户<i></i></th>
+            <th>返利金额<i></i></th> 
+            <th>时间</th>
+        </tr>
+        </thead>
+        <tbody>
+            <volist  name="order" id="vo">
+            <tr>
+                <!-- <td>{$vo['id']}</td> -->
+                <td>{$vo['cardid']}</td>
+                <td>￥{$vo['fan_money']}</td>
+                <td> 
+                  <span>{$vo['create_time']|date='Y-m-d h:i', ###}</span>
+                </td>
+            </tr>
+            </volist>
+        </tbody>
+    </table>
+    </div>
+
+  <!--财务记录  -->
+    <div class="property-records-content">
+        <table class="table table-striped">
+            <colgroup>
+                <col style="width: 41%"/>
+                <col style="width: 14%"/>
+                <col style="width: 40%"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>时间<i></i></th>
+                    <th>金额<i></i></th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist  name="record" id="vo">
+                <tr>
+                    <td>{$vo['create_time']|date='Y-m-d h:i', ###}</td>
+                    <td>￥{$vo['fan_money']}</td>
+                    <td>用户购物返利</td>            
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+    </div>
+
+
+<!-- 底部导航 -->
+<div class="footer">
+    <ul class="navbar navbar-default navbar-fixed-bottom">
+        <li class="personal-center">
+            <a href="index.html" class="personal-center-ctrl">     
+                <i class="personal-icon">
+                    <img src="__IMAGE_PATH__/img_sm06.png" alt="" class="personal-icon-change1">
+                    <img src="__IMAGE_PATH__/img_sm04.png" alt="" class="personal-icon-change2">
+                </i>
+                <span class="personal-center-txt">个人中心</span>
+            </a>
+        </li>
+        <li class="productor-commend">
+            <a href="bus_recommend.html" class="productor-commend-ctrl">
+                <i class="productor-icon">
+                    <img src="__IMAGE_PATH__/img_sm08.png" alt="" class="productor-icon-change1">
+                    <img src="__IMAGE_PATH__/img_sm02.png" alt="" class="productor-icon-change2">
+                </i>
+                <span class="productor-commend-txt">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- <script src="js/jquery-1.11.3.min.js"></script> -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script type="text/javascript" src="__JS_PATH__/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="__JS_PATH__/bootstrap.js"></script>
+<script type="text/javascript" src="__JS_PATH__/maidanbao.js"></script>
+</body>
+</html>

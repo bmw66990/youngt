@@ -1,0 +1,49 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Encyclopedias:menu" />
+    <div class="content">
+        <div class="con-title">新闻公告<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <if condition="$res = auth_check_access(array('Encyclopedias/newsNoticeAdd'))">
+                <div class="con-s-title tx-teal"><label><a href="{:U('Encyclopedias/newsNoticeAdd')}">新建新闻公告</a></label></div>
+            </if>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w60">ID</th>
+                        <th class="w300">标题</th>
+                        <th class="w200">发布类型</th>
+                        <th class="w150">发布城市</th>
+                        <th class="w120">日期</th>
+                        <th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr>
+                            <td class="w60"><label>{$vo.news_id}</label></td>
+                            <td  class="w300"><label class="td-title"><a href="{:C('YOUNGT_URL')}/Help/news/id/{$vo['news_id']}" target="_blank">{$vo.news_title}</a></label>
+                            </td>
+                            <td class="w200 f-12"><label <if condition="$vo.news_type neq '1'"> class="tx-teal" <else/> class="tx-red" </if> >{$vo.news_type_name}</label></td>
+                            <td class="w150 f-12"><label <if condition="$vo.news_type neq '1'"> class="tx-teal" <else/> class="tx-red" </if> >{$vo.news_city_name}</label></td>
+                            <td class="w120 f-12"><label>{$vo.news_begin_time|date="Y-m-d",###}</label></td>
+                            <td class="w120 f-12 man">
+                        <if condition="$res = auth_check_access(array('Encyclopedias/newsNoticeEdit'))">
+                            <label class="bc-teal"><a href="{:U('Encyclopedias/newsNoticeEdit',array('news_id'=>$vo['news_id']))}">编辑</a></label>
+                        </if>
+                        <if condition="$res = auth_check_access(array('Encyclopedias/newsNoticeDelete'))">
+                            <label  class="bc-teal"><a href="{:U('Encyclopedias/newsNoticeDelete',array('news_id'=>$vo['news_id']))}" class='notice-delete'confirm_tip='确定删除该新闻？'>删除</a></label>
+                        </if>    
+                        </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <include file="Encyclopedias:page" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/encyclopedias.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

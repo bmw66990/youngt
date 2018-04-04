@@ -1,0 +1,81 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/login.css" type="text/css" rel="stylesheet" />
+<include file="Common:nav" />
+<!--内容部分-->
+<section><div id='section'>
+    <div id="bd">
+        <div class="regbox">
+            <empty name="error">
+                <div id="message" class="alert alert-danger alert-dismissable" style="display:none;"><!--错误提示:程序添加后删除 此行style="display:none;"-->
+                    {$error}
+                </div>
+                <else />
+                <div id="message" class="alert alert-danger alert-dismissable" style="display:none;"><!--错误提示:程序添加后删除 此行style="display:none;"-->
+                </div>
+            </empty>
+            <div class="head-section">
+                <ul class="ml10">
+                    <li class="current">
+                        <a href="#" class="email-trigger ">
+                            <i></i>
+                            <span></span>
+                            手机注册
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a class="mobile-trigger" href="#">
+                            <i></i>
+                            <span></span>
+                            手机注册
+                        </a>
+                    </li> -->
+                </ul>
+				<span class="login-guide">
+					已有青团账号?
+					<b><a href="__URL__/login">登录</a></b>
+				</span>
+            </div>
+            <!--表单开始-->
+            <form id="reg-form" class="signup-form mb20 ajax" method="post" action="{:U('Public/doRegister')}">
+
+                <!--邮箱注册开始-->
+                <div class="field-group-1">
+                    <label for="mobile">手机</label >
+                    <input class="f-text" type="text" id='mobile' value="" name="mobile" title="请正确填写手机号码，手机号码作为接收券号" />
+                    <span id="mobile-tip" class="tip"></span>
+                </div>
+                <div class="field-group-1 captcha">
+                    <label for="verify">验证码</label>
+                    <input id="verify" class="f-text vcode" type="text" value="" name="verify"  style="width:68px"  title="请输入图形验证码" />
+                    <img src="{:U('Public/verify')}" width="165" height="40" id="verifyImg" onclick="fleshVerify()" style="margin-left: 5px;"><br/>
+                </div>
+                <div class="field-group-1 captcha">
+                    <label for="vcode">手机动态码</label>
+                    <input class="f-text" type="text" id='code' value=""  style="width:68px" name="code" title="请输入手机动态码" />
+                    <button class="btn-hot" style="margin-left:5px; font-size:12px;line-height:2" onClick="getCodes($(this));" type="button">免费获取手机动态码</button>
+                    <span id="vcode-tip" class="tip"></span>
+                </div>
+                <div class="field-group-1">
+                    <label for="password">密码</label>
+                    <input class="f-text" type="password" value="" id='password' name="password" title="密码必须6-20位字符" />
+                    <span id="password-tip" class="tip"></span>
+                </div>
+                <div class="field-group-1">
+                    <label for="repassword">确认密码</label>
+                    <input class="f-text" type="password" value="" id='repassword' name="repassword" title="重复上面输入的密码" />
+                    <span id="repassword-tip" class="tip"></span>
+                </div>
+                <div class="field-group-1 ml85">
+                    <input type="hidden" id="ajax-check" name="check" value="1" />
+                    <input type="submit" id="regbtn" class="btn-hot" value="提交注册" />
+                    <span id="submit-tip" class="tip"></span>
+                </div>
+                <!--邮箱注册结束-->
+            </form>
+            <!--表单结束-->
+        </div>
+    </div>
+</div></section>
+<!--内容部分结束-->
+<include file="Common:footer" />
+<script type="application/javascript" src="__JS_PATH__/register.js?v={:C('JS_VER')}"></script>

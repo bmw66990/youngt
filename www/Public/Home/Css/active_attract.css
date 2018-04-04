@@ -1,0 +1,29 @@
+/*招商页面用css*/
+.backTx_ad{background: url(../Image/active/attract/back.png) repeat;height:90px;line-height: 2.5em;font-size:2.6em ;color:#fff}
+
+.join-condthions{width: 950px;margin: 10px;}
+.join-condthions li{background: #fff;width: 420px;height:80px;display:block;overflow: hidden;padding: 10px;margin-bottom:20px;border-radius:70px ;float: left;}
+.join-condthions li:nth-child(2n+1){margin-right: 60px;}
+.join-condthions li i{float:left;font-style: normal;display:inline-block;width: 91px;height: 82px;font-size:35px;line-height:82px;text-align: center;background: url(../Image/active/attract/back1.png) no-repeat;color:#0d9da6;font-weight: bold;}
+.join-condthions li span{width: 310px;height:65px;margin:auto 0;display:inline-block;color:#626262;line-height: 1.4em; margin-left: 10px;font-size: .9em;}
+.process{background: url(../Image/active/attract/processback.png) no-repeat center center;height: 750px;margin-bottom: 20px;}
+	.process>div>div:first-child{width: 430px;height:90px;line-height:22px;color:#fff;margin-top:0px;padding:10px;}
+	.process>div>div span{font-weight:bold;font-size: 1.1em;display: block;}
+	.process>div>div[class='fl']{background: url(../Image/active/attract/process_back_left.png) no-repeat;padding-right: 20px;}
+	.process>div>div[class='fr']{background: url(../Image/active/attract/process_back.png) no-repeat;padding-left: 20px;}
+.tables{width: 99.9999%;border:1px dashed #ccc;}
+.tables td{border: 1px dashed #ccc;border-top:0 ;border-right:0 ;text-align: center;background: url(../Image/active/attract/1.png) no-repeat center center;height: 170px;overflow: hidden;display: block;float: left;width: 240px;}
+.tables td span{display: block;margin: 60px auto 20px auto;}
+.tables td span:last-child{margin:20px auto;}
+#srcollDiv{height:310px;overflow: hidden;padding: 20px auto;}
+/*私有背景*/
+.bc-itline{background: url(../Image/active/attract/back2.png) repeat;}
+/*banner*/
+#full-screen-slider { width:100%; height:396px; float:left; position:relative;padding-bottom: 50px;}
+#slides { display:block; width:100%; height:396px; list-style:none; padding:0; margin:0; position:relative}
+#slides li { display:block; width:100%; height:100%; list-style:none; padding:0; margin:0; position:absolute}
+#slides li a { display:block; width:100%; height:100%; text-indent:-9999px}
+#pagination { width:50px;display:block; list-style:none; position:absolute;text-align: center; top:400px; z-index:9900;  padding:5px 15px 5px 0; margin:0 auto;left: 0;right: 0;}
+#pagination li { display:block; list-style:none; width:10px; height:10px; float:left; margin-left:15px; border-radius:5px; background: #ccc; }
+#pagination li a { display:block; width:100%; height:100%; padding:0; margin:0;  text-indent:-9999px;}
+#pagination li.current { background:#0092CE}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>现金支付详情弹出框</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+    </head>
+    <style>
+        a{
+            color: #399;
+           text-decoration: none;
+        }
+        </style>
+    <body>
+        <div class="box">
+            <div class="details">
+                <li><label>用户信息</label>{$order.user_username} / {$order.user_email}</li>
+                <li><label>项目名称</label>《{$order.team_product}》×{$order.order_quantity}个,    {$order.order_state_name}</li>
+                <li><label>交易单号</label>{$order.order_pay_id}</li>
+                <li><label>查询</label>
+                <if condition="$res = auth_check_access(array('Order/orderQuery'))">
+                    <a  href="{:U('Order/orderQuery',array('id'=>$order['order_id']))}" target="_blank">支付情况查询{$order.order_id}</a>
+                </if>
+                </li>
+                <li>
+                    <label>付款明细</label>
+                    余额付款{$order.order_credit}
+                <if condition="$order.order_service_name neq ''">
+                    ,{$order.order_service_name}付款{$order.order_money}
+                </if>
+                </li>
+                <li><label>订购时间</label>{$order.order_create_time|date="Y-m-d H:i",###}</li>
+                <li><label>订单来源</label>{$order.order_yuming_name}</li>
+                <li><label>联系手机</label>{$order.order_mobile}</li>
+                <li>
+                    <label>订单状态</label>
+                    <div id='coupon-list-con' style='  max-width: 210px;float: right;margin-right: 225px;'>
+                        <volist  name="order.coupon_list" id="vo">
+                            <span>{$vo.id}  {$vo.consume_name} </span><br/>
+                        </volist>
+                    </div>
+                </li>
+                <li><label>订单备注</label>
+                    <textarea readonly="readonly" disabled="disabled"  style='min-width:390px;max-width:390px;min-height:100px;max-height:100px'>
+                            {$order.order_adminremark|default=''}
+                    </textarea>
+                </li>
+            </div>
+        </div>
+    </body>
+</html>

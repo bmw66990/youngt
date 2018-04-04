@@ -1,0 +1,22 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Index/index'))">
+            <li><a href="{:U('Index/index')}">主页</a><label>&nbsp;</label></li>
+        </if>
+        <!-- <li><a href="#">工作台</a><label>&nbsp;</label></li>
+         <li ><a href="#">日历</a><label>&nbsp;</label></li>-->
+        <if condition="$res = auth_check_access(array('Index/feedback'))">
+            <li ><a href="{:U('Index/feedback')}">市场反馈</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Index/comment'))">
+            <li ><a href="{:U('Index/comment')}">用户点评</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Index/daySign'))">
+            <li><a href="{:U('Index/daySign')}">签到</a><label>&nbsp;</label></li>
+        </if>
+
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

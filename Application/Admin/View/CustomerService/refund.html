@@ -1,0 +1,145 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="CustomerService:menu" />
+    <div class="content">
+        <div class="con-title">退款订单<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('CustomerService/refund')}" method="get">
+                <li><label>用户/订单编号</label><input type="text" class="w120" name="username" value="{$username}" /><label>,</label></li>
+                <li><label>支付类型</label>
+                    <select name='order_service'>
+                        <option value="">--请选择支付类型--</option>
+                        <volist  name="service_type" id="st">
+                            <option value="{$key}"  <if condition="$key == $order_service"> selected </if>>{$st}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><label>退款类型</label>
+                    <select name='order_tn'>
+                        <option value="">--请选择退款类型--</option>
+                        <volist  name="order_tn_type" id="ott">
+                            <option value="{$key}"  <if condition="$key == $order_tn"> selected </if>>{$ott}</option>
+                        </volist>
+                    </select>
+                </li>
+                 <li><label>订单类型</label>
+                    <select name='team_type'>
+                        <option value="" <if condition="!$team_type || $team_type eq ''"> selected </if> >非邮购订单</option>
+                        <option value="goods" <if condition="$team_type eq 'goods'"> selected </if>>邮购订单</option>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+                 
+                <if condition="$order_service eq 'alipay|aliwap|aliapp|pcalipay|wapalipay'"> 
+                    <if condition="$res = auth_check_access(array('CustomerService/alipayBatchRefund'))">
+                        <li>
+                            <label class="bc-teal">
+                                <a id="alipay_batch_refund_do" confirm_tip="确认给选中的订单退款吗？(注：此批量退款只支持支付宝支付的订单。)" target='_blank' href="{:U('CustomerService/alipayBatchRefund')}">支付宝批量退款</a>
+                            </label>
+                        </li>
+                    </if>
+                    <elseif condition="$order_tn eq 'retreat_balance'"/>
+                    <if condition="$res = auth_check_access(array('CustomerService/creditBatchRefund'))">
+                        <li>
+                            <label class="bc-teal">
+                                <a id="credit_batch_refund_do" confirm_tip="确认给选中的订单退款吗？(注：此批量退款退至青团余额中。)" href="{:U('CustomerService/creditBatchRefund')}">余额批量退款</a>
+                            </label>
+                        </li>
+                    </if>
+                 </if>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                         <if condition="$order_service eq 'alipay|aliwap|aliapp|pcalipay|wapalipay' || $order_tn eq 'retreat_balance'"> 
+                             <th class="w50"><input type="checkbox" class="checkall" ></th>
+                         </if>
+                        <th class="w100">ID</th>
+                        <th class="w300">项目名称</th>
+                        <th class="w150">用户名/邮箱</th>
+                        <th class="w60">数量</th>
+                        <th class="w60">总价</th>
+                        <th class="w70">递送</th>
+                        <th class="w120">申请日期</th>
+                        <th class="w120">截至日期</th>
+                        <th class="w100"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist  name="list" id="vo">
+                        <tr class='list'>
+                         <if condition="$order_service eq 'alipay|aliwap|aliapp|pcalipay|wapalipay' || $order_tn eq 'retreat_balance'"> 
+                            <td class="w50"><input type="checkbox" class="checkone" name="id[]" value="{$vo.order_id}"></td>
+                         </if>
+                            <td class="w100"><label class="tx-red">{$vo.order_id}</label></td>
+                            <td  class="w300">
+                                <label class="tx-teal">{$vo.team_id}</label>
+                                <label class="td-title">
+                                    <a  title="查看订单" target="_blank"  href="{:C('YOUNGT_URL')}/team-{$vo.team_id}.html" >
+                                        {$vo.team_product}
+                                    </a>
+                                </label><br/>
+                                <img src="__IMAGE_PATH__/ico/td_add.png"/> {$vo.team_city_name}
+                            </td>
+                            <td class="w150 lh-26">
+                        <if condition="$vo.user_username neq ''">
+                            <label>{$vo.user_username}</label><br/>
+                        </if>
+                        <if condition="$vo.user_email neq ''">
+                            <label>{$vo.user_email}</label><br/>
+                        </if>
+                        <lable class="f-12 tx-teal">
+                            <if condition="$res = auth_check_access(array('User/smsUser'))">
+                                <if condition="$vo.is_send_sms eq '1'">
+                                    <a href="javascript:popup('{:U('User/smsUser',array('mobile'=>$vo['user_mobile']))}',500,400);">[短信]</a>|
+                                </if>
+                            </if>
+                            <if condition="$res = auth_check_access(array('User/getUserFlow'))">
+                                <a href="javascript:popup('{:U('User/getUserFlow',array('user_id'=>$vo['user_id']))}',800,520);">[流水]</a>
+                            </if>
+                            <if condition="$res = auth_check_access(array('User/getUserInfo'))">
+                                <a  href="javascript:popup('{:U('User/getUserInfo',array('id'=>$vo['user_id']))}',400,550);">[充值]</a>
+                            </if>
+                        </lable><br/>
+                        <label>{$vo.order_service_name}</label>
+                        </td>
+                        <td class="w60"><label>{$vo.order_quantity}</label></td>
+                        <td class="w60"><label class="tx-teal">&#165;{$vo.order_origin}</label></td>
+                        <td class="w70"><label class="f-12">{$vo.team_delivery_name}</label></td>
+                        <td class="w120"><label>{$vo.order_retime|date="Y-m-d",###}</label></td>
+                        <td class="w120"><label>{$vo.expire_time|date="Y-m-d",###}</label></td>
+                        <td class="w100" style='  line-height: 25px;'>
+                        <if condition="$res = auth_check_access(array('CustomerService/viewRefund'))">
+                            <label class="bc-teal">
+                                <a  href="javascript:popup('{:U('CustomerService/viewRefund',array('order_id'=>$vo['order_id']))}',500,650);">查看并处理</a>
+                            </label>
+                        </if>
+                        <if condition="$res = auth_check_access(array('CustomerService/viewThirdPartyRefund'))">
+                            <if condition="$vo.is_show_third_party_refund neq '0'">
+                                <if condition="$vo.third_party_refund_url eq ''">
+                                    <label class="bc-teal">
+                                        <a  href="javascript:popup('{:U('CustomerService/viewThirdPartyRefund',array('order_id'=>$vo['order_id']))}',500,720);">第三方退款</a>
+                                    </label>
+                                    <else/>
+                                    <label class="bc-teal">
+                                        <a  href="{$vo.third_party_refund_url}" target='_blank'>第三方退款</a>
+                                    </label>
+                                </if>
+                            </if>
+                        </if>
+                        </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        <div class="cuurt">共{$count|default='0'}条</div>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+
+<script type="text/javascript" src="__JS_PATH__/customerService.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

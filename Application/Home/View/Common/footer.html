@@ -1,0 +1,216 @@
+<!--底部公共部分-->
+<footer>
+    <div id="footer">
+        <div class="footer-text">
+            <div class="foot-menu">
+                <dt>用户帮助</dt>
+                <dd><a href="__APP__/Help/otherLinks/tab/3">隐私条款</a></dd>
+                <dd><a href="__APP__/Help/otherLinks/tab/9">常见问题</a></dd>
+                <dd><a href="__APP__/Help/otherLinks/tab/10">团购挂件</a></dd>
+            </div>
+            <div class="foot-menu">
+                <dt>获取更新</dt>
+                <dd><a href="__APP__/Help/otherLinks/tab/1">媒体报道</a></dd>
+                <dd><a href="__APP__/Help/otherLinks/tab/4">消费者保障计划</a></dd>
+                <dd><a href="__APP__/Help/otherLinks/tab/2">免责声明</a></dd>
+            </div>
+            <div class="foot-menu">
+                <dt>合作联系</dt>
+                <dd><a href="__APP__/Help/otherLinks/tab/7">业务合作</a></dd>
+                <dd><a href="__APP__/Help/link">友情链接</a></dd>
+                <dd><a href="__APP__/Merchant">商户后台</a></dd>
+            </div>
+            <div class="foot-menu">
+                <dt>公司信息</dt>
+                <dd><a href="__APP__/Help/otherLinks/tab/0">关于我们</a></dd>
+                <dd><a href="__APP__/Help/otherLinks/tab/5">工作机会</a></dd>
+                <dd><a href="__APP__/Help/otherLinks/tab/6">联系我们</a></dd>
+            </div>
+            <div class="foot-menu r-dashed">
+                <img src="__IMAGE_PATH__/logo-footer.gif"/>
+            </div>
+        </div>
+        <div class="copy">
+            &#xA9; 2015 青团网（Youngt.com）<a href="#">陕ICP备12003782号-2 增值电信业务经营许可证编号:陕 B2-20150005 </a><a href="#">百度统计</a>
+        </div>
+        <div class="web-police">
+            <a href="http://xian.youngt.com/Help/jingyong" target="_blank"><img src="__IMAGE_PATH__/web-police.png"/></a>
+        </div>
+    </div>
+</footer>
+<!--底部公共部分结束-->
+<!--js 部分 只可放在底部-->
+<!-- 隐藏
+<script type="text/javascript" src="http://chatserver.comm100.cn/js/LiveChat.js?siteId=80038468&planId=2106&partnerId=-1"></script>
+<div onclick="comm100_Chat();" id="comm100_FloatImageButton" style=''>
+    <img style="cursor:pointer;margin-top:-6px;" src="http://pic.youngt.com/img/severs.gif" id="comm100_ButtonImage" original="http://chatserver.comm100.cn/BBS.aspx?siteId=80038468&planId=2106&partnerId=-1" />
+</div>
+
+<a title="返回顶部" class="returnTop"></a>
+-->
+<!--新客服系统开始-->
+<div class="toolbar">
+
+    <a href="http://kefu.rongkecloud.com/RKServiceClientWeb/index.html?ek=fa91161ab7229527cf52d1eb671cb5f7f607fbd3&bg=4&gd=260" target="_blank" class="toolbar-item toolbar-feedback"></a>
+    <a href="javascript:;" class="toolbar-item toolbar-app">
+        <span class="toolbar-layer"></span>
+    </a>
+    <a href="javascript:;" class="toolbar-item toolbar-weixin">
+        <span class="toolbar-layer"></span>
+    </a>
+    <a href="javascript:;" class="toolbar-item toolbar-top" id="backTop"></a>
+</div>
+<link href="__CSS_PATH__/kf/css/index.css?v={:C('CSS_VER')}" type="text/css" rel="stylesheet" />
+<!--script src="__CSS_PATH__/kf/js/require.js" data-main="js/main"></script-->
+<!--script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[a] = m[a] || function() {
+            (m[a].a = m[a].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+                s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = i;
+        s.parentNode.insertBefore(j, s)
+    })(window, document, 'script', '//eco-api.meiqia.com/dist/meiqia.js', '_MEIQIA');
+    _MEIQIA('entId', 4404);
+    // 隐藏自带样式
+    _MEIQIA('withoutBtn', true);
+
+    // 获取用户异步信息
+    $.get("{:U('Public/isLogin')}", function(data) {
+        var userinfo = {
+                name: '未登录', // 美洽默认字段
+                tel: '', // 美洽默认字段
+                comment: '', // 美洽默认字段
+                city: '' // 自定义字段
+        };
+        if (data.status == 1) {
+            ISLOGIN = 1;
+            $('.youngt-register').html("<a href='" + $base_url + "/Member/index'>Hi:" + data.username + "</a><span class='line-row'></span>");
+            $('.youngt-login').html("<a href='" + $base_url + "/Public/logout'>退出</a><span class='line-row'></span>");
+            // 在这里设置你的自定义数据
+            userinfo = {
+             name: data.username, // 美洽默认字段
+                tel: data.mobile, // 美洽默认字段
+                comment: '用户id:'+data.id, // 美洽默认字段
+                city: data.city // 自定义字段
+            };
+        } else {
+            ISLOGIN = 0;
+            $('.youngt-login').html("<a href='" + $base_url + "/Public/login'>登录</a><span class='line-row'></span>");
+            $('.youngt-register').html("<a href='" + $base_url + "/Public/register'>注册</a><span class='line-row'></span>");
+        }
+        // 在这里设置你的自定义数据
+            _MEIQIA('metadata',userinfo);
+    })
+</script-->
+<!--新客服系统结束-->
+<script type="text/javascript">
+
+    //二维码挂件和小火箭动态效果
+    function setWidget() {
+        if ($(window).height() < 550 || $(window).width() < 1245) {
+            $(".andriodWidget").hide();
+        } else {
+            $(".andriodWidget").show().css("left", ($(window).width() - 985) / 2 + 1000);
+        }
+        ;
+    }
+
+    // 活动弹出页面
+    function active_pop(href, is_show_overfull) {
+
+        // return false;
+
+        //全屏遮罩
+        var oDivBody = "<div id='overfull'></div><div id='overfullimg'><a href='" + href + "'><img src='__IMAGE_PATH__/active/12-25_01-01/inButton.png'></a><img src='__IMAGE_PATH__/active/11-11/close.png' class='close' id='closeBtn' title='close'></div>";
+        var cookit_key = 'overfull_show';
+        var cookit_val = $.cookie(cookit_key);
+        if (is_show_overfull === true && !cookit_val) {
+          //  $(document.body).append(oDivBody);
+            $.cookie(cookit_key, 100, {path: '/', expires: 1, domain: '{$Think.const.APP_DOMAIN}'});
+        }
+
+        var $fClick = function() {
+            $("#overfull").hide();
+            $("#overfullimg").hide();
+        };
+        $("#closeBtn").die().live('click', $fClick);
+        $("#overfull").die().live('click', $fClick);
+
+        // 修改招商加盟图片
+       // $('a#admanage-partner-a-conten').attr('href', href);
+        //$('a#admanage-partner-a-conten').find('img').attr('src', '__IMAGE_PATH__/active/2016spring/pcshouye.jpg');
+        return false;
+    }
+    function setReturnTop() {
+        var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+        $(".returnTop").css("left", ($(window).width() - 985) / 2 + 1000);
+        if (($(window).width() > 1100) && (scrollTop > $(window).height() / 4)) {
+            $(".returnTop").animate({opacity: "show", bottom: "10px"});
+        } else {
+            $(".returnTop").animate({opacity: "hide", bottom: "-100px"});
+        }
+        ;
+    }
+    ;
+    setWidget();
+    setReturnTop()
+    $(window).resize(function() {
+        setWidget();
+        setReturnTop();
+    });
+    $(window).scroll(function() {
+        setReturnTop();
+    });
+    $(".andriodWidget a").click(function() {
+        $(".andriodWidget").hide();
+    });
+    $(".returnTop").click(function() {
+        $("html, body").animate({scrollTop: "0"}, 1000);
+    });
+    $("#backTop").click(function() {
+        $("html, body").animate({scrollTop: "0"}, 1000);
+    });
+    $(".select").on("change", function() {
+        var o;
+        var opt = $(this).find('option');
+        opt.each(function(i) {
+            if (opt[i].selected == true) {
+                o = opt[i].innerHTML;
+            }
+        })
+        $(this).find('label').html(o);
+    }).trigger('change');
+
+
+
+    if (!window["_BFD"]) {
+        window["_BFD"] = {};
+    }
+    _BFD.client_id = "Cqingtuanwang";
+    var uid = '';
+    try {
+        if (_BFD.BFD_INFO.user_id) {
+            uid = _BFD.BFD_INFO.user_id;
+        }
+    } catch (e) {
+
+    }
+    _BFD.BFD_USER = {
+        "user_id": uid, //网站当前用户id，如果未登录就为0或空字符串      
+        "user_cookie": document.cookie //网站当前用户的cookie，不管是否登录都需要传      
+    };
+
+    _BFD.script = document.createElement("script");
+    _BFD.script.type = "text/javascript";
+    _BFD.script.async = true;
+    _BFD.script.charset = "utf-8";
+    _BFD.script.src = (('https:' == document.location.protocol ? 'https://ssl-static1' : 'http://static1') + '.bfdcdn.com/service/qingtuan/qingtuan.js');
+    document.getElementsByTagName("head")[0].appendChild(_BFD.script);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<div id="sidebar" class="f-fl mb10 f-pr" >
+    <style>
+        span.activities_lable{
+                font-size: 12px;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                background-color: red;
+                display: inline-block;
+                height: 20px;
+                line-height: 20px;
+                width: 35px;
+                text-align: center;
+        }
+        </style>
+    <div class="side-nav">
+        <dl class="f-pr" id="menu">
+            <if condition="$res = auth_check_access(array('Coupon/index'))">
+                <dd>                            
+                    <div class="f-pr Coupon">
+                        <a class="nav-link f-fs2" href="{:U('Coupon/index')}">券号验证</a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('Partner/index'))">
+                <dd>                            
+                    <div class="f-pr Partner">
+                        <a class="nav-link f-fs2" href="{:U('Partner/index')}">商户资料</a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('Coupon/couponDetail'))">
+                <dd>                            
+                    <div class="f-pr couponDetail">
+                        <a class="nav-link f-fs2" href="{:U('Coupon/couponDetail')}">青团券明细</a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('TeamCoupon/index'))">
+                <dd>                            
+                    <div class="f-pr Team">
+                        <a class="nav-link f-fs2" href="{:U('TeamCoupon/index')}">团单青团券列表</a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('Review/index'))">
+                <dd>                            
+                    <div class="f-pr Review">
+                        <a class="nav-link f-fs2" href="{:U('Review/index')}">用户评分</a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('Coupay/index'))">
+                <dd>                            
+                    <div class="f-pr Coupay">
+                        <a class="nav-link f-fs2" href="{:U('Coupay/index')}">消费明细</a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('Final/index'))">
+                <dd>                            
+                    <div class="f-pr Final">
+                        <a class="nav-link f-fs2" href="{:U('Final/index')}">申请结算</a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('Branch/index'))">
+                <if condition="$partners_info['is_branch'] eq 'Y'">
+                    <dd>                            
+                        <div class="f-pr Branch">
+                            <a class="nav-link f-fs2" href="{:U('Branch/index')}">分店明细</a>
+                        </div>
+                    </dd>
+                </if>
+            </if>
+           <!-- <if condition="$res = auth_check_access(array('DingZuo/index'))">
+                <if condition="$partners_info['is_dingzuo'] eq '1'">
+                    <dd>
+                        <div class="f-pr">
+                            <a class="nav-link f-fs2" href="{:U('DingZuo/index')}">订座订单</a>
+                        </div>
+                    </dd>
+                </if>
+            </if>-->
+            <if condition="$res = auth_check_access(array('DB/index'))">
+                <if condition="$partners_info['db_id'] gt 0">
+                    <dd>                            
+                        <div class="f-pr">
+                            <a class="nav-link f-fs2" href="{:U('DB/index')}">联系业务员</a>
+                        </div>
+                    </dd>
+                </if>
+            </if>
+            <if condition="$res = auth_check_access(array('TeamManage/index'))">
+                <dd>                            
+                    <div class="f-pr">
+                     
+                        <a class="nav-link f-fs2" href="{:U('TeamManage/index')}">
+                            <if condition="$partners_info['is_exist_activities'] eq 'Y'">
+                                 <span class="activities_lable">活动</span>
+                            </if>
+                            项目管理
+                        </a>
+                    </div>
+                </dd>
+            </if>
+            <if condition="$res = auth_check_access(array('User/accessManager'))">
+                <dd>                            
+                    <div class="f-pr">
+                        <a class="nav-link f-fs2" href="{:U('User/accessManager')}">账户管理</a>
+                    </div>
+                </dd>
+            </if>
+              <if condition="$res = auth_check_access(array('Final/mailGoodsIndex'))">
+                <if condition="$partners_info['is_goods'] eq '1'">
+                    <dd>                            
+                        <div class="f-pr Branch">
+                            <a class="nav-link f-fs2" href="{:U('Final/mailGoodsIndex')}">邮购申请结算</a>
+                        </div>
+                    </dd>
+                </if>
+            </if>
+            <if condition="$res = auth_check_access(array('Order/index'))">
+                <if condition="$partners_info['is_goods'] eq '1'">
+                    <dd>                            
+                        <div class="f-pr Branch">
+                            <a class="nav-link f-fs2" href="{:U('Order/index')}">邮购订单管理</a>
+                        </div>
+                    </dd>
+                </if>
+            </if>
+        </dl>
+    </div>
+</div>

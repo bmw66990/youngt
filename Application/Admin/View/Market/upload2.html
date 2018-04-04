@@ -1,0 +1,47 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/webuploader/upload2.js"></script>
+<div id="uploader2" class="uploader">
+    <empty name="image">
+        <div class="queueList">
+            <div class="dndArea">
+                <div id="filePicker3"></div>
+            </div>
+        </div>
+        <div class="statusBar" style="display:none;">
+            <div class="progress">
+                <span class="text">0%</span>
+                <span class="percentage"></span>
+            </div><div class="info"></div>
+            <div class="btns">
+                <div id="filePicker4"></div><div class="uploadBtn">开始上传</div>
+            </div>
+        </div>
+    <else />
+        <div class="queueList">
+            <div class="dndArea" style="display:none;">
+                <div id="filePicker3"></div>
+            </div>
+            <ul class="filelist">
+                <li><img src="{$image1}" /></li>
+                <a href="javascript:void(0)" id="delimage1" class="btn btn-success">删除</a>
+            </ul>
+        </div>
+        <div class="statusBar" style="display:none;">
+            <div class="progress">
+                <span class="text">0%</span>
+                <span class="percentage"></span>
+            </div><div class="info"></div>
+            <div class="btns">
+                <div id="filePicker4"></div><div class="uploadBtn">开始上传</div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function(){
+                $("#delimage1").click(function(){
+                	$(this).parents("#uploader2").find(".dndArea").show();
+                    $(this).parents('.filelist').remove();
+                    $("#uploadimage2").val('');
+                });
+            })
+        </script>
+    </empty>
+</div>

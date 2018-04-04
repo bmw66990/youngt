@@ -1,0 +1,104 @@
+<include file="Common:header" />
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+<!-- 头部 -->
+<header class="am-header" data-am-widget="header">
+    <div class="am-container">
+        <div class="am-u-sm-5">
+            <a href="javascript:" onclick="history.back(-1);" class="am-icon-angle-left am-text-xl am-fl" style="color:#333;">
+            </a>
+        </div>
+        <div class="am-u-sm-7 am-center">
+            <span class="am-text-lg am-margin-left-xxl">推荐商家</span>
+        </div>
+    </div> 
+</header>
+<!-- 主体 -->
+
+<!-- 商家列表 -->
+
+<div data-am-widget="list_news" class="am-list-news-default am-no-layout">    
+    <div class="am-list-news-bd am-radius">
+        <ul class="am-list">
+            <volist  name="data" id="vo">   
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                <div class="am-u-sm-4 am-list-thumb am-list-main">
+                    <div class="am-u-sm-12">
+                        <a href="{:U('Index/PartDetail', array('id' => $vo['id']))}">
+                            <img src="{$vo['img']}" style="min-height:90px;"/>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="am-u-sm-5 am-list-main">
+                    <div class="am-u-sm-12">        
+                        <h5 class="am-list-item-hd">
+                            <a href="{:U('Index/PartDetail', array('id' => $vo['id']))}">{$vo['title']}</a>
+                        </h5>
+                        <div class="am-list-item-text">
+                            <p>
+                                <i class="am-icon-paper-plane"></i>
+                                <span class="am-text-xs">{$vo['address']}</span>
+                            </p>
+                        </div>
+                        <div class="am-u-sm-12">   
+                            <span class="am-text-danger">
+                                <strong class="am-text-lg am-text-danger">返{$vo['dis']}%</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-u-sm-3 am-list-main">
+                    <span class="am-list-item-text am-text-right">300m</span>
+                    <sapn class="am-list-item-text am-text-right" style="margin-top:50px;">
+                    <i class="am-icon-fire am-text-danger"></i>人气2000</span>       
+                </div>
+            </li>
+            </volist>
+        
+        </ul>
+    </div>
+</div>
+
+<!-- 更多 -->
+<div class="am-list-news-ft am-cf">
+    <h3><a class="am-list-news-more" href="#" style="color:#333;">更多></a></h3>
+</div>
+  <!--底部 -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-no-layout" >
+    <ul class="am-navbar-nav am-cf am-avg-sm-4">
+        <li>
+            <a href="{:U('Index/index')}" style="color:#e60827">
+            <span class="am-icon-home"></span>
+            <span class="am-navbar-label">首页</span>
+            </a>
+        </li>
+     
+        <li>
+            <a href="###">
+                <span class="am-icon-compass"></span>
+                <span class="am-navbar-label">附近</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/index')}">
+                <span class="am-icon-user"></span>
+                <span class="am-navbar-label">个人中心</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('User/bus_recommend')}">
+                <span class="am-icon-bookmark"></span>
+                <span class="am-navbar-label">商家推荐</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="__JS_PATH__/jquery.min.js"></script>
+<script src="__JS_PATH__/amazeui.min.js"></script>
+</body>
+</html>

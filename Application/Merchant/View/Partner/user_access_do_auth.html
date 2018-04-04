@@ -1,0 +1,70 @@
+<include file="Common:header" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                 <include file="Common:message_tip" />
+                 <style>
+                     form#user-do-auth-form{
+                         min-height:300px;
+                     }
+        </style>
+                <div class="box">
+                    <form id="user-do-auth-form" class="form-horizontal" action="{:U('User/'.$operation_type)}" method="post">
+                        <div class='auth-group-list form-group'>
+                            <ul class="list-inline">
+                            <volist  name="auth_group_list" id="agl">
+                                <li class='auth-group-list-li'><input class='checked-auth-group-one' type="checkbox" name='user[group_id][]' value='{$agl.id}' <if condition="$agl.checked eq '1'"> checked='checked'</if> /><span class="label_">{$agl.title}</span></li>
+                            </volist>
+                            </ul>
+                        </div>
+                        <div class="form-group text-center">
+                            <input  type="hidden" name='operation_type' value="{$operation_type}">
+                            <input  type="hidden" name='user[id]' value="{$id}">
+                            <input  type="hidden" name='user[module_name]' value="{$module_name}">
+                             <if condition="$res = auth_check_access(array('User/'.$operation_type))">
+                                <input id="user-do-auth-btn" class="btn btn-info" type="button" value="确定">
+                             </if>
+                        </div>
+                    </form>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Common:footer" />
+<script>
+    $(function() {
+        
+        // 设置管理员权限
+        $(".main-content").on('click', '#user-do-auth-btn', function() {
+            var $this = $(this);
+            var $from = $this.parents('form#user-do-auth-form');
+            var href = $from.attr('action');
+            if ($this.hasClass('disabled')) {
+                return false;
+            }
+            var data = $from.serialize();
+            $this.addClass('disabled');
+             show_message_tip({success:'正在操作，请稍后...'});
+            $.post(href, data, function(res) {
+                $this.removeClass('disabled');
+                if (res.code && res.code != 0 && res.error) {
+                    show_message_tip(res);
+                    return false;
+                }
+              show_message_tip(res);
+               parent.window.setTimeout(function() {
+                layer.closeAll();
+                parent.window.location.reload();
+             }, 500);
+            }, 'json');
+            return false;
+        });
+       
+    });
+</script>

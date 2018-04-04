@@ -1,0 +1,121 @@
+<include file="Common:header"/>
+<!--点评列表-->
+<!--本页面用样式-->
+    <link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+             	<div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form role="form" class="form-inline" method="get" action="__ACTION__">
+                            <div class="form-group">
+                                <label for="carteid" class="sr-only">团单编号</label>
+                                <input type="text" name="team_id" value="{$displayWhere['team_id']}" placeholder="团单编号" class="form-control">
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="businessid" class="sr-only">商户编号</label>
+                                <input type="text" name="partner_id" value="{$displayWhere['partner_id']}" placeholder="商户编号" class="form-control">
+                            </div> -->
+                            <div class="form-group">
+                                <label for="businessname" class="sr-only">商户名称</label>
+                                <input type="text" name="title" value="{$displayWhere['title']}" placeholder="商户名称" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="content" class="sr-only">内容</label>
+                                <input type="text" name="content" value="{$displayWhere['content']}" placeholder="内容" class="form-control">
+                            </div>
+                            <div class="form-group">
+                            	<select class="form-control" name="comment_num">
+                            			<option value="">全部</option>
+				                        <option value="1" <if condition="$displayWhere['comment_num'] eq '1'" >selected </if>>很不满意</option>
+				                        <option value="2" <if condition="$displayWhere['comment_num'] eq '2'" >selected </if>>不满意</option>
+				                        <option value="3" <if condition="$displayWhere['comment_num'] eq '3'" >selected </if>>一般</option>
+				                        <option value="4" <if condition="$displayWhere['comment_num'] eq '4'" >selected </if>>满意</option>
+				                        <option value="5" <if condition="$displayWhere['comment_num'] eq '5'" >selected </if>>很满意</option>
+                                </select>
+                            </div>
+                            <input class="btn btn-primary" type="submit" value="筛选" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+                                <tr>
+                                    <th>团单编号</th>
+                                    <th>商户</th>
+                                    <th>用户名/手机号</th>
+                                    <th>内容</th>
+                                    <th>状态</th>
+                                    <th>日期</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<volist name="data" id="vo">
+                                <tr>
+                                    <td><i class="text-danger">{$vo['team_id']}</i>（{$teamList[$vo['team_id']]['product']}）</td>
+                                    <td>{$vo['title']}</td>
+                                    <td>{$userList[$vo['user_id']]['username']}/{$userList[$vo['user_id']]['mobile']}</td>
+                                    <td>{$vo['content']}</td>
+                                    <td>{$vo['comment_num']|comment_state=""}</td>
+                                    <td>{$vo['create_time']|date="Y-m-d",###}</td>
+                                    <td>
+                                    	<if condition="$vo['comment_display'] eq 'Y'">
+		                                    <if condition="$res = auth_check_access(array('Comment/commentDisplay'))">
+		                                        <button class="btn btn-warning layer-iframe" data-void="{$vo['id']}">屏蔽</button>
+		                                    </if>
+	                                    <else />
+	                                    	<span class="label">已屏蔽</span>
+	                                	</if>
+                                    </td>
+                                </tr>
+                               </volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_info" id="editable_info" role="alert" aria-live="polite" aria-relevant="all">
+                                    共 {$count} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                    {$pages}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__PLUGINS_PATH__/layer/layer.js"></script>
+    <script>
+        $(document).ready(function() {
+				$(document).on("click",".layer-iframe",function(){
+					var id = $(this).attr("data-void");
+	        		layer.confirm('您确定要屏蔽此条评论信息吗？', {
+				    			btn: ['确定','取消'] //按钮
+								}, function (){
+				    					location.href="__URL__/commentDisplay/id/"+id;
+				    					return false
+								});
+				});
+		});
+    </script>
+
+</body>
+
+
+</html>

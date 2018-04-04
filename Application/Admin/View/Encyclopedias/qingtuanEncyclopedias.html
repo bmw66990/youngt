@@ -1,0 +1,23 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Encyclopedias:menu" />
+    <div class="content">
+        <div class="con-title">青团百科<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <volist  name="list" id="vo">
+            <div class="baike-chunk span_blue">
+                <span>{$vo.name}</span>
+                <ul>
+                    <volist  name="vo.list" id="vol">
+                        <li><a href="{:U('Encyclopedias/encyclopediasDetail',array('encyclopedias_id'=>$vol['id']))}">{$vol.title}</a></li>
+                    </volist>
+                </ul>
+            </div>
+            </volist>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/encyclopedias.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

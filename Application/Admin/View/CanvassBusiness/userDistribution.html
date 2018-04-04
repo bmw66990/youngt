@@ -1,0 +1,77 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="subnav" />
+    <div class="content">
+        <div class="con-title">分配用户<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('CanvassBusiness/userDistribution')}" method="get">
+                <li>
+                    <select name="city_id">
+                        <option value="0">所有城市</option>
+                        <volist name="city_res" id="vo">
+                            <option value="{$vo['id']}" <if condition="$vo['id'] eq $city_id">selected</if>>{$vo.letter}-{$vo.name}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><label>消费金额</label><input type="text"  style='width:40px;' name="pay_sum_min" value="{$pay_sum_min}"/>-<input type="text"  style='width:40px;' name="pay_sum_max" value="{$pay_sum_max}"/><label>,</label></li>
+                <li><label>消费次数</label><input type="text"  style='width:40px;' name="pay_count_min" value="{$pay_count_min}"/>-<input type="text"  style='width:40px;' name="pay_count_max" value="{$pay_count_max}"/><label>,</label></li>
+                <li><label>注册时间</label>
+                    <input class="laydate-icon w150" id="start" name="start_time" value="{$start_time}" format="YYYY-MM-DD hh:mm:ss" type="text" ><label>-</label>
+                    <input class="laydate-icon w150" id="end" name="end_time"  value="{$end_time}" format="YYYY-MM-DD hh:mm:ss">
+                </li>
+                <li>
+                    <select name="visit_user_id">
+                        <option value="">未分配用户</option>
+                        <volist name="visit_user" id="vu">
+                            <option value="{$vu['id']}" <if condition="$vu['id'] eq $visit_user_id">selected</if>>{$vu.realname}[{$vu.username}]</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w100"><input type="checkbox" class="checkall" ></th>
+                        <th class="w200">用户名</th>
+                        <th class="w150">城市</th>
+                        <th class="w150">消费金额</th>
+                        <th class="w100">消费次数</th>
+                        <th class="w100">联系方式</th>
+
+                    </tr>
+                    <volist name="list" id="row">
+                        <tr class="list">
+                            <td class="w100 f-12 man">
+                                <input type="checkbox" class="checkone" name="id[]" value="{$row.user_id}">
+                            </td>
+                            <td class="w200">{$row.user_username}</td>
+                            <td class="w150">{$row.city_name}</td>
+                            <td class="w150">{$row.order_pay_sum}</td>
+                            <td class="w100">{$row.order_pay_count}</td>
+                            <td class="w100">{$row.user_mobile}</td> 
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <include file="CanvassBusiness:page" />
+                </div>
+                <div class="selectpage">
+                    DB:
+                    <select id="db_user_id">
+                        <option value="">请选择DB</option>
+                        <volist name="visit_user" id="vu">
+                            <option value="{$vu['id']}" <if condition="$vu['id'] eq $visit_user_id">selected</if>>{$vu.realname}[{$vu.username}]</option>
+                        </volist>
+                    </select>
+                    <label  class="bc-teal" style="margin-left: 100px;">
+                        <a id="user-distribution-exec" href="{:U('CanvassBusiness/userDistributionExec')}" confirm_tip="确认将选中的用户分配给该BD吗？">确认分配</a>                   
+                    </label >
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/busniess_user.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

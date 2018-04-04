@@ -1,0 +1,68 @@
+<include file="Common:header" />
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.all.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/lang/zh-cn/zh-cn.js"></script>
+<section>
+    <!--左侧导航-->
+    <include file="Encyclopedias:menu" />
+    <div class="content">
+        <div class="con-title">新闻公告<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-edit-form">
+                <form id='news-notice-operation-form' action="{:U('Encyclopedias/'.$operation_type)}" method='post'>
+                    <ul class="li-onlyline">
+                        <li><label>标题</label><input id="title" name='news[title]' value='{$title}' class="w500" type="text"></li>
+                        <li><label>发布城市</label>
+                            <select class="w150" id="city_id" name='news[city_id]'>
+                                <option value=''>请选择城市</option>
+                                <volist  name="citys" id="city">
+                                    <option value="{$city.id}"  <if condition="$city.id == $city_id"> selected </if>>{$city.name}</option>
+                                </volist>
+                            </select>
+                        <li><label>发布类型</label>
+                            <select class="w150" id="type" name='news[type]'>
+                                <volist  name="news_type" id="nt">
+                                    <option value="{$key}"  <if condition="$key == $type"> selected </if>>{$nt}</option>
+                                </volist>
+                            </select>
+                        </li>
+                        <li><label>内容详情</label>
+                            <textarea id="content" name='news[content]' class='content'>{$detail}</textarea>
+                        </li>
+                        <li><label>排序</label><input id="order_sort" class="w100" name='news[order_sort]' type="text" value="{$sort_order|default='0'}"></li>
+                        <li><label>时间</label>
+                            <input  class="laydate-icon w100" name="news[begin_time]" <if condition="$begin_time neq ''">  value='{$begin_time|date="Y-m-d",###}' </if>  format="YYYY-MM-DD"  id="start" type="text" >
+                        <li>
+                            <input  type="hidden" name='operation_type' value="{$operation_type}">
+                            <input  type="hidden" name='news[id]' value="{$id}">
+                            <input id='news-notice-operation-btn' class="small-btn btn-teal" type="submit" value="提交">
+                        </li>
+                    </ul>
+                </form>
+            </div> 
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Team/uploadImg',array('type'=>'newsNotice'))}";
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return "{:U('Team/uploadImg',array('type'=>'newsNotice'))}";
+        }else{
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+    var summary = UE.getEditor('content',
+            {autoHeightEnabled: true,
+            autoFloatEnabled: true,
+            });
+</script>
+<style>
+    div#content{
+        margin-left: 100px;
+    }
+    </style>
+<script type="text/javascript" src="__JS_PATH__/encyclopedias.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

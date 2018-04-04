@@ -1,0 +1,251 @@
+<include file="Common:header" />
+<!-- mrris -->
+    <link href="__PLUGINS_PATH__/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	<div class="row">
+    		<div class="col-sm-12">
+                <div class="alert alert-success">
+                    点击进入<a class="alert-link" href="notifications.html#">{$city_info.name}站</a>首页，顾客后还有顾客，服务的开始才是销售的开始！
+                </div>
+    		</div>
+    	</div>
+    	<div class="row">
+            <div class="col-sm-2 col-sm-offset-1">
+                <div class="widget  navy-bg">
+	    			<div class="row ">
+                        <div class="col-xs-6" style="padding: 0 5px;">
+                            <i class="fa fa-group fa-3x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right" style="padding: 0;">
+                            <h2 class="font-bold"> <p class="announcement-heading load-ajax-url" data-url="{:U('Index/getRegUserNum')}">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </p></h2>
+                            	新用户
+                        </div>
+	    			</div>
+	    			<div class="widget gray-bg row"  style="padding: 15px 5px; ">
+                		<a href="{:U('User/newUser')}" class="J_menuItems">
+	                		<div class="col-xs-9"  style="padding: 0;">
+	                			查看增长情况
+	                		</div>
+	                		<div class="col-xs-3" style="padding: 0;">
+	                			<i class="fa fa-arrow-circle-o-right"></i>
+	                		</div>
+                		</a>
+                	</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="widget  yellow-bg">
+                    <div class="row ">
+                        <div class="col-xs-6"  style="padding: 0 5px;">
+                            <i class="fa fa-list-alt fa-3x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right"  style="padding: 0;">
+                            <h2 class="font-bold"><p class="announcement-heading load-ajax-url" data-url="{:U('Index/getOrderNum')}">
+                                 <i class="fa fa-spinner fa-spin"></i>
+                            </p></h2>
+                            	订单
+                        </div>
+                    </div>
+                    <div class="widget gray-bg row " style="padding: 15px 5px; ">
+                		<a href="{:U('Order/index')}" class="J_menuItems">
+	                		<div class="col-xs-9" style="padding: 0;">
+	                			订单列表
+	                		</div>
+	                		<div class="col-xs-3" style="padding: 0;">
+	                			<i class="fa fa-arrow-circle-o-right"></i>
+	                		</div>
+                		</a>
+                	</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="widget  red-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-6"  style="padding: 0 5px;">
+                            <i class="fa fa-undo fa-3x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right"  style="padding: 0;">
+                            <h2 class="font-bold"><p class="announcement-heading load-ajax-url" data-url="{:U('Index/getRefundNum')}">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </p></h2>
+                           		 退款
+                        </div>
+                    </div>
+                    <div class="widget gray-bg row " style="padding: 15px 5px; ">
+                		<a href="{:U('Order/refund')}" class="J_menuItems">
+	                		<div class="col-xs-9" style="padding: 0;">
+	                			退款详情
+	                		</div>
+	                		<div class="col-xs-3" style="padding: 0;">
+	                			<i class="fa fa-arrow-circle-o-right"></i>
+	                		</div>
+                		</a>
+                	</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="widget lazur-bg">
+                    <div class="row "  style="padding: 0 5px;">
+                        <div class="col-xs-6" style="padding: 0 5px;">
+                            <i class="fa fa-transgender-alt fa-3x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right" style="padding: 0 ;">
+                            <h2 class="font-bold"><p class="announcement-heading load-ajax-url" data-url="{:U('Index/getReceptionNum')}">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </p></h2>
+                           	 接待量
+                        </div>
+                    </div>
+                    <div class="widget gray-bg row " style="padding: 15px 5px; ">
+                		<a href="{:U('Partner/reception')}" class="J_menuItems">
+	                		<div class="col-xs-9"  style="padding: 0;">
+	                			接待量排行
+	                		</div>
+	                		<div class="col-xs-3 "  style="padding: 0;">
+	                			<i class="fa fa-arrow-circle-o-right"></i>
+	                		</div>
+                		</a>
+                	</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="widget  blue-bg">
+                    <div class="row" style="padding: 0 5px;">
+                        <div class="col-xs-6" style="padding: 0 5px;">
+                            <i class="fa fa-history fa-3x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right" style="padding: 0 ;">
+                            <h2 class="font-bold"><p class="announcement-heading load-ajax-url" data-url="{:U('Index/getOverdueNum')}">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </p></h2>
+                           	 过期团单
+                        </div>
+                    </div>
+                    <div class="widget gray-bg row " style="padding: 15px 5px; ">
+                		<a href="{:U('Team/dateOverTeam')}" class="J_menuItems">
+	                		<div class="col-xs-9" style="padding: 0; ">
+	                			过期团单列表
+	                		</div>
+	                		<div class="col-xs-3 text-right" style="padding: 0; ">
+	                			<i class="fa fa-arrow-circle-o-right"></i>
+	                		</div>
+                		</a>
+                	</div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>实时监控-订单数量</h5>
+                    </div>
+                    <div class="ibox-content" style="position: relative">
+                        <div id="morris-chart-area" style="height:420px;">
+                        	
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>订单来源</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="morris-donut-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+            	<div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>接待量排行</h5>
+                        <div class="ibox-tools">
+                            <a href="{:U('Partner/reception')}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    	<table class="table table-striped table-bordered table-hover" id="editable" >
+                            <thead>
+                                <tr>
+                                    <th>商户</th>
+                                    <th>接待量</th>
+                                    <th>金额</th>
+                                    <th>利润</th>
+                                </tr>
+                            </thead>
+                           <tbody class="load-ajax-url"data-url="{:U('Index/getReception')}">
+                           </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+            	<div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>问题反馈</h5>
+                        <div class="ibox-tools">
+                            <a href="{:U('FeedbackQuestion/index')}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content load-ajax-url"  data-url="{:U('Index/getFeedback')}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer" />
+    <script src="__PLUGINS_PATH__/morris/raphael-2.1.0.min.js"></script>
+    <script src="__PLUGINS_PATH__/morris/morris.js"></script>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__JS_PATH__/contabs.min.js"></script>
+    <include file="order_chart" />
+    <script>
+    $(function(){
+
+		    $(".load-ajax-url").each(function(){
+		        var url=$(this).attr('data-url');
+		        var $this=$(this);
+		        $.get(url,function(data){
+		            $this.html(data.html);
+		        });
+		    });
+			//订单来源
+		    $.post('{:U("Index/getOrderSouce")}',{},function(res){
+		        if(res.data=='')return false;
+		        Morris.Donut({
+		            element: 'morris-donut-chart',
+		            data:res.data,
+		            colors: ['#87d6c6', '#54cdb4','#1ab394','#1ab355'],
+		            resize: true,
+		            formatter: function (y) { return y + "%" ;}
+		        });
+		    });
+        	
+			    $("#editable").dataTable({
+					  "searching": false,
+					  "lengthChange": false,
+					  "paging": false,
+					  "bInfo":false
+					});
+    	
+
+    	})
+    </script>
+</body>
+
+</html>

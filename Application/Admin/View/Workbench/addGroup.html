@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>创建小组</title>
+<link rel="stylesheet" href="__CSS_PATH__/widget.css" />
+<link rel="stylesheet" href="__CSS_PATH__/pop.css" />
+<link href="__PLUGINS_PATH__/fancybox/Css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+<script type="text/javascript" src="__JS_PATH__/common.js?v={:C('JS_VER')}"></script>
+<script type="text/javascript" src="__PLUGINS_PATH__/fancybox/Js/jquery.fancybox.js"></script>
+
+</head>
+<body>
+	<div class="fancycreate">
+		<form name="myform" method="post">
+			<li>
+				<label>小组名称</label>
+				<label><input type="text" name="username" ></label>
+			</li>
+			<li>
+				<label>邀请成员</label>
+				<label class="add-person">
+					<span id="user-id"></span>
+					<img src="__IMAGE_PATH__/ico/add.png" onclick="popup('{:U('Workbench/selectUser')}',500,450)">
+				</label>
+			</li>
+			<li><input type="button" id="add-group" value="确定" class="btn-teal"></li>
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	$("#add-group").click(function(){
+		var username=$("input[name=username]").val();
+		if(!username){
+			alert('请填写小组名称');
+			return false;
+		}
+		if($("#user-id img").length==0){
+			alert('请邀请成员');
+			return false;
+		}
+		$(this).attr('disabled',true);
+		var _this=$(this);
+		$.post("{:U('Workbench/addGroup')}",$("form").serialize(),function(data){
+			alert(data.info);
+			if(data.status==1){
+				window.parent.location.reload();
+			}
+			_this.attr('disabled', false);
+		})
+	});
+})
+</script>
+</html>

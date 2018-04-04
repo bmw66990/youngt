@@ -1,0 +1,27 @@
+User-agent: YodaoBot
+
+Disallow: /
+
+User-agent: EasouSpider
+Disallow: /
+
+User-agent: YisouSpider
+Disallow: /
+
+
+
+User-Agent: Baiduspider
+
+Allow: /Category/
+
+Allow: /Around/
+
+Allow: /Partner/
+
+Allow: /Help/
+
+Disallow: /Admin/
+
+Disallow: /Merchant/
+
+Disallow: /Member/

@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>订单详情</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <div class="box">
+            <form name="viewDetails">
+                <div class="details">
+                    <li><label>用户信息</label>{$data['username']}/{$data['email']}</li>
+                    <li><label>项目名称</label>( {$data['product']} )× <b class="tx-green">{$data.quantity}</b>个,    {$data['state'] == 'pay' ? '<label class="tx-green">已付款</label>' : '<label class="tx-red">未付款</label>'}</li>
+                    <li><label>交易单号</label>{$data.pay_id}</li>
+                    <eq name="order.express" value="Y">
+                    <li><label>订单类型</label>邮购订单</li>
+                        <notempty name="order.optional_model">
+                            <li><label>选择型号</label>
+                            <volist name="order.optional_model" id="attr">
+                                {$attr.name}<b class="tx-green">({$attr.num})</b> &nbsp;&nbsp;
+                            </volist>
+                            </li>
+                        </notempty>
+                    <li><label>邮费</label>{$order.fare}</li> 
+                    </eq>
+
+                    <notempty name="order.address">
+                        <li><label>收货人</label>{$order.address.name}</li>
+                        <li><label>手机号码</label>{$order.address.mobile}</li>
+                        <notempty name="order.address.zipcode"><li><label>收件邮编</label>{$order.address.zipcode}</li> </notempty>
+                        <li><label>收地址:</label>{$order.address.province}，{$order.address.area}，{$order.address.city}，{$order.address.street}</li>
+                    </notempty>
+                    <eq name="order.express" value="Y">
+                    <if condition="$order.mail_order_pay_state eq '1'">
+                        <li><label>快递信息</label>
+                            <select id='express_id'>
+                                <option value=''>请选择快递</option>
+                                <volist name="express_res" id="oer">
+                                    <option value='{$oer.id}' <eq name="oer.id" value="$order.express_id">selected</eq> >{$oer.name}</option>
+                                </volist>
+                            </select>
+                            <input id='express_no' type='text' value='{$order.express_no}' style='max-width:110px;'/>
+                            <span id='do-update-express-info' load_href="{:U('Order/updateExpressInfo',array('order_id'=>$order['id']))}" style='padding: 5px;'   class="class-btn">修改</span>
+                            <a  class="tx-green"  href="{:U('Order/orderLogisticsView', array('order_id' => $order['id']))}" target="_blank">追踪包裹</a>
+                        </li>
+                        <elseif condition="$order.mail_order_pay_state eq '2'" />
+                          <li><label>状态</label><label class="tx-green">已收货</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+                            <a class="tx-green" href="{:U('Order/orderLogisticsView', array('order_id' => $order['id']))}" target="_blank">追踪包裹</a></li>
+                        <else/>
+                        <li><label>状态</label><label class="tx-red">未发货</label></li>
+                    </if>
+                    </eq>
+                     <if condition="$order.remark && $order.remark neq ''">
+                       <li><label>用户备注</label>
+                              {$order.remark}
+                       </li>
+                </if>
+                    <if condition="$res = auth_check_access(array('Order/orderQuery'))">
+                        <if condition="!($order['state'] eq 'unpay' and $order['rstate'] eq 'berefund') and $order['service'] neq 'credit'">
+                            <li><label>查询</label>
+                                <a href="{:U('Order/orderQuery', array('id' => $data['id']))}" target="_blank">支付情况查询{$data.id}</a>
+                            </li>
+                        </if>
+                    </if>
+                    <li><label>付款明细</label>
+                        余额支付<span class="red-color">{$data['credit']}</span>&nbsp;
+                        <gt name="data.money" value="0">
+                        {$data['service']|order_service=""}支付<span class="red-color">{$data['money']}</span>
+                        </gt>
+                        <gt name="order.card" value="0">
+                        代金券 {$order.card}
+                        </gt>
+                    </li>
+                    <li><label>订购时间</label>{$data['create_time']|date="Y-m-d H:i:s",###} &nbsp;&nbsp;&nbsp; {$data['pay_time']|date="Y-m-d H:i:s",###}</li>
+                    <li><label>订单来源</label>{$data.source}</li>
+                    <li><label>联系手机</label>{$data.mobile}</li>
+                    <notempty name="data.coupon">
+                        <li><label>订单状态</label>
+                        <volist name="data.coupon" id="li">
+                            {$li.id}-{$li['consume'] == 'Y' ? '<span class="tx-green">已消费</span>' : '<span class="tx-red">未消费</span>'}
+                            <if condition="$li['consume_time'] neq 0">，时间：{$li['consume_time']|date="Y-m-d H:i:s",###}</if><br/>
+                        </volist>
+                    </notempty>
+                    </li>
+                    <notempty name="data.ota">
+                    <li>
+                        <h4>OTA信息</h4>
+                        <ul>
+                            <li><label>姓名</label>{$data.ota.link_name}</li>
+                            <li><label>手机</label>{$data.ota.link_phone}</li>
+                            <li><label>证件号</label>{$data.ota.link_cno}</li>
+                            <li><label>游玩日期</label>{$data.ota.pro_sdate}</li>
+                            <li><label>入园凭证</label>{$data.ota.ecode|default = '暂无'}</li>
+                            <li><label>状态</label>{$data.ota.status|default = '暂无'}</li>
+                        </ul>
+                    </li>
+                    </notempty>
+                    <li><label>订单备注</label>
+                        <textarea id="order_adminremark" cols="50" rows="5" style="overflow-y:scroll">
+                         {$order.adminremark} <if condition="$order['refund_ptime'] neq '0' && strpos($order['adminremark'],'操作时间') eq false">处理时间：{$order['refund_ptime']|date='Y-m-d H:i:s',###}</if>
+                        </textarea>
+                    <if condition="$res = auth_check_access(array('CustomerService/doRefund'))">
+                        <span id='do-refund-adminremark' load_href="{:U('CustomerService/doRefund',array('order_id'=>$order['id'],'action'=>'adminremark'))}" style='padding: 10px;'   class="class-btn">确定</span>
+                    </if>
+                    </li>
+                </div>
+
+                <eq name="data.rstate" value="askrefund">
+                <div class="details">
+                    <li><label>退款原因</label>{$order.rereason}</li>
+                    <li><label>退款时间</label>{$order.retime|date='Y-m-d H:i:s',###}</li>
+                    <li><label>退款方式</label>{$order.tn}</li>
+                </div>
+                </eq>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                // 修改邮件信息
+                $('span#do-update-express-info').die().live('click', function() {
+                    var $this = $(this);
+                    var express_id = $('#express_id').val();
+                    var express_no = $('#express_no').val();
+                    var href = $this.attr('load_href');
+                    if ($this.hasClass('disabled')) {
+                        return false;
+                    }
+                    if (!$.trim(express_id)) {
+                        parent.window.alert('请选择快递类型！');
+                        return false;
+                    }
+                    if (!$.trim(express_no)) {
+                        parent.window.alert('请填写快递号！');
+                        return false;
+                    }
+                    $this.addClass('disabled');
+                    $this.html('正在处理...');
+                    $.post(href, {express_id: express_id, express_no: express_no}, function(res) {
+                        $this.removeClass('disabled');
+                        $this.html('修改');
+                        if (res.code && res.code != 0 && res.error) {
+                            parent.window.alert(res.error);
+                            return false;
+                        }
+                        parent.window.alert('修改快递信息成功！');
+                        parent.window.location.reload();
+                    }, 'json');
+                    return false;
+                });
+                // 备注提交
+                $('span#do-refund-adminremark').die().live('click', function() {
+                    var $this = $(this);
+                    var remark = $('#order_adminremark').val();
+                    var href = $this.attr('load_href');
+                    if ($this.hasClass('disabled')) {
+                        return false;
+                    }
+                    if (!$.trim(remark)) {
+                        parent.window.alert('备注不能为空！');
+                        return false;
+                    }
+                    $this.addClass('disabled');
+                    $this.html('正在处理...');
+                    $.post(href, {remark: remark}, function(res) {
+                        $this.removeClass('disabled');
+                        $this.html('确定');
+                        if (res.code && res.code != 0 && res.error) {
+                            parent.window.alert(res.error);
+                            return false;
+                        }
+                        parent.window.alert('修改备注信息成功！');
+                        parent.window.location.reload();
+                    }, 'json');
+                    return false;
+                });
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<div class="mt30">
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="80">商品名称</th>
+                <th width="100">型号</th>
+                <th width="80" >用户</th>
+<!--                <th width="180" >收货信息</th>-->
+                <th width="80">收货时间</th>
+                <th width="70" >支付金额</th>
+                <th width="70" >结算金额</th>
+                <th width="70" >购买时间</th>
+                <th width="70" >操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="list">
+            <tr>
+                <td class="f-tal">{$vo['team_product']})</td>
+                <td>{$vo.pay_detail}</td>
+                <td>{$vo.user_username}</td>
+<!--                <td>{$vo.order_address}</td>-->
+                <td>{$vo.order_delivery_time}</td>
+                <td>{$vo.order_origin|default='0.00'}</td>
+                <td>{$vo.order_all_ucaii_money|default='0.00'}</td>
+                <td>{$vo.order_pay_time}</td>
+                <td>
+                 <if condition="$res = auth_check_access(array('Order/orderDeliverGoodsView'))">
+                     <a href="{:U('Order/orderDeliverGoodsView',array('order_id'=>$vo['order_id'],'action'=>'viewgoods'))}" class="order-deliver-goods-view">详情</a><br/>
+                </if>
+            <if condition="$vo.order_rstate eq 'normal'">
+                <if condition="$vo.order_mail_order_pay_state eq 1">
+                    已发货
+                    <elseif condition="$vo.order_mail_order_pay_state eq 2"/>
+                    已收货
+                    <else/>
+                    <if condition="$res = auth_check_access(array('Order/orderDeliverGoodsView'))">
+                        <a href="{:U('Order/orderDeliverGoodsView',array('order_id'=>$vo['order_id']))}" class="order-deliver-goods-view">发货</a>
+                    </if>
+                </if>
+                <br/>
+                <if condition="$res = auth_check_access(array('Order/orderLogisticsView'))">
+                    <if condition="$vo.order_mail_order_pay_state egt '1'">
+                        <a href="{:U('Order/orderLogisticsView',array('order_id'=>$vo['order_id']))}" class="order-logistics-view">查看物流</a>
+                    </if>
+                </if>
+                <elseif condition="$vo.order_rstate neq 'askrefund'"/>
+                申请退款中
+                <elseif condition="$vo.order_rstate neq 'berefund'"/>
+                已申请退款
+            </if>
+            </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<nav class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</nav>

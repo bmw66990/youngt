@@ -1,0 +1,32 @@
+/*
+登陆注册样式
+*/
+/*注册*/
+#bd{margin:10px auto;padding: 10px 0px 10px 0px; min-width: 1198px;border:1px solid #eaeaea;background:#fff;}
+.regbox{width:900px;margin: 0px auto;padding:25px 60px 20px;overflow: hidden;}
+.head-section{border-bottom:1px solid #D9E8E8;position:relative;}
+.head-section .warning{border: 1px solid #ffe6d0;height: 40px;width: 700px; margin:0px auto 10px auto; background-color:#FFF6DB;}
+.head-section .warning.div{font-size:16px; margin:8px auto; padding:0px 220px;}
+.head-section li{display:inline-block;margin-right:3px;}
+.head-section .current a{background:#1AA29E;border:1px solid #1AA29E;color:#fff;}
+.head-section .current a i{background-position:-38px 0;}
+.head-section .current a span {display: block;}
+.head-section li a{background:#E9F6F6;border-color:#D9E8E8 #D9E8E8 #E9F6F6;border-style:solid;border-top-left-radius:3px;border-top-right-radius:3px;border-width:1px;color:#00BBBB;display:block;font-size:14px;font-weight:bold;line-height:34px;padding:0 39px 0 62px;position:relative;}
+.head-section li a i{display:block;height:12px;width:16px;background:url(../Image/sp-login.vdea40f40.png) no-repeat -22px 0;position:absolute;top:50%;left:39px;margin-top:-6px;}
+.head-section li a span{border-color: #1AA29E rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);border-style: solid dashed dashed;border-width: 6px; bottom: -12px;display: none;font-size: 0;height: 0;left: 50%;line-height: 0; margin-left: -6px;position: absolute;width: 0;}
+.head-section .mobile-trigger{padding-left: 57px;}
+.head-section .mobile-trigger i{background-position:0px 0;height:16px;width:11px;margin-top:-8px;}
+.head-section .login-guide {bottom:5px;position:absolute;right:15px;font-size:14px;color:#666;}
+.head-section .login-guide a{color:#2BB8AA;}
+.head-section .login-guide a:hover{text-decoration:underline;}
+.signup-form{position:relative;}
+/*登录*/
+.login-left{width:580px;border-right:1px solid #EBEBEB;}
+.login-right{width:280px;font-size: 12px;}
+.login-right .side-top{line-height:30px;margin:0 auto;padding:5px 0 30px 30px;}
+.login-right .side-min{padding:20px 0 0 30px}
+.side-min .otherlogin ul li{padding-bottom:10px;}
+.side-top p{line-height:30px;}
+.side-top .ubg{font-size:14px;margin:10px 0 0 0px;height:30px;line-height:30px;padding:0 15px;}
+.form-field{padding-bottom:8px;position:relative;}
+

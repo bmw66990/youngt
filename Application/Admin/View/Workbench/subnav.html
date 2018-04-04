@@ -1,0 +1,19 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Workbench/newDynamic'))">
+            <li ><a href="{:U('Workbench/newDynamic')}">最新动态</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Workbench/myTask'))">
+            <li ><a href="{:U('Workbench/myTask')}">我的任务</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Workbench/myGroup'))">
+            <li ><a href="{:U('Workbench/myGroup')}">我的小组</a><label>&nbsp;</label></li>
+        </if>  
+         <if condition="$res = auth_check_access(array('Workbench/sharedFile'))">
+            <li ><a href="{:U('Workbench/sharedFile')}">共享文件</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

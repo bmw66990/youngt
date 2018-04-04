@@ -1,0 +1,38 @@
+<div id='message-tip'>
+    <if condition="$error neq ''">
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              {$error}
+        </div>
+    </if>
+    <if condition="$success neq ''">
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              {$success}
+        </div>
+    </if>
+</div>
+
+<script id="message-tip-tmpl" type="text/x-jquery-tmpl">
+    {{if error}}
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      ${error}
+    </div>
+    {{/if}}
+    {{if success}}
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        ${success}
+    </div>
+    {{/if}}
+</script>
+
+<script>
+// js 显示错误信息
+function show_message_tip($obj){
+    $('div#message-tip').html('');
+    $('div#message-tip').html($('#message-tip-tmpl').tmpl($obj));
+    return false;
+}
+</script>

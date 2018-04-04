@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>商家验证</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="__CSS_PATH__/jquery.mobile.min.css" />
+    <script src="__JS_PATH__/jquery.min-1.11.1.min.js"></script>
+    <script src="__JS_PATH__/jquery.mobile.min.js"></script>
+    <script src="__JS_PATH__/alert.js"></script>
+    <style>
+        #index .Htitle {
+            text-align: center;
+            color: #AB4D33;
+        }
+        #index .ui-listview > .ui-li-static {
+            white-space: normal;
+        }
+        #index.ui-page-theme-a .ui-btn.ui-btn-active {
+            background-color: #3BA94A;
+            text-shadow: none;
+            line-height: 1.5;
+            font-size: 1.2em;
+        }
+   		.ui-grid-a .curre{border-bottom: 2px solid #009999;color:#009999}
+   		.ui-grid-a .curre a{color:#009999}
+		.ui-grid-a{line-height: 42px;font-size: 20px;text-align: center;background: #f0f0f0;font-weight:bold;}
+		.ui-grid-a a{text-decoration:none;color:#3c3c3c;display: block;width: 100%;height: 100%;}
+		.ui-grid-a>.ui-block-a{border-right:1px solid #d3d3d3 ;}
+    </style>
+    <script type="text/javascript">
+        function onBridgeReady() {
+            WeixinJSBridge.call('hideOptionMenu');
+        }
+        if ( typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    </script>
+    <!-- 验证码格式化 -->
+    <script>
+        window.onload = function() {
+            var oT = document.getElementById('fullname');
+            oT.onkeydown = function(ev) {
+                var oW = oT.value;
+                var oEvent = ev || event;
+                if (oEvent.keyCode == 8) {
+                    if (oW) {
+                        for (var i = 0; i < oW.length; i++) {
+                            var newStr = oW.replace(/\s$/g, '');
+                        }
+                        oT.value = newStr
+                    }
+                } else {
+                    for (var i = 0; i < oW.length; i++) {
+                        var arr = oW.split('');
+
+                        if ((i + 1) % 5 == 0) {
+                            arr.splice(i, 0, ' ');
+                        }
+                    }
+                    oT.value = arr.join('');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div data-role="page" id="index">
+	<div  class="ui-grid-a">
+    			<div class="ui-block-a curre"><a href="#">团购券</a></div>
+    			<div class="ui-block-b"><a href="#">积分商品</a></div>
+    		</div>
+    <div role="main" class="ui-content">
+        <ul data-role="listview">
+            <div data-role="content">
+                <form data-ajax="false">
+                    <div data-role="fieldcontain">
+                        <label for="fullname">团购券号码：</label>
+                        <input type="text" name="coupon_id" id="fullname" placeholder="请收入12位验证码" maxlength="14">
+                    </div>
+                    <button class="ui-btn ui-corner-all" id="coupon" type="button">
+                        提交
+                    </button>
+                </form>
+            </div>
+        </ul>
+        <!--积分商品-->
+        <ul data-role="listview" style="display: none;">
+            <div data-role="content">
+                <form data-ajax="false">
+                    <div data-role="fieldcontain">
+                        <label for="fullname">兑换编码：</label>
+                        <input type="text" name="coupon_id" id="jffullname" placeholder="请收入10位验证码" maxlength="10">
+                    </div>
+                    <button class="ui-btn ui-corner-all" id="jfcoupon" type="button">
+                        提交
+                    </button>
+                </form>
+            </div>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function(){
+    	$(".ui-grid-a div").click(function(){
+    			var $index = $(this).index();
+    		$(this).addClass("curre").siblings().removeClass("curre");
+    		$(".ui-content ul").eq($index).show().siblings().hide();
+    	})
+    	//券号验证
+        $('#coupon').click(function(){
+            var coupon_id=$('#fullname').val();
+            if(coupon_id){
+                $.post("{:U('Public/checkCoupon')}",{coupon_id:coupon_id},function(data){
+                    if(data['status'] == 1){
+                        window.location.href = '__APP__/Public/getCouponDetail/coupon_id/'+data.success.id;
+                    }else{
+                        alert(data['error']);
+                    }
+                })
+            }else{
+                alert('请输入券号！');
+            }
+            return false;
+        });
+        //积分验证
+        $('#jfcoupon').click(function(){
+            var coupon_id=$('#jffullname').val();
+            if(coupon_id){
+                $.post("{:U('Public/jfcheckCoupon')}",{points_code:coupon_id},function(data){
+                    if(data['status'] == 1){
+                        alert('积分验证成功');
+                        //window.location.href = '__APP__/Public/getjfCouponDetail/coupon_id/'+data.success.id;
+                    }else{
+                        alert(data['error']);
+                    }
+                })
+            }else{
+                alert('请输入券号！');
+            }
+            return false;
+        });
+    })
+</script>

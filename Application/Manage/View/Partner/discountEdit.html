@@ -1,0 +1,84 @@
+<include file="Common:header"/>
+<link href="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="__PLUGINS_PATH__/iCheck/custom.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="__PLUGINS_PATH__/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" action="{:U('Partner/discountUpdate')}">
+	                        <div class="form-group">
+                                <label class="col-sm-2 control-label">优惠买单
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="radio i-checks checkbox-inline">
+                                        <label>
+                                            <input type="radio" <if condition="$discount['is_discount'] eq 1">checked="checked"</if> value="1" name="is_discount"> <i></i> 开启</label>
+                                    </div>
+                                    <div class="radio i-checks checkbox-inline">
+                                        <label>
+                                            <input type="radio"  <if condition="$discount['is_discount'] eq 0">checked="checked"</if> value="0" name="is_discount"> <i></i>关闭</label>
+                                    </div>
+                                </div>
+                            </div>
+	                        <div class="form-group">
+                                <label class="col-sm-2 control-label">折扣率</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="ratio" value="{$discount.ratio}">
+                                </div>
+                                <div class="col-sm-7"><span>用户付款时的折扣率（交易金额 = 消费金额 x 折扣率）</span></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">提成比例</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="aratio" value="{$discount.aratio}">
+                                </div>
+                                <div class="col-sm-7"><span>用户付款后给代理的提成比例（提成金额 = 交易金额 x 提成比例）</span></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">开启时间</label>
+                                <div class="col-sm-10">
+                                	<div class="input-daterange input-group" id="datepicker">
+                                		<div class="input-group date">
+		                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                               		<input type="text" class="form-control form_datetime" name="start_time" value="{$discount.start_time|date='Y-m-d H:00',###}" />
+                                		</div>
+		                                <span class="input-group-addon">到</span>
+		                                <div class="input-group date">
+			                                <input type="text" class="form-control form_datetime" name="end_time" value="{$discount.end_time|date='Y-m-d H:00',###}" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                </div>
+		                            </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{$discount.id}">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" type="submit">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+    <script src="__PLUGINS_PATH__/jeditable/jquery.jeditable.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/jquery.dataTables.js"></script>
+    <script src="__PLUGINS_PATH__/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__PLUGINS_PATH__/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+     <script src="__PLUGINS_PATH__/iCheck/icheck.min.js"></script>
+     <script src="__PLUGINS_PATH__/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__JS_PATH__/content.min.js?v=1.0.0"></script>
+    <script>
+        $(document).ready(function(){
+        	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:00'});
+        	$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})
+        	});
+    </script>
+</body>
+
+</html>

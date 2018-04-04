@@ -1,0 +1,125 @@
+2015-03-13 15:57:18 : ---LOG START---------------------------------------------------------------------------
+--REQUEST URL:----------------------------------------------
+http://oss.aliyuncs.com/ytimg/static/aaa/bbb/
+STRING TO SIGN:----------------------------------------------
+PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:57:18 GMT
+/ytimg/static/aaa/bbb/
+REQUEST HEADERS:----------------------------------------------
+a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:57:18 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:Ug+yFA+AfbrexmZOtu1TQtlYejA=";}
+RESPONSE HEADERS:----------------------------------------------
+a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 07:56:50 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"550298428792A814076E1106";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.094;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.032000000000000001;s:16:"pretransfer_time";d:0.032000000000000001;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.094;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53687;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:57:18 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:57:18 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:Ug+yFA+AfbrexmZOtu1TQtlYejA=";}}
+RESPONSE DATA:----------------------------------------------
+O:12:"ResponseCore":3:{s:6:"header";a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 07:56:50 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"550298428792A814076E1106";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.094;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.032000000000000001;s:16:"pretransfer_time";d:0.032000000000000001;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.094;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53687;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:57:18 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:57:18 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:Ug+yFA+AfbrexmZOtu1TQtlYejA=";}}s:4:"body";b:0;s:6:"status";i:200;}
+2015-03-13 15:57:18:---LOG END---------------------------------------------------------------------------
+
+2015-03-13 15:57:50 : ---LOG START---------------------------------------------------------------------------
+--REQUEST URL:----------------------------------------------
+http://oss.aliyuncs.com/ytimg/static/aaa/bbb/
+STRING TO SIGN:----------------------------------------------
+PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:57:50 GMT
+/ytimg/static/aaa/bbb/
+REQUEST HEADERS:----------------------------------------------
+a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:57:50 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:bCO534S0Z1UmDwkjR7KE2OE+7ZA=";}
+RESPONSE HEADERS:----------------------------------------------
+a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 07:57:23 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"55029863E70121BE16734CFB";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.14099999999999999;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.032000000000000001;s:16:"pretransfer_time";d:0.032000000000000001;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.14099999999999999;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53691;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:57:50 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:57:50 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:bCO534S0Z1UmDwkjR7KE2OE+7ZA=";}}
+RESPONSE DATA:----------------------------------------------
+O:12:"ResponseCore":3:{s:6:"header";a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 07:57:23 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"55029863E70121BE16734CFB";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.14099999999999999;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.032000000000000001;s:16:"pretransfer_time";d:0.032000000000000001;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.14099999999999999;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53691;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:57:50 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:57:50 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:bCO534S0Z1UmDwkjR7KE2OE+7ZA=";}}s:4:"body";b:0;s:6:"status";i:200;}
+2015-03-13 15:57:50:---LOG END---------------------------------------------------------------------------
+
+2015-03-13 15:58:20 : ---LOG START---------------------------------------------------------------------------
+--REQUEST URL:----------------------------------------------
+http://oss.aliyuncs.com/ytimg/static/aaa/bbb/
+STRING TO SIGN:----------------------------------------------
+PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:58:20 GMT
+/ytimg/static/aaa/bbb/
+REQUEST HEADERS:----------------------------------------------
+a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:58:20 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:+Vv9QZLAgfV7ErDyczXXXcK4phM=";}
+RESPONSE HEADERS:----------------------------------------------
+a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 07:57:52 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"55029880E70121BE167363EA";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.092999999999999972;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.031;s:16:"pretransfer_time";d:0.031;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.092999999999999972;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53694;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:58:20 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:58:20 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:+Vv9QZLAgfV7ErDyczXXXcK4phM=";}}
+RESPONSE DATA:----------------------------------------------
+O:12:"ResponseCore":3:{s:6:"header";a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 07:57:52 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"55029880E70121BE167363EA";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.092999999999999972;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.031;s:16:"pretransfer_time";d:0.031;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.092999999999999972;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53694;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 07:58:20 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 07:58:20 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:+Vv9QZLAgfV7ErDyczXXXcK4phM=";}}s:4:"body";b:0;s:6:"status";i:200;}
+2015-03-13 15:58:20:---LOG END---------------------------------------------------------------------------
+
+2015-03-13 16:02:09 : ---LOG START---------------------------------------------------------------------------
+--REQUEST URL:----------------------------------------------
+http://oss.aliyuncs.com/ytimg/static/aaa/bbb/
+STRING TO SIGN:----------------------------------------------
+PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 08:02:09 GMT
+/ytimg/static/aaa/bbb/
+REQUEST HEADERS:----------------------------------------------
+a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 08:02:09 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:mwIPpHgjqHtnxPfteh+2Sfl6JI8=";}
+RESPONSE HEADERS:----------------------------------------------
+a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 08:01:41 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"550299658792A814076EF7D3";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.40600000000000003;s:15:"namelookup_time";d:0.016;s:12:"connect_time";d:0.047;s:16:"pretransfer_time";d:0.047;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.40600000000000003;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53720;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 08:02:09 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 08:02:09 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:mwIPpHgjqHtnxPfteh+2Sfl6JI8=";}}
+RESPONSE DATA:----------------------------------------------
+O:12:"ResponseCore":3:{s:6:"header";a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 08:01:41 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"550299658792A814076EF7D3";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:199;s:12:"request_size";i:366;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.40600000000000003;s:15:"namelookup_time";d:0.016;s:12:"connect_time";d:0.047;s:16:"pretransfer_time";d:0.047;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.40600000000000003;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53720;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:91:"PUT
+
+application/x-www-form-urlencoded
+Fri, 13 Mar 2015 08:02:09 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:4:"Date";s:29:"Fri, 13 Mar 2015 08:02:09 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:mwIPpHgjqHtnxPfteh+2Sfl6JI8=";}}s:4:"body";b:0;s:6:"status";i:200;}
+2015-03-13 16:02:09:---LOG END---------------------------------------------------------------------------
+
+2015-03-13 16:02:09 : ---LOG START---------------------------------------------------------------------------
+--REQUEST URL:----------------------------------------------
+http://oss.aliyuncs.com/ytimg/static/aaa/bbb/
+STRING TO SIGN:----------------------------------------------
+PUT
+
+image/jpeg
+Fri, 13 Mar 2015 08:02:09 GMT
+/ytimg/static/aaa/bbb/
+REQUEST HEADERS:----------------------------------------------
+a:4:{s:12:"Content-Type";s:10:"image/jpeg";s:4:"Date";s:29:"Fri, 13 Mar 2015 08:02:09 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:UZQhRZtjgWOqD7m9fad/sppdPXM=";}
+RESPONSE HEADERS:----------------------------------------------
+a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 08:01:41 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"550299659C2E78C4B90123F1";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:224;s:12:"request_size";i:365;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.17100000000000004;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.031;s:16:"pretransfer_time";d:0.031;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.17100000000000004;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53721;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:68:"PUT
+
+image/jpeg
+Fri, 13 Mar 2015 08:02:09 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:10:"image/jpeg";s:4:"Date";s:29:"Fri, 13 Mar 2015 08:02:09 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:UZQhRZtjgWOqD7m9fad/sppdPXM=";}}
+RESPONSE DATA:----------------------------------------------
+O:12:"ResponseCore":3:{s:6:"header";a:11:{s:4:"date";s:29:"Fri, 13 Mar 2015 08:01:41 GMT";s:14:"content-length";s:1:"0";s:10:"connection";s:5:"close";s:4:"etag";s:34:""D41D8CD98F00B204E9800998ECF8427E"";s:6:"server";s:9:"AliyunOSS";s:16:"x-oss-request-id";s:24:"550299659C2E78C4B90123F1";s:5:"_info";a:27:{s:3:"url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:12:"content_type";N;s:9:"http_code";i:200;s:11:"header_size";i:224;s:12:"request_size";i:365;s:8:"filetime";i:-1;s:17:"ssl_verify_result";i:0;s:14:"redirect_count";i:0;s:10:"total_time";d:0.17100000000000004;s:15:"namelookup_time";d:0;s:12:"connect_time";d:0.031;s:16:"pretransfer_time";d:0.031;s:11:"size_upload";d:0;s:13:"size_download";d:0;s:14:"speed_download";d:0;s:12:"speed_upload";d:0;s:23:"download_content_length";d:0;s:21:"upload_content_length";d:0;s:18:"starttransfer_time";d:0.17100000000000004;s:13:"redirect_time";d:0;s:12:"redirect_url";s:0:"";s:10:"primary_ip";s:14:"112.124.219.41";s:8:"certinfo";a:0:{}s:12:"primary_port";i:80;s:8:"local_ip";s:14:"192.168.88.104";s:10:"local_port";i:53721;s:6:"method";s:3:"PUT";}s:17:"x-oss-request-url";s:45:"http://oss.aliyuncs.com/ytimg/static/aaa/bbb/";s:15:"x-oss-redirects";i:0;s:18:"x-oss-stringtosign";s:68:"PUT
+
+image/jpeg
+Fri, 13 Mar 2015 08:02:09 GMT
+/ytimg/static/aaa/bbb/";s:20:"x-oss-requestheaders";a:4:{s:12:"Content-Type";s:10:"image/jpeg";s:4:"Date";s:29:"Fri, 13 Mar 2015 08:02:09 GMT";s:4:"Host";s:16:"oss.aliyuncs.com";s:13:"Authorization";s:49:"OSS js59bamtBN2vGZpk:UZQhRZtjgWOqD7m9fad/sppdPXM=";}}s:4:"body";b:0;s:6:"status";i:200;}
+2015-03-13 16:02:09:---LOG END---------------------------------------------------------------------------
+

@@ -1,0 +1,101 @@
+<div class="panel panel-warning mt10">
+
+    <div class="panel-heading text-center f-fs2">
+        <b>{$team['product']}</b>
+    </div>
+
+    <div class="panel-body f-fs2 shyz">
+
+        <ul class="list-group">
+
+            <li class="list-group-item f-toe">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">详情:</label>
+                    <div class="col-sm-10 f-toe">
+                        {$team['title']}
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">项目名称:</label>
+                    <div class="col-sm-10">
+                        {$team['product']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">验证时间:</label>
+                    <div class="col-sm-10">
+                        {$coupon['consume_time']|date="Y-m-d H:i:s",###}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">消费金额:</label>
+                    <div class="col-sm-10">
+                        {$team['team_price']}
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">券号:</label>
+                    <if condition="is_array($coupon_id)">
+                        <div class="col-sm-10">
+                            <volist name="coupon_id" id="vo">	
+                                <span style="margin-right:10px;">{$vo}</span>
+                            </volist>
+                        </div>	
+                        <else />
+                        <div class="col-sm-10">
+                            {$coupon_id}
+                        </div>
+                    </if>	
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">状态:</label>
+                    <div class="col-sm-10 fac">
+                        验证成功
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="f-ti qtqyzok">验证成功</div>
+
+<!--新增打印数据-->
+<div style="display:none" id="copy">
+    <div style="font-size: 13px;">
+        <div style=" text-align: center;">青团网</div>
+        <div>项目标题:{$team['product']}</div>
+        <div>消费时间:{$coupon['consume_time']|date="Y-m-d H:i:s",###}</div>
+        <div>券号数量:{$scoupon_id['num']}</div>
+        <div>验证券号: {$scoupon_id['su']}</div>
+        <div>验证状态:验证成功</div>
+    </div>
+</div>
+<div class="checkbox text-center">
+    <a href="__APP__/__APP_NAME__/Coupon/index" ><button style="padding:8px 90px background-color:#2fb7ab" class="btn btn-warning" type="button">
+            返回首页
+        </button></a>
+    <if condition="$partner['enable'] eq 'N' ">
+        <a style="padding:8px 90px;background-color:#2fb7ab;margin-left:20px;" id="print-result"  href="#" class="btn btn-warning">
+            打印
+        </a>
+    </if>
+    <div id="mh"></div>
+</div>

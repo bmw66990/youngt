@@ -1,0 +1,16 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('DingZuo/index'))">
+            <li><a href="{:U('DingZuo/index')}">订座</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('DingZuo/add'))">
+            <li><a href="{:U('DingZuo/add')}">新建订座</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('DingZuo/order'))">
+            <li><a href="{:U('DingZuo/order')}">订座订单</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

@@ -1,0 +1,183 @@
+<include file="Common:header" />
+<link href="__CSS_PATH__/links.css" rel="stylesheet" type="text/css" />
+<include file="Common:nav" />
+<link rel="stylesheet" href="__CSS_PATH__/links.css?v={:C('CSS_VER')}" type="text/css" />
+<style type="text/css">
+	#order-apply-refund-form .field-group label{width: auto;}
+	#order-apply-refund-form .remarks{text-align: left;}
+</style>
+<section><div id='section'>
+<div id="bdw">
+	<div id="bd"  class="cf">
+		<div id="ytcontent" class="fl">
+			<!--退款开始-->
+            <div  class="mainbox f-pr">
+				<h2>
+					申请退款
+                    <span class="op-area f-fs2 f-fwn dp">
+						<a href="{:U('Member/index')}" class="fac">返回交易记录</a>
+					</span>
+                </h2>
+                <form id="order-apply-refund-form" class="common-form" method="post" action="{:U('Member/refund')}">
+                <div id="error-message" class="alert alert-danger alert-dismissable" style="display:none;margin-bottom:10px;"></div>
+                  	<div class="field-group">  
+                            <if condition="$order.express eq 'Y'">
+                                <label>项目名称：</label>
+                                <else/>
+                                <label>青团券：</label>
+                            </if>
+	                      
+	                      <h4>{$team['product']}</h4>
+	                      <div class="J-coupon-field coupon-field" >
+	                      	<ul id="coupon-checkbox">
+	                      	<volist name='couponList' id='vo'>
+								<li>
+									<label>青团券 {$vo.id}</label>
+									<span>{$vo.info}</span>
+								</li>
+							</volist>
+							</ul>
+	                      </div>
+                  	</div>
+                  	<div class="field-group field-group--small">
+				  		<label>可退款金额：</label>
+				  		<div class="f-controls">￥
+							<span class="J-curr-totalfee">{$price}</span>
+                                                                                                <if condition="$order.fare gt 0">
+                                                                                                    ; <span style="color:red;" class="J-curr-totalfee">其中邮费{$order.fare}元，不能退款！</span>
+                                                                                                </if>
+						</div>
+				  	</div>
+				  	<div class="field-group">
+						<label>退款方式：</label>
+						<div class="refund-method">
+							<div class="coupon-field">
+							<input id="direction-0" class="J-direct-radio" type="radio" value="1" name="type" />
+								<label for="direction-0">
+									退至青团余额
+									<em>（72小时内审核,1个工作日内退回您的青团余额，无手续费）</em>
+								</label>
+								<!--p class="account-tip">手机支付会退至青团余额可在下次团购时直接冲抵现金，也可在我的余额中点击提现即可随时提现</p-->
+							</div>
+
+							<div class="coupon-field">
+							<input id="direction-1" class="J-direct-radio" type="radio" checked="checked" value="2" name="type">
+								<label for="direction-1">
+									原路退
+									<em>（72小时内审核,3~10个工作日内退回您的原支付方，无手续费）</em>
+								</label>
+								<p class="account-tip">原路退指您付款时选择的支付方式，例如支付宝/财付通/银行卡(超过三个月退回至您的青团余额)</p>
+							</div>
+
+						</div>
+				 	</div>
+                  	<div class="field-group">
+						<label>退款原因：</label>
+						<div class="refund-reason">
+							<p>
+								为了帮我们做的更好，请提交您的退款原因
+								<span class="remarks">（至少选一项）</span>
+							</p>
+							<ul class="reason-list cf">
+								<li>
+									<input id="refund-reason4" type="checkbox" value="买多了/买错了" name="reasons[]">
+									<label for="refund-reason4">买多了/买错了</label>
+								</li>
+								<li>
+									<input id="refund-reason5" type="checkbox" value="计划有变，没时间消费" name="reasons[]">
+									<label for="refund-reason5">计划有变，没时间消费</label>
+								</li>
+								<li>
+									<input id="refund-reason1" type="checkbox" value="预约不上" name="reasons[]">
+									<label for="refund-reason1">预约不上</label>
+								</li>
+								<li>
+									<input id="refund-reason2" type="checkbox" value="去过了，不太满意" name="reasons[]">
+									<label for="refund-reason2">去过了，不太满意</label>
+								</li>
+								<li>
+									<input id="refund-reason3" type="checkbox" value="朋友/网上评价不好" name="reasons[]">
+									<label for="refund-reason3">朋友/网上评价不好</label>
+								</li>
+								<li>
+									<input id="refund-reason6" type="checkbox" value="后悔了，不想要了" name="reasons[]">
+									<label for="refund-reason6">后悔了，不想要了</label>
+								</li>
+								<li>
+									<input id="refund-reason0" type="checkbox" value="商家说可以直接以团购价到店消费" name="reasons[]">
+									<label for="refund-reason0">商家说可以直接以团购价到店消费</label>
+								</li>
+								<li class="other">
+									<input id="refund-reason7" class="reason-other" type="checkbox">
+									<label  for="refund-reason7">其他</label>
+								</li>
+								<li class="other" id="textarea" style="display:none">
+									<textarea name="reasons[]"  placeholder="请输入您的退款原因！" cols="70" rows="5" ></textarea>
+								</li>	
+							</ul>
+						</div>
+					</div>
+                  	<div class="field-group">
+                  		<input type="hidden" name="id" value="{$id}">
+					  	<input class="btn-1" type="button" id="refund-btn" value="申请退款">
+					  	<a class="inline-link" href="{:U('Member/index')}">先不退了</a>
+				  	</div>
+                </form>
+            </div>										
+        </div>
+        <!--退款结束-->
+        <div id="sidebar" class="fr">
+			<div class="side-single">
+				<div class="inner-blk side-tips last">
+					<h3>需要帮助？</h3>
+					<div class="uix-collapse uix-collapse--open">
+						<h4 class="uix-collapse__trigger">什么是原路退？</h4>
+						<p class="uix-collapse__content">原路退是指将退款金额退回您的原支付方，包括支付宝/财付通/银行卡；原路退将在3-10个工作日内到账，无手续费。</p>
+					</div>
+					<div class="uix-collapse uix-collapse--open">
+						<h4 class="uix-collapse__trigger">退款金额跟订单金额为何不一样？</h4>
+						<p class="uix-collapse__content">可能由以下情况导致：1）您的订单中有多张青团券，您只退了部分青团券；2）您支付时使用了代金券或充值卡，代金券和充值卡暂无法退款，请您谅解。</p>
+					</div>
+					<div class="uix-collapse uix-collapse--open">
+						<h4 class="uix-collapse__trigger">申请退款后是否可以取消？</h4>
+						<p class="uix-collapse__content">在青团处理完成之前可以取消，取消后的订单仍可以消费。若青团处理已完成，则不能取消，请您谅解。</p>
+				    </div>
+				</div>
+			</div>
+		</div>
+       	<div class="clear"></div>
+	</div>
+</div>
+</div></section>
+<script type="text/javascript">
+$(function(){
+	$("#refund-btn").click(function(){
+		if($(".reason-list input:checked").length==0){
+			$("#error-message").text('请选择退款原因').show();
+			return false;
+		}
+		$("#refund-btn").val('提交中...').attr('disabled',true);
+		$.post($("#order-apply-refund-form").attr('action'),$("#order-apply-refund-form").serialize(),function(data){
+			if(data.status==1){
+				$("#error-message").text('退款成功').removeClass('alert-danger').addClass('alert-success').show();
+				window.setTimeout(function(){
+					location.href="{:U('Member/index')}";
+				},3000);		
+			}else{
+				$("#refund-btn").val('申请退款').attr('disabled',false);
+				$("#error-message").text('退款失败').show();
+			}
+		});
+		return false;
+	});
+
+	$("#refund-reason7").click(function(){
+		if(this.checked){
+			$("#textarea").show();
+		}else{
+			$("#textarea").hide();
+		}
+	});
+})
+</script>
+<include file="Common:footer" />

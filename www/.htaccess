@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+
+RewriteRule ^team/([0-9]+).html$ /team-$1\.html [L,R=301]
+
+RewriteCond %{HTTP_HOST} ^[a-zA-Z0-9]+\.youngt\.com$
+RewriteRule ^/?$ /%{HTTP_HOST}
+RewriteRule ^/([a-zA-Z0-9]+)\.youngt\.com$  /Index/index/site/$1 [L]
+
+RewriteRule ^site/(.*)$  /Index/index/site/$1 [L]
+
+RewriteRule ^city.html$  /Public/city [L]
+
+RewriteRule ^team-([0-9]+)\.html$  /Team/detail/tid/$1 [L]
+
+RewriteRule ^buy-([0-9]+)\.html$  /Team/buy/id/$1 [L]
+
+RewriteCond %{HTTP_HOST} ^[api|mapi]\.youngt\.com$       
+RewriteRule !^api.php(.*)$ /api.php?/$1 [QSA,PT,L]
+
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?/$1 [QSA,PT,L]
+
+</IfModule>

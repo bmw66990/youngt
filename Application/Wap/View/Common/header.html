@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+        <title>{$title}</title>
+        <link rel="stylesheet"  href="__CSS_PATH__/bootstrap.min.css?v={:C('CSS_VER')}">
+        <link rel="stylesheet" href="__CSS_PATH__/mobile.css?v={:C('CSS_VER')}">
+        <script src="__JS_PATH__/jquery.min.js"></script>
+        <script src="__JS_PATH__/bootstrap.min.js"></script>
+        <script src="__JS_PATH__/alert.js?v={:C('JS_VER')}"></script>
+        <script src="__JS_PATH__/jquery.lazyload.min.js"></script>
+        <script src="__PLUGINS_PATH__/idangerous.swiper.min.js"></script>
+        <script type="text/javascript" src="__PLUGINS_PATH__/selectCity/jquery.cityselect.js"></script>
+    </head>
+    <body>
+    <script type="text/javascript">
+       function app_hide_header_footer(){
+           $('footer.footer2').hide();
+           $('nav.navbar').hide();
+           return false;
+       }        
+   </script>

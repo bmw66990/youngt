@@ -1,0 +1,115 @@
+<include file="Common:header" />
+<include file="Common:nav" />
+<section><div id='section'>
+        <include file="left" />
+
+        <!--右侧内容开始-->
+        <div id="pcontent" class="coupons-box fl">
+              <include file="Common:error" />
+            <div class="pmainbox mine">
+                
+                <div class="filter-short" style="left: 12px;top: 15px;">
+                    <a <if condition="!$type || $type eq 1" > class="em" </if>  href="{:U('Member/cloud_shopping_order',array('type'=>1))}">全部</a>
+                    <a <if condition="$type eq 2" > class="em" </if> href="{:U('Member/cloud_shopping_order',array('type'=>2))}">进行中</a>
+                    <a <if condition="$type eq 3" > class="em" </if> href="{:U('Member/cloud_shopping_order',array('type'=>3))}">已揭晓</a>
+                </div>
+               
+                <div id="order-list" class="orders-wrapper" >
+                    <if condition="!empty($list)">
+                        <volist name="list" id="lvo">
+                            <div class="cloud-order">
+                                <span class="cloud-order-tit"><label>购买时间：{$lvo['order_last_pay_time']|date="Y-m-d H:i:s",###}</label></span>
+                                <div class="cloud-order-con">
+                                    <a href="{:U('Team/could_shoping_detail',array('tid'=>$lvo['order_team_id'],'pn'=>$lvo['order_now_periods_number']))}"><img style="width:100px;height:70px;vertical-align: top; margin-top: 10px;" src="{$lvo.team_image}" /></a>
+                                    <span class="title"><label>{$lvo.team_product}</label><label>(第{$lvo.order_now_periods_number}期)</label></span>
+                                    <span><label>总需：{$lvo.team_max_number}</label><label>参与人次：{$lvo.order_pay_count} <a href="{:U('Member/view_cloud_shopping_code',array('tid'=>$lvo['order_team_id'],'pn'=>$lvo['order_now_periods_number']))}" class="view-all-cloud-shopping-code">(查看我的号码)</a></label></span>
+                                    <span class="t_red">{$lvo.csr_status_name}</span>
+                                </div>
+                                <if condition="$lvo.csr_my_status eq 1 || $lvo.csr_my_status eq 2">
+                                    <div class="cloud-order-box b-f1">
+                                        <ul>
+                                            <li>获奖者：{$lvo.csr_winning_user_username_hide}</li>
+                                            <li>用户ID：{$lvo.csr_winning_user_id}</li>
+                                            <li>揭晓时间：{$lvo['csr_begin_time']|date="Y-m-d H:i:s",###}</li>
+                                            <li>幸运号码：<label class="t_red">{$lvo.csr_winning_cloud_code}</label></li>
+                                        </ul>
+                                    </div>
+                                    <elseif condition="$lvo.csr_my_status eq 3"/>
+                                    <div class="cloud-order-box b-red recive">
+                                        <img src="__IMAGE_PATH__/winning.png" />
+                                        <h1>幸运号码：{$lvo.csr_winning_cloud_code}</h1>
+                                        <h4>开奖时间：{$lvo['csr_begin_time']|date="Y-m-d H:i:s",###}</h4>
+                                        <span><a href="{:u('Member/receive_prize_moblie',array('order_id'=>$lvo['csr_winning_order_id']))}" class="receive-prize-view"><img src="__IMAGE_PATH__/recive.png"/></a></span>
+                                    </div>
+                                    <elseif condition="$lvo.csr_my_status eq 4"/>
+                                    <div class="cloud-order-box b-f1 recive">
+                                        <img src="__IMAGE_PATH__/winning.png" />
+                                        <div  class="cloud-order-result">
+                                            <li>收奖者信息</li>
+                                            <li>收奖人：{$lvo.order_address.name}</li>
+                                            <li>地址：{$lvo.order_address.province}{$lvo.order_address.area}{$lvo.order_address.city}{$lvo.order_address.street}</li>
+                                            <li>手机号：{$lvo.order_address.mobile}</li>
+                                            <li>邮编：{$lvo.order_address.zipcode}</li>
+                                        </div>
+                                    </div>
+                                    <elseif condition="$lvo.csr_my_status eq 5"/>
+                                    <div class="cloud-order-box b-f1 recive">
+                                        <img src="__IMAGE_PATH__/winning.png" />
+                                        <div  class="cloud-order-result">
+                                            <li>收奖者信息</li>
+                                            <li>收奖人：{$lvo.order_address.name}</li>
+                                            <li>地址：{$lvo.order_address.province}{$lvo.order_address.area}{$lvo.order_address.city}{$lvo.order_address.street}</li>
+                                            <li>手机号：{$lvo.order_address.mobile}</li>
+                                            <li>邮编：{$lvo.order_address.zipcode}</li>
+                                        </div>
+                                        <div class="cloud-order-result-btn">
+                                            <label><a href="javascript:;" onclick="makesureOrder('{$lvo.csr_winning_order_id}')">确认收货</a></label>
+                                            <label><a class="coupon-view"  href="{: U('Member/viewTransport', array('id' => $lvo['csr_winning_order_id']))}">查看物流</a></label>
+                                        </div>
+                                    </div>
+                                    <elseif condition="$lvo.csr_my_status eq 6"/>
+                                    <div class="cloud-order-box b-f1 recive">
+                                        <img src="__IMAGE_PATH__/winning.png" />
+                                        <div class="cloud-order-result">
+                                            <li>收奖者信息</li>
+                                            <li>收奖人：{$lvo.order_address.name}</li>
+                                            <li>地址：{$lvo.order_address.province}{$lvo.order_address.area}{$lvo.order_address.city}{$lvo.order_address.street}</li>
+                                            <li>手机号：{$lvo.order_address.mobile}</li>
+                                            <li>邮编：{$lvo.order_address.zipcode}</li>
+                                        </div>
+                                        <div class="cloud-order-result-btn">
+                                            <label class="orange"><a href="{:U('Member/cloud_shopping_review', array('id' =>  $lvo['csr_winning_order_id']))}">晒单</a></label>
+                                             <label><a class="coupon-view"  href="{: U('Member/viewTransport', array('id' => $lvo['csr_winning_order_id']))}">查看物流</a></label>
+                                        </div>
+                                    </div>
+                                    <elseif condition="$lvo.csr_my_status eq 7"/>
+                                    <div class="cloud-order-box b-f1 recive">
+                                        <img src="__IMAGE_PATH__/winning.png" />
+                                        <div class="cloud-order-result">
+                                            <li>收奖者信息</li>
+                                            <li>收奖人：{$lvo.order_address.name}</li>
+                                            <li>地址：{$lvo.order_address.province}{$lvo.order_address.area}{$lvo.order_address.city}{$lvo.order_address.street}</li>
+                                            <li>手机号：{$lvo.order_address.mobile}</li>
+                                            <li>邮编：{$lvo.order_address.zipcode}</li>
+                                        </div>
+                                        <div class="cloud-order-result-btn">
+                                             <label><a class="coupon-view"  href="{: U('Member/viewTransport', array('id' => $lvo['csr_winning_order_id']))}">查看物流</a></label>
+                                        </div>
+                                    </div>
+                                </if>
+                            </div>
+                        </volist>
+                    </if>
+                </div>
+                <!--分页-->                      
+                <div class="pagination">
+                    {$pages}			  
+                </div>
+            </div>
+            <!--右侧内容结束-->
+        </div>
+</section>
+
+</script>
+<script type="text/javascript" src="__JS_PATH__/member.js"></script>
+<include file="Common:footer" />

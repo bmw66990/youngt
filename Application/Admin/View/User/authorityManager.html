@@ -1,0 +1,85 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">权限管理<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('User/authorityManager')}" method="get">
+                <li><label>权限关键字</label><input type="text" name="name" value="{$name}"/><label>,</label></li>
+                <li><label>状态</label>
+                    <select class="w150"  name='status'>
+                        <option value="" >全部</option>
+                        <volist  name="status_type" id="st">
+                            <option value="{$key}"  <if condition="$status neq '' && $key eq $status"> selected </if>>{$st}</option>
+                        </volist>
+                    </select>
+                    <label>,</label></li>
+                <li><label>权限平台</label>
+                    <select class="w150"  name='module_name'>
+                        <option value="" >全部</option>
+                        <volist  name="plat_type" id="st">
+                            <option value="{$key}"  <if condition="$key eq $module_name"> selected </if>>{$st}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w50"><input type="checkbox" check_list="table" class="checkall" ></th>
+                        <th style='width:100px;'>ID</th>
+                        <th style='width:300px;'>权限值</th>
+                        <th style='width:300px;'>权限名称</th>
+                        <th style='width:120px;'>权限平台</th>
+                        <th class="w60">状态</th>
+                        <th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="list" id="vo">
+                        <tr class='check-list'>
+                            <td class="w50"><input type="checkbox"  class="checkone" name="id[]" value="{$vo.id}"></td>
+                            <td style='width:100px;'><label class="tx-teal">{$vo.id}</label></td>
+                            <td style='width:300px;'><label>{$vo.name}</label></td>
+                            <td  style='width:300px;'><label>{$vo.title}</label></td>
+                            <td  style='width:120px;'><label>{$vo.module_name_text}</label></td>
+                            <td  class="w60"><label>
+                                    <if condition="$vo['status']=='1'">
+                                        <label class="tx-teal">正常</label>
+                                        <else/>
+                                        <label class="tx-red">禁用</label>
+                                    </if>
+                                </label></td>
+                            <td class="w120 man">
+                        <if condition="$res = auth_check_access(array('User/authorityManagerEdit'))">
+                            <label  class="bc-teal">
+                                <a href="{:U('User/authorityManagerEdit',array('auth_rule_id'=>$vo['id']))}">编辑</a>
+                            </label>
+                        </if>
+
+                        <!--                                <label class="bc-teal">
+                                                            <a href="{:U('User/authorityManagerDelete',array('auth_rule_id'=>$vo['id']))}" class='authority-operation-btn' confirm_tip='确定要删除该权限吗？'>删除</a>
+                                                        </label>-->
+                        </td>
+                        </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                        <div class="cuurt">共{$count|default='0'}条</div>
+                        {$page}
+                    </div>
+                </div>
+                <if condition="$res = auth_check_access(array('User/authorityBatchDisable'))">
+                    <div style='text-align: center;'>
+                        <label  class="bc-teal">
+                            <a id="authorityBatchDisable" href="{:U('User/authorityBatchDisable')}" confirm_tip="确定禁用选中状态吗？">批量禁用权限</a>                   
+                        </label >
+                    </div>
+                </if>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/user.js"></script>
+<include file="Common:footer" />

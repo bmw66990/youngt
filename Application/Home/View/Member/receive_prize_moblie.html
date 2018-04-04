@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>云购领奖验证手机</title>	
+        <meta name="description" content="青团网西安站 - 中国第一大学生校园团购网！为您汇集最全面最优惠的大学城美食娱乐团购打折促销信息！青团网为您精选西安城内的自助餐、电影票、KTV、美发、足浴特色商家，享尽无敌折扣！" />							
+        <meta name="keywords" content="青团网 西安,青团网西安站,西安团购,打折,西安打折,优惠券,西安优惠券,西安校园团购" />
+        <link rel="stylesheet" href="__CSS_PATH__/base.css">
+        <link rel="icon" href="__PUBLIC__/Images/favicon.ico" size="16x16"/>		
+        <script src="__JS_PATH__/jquery-1.7.2.js" type="text/javascript"></script>
+        <style>
+            .blind {position: absolute;width: 480px; z-index: 102;}
+            .mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+            .mt-dialog .body {overflow: hidden;padding: 30px;}
+            #mobile-rebind-dialog{width:520px;height: 320px;overflow: hidden;}
+            .mobile-rebind-dialog .common-form {margin: 10px auto;width: 400px;}
+            .mobile-rebind-dialog .field-group { line-height: 22px;margin:  0;padding: 0 10px 18px 50px; position: relative;}
+            .mobile-rebind-dialog .field-group label {width: 100px;line-height: 22px; color: #333333; font-size: 14px;left: 0; padding-top: 2px; position: absolute;text-align: right;margin: 0;padding: 0;top: 6px;}
+            .mobile-rebind-dialog .mobile .f-text {width: 242px;  height: 22px;line-height: 22px;margin-bottom: 3px;border: 1px solid #CCCCCC;padding: 5px;vertical-align: top;}
+            .mobile-rebind-dialog .mobile input.f-text:focus{border-color: #63C5C8; box-shadow: 0 1px 2px #CDCDCD inset;outline: 0 none;}
+            .mobile-rebind-dialog .f-block-verify { padding-bottom: 5px;margin-top:0;}
+            .mobile-rebind-dialog .mobile .f-text-verify {width: 90px;}
+            .mobile-rebind-dialog .operate {margin: 3px 0;}
+            .btn-mini {font-weight: normal;padding: 1px 8px 0;-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #DEDEDE;background-image: -moz-linear-gradient(center top , #F7F7F7, #DEDEDE);border-color: #E3E3E3 #E3E3E3 #AAAAAA;border-image: none;border-style: solid;border-width: 1px;color: #333333;-moz-user-select: none;background-repeat: repeat-x;border-radius: 2px;cursor: pointer; display: inline-block;font-family: 'SimSun',Arial;letter-spacing: 0.1em;line-height: 1.5;text-align: center;text-decoration: none;vertical-align: middle;}
+            .btn-mini:hover
+            {
+                -moz-border-bottom-colors: none-moz-border-left-colors: none;
+                -moz-border-right-colors: none;-moz-border-top-colors: none;
+                background-color: #E9E9E9;
+                background-image: -moz-linear-gradient(center top , #FFFFFF, #E9E9E9);
+                border-color: #E5E5E5 #E5E5E5 #B3B3B3;border-image: none;border-style: solid;
+                border-width: 1px;color: #333333;
+            }
+            .btn-mini:active
+            {
+                -moz-border-bottom-colors: none;
+                -moz-border-left-colors: none;
+                -moz-border-right-colors: none;
+                -moz-border-top-colors: none;
+                background-color: #EFEFFE;
+                background-image: -moz-linear-gradient(center top , #E0E0E0, #EFEFEF);
+                border-color: #D7D7D7 #D7D7D7 #ABAAAA;border-image: none;border-style: solid;border-width: 1px;color: #333333;
+            }
+            .btn {background-color: #2DB3A6;background-image: -moz-linear-gradient(center top , #2EC3B4, #2DB3A6);border-color: #0D7B71;color: #FFFFFF;-moz-user-select: none;background-repeat: repeat-x;border-radius: 2px;border-style: solid;border-width: 0 0 1px;cursor: pointer;display: inline-block;font-family: 'SimSun',Arial;font-size: 12px;font-weight: bold;letter-spacing: 0.1em;line-height: 1.5;padding: 7px 20px 6px;text-align: center;text-decoration: none;vertical-align: middle;}
+            .btn:hover, .btn.hover, .btn:focus {background-color: #2EB7AA;background-image: -moz-linear-gradient(center top , #38D0C3, #2EB7AA);border-color: #0E8177;color: #FFFFFF;}
+            .btn:active, .btn.active {background-color: #32C2B5;background-image: -moz-linear-gradient(center top , #2EB6A9, #32C2B5);border-color: #109085;color: #FFFFFF;}
+            .btn-orange{background: #f6ab2e;border:0;padding: 7px 20px 7px;color:#fff;cursor: pointer;width: 255px;line-height: 28px;font-size:1.3em;font-family:"microsoft yahei";}
+            .common-form a.inline-link {line-height: 32px;margin: 0 0 0 4px;vertical-align: top;color: #2BB8AA;}
+            .common-form a:hover{ text-decoration:underline;}
+            .tipMsg {
+                color: red;
+                width: 200px;
+                margin:10px auto;
+                text-align: center;
+            }
+            #mobile-rebind-dialog input.disabled{
+                background-color: #A99A9A;
+                border: 0;
+            }
+            h2{display: inline-block;margin-right: 10px;}
+            .tit{line-height: 38px;font-size: 16px;background: #f1f1f1;display: block;width: 100%;text-align: center;border-bottom: 1px solid #ccc;}
+        </style>
+    </head>
+    <body>
+        <!--云购领奖验证手机号-->
+        <div id="mobile-rebind-dialog" class="mt-overlay-container">
+
+            <div class="yui3-widget yui3-widget-positioned yui3-widget-stacked yui3-overlay-focused blind">
+
+                <div class="yui3-overlay-content yui3-widget-stdmod">
+
+                    <div class="yui3-widget-bd">
+
+                        <div class="mt-dialog">
+                            <span class="tit">验证中奖手机号码</span>
+                            <div class="body">
+                                <div class="mobile-rebind-dialog">
+
+                                    <div id='msg' class="tipMsg"></div>
+                                    <form id="from-receive-prize-moblie-verify" method="post" action="{:U('Member/receive_prize_moblie')}">
+                                        <div class="field-group mobile f-block-verify">
+                                            <h2>{$order.mobile}</h2><input id='btn-receive-prize-send-sms' load_href="{:U('Member/receive_prize_send_sms')}" class="btn" type="button" value="获取验证码">	
+                                        </div>
+                                        <div class="field-group mobile f-block-verify">
+                                            <input type='hidden' id="order_id" name='order_id' value='{$order.id}'/>
+                                            <input id="code" class="f-text" value="" name="vcode" placeholder="输入验证码">
+                                        </div>
+                                        <div class="field-group operate">
+                                            <input id="btn-receive-prize-moblie-verify" class="btn-orange" type="button" value="确认">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+           $(function(){
+               
+               // 获取验证码
+               $('#btn-receive-prize-send-sms').die().live('click',function(){
+                   var $this = $(this);
+                   var href = $this.attr('load_href');
+                   var order_id = $('#order_id').val();
+                   var curCount = 120;
+                   var timeId = null;
+                   
+                   if($this.hasClass('disabled')){
+                       return false;
+                   }
+                   var btn_html = $this.val();
+                   $this.addClass('disabled')
+                   $this.val('正在发送......');
+                   $.post(href,{order_id:order_id},function(res){
+                       if(res.error && res.code !=0){
+                           $this.removeClass('disabled');
+                           $this.val(btn_html);
+                           parent.window.alert(res.error);
+                           return false;
+                       }
+                       
+                        var SetRemainTime = function() {
+                            
+                            $this.val(curCount-- + "秒后重新获取验证码");
+                            if (curCount <= 0) {
+                                $this.removeClass('disabled');
+                                parent.window.clearInterval(timeId);//停止计时器
+                                $this.val("重新获取验证码");
+                            }
+                        }
+                        //设置button效果，开始计时
+                        timeId = parent.window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                        return false;
+                       
+                   },'json');
+                   return false;
+                   
+               });
+               
+               // 提交验证
+               $('#btn-receive-prize-moblie-verify').die().live('click',function(){
+                    var $this = $(this);
+                    var $from = $this.parents('form#from-receive-prize-moblie-verify');
+                    var href = $from.attr('action');
+                    var order_id = $('#order_id').val();
+                    var vCode = $('#code').val();
+                    
+                    if($this.hasClass('disabled')){
+                       return false;
+                    }
+                    
+                    if(!$.trim(vCode)){
+                        parent.window.alert('请填写验证码！');
+                        return false;
+                    }
+                    
+                    var btn_html = $this.val();
+                    $this.addClass('disabled')
+                    $this.val('正在验证......');
+                    $.post(href,{order_id:order_id,vCode:vCode},function(res){
+                       if(res.error && res.code !=0){
+                           $this.removeClass('disabled');
+                           $this.val(btn_html);
+                           parent.window.alert(res.error);
+                           return false;
+                       }
+                       $this.val('验证成功，正在跳转到领奖页面......');
+                       if(res.data.load_href){
+                           parent.window.setTimeout(function() {
+                                parent.window.$.fancybox.close();
+                                parent.window.location.href=res.data.load_href;
+                           }, 1500);   
+                       }
+                       return false;
+                       
+                   },'json');
+                   return false;
+               });
+           });
+  </script>
+</html>

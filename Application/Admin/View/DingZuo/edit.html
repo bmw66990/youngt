@@ -1,0 +1,84 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">编辑订座<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('DingZuo/doEdit')}" method="post">
+                <div class="form-title">标注信息</div>
+                <ul class="li-onlyline">
+                    <li><label>订座分类</label>
+                        <select class="w150px" name="class_id">
+                            <option value="0">-选择分类-</option>
+                            <volist name="dingZuo_class" id="groupInfo">
+                                <option value="{$groupInfo['id']}" <if condition="$groupInfo['id'] eq $dz_info['class_id']">selected</if>>{$groupInfo['name']}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li><label>订座状态</label>
+                        <select name="status">
+                            <option value="Y" <if condition="$dz_info['class_id'] eq 'Y'">selected</if>>开启</option>
+                            <option value="N" <if condition="$dz_info['class_id'] eq 'N'">selected</if>>关闭</option>
+                        </select>
+                    </li>
+                    <li><label>排序字段</label>
+                        <input type="text" class="w60" name="sort_order" value="{$dz_info['sort_order']}" /><label>,</label><div class="form-s-remark tx-grey fl">数值越大排位越前</div>
+                    </li>
+                    <li><label>商家图片</label>
+                        <span style="width:700px;display:inline-block;">
+						<include file="Common:upload" />
+						<input type="hidden" name="image" id="uploadimage" value="{$dz_info['image']}">
+					</span></li>
+                    <div class="form-remark tx-grey">至少上传一张商家照片</div>
+                    <li><label>地图坐标</label>
+                        <input type="text" class="w200" id="mappoint" name="longlat"  value="{$dz_info['lat']},{$dz_info['long']}" onclick="getMap('{$point}');" readonly/><label>,</label>
+                        <div class="form-s-remark tx-grey fl"><label class="tx-teal"><a onclick="getMap('{$point}');">取地图坐标信息</a></label><label class="tx-teal"><a onclick="clearMap();">清空地图坐标</a></label></div>
+                    </li>
+                    <div class="form-remark tx-red">如果你是用“如果确定不了坐标请用单击搜索准确坐标” 获取的坐标请把获取的坐标顺序颠倒 如直接复制的坐标是：108.09429,34.280441 正确应该是:34.280441,108.09429(也就是签名的那个带小数点只一定要小于后面的值)</div>
+                </ul>
+                <div class="form-title">基本信息</div>
+                <ul class="li-onlyline">
+                    <li><label>商户名称</label>
+                        <input type="text" class="w300" id="partner-title" name="title" value="{$dz_info['title']}"/><label>,</label>
+                    </li>
+                    <li><label>预约电话</label>
+                        <input type="text" class="w150" name="mobile" value="{$dz_info['mobile']}"/><label>,</label>
+                    </li>
+                    <li><label>联系电话</label>
+                        <input type="text" class="w200" name="telphone" value="{$dz_info['telphone']}"/><label>,</label>
+                    </li>
+                    <li><label>最低人数</label>
+                        <input type="text" class="w200" name="min_num" value="{$dz_info['min_num']}"/><label>,</label>
+                    </li>
+                    <li><label>最高人数</label>
+                        <input type="text" class="w200" name="max_num" value="{$dz_info['max_num']}"/><label>,</label>
+                    </li>
+                    <li><label>开始时间</label>
+                        <input type="text" class="w200" name="begin_time" value="{$dz_info['begin_time']}"/><label>,</label>
+                    </li>
+                    <li><label>结束时间</label>
+                        <input type="text" class="w200" name="end_time" value="{$dz_info['end_time']}"/><label>,</label>
+                    </li>
+                    <li><label>支持星期</label>
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="1" checked />星期一
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="2"checked />星期二
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="3" checked />星期三
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="4"checked />星期四
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="5" checked />星期五
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="6" checked />星期六
+                        <input type="checkbox"  style="float: unset;height: 10px;" name="week[]" value="7" checked />星期天
+                    </li>
+                    <input type="hidden" name="id" value="{$dz_info['id']}" />
+                    <li><input class="small-btn bc-teal w100 h40" type="submit" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/partner.js?v=C('JS_VER')" ></script>
+<script type="text/javascript">
+    //上传图片
+    var UPLOAD_URL = '{:U("Partner/uploadImg/",array("type"=>"dingZuo"))}';
+</script>

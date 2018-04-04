@@ -1,0 +1,188 @@
+<include file="Common:header" />
+<script type="text/javascript" src="__PLUGINS_PATH__/newcity.js"></script>
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">编辑商户<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('Partner/doEdit')}" id="partner-add-edit-form" check_url="{:U('Partner/checkPartnerValidate')}"  method="post">
+                <div class="form-title">登陆信息</div>
+                <ul>
+                    <li><span style="color:red;float: left;">*</span><label>用户名</label><input type="text" class="w200 fl" name="username" value="{$partner_info['username']}"/><label>,</label><div class="form-s-remark tx-grey fl">字母、数字</div></li>
+                    <li><label>密码</label><input type="text" class="w200 fl" name="password" value="" /><label>,</label><div class="form-s-remark tx-grey fl">不修改密码请保持空白</div></li>
+                </ul>
+                <div class="form-title">标注信息</div>
+                <ul class="li-onlyline">
+                    <li><span style="color:red;float: left;">*</span><label>城市</label>
+                        <select class="w150px" name="city_id" onchange="getDistrict($(this).val())">
+                            <option value="0">-选择城市-</option>
+                            <volist name="all_city" id="cityInfo">
+                                <option value="{$cityInfo['id']}" <if condition="$cityInfo['id'] eq $partner_info['city_id']">selected</if>>{$cityInfo['letter']}{$cityInfo['name']}</option>
+                            </volist>
+                        </select>
+                        <select class="w150px" name="zone_id" id="district" onchange="getStation($(this).val())">
+                            <option value="0">-选择商圈-</option>
+                            <notempty name="district">
+                                <volist name="district" id="vo">
+                                    <option value="{$vo.id}" <if condition="$vo.id eq $partner_info['zone_id']">selected</if>>{$vo.name}</option>
+                                </volist>
+                            </notempty>
+                        </select>
+                        <select class="w150px" name="station_id" id="station">
+                            <option value="0">-选择子商圈-</option>
+                            <notempty name="station">
+                                <volist name="station" id="vo">
+                                    <option value="{$vo.id}" <if condition="$vo.id eq $partner_info['station_id']">selected</if>>{$vo.name}</option>
+                                </volist>
+                            </notempty>
+                        </select>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>分类</label>
+                        <select class="w150px" name="group_id">
+                            <option value="0">-选择分类-</option>
+                            <volist name="partner_group" id="groupInfo">
+                                <option value="{$groupInfo['id']}" <if condition="$groupInfo['id'] eq $partner_info['group_id']">selected</if>>{$groupInfo['name']}</option>
+                            </volist>
+                        </select>
+
+                    </li>
+                    <li><label>排序字段</label>
+                        <input type="text" class="w60" name="head" value="{$partner_info['head']}" /><label>,</label><div class="form-s-remark tx-grey fl">数值越大排位越前</div>
+                    </li>
+                    <li><label>首页展示</label>
+                        <select name="display">
+                            <option value="Y" <if condition="$partner_info['display'] eq 'Y'">selected</if>>展示</option>
+                            <option value="N" <if condition="$partner_info['display'] eq 'N'">selected</if>>不展示</option>
+                        </select>
+                    </li>
+                    <li><label>商户展示</label>
+                        <select name="open">
+                            <option value="Y" <if condition="$partner_info['open'] eq 'Y'">selected</if>>展示</option>
+                            <option value="N" <if condition="$partner_info['open'] eq 'N'">selected</if>>不展示</option>
+                        </select>
+                    </li>
+                    <li><label>VIP商户</label>
+                        <select name="vip">
+                            <option value="N" <if condition="$partner_info['vip'] eq 'N'">selected</if>>普通商户</option>
+                            <option value="Y" <if condition="$partner_info['vip'] eq 'Y'">selected</if>>vip商户</option>
+                        </select>
+                    </li>
+                    <li><label>旗舰店商户</label>
+                        <select name="store">
+                            <option value="N" <if condition="$partner_info['store'] eq 'N'">selected</if>>普通商户</option>
+                            <option value="Y" <if condition="$partner_info['store'] eq 'Y'">selected</if>>旗舰店商户</option>
+                        </select>
+                    </li>
+                    <li><span style="float: left;"></span><label>是否分店</label>
+                        <p>
+                        <if condition="$partner_info['fid'] neq '0'">
+                            <input type="text" name="fid" placeholder="总店编号" value="{$partner_info['fid']}"/>
+                        <else/>
+                            <input type="checkbox" name="is_branch" <if condition="$partner_info['is_branch'] eq 'Y'">checked</if>>
+                            <input type="text" name="fid" placeholder="总店编号" <if condition="$partner_info['is_branch'] eq 'N'">disabled</if>>
+                        </if>                            
+                        </p>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>商家图片</label>
+                        <span style="width:700px;display:inline-block;">
+						<include file="upload" />
+						<input type="hidden" name="image" id="uploadimage" value="{$partner_info['image']}">
+					</span></li>
+                    <div class="form-remark tx-grey">至少上传一张商家照片 图片尺寸380 * 280</div>
+                    <li><span style="color:red;float: left;">*</span><label>地图坐标</label>
+                        <input type="text" class="w200" id="mappoint" name="longlat" value="{$partner_info['longlat']}" onclick="getMap('{$point}');" readonly/><label>,</label>
+                        <div class="form-s-remark tx-grey fl"><label class="tx-teal"><a onclick="getMap('{$point}');">取地图坐标信息</a></label><label class="tx-teal"><a onclick="clearMap();">清空地图坐标</a></label></div>
+                    </li>
+                    <div class="form-remark tx-red">如果你是用“如果确定不了坐标请用单击搜索准确坐标” 获取的坐标请把获取的坐标顺序颠倒 如直接复制的坐标是：108.09429,34.280441 正确应该是:34.280441,108.09429(也就是签名的那个带小数点只一定要小于后面的值)</div>
+                </ul>
+                <div class="form-title">基本信息</div>
+                <ul class="li-onlyline">
+                    <li><span style="color:red;float: left;">*</span><label>商户名称</label>
+                        <input type="text" class="w300" name="title" value="{$partner_info['title']}"/><label>,</label>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>预约电话</label>
+                        <input type="text" class="w150" name="phone" value="{$partner_info['phone']}"/><label>,</label>
+                    </li>
+                    <li><label>新建项目数</label>
+                        <input type="text" class="w60" name="ptnum" value="{$partner_info['ptnum']}"/><label>,</label>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>商户地址</label>
+                        <input type="text" class="w300" name="address" value="{$partner_info['address']}"/><label>,</label>
+                    </li>
+                    <li><label>其他信息</label>
+                        <textarea cols="20" rows="6" name="location" ></textarea>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>联系人</label>
+                        <input type="text" class="w100" name="contact" value="{$partner_info['contact']}"/><label>,</label>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>验证电话</label>
+                        <input type="text" class="w100" name="mobile" value="{$partner_info['mobile']}"/><label>,</label><div class="form-s-remark tx-grey fl">此号码作为商家电话验证所用绑定号码</div>
+                    </li>
+                </ul>
+                <div class="form-title">银行信息</div>
+                <ul class="li-onlyline">
+                    <li><span style="color:red;float: left;">*</span><label>开户行</label>
+                        <input type="text" class="w200" name="bank_name" value="{$partner_info['bank_name']}"/><label>,</label>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>大额行号</label>
+                        <input type="text" class="w200" name="bank_large_no" value="{$partner_info['bank_large_no']}"/><label>,<span style="color:red;float: left;">如果非农行，需要提供大额行号(影响商家打款结算，请务必准备)</span></label>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>开户名</label>
+                        <input type="text" class="w200" name="bank_user" value="{$partner_info['bank_user']}"/><label>,</label>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>银行账户</label>
+                        <input type="text" class="w300" name="bank_no" value="{$partner_info['bank_no']}"/><label>,</label>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>收款方开户行</label>
+                        <select id="s_bank" name="sbank">
+                            <option>开户银行</option>
+                        </select>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>开户所在省</label>
+                        <select id="s_city"  name="banks">
+                            <option>所在省</option>
+                        </select>
+                    </li>
+                    <li><span style="color:red;float: left;">*</span><label>所在市/县</label>
+                        <select id="s_xian" name="bankx">
+                            <option>所在市/县</option>
+                        </select>
+                    </li>
+                    <input name="id" value="{$partner_info['id']}" type="hidden" />
+                    <li><input id="partner-add-edit-btn" class="small-btn bc-teal w100 h40" type="button" value="提交"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/partner.js?v=C('JS_VER')" ></script>
+<script type="text/javascript">
+    //上传图片
+    var UPLOAD_URL = '{:U("Partner/uploadImg/",array("type"=>"partner"))}';
+    var ssbank="{$partner_info['sbank']}";
+    var bankss="{$partner_info['banks']}";
+    var bankxs="{$partner_info['bankx']}";
+</script>
+<script id="ajaxData-tmpl" type="text/x-jquery-tmpl">
+    {{if type == 'city'}}
+    <option value="0">-选择商圈-</option>
+    {{else}}
+    <option value="0">-选择子商圈-</option>
+    {{/if}}
+    {{each(i,val) data}}
+    <option value="${val.id}">${val.name}</option>
+    {{/each}}
+</script>
+<script>
+    $(function(){
+        $('input[name="is_branch"]').change(function(){
+            if ($(this).is(':checked')) {
+                $('input[name="fid"]').prop('disabled',false);
+            } else {
+                $('input[name="fid"]').prop('disabled',true);
+            }
+        });
+    });
+</script>

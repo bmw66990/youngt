@@ -1,0 +1,64 @@
+<nav class="bc-teal">
+    <div class="nav-menu">
+        <ul>
+            <if condition="$res = auth_check_access(array('Index/index','Index/feedback','Index/comment','Index/daySign'))">
+                <li><a href="{:U($res)}">首页</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('Team/index','Team/beOffline','Team/beCheck','Team/expired','Team/offLine','Team/activity','Team/add'))">
+                <li><a href="{:U($res)}">团单</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('Circle/index','Circle/report','Circle/black_user','Circle/add'))">
+                <li><a href="{:U($res)}">邻里圈</a></li>
+            </if>
+
+            <if condition="$res = auth_check_access(array('Order/index','Order/payList','Order/unpayList','Order/refundList'))">
+                <li><a href="{:U($res)}">订单</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('Coupon/index','Coupon/used','Coupon/expired','Coupon/refund'))">
+                <li><a href="{:U($res)}">青团券</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('User/index','User/manage','User/agent','User/authorityManager','User/authorityGroupManager'))">
+                <li><a href="{:U($res)}">用户</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('Partner/index','Partner/add'))">
+                <li><a href="{:U($res)}">商户</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('CustomerService/refund','Index/comment'))">
+                <if condition="$res == 'Index/comment'">
+                    <li><a href="{:U($res,array('action'=>'CustomerService'))}">客服</a></li>
+                    <else/>
+                    <li><a href="{:U($res)}">客服</a></li>
+                </if>
+            </if>
+            <if condition="$res = auth_check_access(array('Market/index','Market/adManage','Market/activities','Market/smsUser'))">
+                <li><a href="{:U($res)}">营销</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('Financial/localConsumptionSet','Financial/auditConsumptionSet','Financial/teamInfoDown','Financial/cashPayment','Financial/withdrawRecord','Financial/refundRecord'))">
+                <li><a href="{:U($res)}">财务</a></li>
+            </if>
+<!--            <li><a href="data/">数据</a></li>-->
+            <if condition="$res = auth_check_access(array('Encyclopedias/qingtuanEncyclopedias','Encyclopedias/youngtEncyclopedias','Encyclopedias/newsNotice','Encyclopedias/substationNotice'))">
+                <li><a href="{:U($res)}">百科</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('PointsTeam/index','PointsTeam/convertRecord','PointsTeam/rule','PointsTeam/scoreList'))">
+                <li><a href="{:U($res)}">积分</a></li>
+            </if>
+<!--            <if condition="$res = auth_check_access(array('DingZuo/index'))">
+                <li><a href="{:U($res)}">订座</a></li>
+            </if>-->
+            <if condition="$res = auth_check_access(array('Workbench/newDynamic','Workbench/myTask','Workbench/myGroup','Workbench/sharedFile'))">
+                <li><a href="{:U($res)}">工作台</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('Manage/index','Manage/groupType','Manage/cityType','Manage/partnerType','Manage/districtType','Manage/stationType','Manage/classType','Manage/gradeType','Manage/expressType','Manage/publicType'))">
+                <li><a href="{:U($res)}">管理</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('Feedback/index'))">
+                <li><a href="{:U($res)}">反馈</a></li>
+            </if>
+            <if condition="$res = auth_check_access(array('CanvassBusiness/index', 'CanvassBusiness/unvisit', 'CanvassBusiness/visited', 'CanvassBusiness/target','CanvassBusiness/userDistribution'))">
+                <li><a href="{:U($res)}">招商</a></li>
+            </if>
+        </ul>
+    </div>
+    <include file="Common:message_tip" />
+</nav>

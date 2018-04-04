@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>{$title}</title>	
+        <meta name="description" content="{$description}" />						
+		<meta name="keywords" content="{$keywords}" />
+	    <link rel="stylesheet" href="__CSS_PATH__/base.css?v={:C('CSS_VER')}">
+		<link rel="icon" href="__IMAGE_PATH__/favicon.ico" size="16x16"/>		
+		<script type="text/javascript" src="__JS_PATH__/jquery-1.7.2.js"></script>
+<literal>
+<style>
+.blind {position: absolute;width: 480px; z-index: 102;}
+.mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+.mt-dialog .body {overflow: hidden;padding: 30px;}
+.mobile-rebind-dialog .common-form {margin: 10px auto;width: 400px;}
+.mobile-rebind-dialog .field-group { line-height: 22px;margin:  0;padding: 0 10px 18px 110px; position: relative;}
+.mobile-rebind-dialog .field-group label {width: 100px;line-height: 22px; color: #333333; font-size: 14px;left: 0; padding-top: 2px; position: absolute;text-align: right;margin: 0;padding: 0;top: 6px;}
+.mobile-rebind-dialog .mobile .f-text {width: 190px;  height: 22px;line-height: 22px;margin-bottom: 3px;border: 1px solid #CCCCCC;padding: 5px;vertical-align: top;}
+.mobile-rebind-dialog .mobile input.f-text:focus{border-color: #63C5C8; box-shadow: 0 1px 2px #CDCDCD inset;outline: 0 none;}
+.mobile-rebind-dialog .f-block-verify { padding-bottom: 5px;margin-top:0;}
+.mobile-rebind-dialog .mobile .f-text-verify {width: 90px;}
+.mobile-rebind-dialog .operate {margin: 3px 0;}
+.btn-mini {font-weight: normal;padding: 1px 8px 0;-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #DEDEDE;background-image: -moz-linear-gradient(center top , #F7F7F7, #DEDEDE);border-color: #E3E3E3 #E3E3E3 #AAAAAA;border-image: none;border-style: solid;border-width: 1px;color: #333333;-moz-user-select: none;background-repeat: repeat-x;border-radius: 2px;cursor: pointer; display: inline-block;font-family: 'SimSun',Arial;letter-spacing: 0.1em;line-height: 1.5;text-align: center;text-decoration: none;vertical-align: middle;}
+.btn-mini:hover{-moz-border-bottom-colors: none-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #E9E9E9;background-image: -moz-linear-gradient(center top , #FFFFFF, #E9E9E9);border-color: #E5E5E5 #E5E5E5 #B3B3B3;border-image: none;border-style: solid;border-width: 1px;color: #333333;}
+.btn-mini:active{-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #EFEFFE;background-image: -moz-linear-gradient(center top , #E0E0E0, #EFEFEF);border-color: #D7D7D7 #D7D7D7 #ABAAAA;border-image: none;border-style: solid;border-width: 1px;color: #333333;}
+.btn {background-color: #2DB3A6;background-image: -moz-linear-gradient(center top , #2EC3B4, #2DB3A6);border-color: #0D7B71;color: #FFFFFF;-moz-user-select: none;background-repeat: repeat-x;border-radius: 2px;border-style: solid;border-width: 0 0 1px;cursor: pointer;display: inline-block;font-family: 'SimSun',Arial;font-size: 14px;font-weight: bold;letter-spacing: 0.1em;line-height: 1.5;padding: 7px 20px 6px;text-align: center;text-decoration: none;vertical-align: middle;}
+.btn:hover, .btn.hover, .btn:focus {background-color: #2EB7AA;background-image: -moz-linear-gradient(center top , #38D0C3, #2EB7AA);border-color: #0E8177;color: #FFFFFF;}
+.btn:active, .btn.active {background-color: #32C2B5;background-image: -moz-linear-gradient(center top , #2EB6A9, #32C2B5);border-color: #109085;color: #FFFFFF;}
+.common-form a.inline-link {line-height: 32px;margin: 0 0 0 4px;vertical-align: top;color: #2BB8AA;}
+.common-form a:hover{ text-decoration:underline;}
+.tipMsg {
+    color: red;
+    width: 200px;
+    margin:10px auto;
+    text-align: center;
+}
+</style>
+</literal>
+	</head>
+	<body>
+       <!--更换手机号-->
+        	<div id="mobile-rebind-dialog" class="mt-overlay-container">
+        		<div class="yui3-widget yui3-widget-positioned yui3-widget-stacked yui3-overlay-focused blind">
+        			<div class="yui3-overlay-content yui3-widget-stdmod">
+        				<div class="yui3-widget-bd">
+        					<div class="mt-dialog">
+        					  <div class="body">
+       							  <div class="mobile-rebind-dialog">
+       							  		<div id='msg' class="tipMsg"></div>
+        								<form id="settings-mobile-rebind-form" class="common-form" action="__URL__/changeMobile" method="POST">
+       									  <div class="field-group mobile f-block-verify">
+       									  		<empty name="member.mobile">
+                                            		<label>绑定手机号</label>
+        											<input id="old-mobile-input" class="f-text" value="" name="mobile">
+                                            	<else />
+                                            		<label>修改手机号</label>
+        											<input id="old-mobile-input" class="f-text" value="{$member.mobile}" name="mobile">
+                                            	</empty>
+        									</div>
+        									<div class="field-group">												
+												  <input id="mobile-verify" class="btn" type="button" value="获取验证码">
+       									    </div>
+        									<div class="field-group mobile f-block-verify">
+        										<label for="verify-code">验证码</label>
+        										<input id="verify-code" class="f-text f-text-verify" value="" name="captcha">
+       										<span id="verify-tip" class="tip"></span></div>
+                                            <div class="field-group operate">
+                                            	<empty name="member.mobile">
+                                            		<input type="hidden" id="act" name="act" value="bind">
+                                            	<else />
+                                            		<input type="hidden" id="act" name="act" value="change">
+                                            	</empty>
+                                            	<input class="btn" type="submit" value="绑定">
+                                            </div>
+        								</form>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	 $('#mobile-verify').click(function(){
+		 var mobile=$('#old-mobile-input').val();
+		 var act='pc'+$("#act").val()+'mobile';
+	 	 if($('#old-mobile-input').val()){
+			 $.post("/Public/smsCode",{mobile:mobile,reSetPwd:act},function(data){
+			 	if(data.status==0){
+			 		$("#msg").text('验证码发送成功');
+			 	}else{
+			 		$('#msg').text(data.error);
+			 	}
+			 });
+	 	 }else{
+	 		 $('#msg').text('请输入手机号'); 
+	 	 }
+		 return false;
+	 }); 
+	 $(':submit').click(function(){
+		 if(!$('#old-mobile-input').val()){
+			$('#msg').text('请输入手机号');
+		 }else{
+			 if(!$('#verify-code').val()){
+				$('#msg').text('请输入验证码');
+		  	}else{
+			 	 $.post($('#settings-mobile-rebind-form').attr('action'),$('#settings-mobile-rebind-form').serialize(),function(data){
+			 	 		alert(data.info);
+					 if(data.status==1){						
+					 	parent.window.$.fancybox.close();
+					 	parent.parent.window.location.reload();
+			 		}
+
+				 },'json');
+		  	}
+		 } 
+		 return false; 
+	}); 
+});
+</script>
+</body>
+</html>

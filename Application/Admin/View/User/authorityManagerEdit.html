@@ -1,0 +1,32 @@
+<include file="Common:header" />
+
+<section>
+      <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">权限管理<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-edit-form">
+                <form action="{:U('User/'.$operation_type)}" method='post'>
+                    <ul class="li-onlyline">
+                        <li><label>权限值</label>{$name}</li>
+                        <li><label>权限名称</label><input id="title" name='auth_rule[title]' value='{$title}' class="w500" type="text"></li>
+                        <li><label>状态</label>
+                            <select class="w150" name='auth_rule[status]'>
+                                <volist  name="auth_rule_type" id="art">
+                                    <option value="{$key}"  <if condition="$key == $status"> selected </if>>{$art}</option>
+                                </volist>
+                            </select>
+
+                        <li>
+                            <input  type="hidden" name='operation_type' value="{$operation_type}">
+                            <input  type="hidden" name='auth_rule[id]' value="{$id}">
+                            <input  class="small-btn btn-teal" type="submit" value="提交">
+                        </li>
+                    </ul>
+                </form>
+            </div> 
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />

@@ -1,0 +1,337 @@
+<include file="Common:header" />
+<!-- <script type="text/javascript" src="__JS_PATH__/360cate.js"></script>
+<script type="text/javascript">window.onload = load1;</script> -->
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/ueditor.all.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/editor/lang/zh-cn/zh-cn.js"></script>
+
+
+<script type="text/javascript" src="__PUBLIC__/plugins/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/kindeditor/lang/zh_CN.js"></script>
+
+<section>
+    <include file="subnav" />
+
+    <div class="content">
+        <div class="con-title">新建团单<span class="tx-green">+</span></div>
+        <div class="con-edit-form">
+            <form action="{:U('Team/insert')}" method="post" id="team-form">
+                <span class="form-title">选择商户</span>
+                <ul>
+                    <li><label>城市</label>
+                        <select class="w150" name="city_id" id="city">
+                            <option value="">--请选择城市--</option>
+                            <volist name="city" id="c">
+                                <option value="{$c.id}">{$c.letter}-{$c.name}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li>
+                        <label>商户</label><input type="text" id="partner-name" readonly="">
+                        <input type="hidden" name="partner_id" id="partner-id">
+                        <input class="small-btn bc-teal w100 h40" type="button" url="{:U('Team/partner')}" onclick="partner(this, $('#city').val())" value="选择商户">
+                    </li>
+                    <!-- <li>
+                            <label>商户列表</label>
+                            <select class="w150" name="partner_id">
+                                    <option>--请选择商户--</option>
+                            </select>
+                     </li> -->
+                </ul>
+                <span class="form-title">团单详情</span>
+                <ul class="li-onlyline">
+                    <li id="team_limit_where"><label>限制条件</label>
+                        <select name="conduser">
+                            <option value="Y">以购买成功人数成团</option>
+                            <option value="N">以产品购买数量成团</option>
+                        </select>
+                        <select name="buyonce">
+                            <option value="Y">仅购买一次</option>
+                            <option value="N" selected="">可购买多次</option>
+                        </select>
+                    </li>
+                    <li><label>项目类型</label>
+                        <select id="team_team_type" name="team_type" class="w120" onchange="showTypeItem(this.value)">
+                            <option value="normal">团购项目</option>
+                            <option value="newuser">新用户独享</option>
+                            <option value="limited">限量抢购</option>
+                            <option value="timelimit">秒杀项目</option>
+                            <option value="discount">特卖</option>
+                            <option value="goods">邮购</option>
+                            <option value="cloud_shopping">云购</option>
+                            <option value="newguser">新客立减</option>
+                        </select>
+                        <select class="w120" name="group_id" url="{:U('Team/getSubCate')}" onchange="getSubCate(this)">
+                            <option value="0">选择分类</option>
+                            <volist name="group" id="pvo">
+                                <option value="{$pvo['id']}">{$pvo['name']}</option>
+                            </volist>
+                        </select>
+                        <select class="w120" name="sub_id" id="subcate">
+                            <option>选择细分类</option>
+                        </select>
+                    </li>
+                    <li id="newuser" style="display:none">
+                        <label>活动价</label>
+                        <input type="text" name="lottery_price">
+<!--                        <span class="tx-red">只有参加活动时，在活动期间此价格才生效,建议此价格应小于"网站价"</span>-->
+                    </li>
+                    <li id="limited" style="display:none"><label>每天活动</label>
+                        <input type="radio" name="flv" value="Y"><label class="m-left-5">是</label>
+                    <input type="radio" name="flv" value="N"><lable class="m-left-5">否</lable>
+                    </li>
+                    <li id="timelimit" style="display:none">
+                        <label>每天活动</label>
+                        <input type="radio" name="flv" value="Y"><label class="m-left-5">是</label>
+                    <input type="radio" name="flv" value="N"><lable class="m-left-5">否</lable>
+                    </li>
+                    <div id="goods" style="display:none">
+                        <li>
+                            <label>选择型号</label>
+                            <label class="m-left-5"><input type="checkbox" name="is_optional_model" value="Y" id="team-models">可选择型号</label>
+                            <div style="clear:both"></div>
+                            <div style="padding:10px;border:1px solid #ccc;margin-left:110px;width:420px;overflow:hidden;line-height:35px;display:none;" id="team-models-item">
+                                <p>
+                                    <label>型号：</label>
+                                    <input type="hidden" name="attr_id[]" value="0">
+                                    <input type="text" name="attr_item[]" class="w150">
+                                    <label>库存：</label><input type="text" name="attr_num[]" value="0" class="w80 team-models-item-num">&nbsp;&nbsp;
+                                    <a href="javascript:;" class="tx-green remove-team-models-item">删除</a>
+                                </p>
+                                <p>
+                                    <label>型号：</label>
+                                    <input type="hidden" name="attr_id[]" value="0">
+                                    <input type="text" name="attr_item[]" class="w150">
+                                    <label>库存：</label><input type="text" name="attr_num[]" value="0" class="w80 team-models-item-num">&nbsp;&nbsp;
+                                    <a href="javascript:;" class="tx-green remove-team-models-item">删除</a>
+                                </p>
+                                <p><a href="javascript:;" class="tx-green" id="add-team-models-item">添加型号</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <label>邮费</label>
+                            <input type="text" name="fare" value="0">
+                        </li>
+                    </div>
+                    <!-- <li><label>360分类</label>
+                        <select class="w120" id="classnames1" onChange = "change1();
+                                change2();
+                                change3();
+                                change4()"><option>请选择</option></select>
+                        <select class="w120" id="classnames2" onChange = "change2();
+                                change3();
+                                change4()"><option></option></select>
+                        <select class="w120" id="classnames3" onChange = "change3();
+                                change4()"><option></option></select>
+                        <select class="w120" id="classnames4" onChange = "change4()"><option></option></select>
+                        <input type="hidden" name="end_class" id="ids">
+                    </li> -->
+                    <li><label>关键词</label>
+                        <input class="w300" type="text" name="sel3">
+                    </li>
+                    <li id="team_title"><label>项目标题</label>
+                        <input class="w500" type="text" name="title" maxlength="50">
+                        <span class="tx-red">要求50字符以内，避免输入不必要的信息</span>
+                    </li>
+                    <li id="promotion_con"><label>优惠方案</label>
+                        <input type="checkbox" name="promotion[]" value="M"><label class="m-left-5">免预约</label>
+                    <input type="checkbox" name="promotion[]" value="D"><lable class="m-left-5">多套餐</lable>
+                    <input type="checkbox" name="promotion[]" style="float:none" value="Q"><lable class="m-left-5">清真</lable>
+                    </li>
+                    <li style='padding-left: 40px;'>
+                        <span id='team_market_price'>
+                             <label>市场价</label><input class="w70" type="text" name="market_price" value="1"><label>,</label>
+                        </span>
+                        <label>网站价</label><input class="w70" type="text" name="team_price" value="1"><label>,</label>
+                        <label>供货价</label><input class="w70" type="text" name="ucaii_price" value="0"><label>,</label>
+                        <span id='team_pre_number'>
+                              <label>虚拟购买</label><input class="w70" type="text" name="pre_number" value="0"><label>,</label>
+                        </span>
+                    </li>
+                    <li>
+                        <label>最低数量</label><input class="w70" type="text" name="min_number" value="1" ><label>,</label>
+                        <span id='team_max_number'>
+                             <label>最高数量</label><input class="w70" type="text" name="max_number" value="0"><label>,</label>
+                        </span>
+                        <label>每人限购</label><input class="w70" type="text" name="per_number" value="0"><label>,</label>
+                        <label>最低购买</label><input class="w70" type="text" name="permin_number" value="0"><label>,</label>
+                    </li>
+                    <div class="form-remark tx-grey">最低数量必须大于0，最高数量/每人限购：0 表示没最高上限 （产品数|人数 由成团条件决定）</div>
+
+                    <li><label>开始时间</label>
+                        <input class="w70" style='width:120px!important;' value="{$tmpData.begin_time|date='Y-m-d H:i:s',###}" type="text" name="begin_time" id="begin_time" format="YYYY-MM-DD hh:mm:ss"><label>,</label>
+                        <label>结束时间</label>
+                        <input class="w70" style='width:120px!important;' type="text" value="{$tmpData.end_time|date='Y-m-d H:i:s',###}"  name="end_time" id="end_time"  format="YYYY-MM-DD hh:mm:ss"><label>,</label>
+                        <span id="expire_time_con">
+                            <label>青团券过期时间</label>
+                            <input class="w70"  style='width:120px!important;' type="text" value="{$tmpData.expire_time|date='Y-m-d H:i:s',###}" name="expire_time" id="expire_time"  format="YYYY-MM-DD hh:mm:ss"><label>,</label>
+                        </span>
+                    </li>
+                    <div class="form-remark tx-grey">时间格式：hh:ii:ss (例：14:05:58)，日期格式：YYYY-MM-DD （例：2010-06-10）</div>
+
+                    <li id="team_allowrefund"><label>支持退款</label>
+                        <input type="radio" name="allowrefund" value="Y" checked=""><label>是</label>
+                        <input type="radio" name="allowrefund" value="N"><label>否</label>
+                        <div class="form-s-remark tx-grey fl">本项目不允许用户发起 申请退款</div>
+                    </li>
+                    <!-- <li><label>屏蔽导航</label>
+                            <input type="checkbox" ><label>是</label><div class="form-s-remark tx-grey fl">是否屏蔽团购导航收录</div></li> -->
+                    <li><label class="m-top-5">本单简介</label>
+                        <span style="width:800px;">
+                            <textarea id="summary" name="summary" style="width:700px;">{$tmpData['summary']}</textarea>
+                        </span>
+                    </li>
+                    <li id="team_notice"><label class="m-top-5">特别提醒</label>
+                        <span style="width:700px;display:inline-block">
+                            <script id="notice" name="notice" type="text/plain">{$tmpData['notice']} </script>
+                        </span>
+                    </li>
+                    <li>	
+                        <label>排序</label>
+                        <input class="w70" type="text" name="sort_order" value="0"><div class="form-s-remark tx-grey fl">请填写数字，数值大到小排序，主推团购应设置较大值 </div>
+                    </li>
+                     <li id="team_max_periods_number" style="display:none">
+                          <label>期数</label>
+                        <input class="w70" type="text" value="1" name="max_periods_number"><div class="form-s-remark tx-grey fl">请填写数字，本云购最大卖的期数 </div>
+                    </li>
+                    <li class="cut-solid"></li>
+
+                    <li><label>红包使用</label>
+                        <input class="w70" type="text" name="card" value="0"><div class="form-s-remark tx-grey fl">可使用红包最大面额 </div>
+                    </li>
+                    <li><label>邀请返利</label>
+                        <input class="w70" type="text" name="bonus" value="5"><div class="form-s-remark tx-grey fl">邀请好友参与本单商品购买时的返利金额 </div>
+                    </li>
+                    <li id="team_product"><label>商品名称</label>
+                        <input class="w300" type="text" name="product" id="team-product" maxlength="12" >
+                        <span class="tx-red">要求12字符以内，避免输入符号和不必要的信息</span>
+                    </li>
+                    <!-- <li><label>购买必选项</label>
+                            <input class="w700" type="text">
+                    </li>
+                    <div class="form-remark tx-grey fl">格式如：{黄色}{绿色}{红色}@{大号}{中号}{小号}@{男款}{女款}，分组使用@符号分隔 , 用户购买的必选项 </div> -->
+                    <li><label>商品图片</label>
+                        <span style="width:700px;display:inline-block">
+                            <span class="tx-red">图片尺寸要求440*280</span>
+                            <include file="upload" />
+                            <input type="hidden" name="image" id="uploadimage" value="">
+                        </span>
+                    </li>
+                    <li><label>本单详情</label>
+                        <!--                        <span style="width:700px;display:inline-block">
+                                                    <script id="detail" name="detail" type="text/plain"> </script>
+                                                </span>-->
+                        <span style="width:800px;">
+                            <textarea id="detail" name="detail" class="f-textarea editor" style="width:700px;">{$tmpData['detail']}</textarea>
+                        </span>
+                    </li>
+                    <li id="team_userreview"><label>网友点评</label>
+                        <textarea name="userreview" style="height:100px;"></textarea>
+                        <div class="form-remark tx-grey">格式：“真好用|小兔|http://ww....|XXX网”，每行写一个点评</div>
+                    </li>
+                 
+                    <li id="team_systemreview"><label>推广词</label>
+                        <span style="width:700px;display:inline-block">
+                            <script id="systemreview" name="systemreview" type="text/plain"> </script>
+                        </span>
+                    </li>
+                    <li id="team_activities_id"><label>团单所属活动</label>
+                        <select name='activities_id' id='select-activities-id' load_href="{:U('Team/getActivityList')}">
+                            <option value='0'>--团单所属活动--</option>
+                        </select>
+                    </li>
+                    <li class="cut-solid"></li>
+                    <!--配送信息-->
+                    <li><label>递送方式</label>
+                        <input type="radio" name="delivery" value="coupon" checked=""><label>青团券</label>
+                        <input type="radio" name="delivery" value="voucher"><label>商户券</label>
+                        <input type="radio" name="delivery" value="express"><label>快递</label>
+                    </li>
+                    <li id='team_credit'><label>消费返利</label>
+                        <input class="w60" type="text" name="credit" value="0"><div class="form-s-remark tx-grey fl">消费青团券时，获得账户余额返利，单位CNY元</div>
+                    </li>
+                    <li><input class="small-btn bc-teal w100 h40" type="button" id="team-add" value="提交"></li>
+                </ul>
+            </form>
+        </div> 
+    </div>
+</section>
+
+<script type="text/javascript">
+    var UPLOAD_URL = "{:U('Team/uploadImg',array('type'=>'team'))}";
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return "{:U('Team/uploadImg',array('type'=>'teaminfo'))}";
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+    /*    var summary = UE.getEditor('summary',
+     {autoHeightEnabled: true,
+     autoFloatEnabled: true,
+     minFrameWidth: 600
+     });*/
+    var notice = UE.getEditor('notice',
+            {autoHeightEnabled: true,
+                autoFloatEnabled: true
+            });
+//    var detail = UE.getEditor('detail',
+//            {autoHeightEnabled: true,
+//                autoFloatEnabled: true
+//            });
+    var systemreview = UE.getEditor('systemreview',
+            {autoHeightEnabled: true,
+                autoFloatEnabled: true
+            });
+
+    KindEditor.ready(function(K) {
+        window.summary = K.create('#summary', {afterBlur: function() {
+                this.sync();
+            }, uploadJson: "{:U('Team/uploadImg',array('type'=>'teaminfo'))}"});
+        window.detail = K.create('#detail', {afterBlur: function() {
+                this.sync();
+            }, uploadJson: "{:U('Team/uploadImg',array('type'=>'teaminfo'))}"});
+    });
+
+
+    // 时间选择控件
+    laydate.skin('molv');
+    var begin_time = {
+        elem: '#begin_time',
+        format: $('#begin_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59', //最大日期
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+            end_time.min = datas; //开始日选好后，重置结束日的最小日期
+            begin_time.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end_time = {
+        elem: '#end_time',
+        format: $('#end_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+            expire_time.min = datas; //开始日选好后，重置结束日的最小日期
+        }
+    };
+
+    var expire_time = {
+        elem: '#expire_time',
+        format: $('#expire_time').attr('format') || 'YYYY-MM-DD',
+        max: '2099-06-16 23:59:59',
+        istoday: false,
+        istime: true,
+        choose: function(datas) {
+        }
+    };
+    laydate(begin_time);
+    laydate(end_time);
+    laydate(expire_time);
+</script>
+
+<include file="Common:footer" />

@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>订单详情</title>
+        <link rel="stylesheet" href="__CSS_PATH__/pop.css?v={:C('CSS_VER')}" />
+        <link href="__CSS_PATH__/common.css?v={:C('CSS_VER')}" rel="stylesheet" />
+        <script type="text/javascript" src="__PLUGINS_PATH__/jquery.js"></script>
+    </head>
+    <style>
+        div.box li.cen_title{
+            height: 30px;
+            line-height: 30px;
+            background-color: #f0f0f0; 
+        }
+    </style>
+    <body>
+        <div class="box">
+            <form name="viewDetails">
+                <div class="details">
+                    <li><label>商品名称:</label>{$order.team_product}  第<span class="tx-red">{$order.team_now_periods_number}</span>期</li>
+                    <li><label>项目ID:</label>{$order.team_id}</li>
+                    <li><label>总需:</label>{$order.team_max_number}  &nbsp;<label>剩余:</label>{$order['team_max_number']-$order['team_now_number']}</li>
+                    <li><label>递送方式:</label>
+                        <if condition="$order.team_delivery && $order.team_delivery eq 'express'">
+                             邮购
+                             <elseif condition="$order.team_delivery && $order.team_delivery eq 'coupon'"/>
+                             券号
+                             <else/>
+                             其他
+                        </if>
+                    </li>
+                    <li><label>状态:</label><span class="tx-red">{$order.status_text}</span></li>
+                    <if condition="$order.csr_status egt 1">
+                        <li class='cen_title'><label>获奖信息</label></li>
+                        <li><label>获奖者:</label><span>{$order.csr_winning_user_name}</span></li>
+                        <li><label>幸运号码:</label><span>{$order.csr_winning_cloud_code}</span></li>
+                        <li><label>揭晓时间:</label><span>{$order['csr_begin_time']|date="Y-m-d H:i:s",###}</span></li>
+                    </if>
+                     <if condition="$order.csr_status egt 1">
+                         <if condition="$order.team_delivery && $order.team_delivery eq 'express'">
+                             <li class='cen_title'>
+                                 <label>收货信息</label>
+                             <eq name="order.mail_order_pay_state" value="1">
+                                  <if condition="$res = auth_check_access(array('Order/orderConfirmReceipt'))">
+                                               <label style='float:right;text-align: center;' class='bc-teal'>
+                                                    <a href="javascript:toAjax('{:U('Order/orderConfirmReceipt', array('order_id' => $order['csr_winning_order_id']))}','确定给该订单确认收货')">确认收货</a>
+                                               </label>
+                                  </if>
+                             </eq>
+                             </li>
+                             <li><label>快递信息:</label>
+                            <select id='express_id'>
+                                <option value=''>请选择快递</option>
+                                <volist name="order.express_res" id="oer">
+                                    <option value='{$oer.id}' <eq name="oer.id" value="$order.express_id">selected</eq> >{$oer.name}</option>
+                                </volist>
+                            </select>
+                            <input id='express_no' type='text' value='{$order.express_no}' style='max-width:110px;'/>
+                            <span id='do-update-express-info' load_href="{:U('Order/updateExpressInfo',array('order_id'=>$order['csr_winning_order_id']))}" style='padding: 5px;'   class="class-btn">修改/发货</span>
+                        </li>
+                        <if condition="$order.express_no neq '' && $order.express_id neq ''">
+                        <li> 
+                                  <label>查看物流:</label>
+                                  <a  class="tx-green"  href="{:U('Order/orderLogisticsView', array('order_id' => $order['csr_winning_order_id']))}" target="_blank">追踪包裹</a>
+                        </li>
+                        </if>
+                             <li>
+                                 <label>收货人:</label>{$order.address.name} &nbsp;&nbsp;
+                                 <label>联系电话:</label>{$order.address.mobile}&nbsp;&nbsp;
+                                 <notempty name="order.address.zipcode"><label>邮编</label>{$order.address.zipcode}</notempty>
+                             </li>
+                             <li><label>收货地址:</label>{$order.address.province}，{$order.address.area}，{$order.address.city}，{$order.address.street}</li>
+                             <elseif condition="$order.team_delivery && $order.team_delivery eq 'coupon'"/>
+                             <li class='cen_title'><label>获奖券号</label></li>
+                              <li><label>{$order['coupon']['id']}</label>
+                                  <span>
+                                       <if condition="$order['coupon']['consume'] eq 'N'">
+                                           未消费
+                                           <elseif condition="$order['coupon']['consume'] eq 'Y'"/>
+                                           已消费
+                                       </if>
+                                  </span>
+                              </li>
+                        </if>                   
+                    </if>
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                // 修改邮件信息
+                $('span#do-update-express-info').die().live('click', function() {
+                    var $this = $(this);
+                    var express_id = $('#express_id').val();
+                    var express_no = $('#express_no').val();
+                    var href = $this.attr('load_href');
+                    if ($this.hasClass('disabled')) {
+                        return false;
+                    }
+                    if (!$.trim(express_id)) {
+                        parent.window.alert('请选择快递类型！');
+                        return false;
+                    }
+                    if (!$.trim(express_no)) {
+                        parent.window.alert('请填写快递号！');
+                        return false;
+                    }
+                    $this.addClass('disabled');
+                    $this.html('正在处理...');
+                    $.post(href, {express_id: express_id, express_no: express_no}, function(res) {
+                        $this.removeClass('disabled');
+                        $this.html('修改');
+                        if (res.code && res.code != 0 && res.error) {
+                            parent.window.alert(res.error);
+                            return false;
+                        }
+                        parent.window.alert('修改快递信息成功！');
+                        parent.window.location.reload();
+                    }, 'json');
+                    return false;
+                });
+                // 备注提交
+                $('span#do-refund-adminremark').die().live('click', function() {
+                    var $this = $(this);
+                    var remark = $('#order_adminremark').val();
+                    var href = $this.attr('load_href');
+                    if ($this.hasClass('disabled')) {
+                        return false;
+                    }
+                    if (!$.trim(remark)) {
+                        parent.window.alert('备注不能为空！');
+                        return false;
+                    }
+                    $this.addClass('disabled');
+                    $this.html('正在处理...');
+                    $.post(href, {remark: remark}, function(res) {
+                        $this.removeClass('disabled');
+                        $this.html('确定');
+                        if (res.code && res.code != 0 && res.error) {
+                            parent.window.alert(res.error);
+                            return false;
+                        }
+                        parent.window.alert('修改备注信息成功！');
+                        parent.window.location.reload();
+                    }, 'json');
+                    return false;
+                });
+            });
+            function toAjax(url, msg) {
+                if (confirm(msg)) {
+                    $.get(url, function(data) {
+                        if (data.status == 1) {
+                            parent.window.alert(data.info);
+                            window.setTimeout(function() {
+                                window.location.reload();
+                            }, 3000);
+                            return false;
+                        } 
+                        parent.window.alert(data.info); 
+                        return false;
+                    });
+                }
+            }
+        </script>
+        
+    </body>
+</html>

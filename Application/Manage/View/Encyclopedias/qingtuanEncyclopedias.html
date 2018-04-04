@@ -1,0 +1,26 @@
+<include file="Common:header"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight blog">
+        <div class="row">
+            <volist  name="list" id="vo">
+	            <div class="col-lg-3">
+	                <div class="ibox">
+	                	<div class="ibox-title">
+	                        <h5><i class="fa fa-book"></i>  {$vo.name}</h5>
+	                    </div>
+	                    <volist  name="vo.list" id="vol">
+		                    <div class="ibox-content text-center">
+		                    	<a href="{:U('Encyclopedias/encyclopediasDetail',array('encyclopedias_id'=>$vol['id']))}" class="btn-link">
+		                            <h6>{$vol.title}</h6>
+		                        </a>
+		                    </div>
+		                </volist>
+	                </div>
+	            </div>
+            </volist>
+        </div>
+    </div>
+    <include file="Common:footer"/>
+</body>
+
+</html>

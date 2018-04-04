@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{$description}" />                        
+        <meta name="keywords" content="{$keywords}" />
+        <link rel="stylesheet" href="__CSS_PATH__/base.css?v={:C('CSS_VER')}">
+        <link rel="icon" href="__IMAGE_PATH__/favicon.ico" size="16x16"/>       
+        <script type="text/javascript" src="__JS_PATH__/jquery-1.7.2.js"></script>
+        <meta http-equiv="pragma" content="no-cache"> 
+        <meta http-equiv="Cache-Control" content="no-store, must-revalidate">
+        <meta http-equiv="expires" content="0"> 
+<literal>
+<style>
+.blind {position: absolute;width: 750px; z-index: 102;}
+.mt-dialog {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;}
+.mt-dialog .head {background: none repeat scroll 0 0 #F7F7F7;color: #333333;height: 40px;line-height: 40px;padding: 0 15px;position: relative;}
+.mt-dialog .head .close {background:url(__IMAGE_PATH__/dialog.vf4578d5e.png) no-repeat 0 -318px;cursor: pointer;font-weight: normal;height: 13px;line-height: 13px;position: absolute;right: 14px;text-indent: -9999px;top: 14px;width: 13px;}
+.mt-dialog .title {display: block; margin-top: 5px;}
+.mt-dialog .body {overflow: hidden;padding: 30px;}
+#order-send-sms-dialog .common-form {float: left;padding-right: 30px;width: 350px;}
+#order-send-sms-dialog  #title-field {position: relative;margin:4px 0 0 55px;}
+#order-send-sms-dialog  #title-field h4 {margin: 0 6px 0 0;position: static; top: 0;}
+#order-send-sms-dialog .coupon-group-w {border: 1px solid #E8E8E8;margin-top: 5px;min-height: 180px;padding-bottom: 20px;width: 375px;}
+#order-send-sms-dialog .coupon-th {background: none repeat scroll 0 0 #F8F8F8;border-bottom: 1px solid #E8E8E8;padding: 7px 15px 7px 40px;}
+#order-send-sms-dialog .cell {display: inline-block;text-align: center;vertical-align: top;width: 150px;}
+#order-send-sms-dialog .status {width: 150px;}
+#order-send-sms-dialog .coupon-td {padding: 10px;}
+#order-send-sms-dialog .coupon-list {max-height: 150px;overflow: auto;}
+#order-send-sms-dialog .cell {display:inline-block;text-align:center;vertical-align: top;width: 150px;}
+#order-send-sms-dialog .coupon-list p {line-height: 22px;padding-left: 30px;position: relative;}
+#order-send-sms-dialog .send-w {margin-top: 10px;padding-left: 58px;}
+#order-send-sms-dialog .f-text {vertical-align: middle;width: 120px; border: 1px solid #CCCCCC;height: 20px;line-height: 20px;padding: 5px;}
+#order-send-sms-dialog .common-form input.f-text:focus{border-color: #63C5C8;box-shadow: 0 1px 2px #CDCDCD inset;outline: 0 none;}
+.btn {background-color: #2DB3A6;background-image: -moz-linear-gradient(center top , #2EC3B4, #2DB3A6);border-color: #0D7B71;color: #FFFFFF;  -moz-user-select: none;background-repeat: repeat-x; border-radius: 2px;border-style: solid;border-width: 0 0 1px; cursor: pointer;display: inline-block;font-family: 'SimSun',Arial;font-size: 14px;font-weight: bold;letter-spacing: 0.1em;line-height: 1.5;padding: 7px 20px 6px;text-align: center;text-decoration: none;vertical-align: middle;}
+.btn:hover, .btn.hover, .btn:focus {background-color: #2EB7AA;background-image: -moz-linear-gradient(center top , #38D0C3, #2EB7AA);border-color: #0E8177;color: #FFFFFF;}
+.btn-normal {moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #DEDEDE;background-image: -moz-linear-gradient(center top , #F7F7F7, #DEDEDE);border-color: #E3E3E3 #E3E3E3 #AAAAAA;border-image: none; border-style: solid;border-width: 1px;color: #333333;padding-top: 6px;}
+.btn-normal:hover, .btn-normal.hover, .btn-normal:focus {-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #E9E9E9;background-image: -moz-linear-gradient(center top , #FFFFFF, #E9E9E9);border-color: #E5E5E5 #E5E5E5 #B3B3B3;border-image: none; border-style: solid;border-width: 1px;color: #333333;}
+.qrcode-dialog {width: 290px; padding-left: 10px;}
+.qrcode-dialog h4 {color: #666666;font-size: 18px;}
+.qrcode-dialog .title__large {font-size: 24px;}
+.qrcode-dialog .title__large strong {color: #F76120;}
+.qrcode-dialog .download {margin-top: 18px;position: relative;}
+.qrcode-dialog .qrcode {position: absolute;right: 172px; top:-10px; text-align:center; line-height: 30px;}
+.qrcode-dialog .qrcode .down__qrcode {display: block;height: 120px;width: 120px; background:url(__IMAGE_PATH__/qrcode.png) no-repeat;}
+.qrcode-dialog .link {margin-left: 120px; padding-left:15px;}
+.qrcode-dialog .link .btn {display: block;margin-top: 30px;}
+</style>
+</literal>
+	</head>
+	<body>
+<div id="order-send-sms-dialog" class="mt-overlay-container">
+        		<div class="yui3-widget yui3-overlay yui3-widget-positioned yui3-widget-stacked blind">
+        			<div class="yui3-overlay-content yui3-widget-stdmod">
+        				<div class="yui3-widget-bd">
+        					<div class="mt-dialog">
+        						<h3 class="head f-fs2">查看券号</h3>
+        						<div class="body">
+                                    <form class="common-form" action="{:U('Member/sendSms')}" method="POST" name="send-sms-form">
+                                        <p class="J-info-tip color-highlight" style="">小提示：记下或拍下青团券密码向商家出示即可消费</p>
+                                        <div class="coupon-group-w">
+                                            <div class="coupon-th">
+                                                <span class="cell">券号</span>
+                                                <span class="cell status">状态</span>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="J-coupon-td coupon-td" >
+                                                <div class="coupon-group" style="height:80px; overflow-y:scroll">
+                                                <volist name="coupon" id="vo">
+                                                    <div class="coupon-list">
+                                                        <p>                                                       
+                                                            <label class="cell">{$vo.id|formatCoupon}</label>
+                                                            <span class="cell status">
+                                                                <span>{$vo.info}</span>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                 </volist>
+                                                </div>
+                                                <div id="yui_3_12_0_1_1396408368068_792" class="send-w J-send-group" style="">
+                                                	<input type="hidden" name='id' value="{$id}" />
+                                                    <input class="f-text" type="text" value="{$mobile}" name="mobile"/>
+                                                    <input class="btn" type="submit" value="发送"/>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </form>
+                                    <!--扫描二维码-->
+                                    <div class="qrcode-dialog fr">
+                                        <h4 class="title">
+                                            不用发信息啦！
+                                            <br>
+                                            <span class="title__large">
+                                                在手机
+                                                <strong>随时</strong>
+                                                看青团券！
+                                            </span>
+                                        </h4>
+                                        <div class="download">
+                                            <span class="qrcode">
+                                                <i class="down__qrcode qrcode-dialog-message"></i>
+                                                扫描下载手机版
+                                            </span>
+                                            <div class="link">
+                                                <a class="btn" href="https://itunes.apple.com/cn/app/qing-tuan/id681045261?mt=8" target="_blank">
+                                                    iPhone下载
+                                                </a>
+                                                <a class="btn" href="http://www.youngt.com/youngt.apk" target="_blank">
+                                                    Android下载
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                </div>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+	</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(':submit').click(function(){
+	   $.post($('.common-form').attr('action'),$('.common-form').serialize(),function(data){
+			if(data.status==1){
+				alert('发送成功,请注意查收');
+				parent.window.$.fancybox.close();
+			}else{
+				alert(data.info);
+			}			
+		},'json');
+        return false;
+	});  
+});
+</script>

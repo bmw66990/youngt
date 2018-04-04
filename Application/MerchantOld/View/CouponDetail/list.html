@@ -1,0 +1,60 @@
+<div class="mt30">
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="140"><a href="#" class='order' lang='team_id'>项目编号/名称</a></th>
+                <th width="90">青团卷号</th>
+                <th width="120" >购买者用户名</th>
+                <th width="80" >团购价/供货价</th>
+                <th width="100" ><a href="#" class='order' lang='expire_time'>消费日期</a></th>
+                <th width="50" >状态</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="list">
+            <tr>
+                <td class="f-tal">
+                    <a target="_blank" href="http://{$Think.server.http_host}/team-{$vo.team_id}.html" class="fac">{$vo.team_id}&nbsp;&nbsp;({$vo['product']})</a>
+                </td>
+                <td>{$vo.id|substr=0,4}****{$vo.id|substr=-4,4}</td>
+                <td>{$vo['username']|default='--未知--'}</td>
+                <td>{$vo['team_price']} / {$vo['ucaii_price']} </td>
+                <td><if condition="$vo.consume_time neq 0">{$vo.consume_time|date="Y-m-d H:i",###}<else />该用户暂未消费</if></td>
+            <td><if condition="$vo.consume eq 'Y'">
+                已消费
+                <elseif condition="$vo['expire_time'] lt time()"/>
+                已过期
+                <else/>
+                未消费
+            </if>
+            </td>
+            </tr> 
+        </volist>                                    
+        </tbody>
+    </table>
+</div>
+<div class="m-page">
+    <a style="color:black">共计（{$count}）个</a>&nbsp;&nbsp;&nbsp;{$page}
+</div>
+<if condition="!empty($partner_income)" >
+    <table width="100%" class="m-table f-tac mt10">
+        <thead >
+            <tr>
+                <th width="300">项目编号/名称</th>
+                <th width="100">购买总数</th>
+                <th width="180" >购买总金额</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="partner_income">
+            <tr>
+                <td class="f-tal">
+                    <a target="blank" href="http://{$Think.server.http_host}/team-{$vo.team_id}.html" class="fac">{$vo.team_id}&nbsp;&nbsp;({$vo['product']})</a>
+                </td>
+                <td>{$vo['num']}</td>
+                <td>{$vo['totalmoney']}</td>
+            </tr> 
+        </volist>                                    
+        </tbody>
+    </table>
+</if>  

@@ -1,0 +1,32 @@
+<!--左侧导航-->
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Order/index'))">
+             <li><a href="{:U('Order/index')}">全部订单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Order/payList'))">
+             <li><a href="{:U('Order/payList')}">已付款</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Order/unpayList'))">
+            <li><a href="{:U('Order/unpayList')}">未付款</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Order/refundList'))">
+            <li><a href="{:U('Order/refundList')}">已退款</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Order/cloudShopingOrder'))">
+            <li><a href="{:U('Order/cloudShopingOrder')}">云购订单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Order/discountOrder'))">
+            <li><a href="{:U('Order/discountOrder')}">优惠买订单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Order/orderDetailDown'))">
+            <li><a href="{:U('Order/orderDetailDown')}">订单信息下载</a><label>&nbsp;</label></li>
+        </if>
+         <if condition="$res = auth_check_access(array('Order/quickCreateCoupon'))">
+            <li><a href="{:U('Order/quickCreateCoupon')}">快捷生成券号</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

@@ -1,0 +1,152 @@
+<div data-role="page">
+        <!--头部内容开始-->
+        <include file="Common:header" />
+	    <!--用户登录开始-->
+        <div data-role="content"> 
+             <div class="tab">
+	              <div class="tab_menu">
+		               <ul>
+			                <li class="selected" style="border-right:none;">青团帐号登录</li>
+			                <li  style="border-left:none;">手机快速登录</li>		
+		               </ul>
+                       <div class="clear"></div>
+	              </div>
+	              <div id="msg"></div>
+	              <div class="tab_box"> 
+		              <!--青团帐号登录开始-->
+                       <div>
+                            <form name="" action="/Public/doLogin" method="post" data-ajax="false">                                
+                                 <div style="margin:8px 0;position:relative;" >
+                                      <div class="imgicon"></div>
+                                      <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c" style="padding-left:26px;">
+                                           <input class="ui-input-text ui-body-c" type="text" placeholder="邮箱/用户名/手机号" required name="account" data-role="none">
+                                      </div>
+                                 </div>
+                                 <div style="margin:8px 0;position:relative;">
+                                      <div class="imgicon imgicon-1"></div>
+                                      <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c" style="padding-left:26px;">
+                                           <input class="ui-input-text ui-body-c" type="password" placeholder="请输入密码" required name="password"  data-role="none">
+                                      </div>
+                                 </div>
+                                 <div class="ui-grid-a">                   
+                                      <div class="ui-block-a">
+                                           <input type="text" name="verify"  value="" required pattern="[0-9]{4}" placeholder="请输入验证码"/>
+                                      </div>
+                                      <div class="ui-block-b" style="margin-left:5px;width:45%">
+                    	                   <a><img src="/Public/verify" onclick="this.src='/Public/verify/?'+Math.random()" /></a>
+                                      </div>  
+                                 </div>          
+                                 <input type="hidden" name="backurl" value="{$backurl}" />                                 
+                                 <input type="submit" value="登录" name="send" id="send" >
+                            </form>
+		               </div>
+		               <!--手机快速登录开始-->
+                       <div class="hide">
+                            <form name="" action="/Public/doLogin" method="post" data-ajax="false">
+                            	<input type="hidden" name="type" value="mobile" />
+                                 <div style="margin:8px 0;position:relative;" >
+                                      <div class="imgicon"></div>
+                                      <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c" style="padding-left:26px;">
+                                           <input class="ui-input-text ui-body-c" type="tel"  required pattern="[0-9]{11}" placeholder="请填写11位手机号" name="mobile" id="mobile" data-role="none">                                           
+                                      </div>
+                                 </div>                                                                 
+                                 <div style="margin:8px 0;position:relative;" >
+                                      <div class="ui-grid-a">                   
+                                           <div class="ui-block-a">
+                                                <div class="imgicon imgicon-1"></div>
+                                                <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c" style="padding-left:26px;">
+                                                     <input class="ui-input-text ui-body-c" type="text" placeholder="请输入验证码" required pattern="[0-9]{6}" name="checkcode" data-role="none">
+                                                </div>
+                                           </div>
+                                           <div class="ui-block-b" style="margin-left:5px;width:45%">
+                                           		<a href="/Public/smscode" class="a1 f12" id="btnSendCode" style="color:white">获取验证码</a>
+												<a class="a1 f12" id="btnTime" style="color:white"></a>
+                                           </div>  
+                                       </div>                                                                                                          
+                                 </div>
+                                 <input type="hidden" name="backurl" value="{$backurl}" />
+                                 <input id="msend" type="submit" value="登录" name="submit">
+                            </form>
+                       </div>
+                       </div>	
+	              </div>
+                   <!--登陆结束-->
+                   <!--注册，找回密码开始-->
+                  <div data-inline="true" style="padding:0 5px;">
+                       <a href="/Public/register" class="fl a3" style="color:#535353;">免费注册</a>
+                       <!-- <a href="forgotpwd.html" class="fr a3" style="color:#535353;">找回密码</a> -->
+                       <div class="clear"></div>
+                  </div>
+        </div>
+        <!--footer内容开始-->
+	    <include file="Common:footer" />       
+</div> 
+<script type="text/javascript">
+$(function(){	
+	//Tab选项卡
+	var $div_li =$("div.tab_menu ul li");
+    $div_li.click(function(){
+		$(this).addClass("selected")           
+			   .siblings().removeClass("selected");  
+           var index =  $div_li.index(this);  // 获取当前点击的<li>元素 在全部li元素中的索引。
+		$("div.tab_box > div")   	
+				.eq(index).show()   //显示 <li>元素对应的<div>元素
+				.siblings().hide(); //隐藏其它几个同辈的<div>元素
+	}).hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	});
+	//发送验证码、验证登陆
+	$('#btnTime').css('display','none');
+	$('#btnSendCode').click(function(){		
+		//timer处理函数
+		var obj = $(this);
+		var InterValObj; 	//timer变量，控制时间
+		var curCount = 120;	//当前剩余秒数
+		var dealType; 		//验证方式
+		var $mobile=$("#mobile").val();//用户uid
+		if($mobile == ''){
+			alert('请输入手机号码！');
+			return false;
+		}
+		var SetRemainTime = function() {
+			if (curCount == 0) {                
+				window.clearInterval(InterValObj);//停止计时器
+				$('#btnTime').css('display','none');
+				obj.text("重新发送验证码");
+				$("#btnSendCode").css('display','block');
+				
+			}
+			else {
+				curCount--;
+				$("#btnTime").text(curCount + "秒后重新获取验证码");
+				$("#btnSendCode").css('display','none');
+				$('#btnTime').css('display','block');
+			}
+		}
+
+		//设置button效果，开始计时
+		InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+		//向后台发送处理数据
+		$.post(obj.attr('href'),{mobile:$mobile},function(data){},'json');
+		return false;
+	});
+	$("#msend").click(function(){
+		if($("#mobile").val()=='' || $("#mobile").val().length != 11 || isNaN($("#mobile").val())){
+			$("#msg").css('color','red').html('请输入正确的手机号');
+			return false;
+		}
+		if($("#checkcode").val()==''){
+			$("#msg").css('color','red').html('请输入验证码');
+			return false;
+		}
+	});
+});
+</script>
+
+
+
+
+
+

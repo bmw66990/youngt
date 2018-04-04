@@ -1,0 +1,28 @@
+<volist name="comments.list" id='vo'>
+    <div class="pic">
+        <div class="tit">
+            <span class="t_blue">
+                 <if condition="$vo.username_hide neq ''">
+                    {$vo.username_hide}
+                    <else/>
+                    --匿名用户--
+                </if>
+            </span>
+            <span></span><span>{$vo.create_time|date="Y-m-d H:i:s",###}</span></div>
+        <div class="txt">
+            {$vo.content}
+        </div>
+        <ul>
+            <if condition="$vo.is_pic eq 'Y'">
+                    <volist name="vo.images" id="pic">
+                        <li><img src="{$pic}"/></li>
+                    </volist>
+            </if>
+        </ul>
+    </div>
+</volist>
+<div class="selectpage fl">
+    <div class="pagenumber">
+        {$comments['page']}
+    </div>
+</div>

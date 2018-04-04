@@ -1,0 +1,64 @@
+<include file="Common:header" />
+
+<section>
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">云购订单记录<span class="tx-green">+</span></div>
+		<div class="con-form">
+                                    <div style="font-size:18px;margin-top: 30px;">
+                                           <label>{$order.team_product}</label>
+                                           <label>第{$order.team_now_periods_number}期 </label>
+                                    </div>
+                                   <div style="font-size:15px;margin-top: 35px;">
+                                           
+                                           <if condition="$order.csr_status && $order.csr_status egt 1">
+                                               <label style='background-color: red;padding: 10px;color: #fff;'>{$order.status_text}</label>
+                                                <label style='margin-left: 40px;'>获奖人:{$order.csr_winning_user_name} [{$order.csr_winning_user_id}]</label>
+                                                 <label>幸运号码：{$order.csr_winning_cloud_code}</label>
+                                                 <label>揭晓时间：{$order['csr_begin_time']|date="Y-m-d H:i:s",###}</label>
+                                               <else/>
+                                               <label style='background-color: #009999;padding: 10px;color: #fff;'>{$order.status_text}</label>
+                                               <label style='margin-left: 40px;'>已购买 <span style='color: #009999'>{$order.team_now_number}</span> 人次</label>
+                                                 <label>剩余 <span style='color: #009999'>{$order['team_max_number']-$order['team_now_number']}</span> 人次 </label>
+                                           </if>
+                                          
+                                    </div>
+			<div class="form-list">
+				<table cellpadding="0" cellspacing="0">
+					<tr class="list-title">
+						<th class="w100">ID</th>
+						<th class="w300">用户名称</th>
+						<th class="w300">购买份数</th>
+						<th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+					</tr>
+
+					<volist name="list" id="row">
+
+					<tr>
+						<td class="w100">
+                                                                                                        <label>{$row.user_id}</label>
+                                                                                                </td>
+						<td  class="w300">
+							<label class="tx-teal"><a href="#">{$row.user_username}</a></label>
+						</td>
+						<td class="w300 lh-26 f-12">
+							<label>{$row.pay_count}</label>
+						</td>
+						
+						<td class="w120 f-12 man">
+							<if condition="$res = auth_check_access(array('Order/cloudShopingRecord'))">
+                                                                                                                                 <label class="bc-teal"><a href="{:U('Order/cloudShopingCodeDetail', array('uid' => $row['user_id'],'periods_number'=>$order['team_now_periods_number'],'team_id'=>$order['team_id']))}" onclick="popup(this.href,500,500);return false;">购买详情</a></label>
+							</if>
+						</td>
+					</tr>
+
+					</volist>
+				</table>
+				<div class="selectpage">
+					<div class="pagenumber">{$page}</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+<include file="Common:footer" />

@@ -1,0 +1,68 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <div class="tab-menu">
+        <ul>
+            <li class="current" ><a href="{:U('Feedback/index')}">反馈列表</a><label>&nbsp;</label></li>
+        </ul>
+    </div>
+    <div class="nav-dis-menu">
+        <label>&nbsp;</label>
+    </div>
+    <div class="content">
+        <div class="con-title">反馈列表<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="con-s-title">
+                <label <if condition="$status eq ''">class="currt"</if>><a href="{:U('Feedback/index')}">全部</a></label>
+                <label <if condition="$status eq 'reply'">class="currt"</if>><a href="{:U('Feedback/index',array('status'=>'reply'))}">已回复</a></label>
+                <label <if condition="$status eq 'noreply'">class="currt"</if>><a href="{:U('Feedback/index',array('status'=>'noreply'))}" >未回复</a></label>
+                <label <if condition="$status eq 'close'">class="currt"</if>><a href="{:U('Feedback/index',array('status'=>'close'))}" >已关闭</a></label>
+            </div>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w120">用户</th>
+                        <th class="w70">分类</th>
+                        <th class="w400">问题</th>
+                        <th class="w120">反馈日期</th>
+                        <th class="w100">状态</th>
+                        <th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+                    </tr>
+                    <volist name="data" id="row">
+                    <tr>
+                        <td class="w120"><label class="tx-teal">{$row['realname']}</label><label class="tx-grey">{$city_data[$row['city_id']]['name']}</label></td>
+                        <td class="w70"><label class="tx-orange">{$row['name']}</label></td>
+                        <td class="w400"><label>{$row['content']}</label>
+                        </td>
+                        <td class="w120 lh-26"><label>{$row['add_time']|date="Y-m-d",###}</label></td>
+                        <if condition="$row['status'] eq 'noreply'">
+                            <td class="w100 f-12"><label class="tx-grey">未回复</label></td>
+                            <td class="w120 f-12 man">
+                                <label  class="bc-teal"><a href="{:U('Feedback/checkFeedback',array('id'=>$row['id']))}">回复</a></label><label class="bc-teal"><a href="{:U('Feedback/doFeedbackStatus',array('id'=>$row['id']))}">关闭</a></label>
+                            </td>
+                        <elseif condition="$row['status'] eq 'reply'" />
+                            <td class="w100 f-12"><label class="tx-teal">已回复</label></td>
+                            <td class="w120 f-12 man">
+                                <label  class="bc-teal"><a href="{:U('Feedback/checkFeedback',array('id'=>$row['id']))}">查看回复</a></label><label class="bc-teal"><a href="{:U('Feedback/doFeedbackStatus',array('id'=>$row['id']))}">关闭</a></label>
+                            </td>
+                        <elseif condition="$row['status'] eq 'close'" />
+                            <td class="w100 f-12"><label class="tx-red">已关闭</label></td>
+                            <td class="w120 f-12 man">
+                                <label  class="bc-teal"><a href="{:U('Feedback/checkFeedback',array('id'=>$row['id']))}">查看回复</a></label><label class="bc-teal"><a href="{:U('Feedback/doFeedbackStatus',array('id'=>$row['id']))}">启用</a></label>
+                            </td>
+                        </if>
+                    </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                       {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<include file="Common:footer" />

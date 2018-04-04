@@ -1,0 +1,53 @@
+/*-----------
+    搜索页样式
+---------*/
+.stati{width:99%;padding-left: 1%;height:60px;font-size: 16px;line-height: 60px;}
+/*搜索条件样式*/
+.term,.search_result{width:1198px;border: 1px solid #eaeaea;margin: 8px auto;position: relative;}
+    .term a.hot{color:red!important;}
+    .term a{color:#000;font-size: 12px;}
+    .term a:hover{color:#3388bb;}
+        .term .term-hot{width:1178px;height:40px;margin:10px 10px 5px 20px;border-bottom: 1px solid #eaeaea;line-height: 35px;padding-left: 10px;}
+        .term .term-class{width:1168px;min-height:40px;margin:20px 10px 5px 20px;border-bottom: 1px solid #eaeaea;line-height: 25px;}
+        
+        .term .term-add{width:1168px;min-height:30px;margin:20px 10px 5px 20px;line-height: 25px;border-bottom: 1px solid #eaeaea;overflow: hidden;}
+        .term .term-add span{display: inline-block;}
+        .se-allAera-con{width:850px;height:30px;position: relative;line-height: 25px;overflow: hidden;}
+        .se-allAera-con ul{margin: 0;padding: 0;overflow: hidden;}
+        .se-allAera-con ul li{float:left;min-width: 50px;padding: 0 0;color:#000;line-height: 30px;}
+        .se-allAera-con li a{color:#000;}
+        .se-allAera-liup{ line-height: 25px; z-index: 888; height: 80px;background: #fff;}
+
+        .term .term-price{width:1168px;height:40px;margin:20px 10px 5px 20px;line-height: 25px;padding-left: 10px;float: left;}
+        .term .term-class .noselected,.term .term-price .selected,.term .term-add .noselected{background-color: #3388bb;}
+        .term .term-add .selected,.term .term-class .selected{background-color: #f7f7f7;min-width:50px;height:50px;}
+        .term .no{width: 50px;height:25px;float: left;margin-left: 20px; text-align: center;float: left;position: relative;}
+        .term .term-price .selected a,.term .term-add .noselected a,.term .term-class .noselected a{color:#fff;}
+        
+        .term dt{width:50px;height:25px;padding-left: 40px;float: left;border-right:1px solid #eaeaea;}
+        .term dd{min-width: 50px;float: left;margin-left: 20px; text-align: center;}
+        .term-price dt{padding-left: 30px; background: url(../Image/price_class.png) no-repeat;}
+        .term-hot dt{width: 70px; background: url(../Image/hot_class.png) no-repeat;padding-left: 30px;}
+        .term-hot dd{min-width: 50px;margin-left: 15px;font-size: 13px;float: left;}
+        .term-class dt{background: url(../Image/icon.png) no-repeat 15px -60px ;}
+        .term-add dt{background: url(../Image/icon.png) no-repeat 15px -35px;}
+        .sed{background-color: #f7f7f7;}
+        .sed li{float:left;min-width: 100px;height: 30px; text-align: center;line-height: 35px;margin-top: 10px;}
+        .sed-1{width:970px;margin: 0px auto 10px 191px;display: none;}
+        .sed-2{width:970px;margin: 0px auto 10px 189px;display: none;}
+        .sed-3{width:970px;margin: 0px auto 10px 189px;display: none;}
+/*搜索结果样式*/
+    /*排序选项*/
+ .search_result .orderby{width:100%;font-size:12px;height:35px;line-height: 35px;position: relative;}
+    .orderby ul li{float:left;text-align: center;min-width: 90px;height:35px;border-right:1px solid #eaeaea; background: url(../Image/orderby.png) no-repeat right center;overflow: hidden;}
+    .orderby .selected{background: url(../Image/orderby_select.png) no-repeat right center;border-bottom: 1px solid #3388bb;height: 34px;}
+    .orderby ul li a{font-size:12px;color:#000;}
+    .orderby ul li a:hover,.orderby .selected a,.orderby ul li:hover a{color:#3388bb;}
+    .orderby ul li:hover{border-bottom: 1px solid #3388bb;height: 34px;color:#3388bb; cursor: pointer;}
+    .orderby label{width:100px;line-height: 30px;}
+    .orderby label input{margin:8px 10px 8px 20px;float: left;border: 1px solid #eaeaea;}
+    .orderby .orderby_price{background: url(../Image/orderby_price.png) no-repeat 70px 2px;}
+    .orderby .orderby_price_asc{background: url(../Image/orderby_price.png) no-repeat 70px -21px;}
+    .orderby .orderby_price_desc{background: url(../Image/orderby_price.png) no-repeat 70px -49px;}
+    .orderby .orderby_service{background: url(../Image/serch_order_other.png) no-repeat right center;}
+    

@@ -1,0 +1,141 @@
+<include file="Common:header" />
+<include file="Common:top_header" />
+<include file="Common:menu" />
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">团单管理</a>
+            </li>
+            <li class="active">积分商品列表</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                积分商品列表
+            </h1>
+        </div>
+        <!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <include file="Common:message_tip" /> 
+                <div class="row">
+                    <form action="{:U('TeamManage/sore_goods_list')}" method="get">
+                        <div class="col-sm-7">
+                            <div id="sample-table-2_length" class="form-group">													
+                                <label>商品编号
+                                   <input type="text" name="goods_id" value="{$goods_id}">
+                                </label>													
+                                <label>商品名称
+                                    <input type="text" name="goods_name" value="{$goods_name}">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <button class="btn btn-sm btn-success">
+                                <i class="icon-ok"></i>
+                                筛选
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <table class="table table-bordered table-striped">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>
+                                        <i class="icon-caret-right blue"></i>
+                                        项目编号/名称
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i>
+                                        起止日期
+                                    </th>
+                                    <th>
+                                        <i class="icon-caret-right blue"></i>
+                                        已兑换
+                                    </th>
+
+                                    <th>
+                                        <i class="icon-caret-right blue"></i>
+                                        状态
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            <volist  name="list" id="vo">
+                                <tr>
+                                    <td>{$vo.id} / {$vo.name}</td>
+
+                                    <td>
+                                        {$vo['begin_time']|date='Y-m-d',###} <b class="red">-</b> {$vo['end_time']|date='Y-m-d',###}
+                                    </td>
+
+                                    <td>
+                                        {$vo['consume_num']} / <eq name="vo.limit_num" value="0">不限量<else />{$vo.limit_num}</eq>
+                                </td>
+
+                                <td class="hidden-480">
+                                <if condition="$vo.status eq 1">
+                                    <span class="label label-info arrowed-right arrowed-in">兑换中</span>
+                                    <elseif condition="$vo.status eq 2" />
+                                    <span class="label label-danger arrowed">未开始</span>
+                                    <elseif condition="$vo.status eq 3" />
+                                    <span class="label label-danger arrowed">已结束</span>
+                                    <elseif condition="$vo.status eq 4" />
+                                    <span class="label label-success arrowed-in arrowed-in-right">已换完</span>
+                                    <else/>
+                                    <span class="label label-success arrowed-in arrowed-in-right">未知状态</span>
+                                </if>
+                                </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+
+                        <div class="hr hr8"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_info" id="sample-table-2_info"> 全部{$count}条</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="dataTables_paginate paging_bootstrap">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /widget-main -->
+                </div><!-- /widget-body -->
+                <!-- PAGE CONTENT ENDS -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<include file="Common:set_content" />
+</div><!-- /.main-container-inner -->
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="icon-double-angle-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<include file="Common:footer" />
+
+<script>
+    $(function() {
+
+    });
+</script>

@@ -1,0 +1,35 @@
+<include file="Common:header" />
+
+<section>
+    <!--左侧导航-->
+    <include file="Encyclopedias:menu" />
+    <div class="content">
+        <div class="con-title">青团百科<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <div class="show-title">
+                <h3>{$data.title}</h3>
+            </div>
+            <div class="show-content">
+                {$data.content|htmlspecialchars_decode}
+            </div>
+            <div class="prenext">
+                <label>
+                    <if condition="!empty($prev)">
+                        <a href="{:U('Encyclopedias/encyclopediasDetail',array('encyclopedias_id'=>$prev['id']))}">上一篇：{$prev.title}</a>
+                    </if>
+                </label>
+                <label>
+                    <if condition="!empty($next)">
+                        <a href="{:U('Encyclopedias/encyclopediasDetail',array('encyclopedias_id'=>$next['id']))}">下一篇：{$next.title}</a>
+                    </if>
+                </label>
+            </div>
+            <div class="upanddown">
+                <!--                <label><a href="#">支持一下<img src="../images/ico/up.png"></a></label>
+                                <label><a href="#">还得修改<img src="../images/ico/down.png"></a></label>-->
+            </div>
+        </div> 
+    </div>
+</section>
+<script type="text/javascript" src="__JS_PATH__/encyclopedias.js?v={:C('JS_VER')}"></script>
+<include file="Common:footer" />

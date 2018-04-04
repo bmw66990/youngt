@@ -1,0 +1,25 @@
+<div class="tab-menu">
+    <ul>
+        <if condition="$res = auth_check_access(array('Market/index'))">
+            <li><a href="{:U('Market/index')}">代金券管理</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Market/adManage'))">
+            <li><a href="{:U('Market/adManage')}">广告管理</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Market/activities'))">
+            <li><a href="{:U('Market/activities')}">活动管理</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Market/smsUser'))">
+            <li><a href="{:U('Market/smsUser')}">短信管理</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Market/shareOrder'))">
+            <li><a href="{:U('Market/shareOrder')}">分销订单</a><label>&nbsp;</label></li>
+        </if>
+        <if condition="$res = auth_check_access(array('Market/shareCount'))">
+            <li><a href="{:U('Market/shareCount')}">分销统计</a><label>&nbsp;</label></li>
+        </if>
+    </ul>
+</div>
+<div class="nav-dis-menu">
+    <label>&nbsp;</label>
+</div>

@@ -1,0 +1,40 @@
+<include file="Common:header" />
+
+<section>
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">已退款青团券<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<include file="search" />
+			<div class="form-list">
+				<table cellpadding="0" cellspacing="0">
+					<tr class="list-title">
+						<th class="w120">券号</th>
+						<th class="w400">项目</th>
+						<th class="w200">用户</th>
+						<th class="w150">退款时间</th>
+					</tr>
+					<volist name="list" id="row">
+					<tr>
+						<td class="w120"><label class="tx-teal">{$row.id}</a></label></td>
+						<td class="w400">
+							<label class="tx-teal"><a href="{:U('Order/payList', array('team_id' => $row['team_id']))}" title="点击查付款订单" target="_blank">{$row.team_id}</a></label>
+							<label class="tx-grey"><a href="{$row.team_id|getTeamUrl}" title="{$team[$row['team_id']]['product']}" target="_blank">({$team[$row['team_id']]['product']})</a></label>
+						</td>
+						<td class="w200"><label class="td-title">
+							<lable>{$userList[$row['user_id']]['username']}</lable>
+							<lable>{$userList[$row['user_id']]['mobile']}</lable>
+						</td>
+						<td class="w150"><label><neq name="row.refund_etime" value="0">{$row.refund_etime|date='Y-m-d H:i:s',###}</neq></label></td>
+					</tr>
+					</volist>
+				</table>
+				<div class="selectpage">
+					<div class="pagenumber">{$pages}</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+
+<include file="Common:footer" />

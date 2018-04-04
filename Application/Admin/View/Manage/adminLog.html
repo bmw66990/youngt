@@ -1,0 +1,47 @@
+<include file="Common:header" />
+<section>
+    <!--左侧导航-->
+    <include file="common" />
+    <div class="content">
+        <div class="con-title">操作日志<span class="tx-green">+</span></div>
+        <div class="con-form">
+            <form class="myform" action="{:U('Manage/adminLog')}" method="get">
+                <li><label>关键字（管理员姓名/内容）</label><input type="text"  class="w200" name="key" value="{$where['key']}"><label>,</label</li>
+                <li><label>操作模块</label>
+                    <select class="w120" name="controller_name">
+                        <option value="0">--全部--</option>
+                        <volist name="action" id="vo">
+                            <option value="{$key}" <if condition="$key eq $where['controller_name']">selected</if>>--{$vo}--</option>
+                        </volist>
+                    </select></li>
+                <li><label>指定日期</label><input class="laydate-icon" id="start" type="text" name="start_time" value="{$where['start_time']}"><label>-</label><input class="laydate-icon" id="end" type="text" name="end_time" value="{$where['end_time']}"></li>
+                <li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+            </form>
+            <div class="form-list">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="list-title">
+                        <th class="w200">管理员姓名</th>
+                        <th class="w120">操作模块</th>
+                        <th class="w200">操作时间</th>
+                        <th>操作记录</th>
+                    </tr>
+                    <volist name="data" id="row">
+                    <tr>
+                        <td class="w200"><label class="tx-teal">{$row['admin_id']}-{$row['admin_username']}</label></td>
+                        <td class="w120"><label class="tx-teal">{$action[$row['controller_name']]}</label></td>
+                        <td class="w200"><label class="td-title">{$row['create_time']|date="Y-m-d H:i:s",###}</td>
+                        <td style="word-break: break-all"><label>{$row['content']}</label></td>
+                    </tr>
+                    </volist>
+                </table>
+                <div class="selectpage">
+                    <div class="pagenumber">
+                      {$pages}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="Common:footer" />
+<script type="text/javascript" src="__JS_PATH__/manage.js?C('JS_VER')"></script>

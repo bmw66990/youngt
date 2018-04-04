@@ -1,0 +1,106 @@
+<!--侧边栏开始-->
+	<link rel="stylesheet" href="__CSS_PATH__/member.css?v={:C('CSS_VER')}" type="text/css" />
+	<div class="component-order-nav">
+		<div class="side-nav J-order-nav">
+			<div class="side-nav__user cf">
+				<i class="user fl"></i>
+				<div class="info fl" style="margin-top: 2px;">
+					<div class="info__name">{$member.username}</div>
+					<div class="mt5 get-growth-icons" style="background-position:-20px 0;"><!--此行间样式为动态生成，程序嵌入后删除 style-->
+					</div>
+					<div class="op cf">
+						<i id="phoneICO" class="phone uix-tooltip">
+						<if condition="$member['mobile'] eq ''">
+							<span class="phoneTip">
+							未绑定手机： <a href="{:U('Member/changeMobile')}" class="fancybox fancybox.iframe fa
+							.c">绑定</a>
+							</span>
+						<else />
+							<span class="phoneTip">
+						    {$member['mobile']} <a href="{:U('Member/changeMobile')}" class="fancybox fancybox.iframe fac">换绑</a>
+							</span>
+						</if>	
+						</i>
+						<i class="mail uix-tooltip"></i>
+						<a href="{:U('Member/account')}"><i class="setting uix-tooltip"></i><a>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="side-nav__account cf">
+				<div class="item item--first">
+					<a href="{:U('Member/balance')}">{$member.money}</a> <span>余额</span>
+				</div>
+				<div class="item">
+					<a href="{:U('Member/creditList')}" class="score">{$member.score}</a> <span>积分</span>
+				</div>
+				<div class="item">
+					<a  href="{:U('Member/cardList')}">+2</a> <span>代金券</span>
+				</div>
+			</div>
+			<dl class="side-nav__list">
+				<dt class="first-item">
+					<strong class="f-fs2">我的订单</strong>
+				</dt>
+				<dd>
+					<ul class="item-list">
+						<li><a href="{:U('Member/index')}">团购单</a></li>
+                                                                                                          <li><a href="{:U('Member/cloud_shopping_order')}">一元众筹</a></li>
+					</ul>
+				</dd>
+				<dt>
+					<strong class="f-fs2">我的评价</strong>
+				</dt>
+				<dd>
+	                <ul class="item-list">
+	                  <li>
+	                    <span class="badge badgebg" >{$unreview}</span>
+	                   <a href="{:U('Member/index', array('state' => 'unreview'))}">待评价</a>
+	                  </li>
+
+	                  <li>
+	                    <a href="{:U('Member/index', array('state' => 'reviewed'))}">已评价</a>
+	                  </li>
+	                </ul>
+
+	              </dd>
+				<dt>
+					<strong class="f-fs2">退款维权</strong>
+				</dt>
+				<dd>
+					<ul class="item-list" id='refund'>
+						<li><a href="{:U('Member/index', array('state' => 'refund'))}">我的退款</a></li>
+					</ul>
+				</dd>
+				<dt>
+					<strong class="f-fs2" >我的账户</strong>
+				</dt>
+				<dd>
+					<ul class="item-list">
+<!--						<li><a href="{:U('Member/growthList')}">我的成长值</a></li>-->
+						<li ><a href="{:U('Member/creditList')}">我的积分</a></li>
+<!--                        <li><a href="{:U('Member/scoreGoods')}">积分商城</a></li>
+                        <li ><a href="{:U('Member/scoreList')}">积分兑换记录</a></li>-->
+						<!-- <li><a href="Member_Account_paycard">我的代金券</a></li>   -->
+						<li><a href="{:U('Member/balance')}">我的余额</a></li>
+						<li><a href="{:U('Member/account')}">账户设置</a></li>
+						<li ><a href="{:U('Member/updatePwd')}">修改密码</a></li>
+						<li><a href="{:U('Member/bindQQ')}">QQ绑定</a></li>
+						<li><a href="{:U('Member/bindWeixin')}">微信绑定</a></li>
+					</ul>
+				</dd>
+			</dl>
+		</div>
+	</div>          
+<script type="text/javascript">
+$(function(){
+	var action="{$curUrl}"+'.html';
+	$('.item-list > li').each(function(i){
+		if($(this).find('a').attr('href') == action){
+			$(this).addClass('current');
+		}
+	});
+})
+</script>
+<script type="text/javascript" src="__JS_PATH__/member.js?v={:C('JS_VER')}"></script>
+<!--侧边栏结束-->

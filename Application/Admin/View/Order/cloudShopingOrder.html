@@ -1,0 +1,62 @@
+<include file="Common:header" />
+
+<section>
+	<include file="subnav" />
+	<div class="content">
+		<div class="con-title">云购订单<span class="tx-green">+</span></div>
+		<div class="con-form">
+			<form class="myform" method="get" action="{:U('Order/cloudShopingOrder')}">
+				<li><label>团单编号</label><input name="team_id" value="{$team_id}" class="w80" type="text" /></li>
+				
+				<li><input type="submit" class="btn-teal small-btn" value="筛选" /></li>
+			</form>
+			<div class="form-list">
+				<table cellpadding="0" cellspacing="0">
+					<tr class="list-title">
+						<th class="w100">ID</th>
+						<th class="w300">商品名称</th>
+						<th class="w60">期数</th>
+						<th class="w100">总价</th>
+						<th class="w150">最低购买</th>
+						<th class="w60">递送</th>
+						<th class="w60">状态</th>
+						<th class="w120"><img src="__IMAGE_PATH__/ico/list_title_menu.png"></th>
+					</tr>
+
+					<volist name="list" id="row">
+
+					<tr>
+						<td class="w100">
+                                                                                                        <label>{$row.team_id}</label>
+                                                                                                </td>
+						<td  class="w300">
+							<label class="tx-teal"><a href="#">{$row.team_product}</a></label>
+						</td>
+						<td class="w60 lh-26 f-12">
+							<label>{$row.team_now_periods_number}</label>
+						</td>
+                                                                                                <td class="w100 f-12"><label>&#165;{$row.team_team_price}</label></td>
+                                                                                                <td class="w150 f-12"><label>{$row.team_permin_number}</label></td>
+                                                                                                <td class="w60 f-12"><label>{$row.delivery_text}</label></td>
+						<td class="w60 f-12"><label class="tx-teal">{$row.status_text}</label></td>
+						
+						<td class="w120 f-12 man">
+							<if condition="$res = auth_check_access(array('Order/cloudShopingRecord'))">
+                                                                                                                      <label class="bc-teal"><a href="{:U('Order/cloudShopingRecord', array('id' => $row['team_id'],'periods_number'=>$row['team_now_periods_number']))}" target='_blank'>云购记录</a></label>
+							</if>
+                                                                                                                <if condition="$res = auth_check_access(array('Order/cloudShopingDetail'))">
+						                     <label class="bc-teal"><a href="{:U('Order/cloudShopingDetail', array('id' => $row['team_id'],'periods_number'=>$row['team_now_periods_number']))}" onclick="popup(this.href,500,500);return false;">详情</a></label>
+							</if>
+						</td>
+					</tr>
+
+					</volist>
+				</table>
+				<div class="selectpage">
+					<div class="pagenumber">{$page}</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</section>
+<include file="Common:footer" />
